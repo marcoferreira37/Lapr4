@@ -1,28 +1,37 @@
 # US G002
 
-*This is an example template*
-
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+This task involves setting up the project repository and 
+configuring a project management tool.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
+* Project Repository (GitHub): Create a GitHub repository for the project to store all project-related files
+and source code. It will facilitate collaboration, version control, and document management. 
+* Project Management Tool: Choose and set up a project management tool to streamline project planning, 
+task tracking, and communication. It will enable task assignment, progress monitoring, and issue management.
 
-*Example*
-
-**US G002** As {Ator} I Want...
+**US G002** As Project Manager I Want the team to use the defined project 
+repository and setup a tool for project management;
 
 **Acceptance Criteria:**
 
-- G002.1. The system should...Blá Blá Blá ...
+**G002.1.** GitHub repository is created with an appropriate name that reflects the project's purpose or name.
 
-- G002.2. Blá Blá Blá ...
+**G002.2.** Team members are added to the GitHub repository with the appropriate permissions, allowing them to collaborate and contribute to the project.
+
+**G002.3.** Initial project files, including README, and any relevant documentation, are added to the GitHub repository.
+
+**G002.4.** The project repository is organized into relevant folders or categories to facilitate easy navigation and access to project resources.
+
+**G002.5.** Version control mechanisms, such as branching and merging strategies, are established and documented within the GitHub repository.
+
+**G002.6.** The GitHub repository is configured to enable issue tracking, allowing team members to report and address project-related issues effectively.
 
 **Dependencies/References:**
 
-*Regarding this requirement we understand that it relates to...*
+- No dependencies were found.
 
 ## 3. Analysis
 
