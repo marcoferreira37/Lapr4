@@ -1,0 +1,15 @@
+@startuml
+class JobOffer {
+}
+class Report {
+}
+class Address {
+}
+class Phase {
+}
+class Client {
+}
+class Candidate {
+}
+
+@enduml
