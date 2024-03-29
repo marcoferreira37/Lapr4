@@ -19,7 +19,7 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 
 | Student Nr.	                  | Name                              | Sprint A | Sprint B | Sprint C |
 |-------------------------------|-----------------------------------|----------|----------|----------|
-| [1221330](1221330/readme.md)  | Francisco Miguel Tavares Monteiro |  [US G002](sprintA/us_g002/readme.md)| [US 1001](sprintA/us_g003/readme.md)| [US 3004](sprintA/us_g001/readme.md) |
+| [1221330](1221330/readme.md)  | Francisco Miguel Tavares Monteiro |  [US G002](sprintA/G002/readme.md)| [US 1001](sprintA/G003/readme.md)| [US 3004](sprintA/G001/readme.md) |
 | 	                             |                                   |          |          |          |
 | 	                             |                                   |          |          |          |
 | 	                             |                                   |          |          |          |

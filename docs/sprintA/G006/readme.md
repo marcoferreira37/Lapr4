@@ -36,7 +36,7 @@
 
 ### 4.2. Class Diagram
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
+![a class diagram](domain-model.svg "A Class Diagram")
 
 ### 4.3. Applied Patterns
 
