@@ -13,7 +13,7 @@ and source code. It will facilitate collaboration, version control, and document
 task tracking, and communication. It will enable task assignment, progress monitoring, and issue management.
 
 **US G002** As Project Manager I Want the team to use the defined project 
-repository and setup a tool for project management;
+repository and set up a tool for project management;
 
 **Acceptance Criteria:**
 
@@ -35,7 +35,7 @@ repository and setup a tool for project management;
 
 ## 3. Analysis
 
-During the analysis phase, the team carefully evaluated several factors to determine the most suitable tools for setting 
+* During the analysis phase, the team carefully evaluated several factors to determine the most suitable tools for setting 
 up the project repository and project management. 
 One of the primary considerations was the choice of version control system,
 which is foundational for collaborative software development. 
@@ -44,7 +44,7 @@ and seamless integration with other development tools and services.
 GitHub offers a user-friendly interface and intuitive workflows, 
 making it accessible to both novice and experienced users.
 
-In conclusion, after a thorough analysis considering factors such as ease of use, integration capabilities, and cost, 
+* In conclusion, after an analysis considering factors such as ease of use, integration capabilities, and cost, 
 the team determined that GitHub was the optimal choice for setting up the project repository and project management.
 Its comprehensive feature set, seamless integration with development tools, and flexible pricing plans make it a versatile 
 platform that meets the needs of modern software development teams.
@@ -53,47 +53,47 @@ platform that meets the needs of modern software development teams.
 
 ### 4.1. Realization
 
-The chosen solution involves creating a GitHub repository with a name that accurately reflects the project's purpose or name. 
+* The chosen solution involves creating a GitHub repository with a name that accurately reflects the project's purpose or name. 
 The repository serves as a centralized location for storing all project-related files, including source code, documentation,
 and any supplementary resources.
 
 ### 4.2. Class Diagram
 
-As this aspect of the requirement pertains more to project setup and configuration rather than software design, 
+* As this aspect of the requirement pertains more to project setup and configuration rather than software design, 
 a class diagram is not applicable in this context.
 
 ### 4.3. Applied Patterns
 
-No specific design patterns are applied in this scenario, as the focus is on setting up the project repository on 
+* No specific design patterns are applied in this scenario, as the focus is on setting up the project repository on 
 GitHub rather than implementing software functionality.
 
 ### 4.4. Tests
-Given the nature of this requirement, direct testing is not applicable. 
+* Given the nature of this requirement, direct testing is not applicable. 
 However, the success of this step can be validated through manual inspection and verification,
 ensuring that the GitHub repository is created with an appropriate name and configured according to the project's needs
 
 ## 5. Implementation
 
-There was no implementation required.
+* There was no implementation required. 
 
 ## 6. Integration/Demonstration
-Integration efforts involved ensuring seamless collaboration between team members 
+* Integration efforts involved ensuring seamless collaboration between team members 
 within the GitHub repository and utilizing project management tools for efficient 
 task tracking and communication. 
-This integration enhances overall project organization and productivity.
+* This integration enhances overall project organization and productivity.
 
 ## 7. Observations
 
-We opted for GitHub due to its popularity, robust features, and seamless integration capabilities.
+* We opted for GitHub due to its popularity, robust features, and seamless integration capabilities.
 However, it's important to note that GitHub might pose a learning curve for team members unfamiliar with version control systems.
 Training and support will be crucial to ensure smooth adoption.
 
-While GitHub was our choice, alternatives like GitLab and Bitbucket were considered.
+* While GitHub was our choice, alternatives like GitLab and Bitbucket were considered.
 GitLab offers self-hosting options, which may be beneficial for organizations with strict data privacy requirements.
 Meanwhile, Jira and Trello provide comprehensive project management features, suitable for agile methodologies.
 
-Our decision was informed by various resources, including official documentation from GitHub and community forums.
+* Our decision was informed by various resources, including official documentation from GitHub and community forums.
 These resources provided valuable insights into best practices for project repository management and version control.
 
-By selecting GitHub and considering potential challenges and alternatives, we aim to establish a solid foundation for
+* By selecting GitHub and considering potential challenges and alternatives, we aim to establish a solid foundation for
 collaborative software development while ensuring ease of use and effective project management.
