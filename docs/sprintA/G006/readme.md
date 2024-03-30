@@ -1,36 +1,34 @@
-# US 3004
-
-*This is an example template*
+# US G006
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+This task involves developing a Domain Model for the system. 
+This is the first time this task is being addressed in the project. 
+A Domain Model is crucial for understanding the key concepts, entities, 
+and relationships within the system, aiding in better communication among stakeholders and guiding 
+the development process.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
-
-*Example*
-
-**US G002** As {Ator} I Want...
+**US G006** As Project Manager, I want the team to elaborate a Domain Model using DDD.
 
 **Acceptance Criteria:**
 
-- G002.1. The system should...Blá Blá Blá ...
+**G006.1.** The Domain Model should accurately represent the key entities and relationships within the system.
 
-- G002.2. Blá Blá Blá ...
+**G006.2.** The Domain Model should follow Domain-Driven Design (DDD) principles.
 
 **Dependencies/References:**
 
-*Regarding this requirement we understand that it relates to...*
+*This task is fundamental for understanding the system architecture and guiding further development.*
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+*We studied business requirements, talked to the client, and analyzed existing documentation to design the Domain Model, ensuring it captures all essential elements.*
 
 ## 4. Design
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
+*We created a class diagram to visualize the entities and relationships in the Domain Model.*
 
 ### 4.1. Realization
 
@@ -40,38 +38,20 @@
 
 ### 4.3. Applied Patterns
 
+*No specific design patterns were used; our focus was on accurately representing the domain.*
+
 ### 4.4. Tests
 
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
-
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
-
-
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
+*No tests are applicable at this stage.*
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
-
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+*Since the Domain Model is conceptual, no implementation is needed now.* 
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
-
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+*The Domain Model will be integrated into the system, ensuring consistency across components.*
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+*Creating the Domain Model is crucial for understanding the system's core. It sets the foundation for future development and aligns stakeholders' understanding.*
