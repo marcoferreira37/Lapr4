@@ -19,15 +19,19 @@ repository and set up a tool for project management;
 
 **G002.1.** GitHub repository is created with an appropriate name that reflects the project's purpose or name.
 
-**G002.2.** Team members are added to the GitHub repository with the appropriate permissions, allowing them to collaborate and contribute to the project.
+**G002.2.** Team members are added to the GitHub repository with the appropriate permissions, 
+allowing them to collaborate and contribute to the project.
 
 **G002.3.** Initial project files, including README, and any relevant documentation, are added to the GitHub repository.
 
-**G002.4.** The project repository is organized into relevant folders or categories to facilitate easy navigation and access to project resources.
+**G002.4.** The project repository is organized into relevant folders or categories to facilitate easy navigation and 
+access to project resources.
 
-**G002.5.** Version control mechanisms, such as branching and merging strategies, are established and documented within the GitHub repository.
+**G002.5.** Version control mechanisms, such as branching and merging strategies, 
+are established and documented within the GitHub repository.
 
-**G002.6.** The GitHub repository is configured to enable issue tracking, allowing team members to report and address project-related issues effectively.
+**G002.6.** The GitHub repository is configured to enable issue tracking, 
+allowing team members to report and address project-related issues effectively.
 
 **Dependencies/References:**
 
@@ -56,6 +60,8 @@ platform that meets the needs of modern software development teams.*
 *The chosen solution involves creating a GitHub repository with a name that accurately reflects the project's purpose or name. 
  The repository serves as a centralized location for storing all project-related files, including source code, documentation,
 and any supplementary resources.*
+*The repository allows team members to report and address project-related issues effectively, fostering a proactive 
+approach to problem-solving and project management.*
 
 ### 4.2. Class Diagram
 
@@ -80,7 +86,7 @@ ensuring that the GitHub repository is created with an appropriate name and conf
 *Integration efforts involved ensuring seamless collaboration between team members 
 within the GitHub repository and utilizing project management tools for efficient 
 task tracking and communication.*  
-* This integration enhances overall project organization and productivity.
+*This integration enhances overall project organization and productivity.*
 
 ## 7. Observations
 
