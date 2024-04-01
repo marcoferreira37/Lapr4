@@ -2,11 +2,11 @@
 
 ## 1. Context
 
-This task involves developing a Domain Model for the system. 
+*This task involves developing a Domain Model for the system. 
 This is the first time this task is being addressed in the project. 
 A Domain Model is crucial for understanding the key concepts, entities, 
 and relationships within the system, aiding in better communication among stakeholders and guiding 
-the development process.
+the development process.*
 
 ## 2. Requirements
 
@@ -32,9 +32,10 @@ the development process.
 
 ### 4.1. Realization
 
+Creating the Domain Model is a significant step forward, laying the groundwork for the project's development.
+
 ### 4.2. Class Diagram
 
-![a class diagram](domain-model.svg "A Class Diagram")
 
 ### 4.3. Applied Patterns
 
