@@ -9,10 +9,14 @@
 name: Java CI with Maven
 
 on:
-  push:
-    branches:
-      - master    
-#  workflow_dispatch:
+  #push:
+   # branches:
+     # - main
+  workflow_dispatch:
+
+  schedule:
+    - cron: '00 23 * * *'
+
 
 jobs:
   build:
@@ -22,7 +26,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        ref: 'master'
+        ref: 'main'
         fetch-depth: 0
       
     - name: Set up JDK 21
@@ -32,3 +36,26 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+    - name: Build Project
+      run: mvn clean compile
+
+    - name: Test Project
+      run: mvn test
+
+    - name: Package Project
+      run: mvn package -DskipTests
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: jar
+        path: target/*.jar
+        retention-days: 7
+        compress: false
+
+    - name: Git Actions
+      run: |
+        git config --global user.email "ContinousIntegration@users.noreply.github.com"
+        git config --global user.name "Pipeline Agent"
+        git tag -a Build#${{ github.run_number }} -m "${{ github.event.head_commit.message }}"
+        git push --tags
