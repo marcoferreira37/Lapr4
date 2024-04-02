@@ -1,0 +1,156 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+top to bottom direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model
+
+package "Client " {
+
+class Client <<Root Entity>>
+class ClientID <<Identifier>>
+
+}
+
+package "Job Offer" {
+
+class PhaseData <<Value Object>>
+class Phase << Entity>>
+class JobOfferRequirements <<Value Object>>
+class InterviewDescription <<Value Object>>
+class JobOffer <<Root Entity>>
+class JobOfferID <<Identifier>>
+class Report <<Value Object>>
+class Address <<Value Object>>
+
+}
+
+package "Job Offer Application" {
+
+class Application <<Root Entity>>
+class ApllicationStatus <<Entity>>
+class AnalyzedRequirements <<Value Object>>
+class InterviewFeedback <<Value Object>>
+class ReportFiles <<Value Object>>
+
+}
+
+package "Employees" {
+
+class CostumerManager <<Root Entity>>
+class CostumerManagerID <<Identifier>>
+class Operator <<Root Entity>>
+class OperatorID <<Identifier>>
+
+}
+
+
+
+package "Application Candidate" {
+
+class Candidate <<Root Entity>>
+class CandidateID <<Identifier>>
+
+}
+
+package "System"{
+
+class Process <<Value Object>>
+}
+
+package "Administrator"{
+
+class Admin <<Root Entity>>
+class AdminID <<Identifier>>
+
+
+}
+
+package "Bots "{
+
+class EmailBot <<Root Entity>>
+class FileBot <<Root Entity>>
+}
+
+
+package "BackOfice"{
+
+class ProcessBackOfice <<Value Object>>
+
+}
+
+
+
+
+Client "1" -- "1" ClientID  : has >
+
+ClientID "1" -- "*" JobOffer : submits >
+
+JobOffer "1" --- "4..5" Phase :  >
+JobOffer "0..1" -- "1" JobOfferRequirements : composed by >
+JobOffer "0..1" --- "0..1" InterviewDescription : has >
+JobOffer "1" -- "1" Report : >
+JobOffer "1" --- "1" Address : has >
+JobOffer "1" -- "1" JobOfferID : >
+
+Phase "*" -- "1" PhaseData : has >
+
+Report "1" -- "*" ReportFiles : originates >
+
+Application "1" -- "1" InterviewFeedback : has >
+Application "1" -- "1" AnalyzedRequirements : has >
+Application "1" -- "1" ApllicationStatus : >
+Application "1" -- "*" ReportFiles : >
+
+
+CostumerManager "1" -- "1" CostumerManagerID : has >
+CostumerManager "1" -- "*" Process : setup >
+
+Process "1" -- "*" JobOffer : create >
+
+
+
+CandidateID "1" -- "*" Application : makes >
+Candidate "1" -- "1" CandidateID : has >
+
+Admin "1" -- "1" AdminID : has >
+Admin "1" -- "*" CostumerManager : manage >
+
+Operator "1" -- "1" OperatorID : has >
+Admin "1" -- "*" Operator : manage >
+
+ProcessBackOfice "*" -- "1" JobOffer :  < regist in
+
+EmailBot "1" -- "1" Operator : manage <
+EmailBot "1" -- "1" FileBot : comunicates >
+
+FileBot "1" -- "*" Process : create >
+
+'class Process {
+'    description
+'}
+
+'class ContractType {
+'}
+
+'class Mode {
+'
+
+'class Company{
+'}
+
+'class Numberofvacancies{
+'}
+
+'class Requirements{
+'}
+
+@enduml
