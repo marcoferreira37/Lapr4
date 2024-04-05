@@ -34,8 +34,9 @@ the development process.*
 
 Creating the Domain Model is a significant step forward, laying the groundwork for the project's development.
 
-### 4.2. Class Diagram
+### 4.2. Domain Model
 
+![](svg/DomainModel.png)
 
 ### 4.3. Applied Patterns
 

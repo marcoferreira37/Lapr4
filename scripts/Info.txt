@@ -1,0 +1,8 @@
+Para utilizar os scripts o utilizador deverá ter o JDK e o Maven como variáveis do sistema.
+
+No windows deverá ir a Definições avançadas do sistema - Variáveis de ambiente e adiconar os caminhos para a pasta /bin dos mesmos.
+
+Em linux apenas precisa de instalar os pacotes usando os seguintes comandos:
+sudo apt-get update - Serve para atualizar o gerenciador de pacotes
+sudo apt-get install default-jdk
+sudo apt-get install maven - Instala o maven

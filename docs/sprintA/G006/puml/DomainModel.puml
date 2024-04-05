@@ -36,7 +36,7 @@ class Address <<Value Object>>
 package "Job Offer Application" {
 
 class Application <<Root Entity>>
-class ApllicationStatus <<Entity>>
+class ApplicationStatus <<Entity>>
 class AnalyzedRequirements <<Value Object>>
 class InterviewFeedback <<Value Object>>
 class ReportFiles <<Value Object>>
@@ -45,8 +45,8 @@ class ReportFiles <<Value Object>>
 
 package "Employees" {
 
-class CostumerManager <<Root Entity>>
-class CostumerManagerID <<Identifier>>
+class CustomerManager <<Root Entity>>
+class CustomerManagerID <<Identifier>>
 class Operator <<Root Entity>>
 class OperatorID <<Identifier>>
 
@@ -107,12 +107,12 @@ Report "1" -- "*" ReportFiles : originates >
 
 Application "1" -- "1" InterviewFeedback : has >
 Application "1" -- "1" AnalyzedRequirements : has >
-Application "1" -- "1" ApllicationStatus : >
+Application "1" -- "1" ApplicationStatus : >
 Application "1" -- "*" ReportFiles : >
 
 
-CostumerManager "1" -- "1" CostumerManagerID : has >
-CostumerManager "1" -- "*" Process : setup >
+CustomerManager "1" -- "1" CustomerManagerID : has >
+CustomerManager "1" -- "*" Process : setup >
 
 Process "1" -- "*" JobOffer : create >
 
@@ -122,7 +122,7 @@ CandidateID "1" -- "*" Application : makes >
 Candidate "1" -- "1" CandidateID : has >
 
 Admin "1" -- "1" AdminID : has >
-Admin "1" -- "*" CostumerManager : manage >
+Admin "1" -- "*" CustomerManager : manage >
 
 Operator "1" -- "1" OperatorID : has >
 Admin "1" -- "*" Operator : manage >
