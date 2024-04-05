@@ -1,9 +1,9 @@
-# Student: John Doe - 1170000
+# Student: Marco Ferreira - 1220913
 
 ## Developed Tasks
 
-| Sprint | Task     |
-|--------|--------------------|
-| **A**  | [US G002](../sprintA/G002/readme.md) |
-| **B**  | [US 1001](../sprintA/G003/readme.md) |
-| **C**  | [US 3004](../sprintA/G001/readme.md) |
+| Sprint | Task                            |
+|--------|---------------------------------|
+| **A**  | [US G005](../us_g002/readme.md) |
+| **B**  | [US 1001](../us_g003/readme.md) |
+| **C**  | [US 3004](../us_g001/readme.md) |

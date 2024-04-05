@@ -1,4 +1,4 @@
-# US 3004
+# US G005
 
 *This is an example template*
 
@@ -12,7 +12,7 @@
 
 *Example*
 
-**US G002** As {Ator} I Want...
+**US G005** As Project Manager, I want the team to add to the project the necessary scripts, so that build/executions/deployments/... can be executed effortlessly.
 
 **Acceptance Criteria:**
 
