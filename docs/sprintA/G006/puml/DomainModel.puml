@@ -30,6 +30,12 @@ class JobOffer <<Root Entity>>
 class JobOfferID <<Identifier>>
 class Report <<Value Object>>
 class Address <<Value Object>>
+class Plugin <<Root Entity>>
+class JarFile <<Value Object>>
+class PluginDescription <<Value Object>>
+class PluginID <<Identifier>>
+class InterviewModel <<Value Object>>
+class RequirementsSpecification <<Value Object>>
 
 }
 
@@ -43,26 +49,17 @@ class ReportFiles <<Value Object>>
 
 }
 
-package "Plug-in" {
-class Plugin <<Entity>>
-class JarFile <<Value Object>>
-class PluginDescription <<Value Object>>
-class OpeningJob <<Entity>>
-class PluginID <<Value Object>>
-class InterviewModel <<Value Object>>
-class RequirementsSpecification <<Value Object>>
-}
-
 package "Employees" {
 
 class CustomerManager <<Root Entity>>
 class CustomerManagerID <<Identifier>>
 class Operator <<Root Entity>>
 class OperatorID <<Identifier>>
+class LanguageEngineer <<Root Entity>>
+class LanguageEngineerID <<Identifier>>
+
 
 }
-
-
 
 package "Application Candidate" {
 
@@ -123,6 +120,8 @@ Application "1" -- "*" ReportFiles : >
 
 CustomerManager "1" -- "1" CustomerManagerID : has >
 CustomerManager "1" -- "*" Process : setup >
+LanguageEngineer "1" -- "1" LanguageEngineerID : has >
+
 
 Process "1" -- "*" JobOffer : create >
 
@@ -151,8 +150,11 @@ Plugin "1" -- "1" PluginID : has >
 Plugin <|-- InterviewModel : extends
 Plugin <|-- RequirementsSpecification : extends
 
-OpeningJob "1" -- "1" InterviewModel : has >
-OpeningJob "1" -- "1" RequirementsSpecification : has >
+JobOffer "1" -- "1" InterviewModel : >
+JobOffer "1" -- "1" RequirementsSpecification : >
+
+LanguageEngineer "1" -- "1" Plugin : deploy >
+
 
 
 'class Process {
