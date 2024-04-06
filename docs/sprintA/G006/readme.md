@@ -24,11 +24,12 @@ the development process.*
 
 ## 3. Analysis
 
-*We studied business requirements, talked to the client, and analyzed existing documentation to design the Domain Model, ensuring it captures all essential elements.*
+*We studied business requirements, talked to the client, and analyzed existing documentation to design the Domain Model, 
+ensuring it captures all essential elements.*
 
 ## 4. Design
 
-*We created a class diagram to visualize the entities and relationships in the Domain Model.*
+*We didn't create a class diagram.*
 
 ### 4.1. Realization
 
@@ -56,4 +57,5 @@ Creating the Domain Model is a significant step forward, laying the groundwork f
 
 ## 7. Observations
 
-*Creating the Domain Model is crucial for understanding the system's core. It sets the foundation for future development and aligns stakeholders' understanding.*
+*Creating the Domain Model is crucial for understanding the system's core. 
+It sets the foundation for future development and aligns stakeholders' understanding.*

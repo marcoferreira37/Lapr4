@@ -1,0 +1,40 @@
+@startuml
+left to right direction
+
+package Backoffice{
+:Admin: as ad
+usecase "Manage Customers and its Managers" as ad1
+ ad --> ad1
+
+:Operator: as O
+usecase "Register Application" as O1
+O --> O1
+
+:Language Engineer: as le
+usecase "Deploy and Configure plugin" as le1
+le --> le1
+
+
+:Customer Manager: as cm
+usecase "Manage Job Openings" as cm1
+cm --> cm1
+ }
+
+package ApplicationsFileBot{
+:Applications Email Bot: as afb
+usecase "Import Applications Files" as afb1
+afb-->afb1
+}
+
+package CandidateApp{
+:Candidate: as c
+usecase "Follow Applications" as c1
+c-->c1
+}
+
+package CustomerApp{
+:Customer: as ct
+usecase "Follow Job Openings" as ct1
+ct--> ct1
+}
+@enduml
