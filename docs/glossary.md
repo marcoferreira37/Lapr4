@@ -20,3 +20,4 @@
 | *PHP*                    | *PHP*                     | Popular server-side scripting language used primarily for web development.                                                                                             | 
 | *Plugin*                 | *Plugin*                  | Software component that adds specific functionality to a larger system.                                                                                                |
 | *Typescript*             | *Typescript*              | Programming language developed by Microsoft that extends JavaScript by adding static typing to the language.                                                           |
+| *Client*                 | *Cliente*                 | The company’s clients are other companies or entities that need to recruit human resources.                                                                            |

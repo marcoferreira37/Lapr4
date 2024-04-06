@@ -43,6 +43,16 @@ class ReportFiles <<Value Object>>
 
 }
 
+package "Plug-in" {
+class Plugin <<Entity>>
+class JarFile <<Value Object>>
+class PluginDescription <<Value Object>>
+class OpeningJob <<Entity>>
+class PluginID <<Value Object>>
+class InterviewModel <<Value Object>>
+class RequirementsSpecification <<Value Object>>
+}
+
 package "Employees" {
 
 class CustomerManager <<Root Entity>>
@@ -133,6 +143,17 @@ EmailBot "1" -- "1" Operator : manage <
 EmailBot "1" -- "1" FileBot : comunicates >
 
 FileBot "1" -- "*" Process : create >
+
+Plugin "1" -- "1" PluginDescription : has >
+Plugin "1" -- "1" JarFile : has >
+Plugin "1" -- "1" PluginID : has >
+
+Plugin <|-- InterviewModel : extends
+Plugin <|-- RequirementsSpecification : extends
+
+OpeningJob "1" -- "1" InterviewModel : has >
+OpeningJob "1" -- "1" RequirementsSpecification : has >
+
 
 'class Process {
 '    description
