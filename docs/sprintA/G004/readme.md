@@ -1,32 +1,33 @@
-# US 3004
-
-*This is an example template*
+# US G004
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+* This task is being assigned for the first time and is being developed in this sprint. It is not about fixing a bug or completing an incomplete task from previous sprints.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
-
-*Example*
-
-**US G002** As {Ator} I Want...
+**US G004** As Project Manager, I want the team to setup a continuous integration server. 
 
 **Acceptance Criteria:**
 
-- G002.1. The system should...Blá Blá Blá ...
+- G002.1. The system should be integrated with a continuous integration server.
 
-- G002.2. Blá Blá Blá ...
+- G002.2. GitHub Actions/Workflows should be used
 
 **Dependencies/References:**
 
-*Regarding this requirement we understand that it relates to...*
+* No dependencies were found.
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+* During the analysis stage, the team carefully looked at different things to decide on the best tools for starting the project and managing it. One important thing they considered was which version control system to use, which is really important for working on software together. They found that GitHub was a strong option because a lot of people use it, it has a lot of useful features, and it works well with other tools.
+
+
+* In the end, the team decided that GitHub was the best choice after thinking about things like how easy it is to use and some other aspects. GitHub has a lot of features, it is very easy to use, which makes it great for modern software teams.
+
+
+* The team also decided to use GitHub Actions/Workflows to automate the build and test processes. This will help the team to ensure that the code is always in a working state and that the tests are always passing.
+
 
 ## 4. Design
 
