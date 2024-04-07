@@ -111,51 +111,51 @@ CustomerManager "1" -- "*" Company
 
 Company "1" -- "*" JobOpening
 
-Client "1" -- "1" ClientID  : has >
+Client "1" -- "1" ClientID  :  >
 
-ClientID "1" -- "*" JobOpening : submits >
+Client "1" -- "*" JobOpening : submits >
 
 JobOpening "1" --- "4..5" Phase :  >
 JobOpening "0..1" -- "1" JobOpeningRequirements : composed by >
 JobOpening "0..1" --- "0..1" InterviewDescription : has >
 JobOpening "1" -- "1" Report : >
-JobOpening "1" --- "1" Address : has >
+JobOpening "1" --- "1" Address :  >
 JobOpening "1" -- "1" JobOpeningID : >
 
-Phase "*" -- "1" PhaseData : has >
+Phase "*" -- "1" PhaseData :  >
 
 Report "1" -- "*" ReportFiles : originates >
 
-Application "1" -- "1" InterviewFeedback : has >
-Application "1" -- "1" AnalyzedRequirements : has >
+Application "1" -- "1" InterviewFeedback :  >
+Application "1" -- "1" AnalyzedRequirements :  >
 Application "1" -- "1" ApplicationStatus : >
 Application "1" -- "*" ReportFiles : >
-ApplicationID "1" -- "1" Application : < has
+ApplicationID "1" -- "1" Application : <
 
 
-CustomerManager "1" -- "1" CustomerManagerID : has >
-LanguageEngineer "1" -- "1" LanguageEngineerID : has >
+CustomerManager "1" -- "1" CustomerManagerID :  >
+LanguageEngineer "1" -- "1" LanguageEngineerID :  >
 
 
 
 
 
-CandidateID "1" -- "*" Application : makes >
-Candidate "1" -- "1" CandidateID : has >
+Candidate "1" -- "*" Application : makes >
+Candidate "1" -- "1" CandidateID :  >
 
-Admin "1" -- "1" AdminID : has >
+Admin "1" -- "1" AdminID :  >
 Admin "1" -- "*" CustomerManager : manage >
 
-Operator "1" -- "1" OperatorID : has >
+Operator "1" -- "1" OperatorID :  >
 Admin "1" -- "*" Operator : manage >
 
 
 
 
 
-Plugin "1" -- "1" PluginDescription : has >
-Plugin "1" -- "1" JarFile : has >
-Plugin "1" -- "1" PluginID : has >
+Plugin "1" -- "1" PluginDescription :  >
+Plugin "1" -- "1" JarFile :  >
+Plugin "1" -- "1" PluginID :  >
 
 Plugin <|-- InterviewModel : extends
 Plugin <|-- RequirementsSpecification : extends
