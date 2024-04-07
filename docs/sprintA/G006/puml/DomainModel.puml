@@ -1,17 +1,40 @@
 @startuml
 
-skinparam monochrome true
+skinparam monochrome false
 skinparam packageStyle rectangle
 skinparam shadowing false
+skinparam linetype polyline
 
 top to bottom direction
 
 skinparam classAttributeIconSize 0
 
-hide circle
+skinparam class {
+    LifeLineBorderColor DarkBlue
+    LifeLineBackgroundColor APPLICATION
+    BackgroundColor #F0FF99
+    ArrowColor grey
+    BorderColor black
+}
+
+skinparam card {
+    LifeLineBorderColor Green
+    LifeLineBackgroundColor APPLICATION
+    BackgroundColor #F0FFDD
+    ArrowColor DarkGrey
+    BorderColor Black
+}
+
+
 hide methods
 
 title Domain Model
+
+
+
+skinparam packageStyle rectangle
+
+
 
 package "Client " {
 
@@ -24,10 +47,10 @@ package "Job Offer" {
 
 class PhaseData <<Value Object>>
 class Phase << Entity>>
-class JobOfferRequirements <<Value Object>>
+class JobOpeningRequirements <<Value Object>>
 class InterviewDescription <<Value Object>>
-class JobOffer <<Root Entity>>
-class JobOfferID <<Identifier>>
+class JobOpening <<Root Entity>>
+class JobOpeningID <<Identifier>>
 class Report <<Value Object>>
 class Address <<Value Object>>
 class Plugin <<Root Entity>>
@@ -81,11 +104,7 @@ class AdminID <<Identifier>>
 
 }
 
-package "Bots "{
 
-class EmailBot <<Root Entity>>
-class FileBot <<Root Entity>>
-}
 
 
 package "BackOfice"{
@@ -99,14 +118,14 @@ class ProcessBackOfice <<Value Object>>
 
 Client "1" -- "1" ClientID  : has >
 
-ClientID "1" -- "*" JobOffer : submits >
+ClientID "1" -- "*" JobOpening : submits >
 
-JobOffer "1" --- "4..5" Phase :  >
-JobOffer "0..1" -- "1" JobOfferRequirements : composed by >
-JobOffer "0..1" --- "0..1" InterviewDescription : has >
-JobOffer "1" -- "1" Report : >
-JobOffer "1" --- "1" Address : has >
-JobOffer "1" -- "1" JobOfferID : >
+JobOpening "1" --- "4..5" Phase :  >
+JobOpening "0..1" -- "1" JobOpeningRequirements : composed by >
+JobOpening "0..1" --- "0..1" InterviewDescription : has >
+JobOpening "1" -- "1" Report : >
+JobOpening "1" --- "1" Address : has >
+JobOpening "1" -- "1" JobOpeningID : >
 
 Phase "*" -- "1" PhaseData : has >
 
@@ -123,7 +142,7 @@ CustomerManager "1" -- "*" Process : setup >
 LanguageEngineer "1" -- "1" LanguageEngineerID : has >
 
 
-Process "1" -- "*" JobOffer : create >
+Process "1" -- "*" JobOpening : create >
 
 
 
@@ -134,14 +153,13 @@ Admin "1" -- "1" AdminID : has >
 Admin "1" -- "*" CustomerManager : manage >
 
 Operator "1" -- "1" OperatorID : has >
+Operator "1" -- "*" Process : manage >
 Admin "1" -- "*" Operator : manage >
 
-ProcessBackOfice "*" -- "1" JobOffer :  < regist in
+ProcessBackOfice "*" -- "1" JobOpening :  < regist in
 
-EmailBot "1" -- "1" Operator : manage <
-EmailBot "1" -- "1" FileBot : comunicates >
 
-FileBot "1" -- "*" Process : create >
+
 
 Plugin "1" -- "1" PluginDescription : has >
 Plugin "1" -- "1" JarFile : has >
@@ -150,8 +168,8 @@ Plugin "1" -- "1" PluginID : has >
 Plugin <|-- InterviewModel : extends
 Plugin <|-- RequirementsSpecification : extends
 
-JobOffer "1" -- "1" InterviewModel : >
-JobOffer "1" -- "1" RequirementsSpecification : >
+JobOpening "1" -- "1" InterviewModel : >
+JobOpening "1" -- "1" RequirementsSpecification : >
 
 LanguageEngineer "1" -- "1" Plugin : deploy >
 
