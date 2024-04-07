@@ -40,6 +40,7 @@ This documentation serves as a reference point throughout the project lifecycle 
 
 *A project kickoff meeting was done, where the technical constraints were the main topic.*
 *The team should schedule regular updates or meetings to communicate any possible changes or updates in the technical constraints.*
+*In the project kickoff meeting we also divided the work we would do for this sprint A.*
 ### 4.1. Realization
 
 ![](techconstraints.png)
