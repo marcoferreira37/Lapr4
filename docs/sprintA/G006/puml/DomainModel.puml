@@ -83,7 +83,6 @@ class LanguageEngineer <<Root Entity>>
 class LanguageEngineerID <<Identifier>>
 class Company <<Value Object>>
 
-
 }
 
 package "Application Candidate" {
@@ -109,7 +108,7 @@ class AdminID <<Identifier>>
 CustomerManager "1" -- "*" Company
 
 
-Company "1" -- "*" JobOpening
+CustomerManager "1" -- "*" JobOpening : manage >
 
 Client "1" -- "1" ClientID  :  >
 
@@ -150,7 +149,7 @@ Operator "1" -- "1" OperatorID :  >
 Admin "1" -- "*" Operator : manage >
 
 
-
+Admin "1" -- "*" LanguageEngineer : manage >
 
 
 Plugin "1" -- "1" PluginDescription :  >
@@ -165,25 +164,12 @@ JobOpening "1" -- "1" RequirementsSpecification : >
 
 LanguageEngineer "1" -- "1" Plugin : deploy >
 
+Operator "1" -- "*" Candidate : manage >
 
+Operator "1" -- "*" Application : register >
 
-'class Process {
-'    description
-'}
+CustomerManager "1" -- "*" Application : list >
 
-'class ContractType {
-'}
-
-'class Mode {
-'
-
-'class Company{
-'}
-
-'class Numberofvacancies{
-'}
-
-'class Requirements{
-'}
+CustomerManager "1" -- "*" Candidate :  >
 
 @enduml
