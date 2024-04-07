@@ -37,19 +37,15 @@ allowing team members to report and address project-related issues effectively.
 ## 3. Analysis
 
 *During the analysis stage, the team carefully looked at different things to decide on the best tools for starting the project and managing it. 
-One important thing they considered was which version control system to use, which is really important for working on software together. 
-They found that GitHub was a strong option because a lot of people use it, it has a lot of useful features, and it works well with other tools.*
-
-*In the end, the team decided that GitHub was the best choice after thinking about things like how easy 
-it is to use and some other aspects. 
-GitHub has a lot of features, it is very easy to use, which makes it great for modern software teams.*
+One important thing we considered was which version control system to use, which is really important for working on software together. 
+They found that GitHub was a strong option because a lot of people use it, it has a lot of useful features, and it is easy to work with*
 
 ## 4. Design
 
 ### 4.1. Realization
 
 *The chosen solution involves creating a GitHub repository with a name that accurately reflects the project's purpose or name. 
- The repository serves as a centralized location for storing all project-related files, including source code, documentation,
+The repository serves as a centralized location for storing all project-related files, including source code, documentation,
 and any supplementary resources.*
 *The repository allows team members to report and address project-related issues effectively, fostering a proactive 
 approach to problem-solving and project management.*
@@ -81,4 +77,4 @@ This setup helps us stay organized and productive throughout the project.*
 
 ## 7. Observations
 
-*We chose GitHub because it's popular, has great features, and it is easy to work.*
+*No observations.*
