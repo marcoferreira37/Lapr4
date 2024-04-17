@@ -32,7 +32,7 @@
         <dependency>
             <version>0.1.0</version>
             <groupId>lapr4</groupId>
-            <artifactId>jobs4u.app2</artifactId>
+            <artifactId>jobs4u.app.backoffice</artifactId>
         </dependency>
     </dependencies>
 
