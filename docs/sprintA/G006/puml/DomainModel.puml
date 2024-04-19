@@ -5,7 +5,7 @@
 skinparam monochrome false
 skinparam packageStyle rectangle
 skinparam shadowing false
-skinparam linetype ortho
+skinparam linetype polyline
 
 top to bottom direction
 
@@ -38,12 +38,6 @@ skinparam packageStyle rectangle
 
 
 
-package "Client " {
-
-class Client <<Root Entity>>
-class ClientID <<Identifier>>
-
-}
 
 package "Job Offer" {
 
@@ -119,9 +113,8 @@ CustomerManager "1" -- "*" Company
 
 CustomerManager "1" -- "*" JobOpening : manage >
 
-Client "1" -- "1" ClientID  :  >
 
-Client "1" -- "*" JobOpening : submits >
+Company "1" -- "*" JobOpening : submits >
 
 JobOpening "1" --- "4..5" Phase :  >
 JobOpening "0..1" -- "1" JobOpeningRequirements : composed by >
