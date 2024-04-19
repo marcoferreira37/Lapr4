@@ -1,0 +1,77 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "CustomerManager" as CustomerManager
+participant ":System" as System
+
+activate CustomerManager
+
+    CustomerManager -> System : asks to manage a job opening
+    activate System
+
+        System --> CustomerManager : show
+    deactivate System
+
+    CustomerManager -> System : Select the job opening
+    activate System
+
+        System --> CustomerManager : shows the registered jobs to select one for the collaborator
+    deactivate System
+
+    CustomerManager -> System : Setup the phases of the process for the selected job opening
+    activate System
+
+        System --> CustomerManager : shows the phases of the process setups by the CustomerManager
+    deactivate System
+
+    CustomerManager -> System : confirms settings
+    activate System
+
+        System --> CustomerManager : displays operation success
+    deactivate System
+
+@enduml@startuml
+       skinparam monochrome true
+       skinparam packageStyle rectangle
+       skinparam shadowing false
+
+       title System Sequence Diagram (SSD) - Alternative One
+
+       autonumber
+
+       actor "CustomerManager" as CustomerManager
+       participant ":System" as System
+
+       activate CustomerManager
+
+           CustomerManager -> System : asks to register a new Collaborator
+           activate System
+
+               System --> CustomerManager : requests data (Name, birth date, admission date, \naddress, contact info (mobile and email),\ taxpayer \nnumber, ID doc type and respective number.)
+           deactivate System
+
+           CustomerManager -> System : types requested data
+           activate System
+
+               System --> CustomerManager : shows the registered jobs to select one for the collaborator
+           deactivate System
+
+           CustomerManager -> System : selects a job for the collaborator
+           activate System
+
+               System --> CustomerManager : shows all data and requests confirmation
+           deactivate System
+
+           CustomerManager -> System : confirms data
+           activate System
+
+               System --> CustomerManager : displays operation success
+           deactivate System
+
+       @enduml
