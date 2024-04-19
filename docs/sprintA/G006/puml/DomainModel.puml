@@ -1,9 +1,11 @@
+
+
 @startuml
 
 skinparam monochrome false
 skinparam packageStyle rectangle
 skinparam shadowing false
-skinparam linetype polyline
+skinparam linetype ortho
 
 top to bottom direction
 
@@ -45,7 +47,6 @@ class ClientID <<Identifier>>
 
 package "Job Offer" {
 
-class PhaseData <<Value Object>>
 class Phase <<Value Object>>
 class JobOpeningRequirements <<Value Object>>
 class InterviewDescription <<Value Object>>
@@ -53,13 +54,16 @@ class JobOpening <<Root Entity>>
 class JobOpeningID <<Identifier>>
 class Report <<Value Object>>
 class Address <<Value Object>>
+
+}
+
+package "Plug-in" {
 class Plugin <<Root Entity>>
 class JarFile <<Value Object>>
 class PluginDescription <<Value Object>>
 class PluginID <<Identifier>>
 class InterviewModel <<Value Object>>
 class RequirementsSpecification <<Value Object>>
-
 }
 
 package "Job Offer Application" {
@@ -73,16 +77,17 @@ class ReportFiles <<Value Object>>
 
 }
 
-package "Employees" {
+package "Customer Manager" {
 
 class CustomerManager <<Root Entity>>
 class CustomerManagerID <<Identifier>>
-class Operator <<Root Entity>>
-class OperatorID <<Identifier>>
-class LanguageEngineer <<Root Entity>>
-class LanguageEngineerID <<Identifier>>
 class Company <<Value Object>>
 
+}
+
+package "Language Engineer"{
+class LanguageEngineer <<Root Entity>>
+class LanguageEngineerID <<Identifier>>
 }
 
 package "Application Candidate" {
@@ -90,6 +95,11 @@ package "Application Candidate" {
 class Candidate <<Root Entity>>
 class CandidateID <<Identifier>>
 
+}
+
+package "Operation"{
+class Operator <<Root Entity>>
+class OperatorID <<Identifier>>
 }
 
 
@@ -101,7 +111,6 @@ class AdminID <<Identifier>>
 
 
 }
-
 
 
 
@@ -120,8 +129,9 @@ JobOpening "0..1" --- "0..1" InterviewDescription : has >
 JobOpening "1" -- "1" Report : >
 JobOpening "1" --- "1" Address :  >
 JobOpening "1" -- "1" JobOpeningID : >
+JobOpening "1" -- "1" Application : >
 
-Phase "*" -- "1" PhaseData :  >
+
 
 Report "1" -- "*" ReportFiles : originates >
 
