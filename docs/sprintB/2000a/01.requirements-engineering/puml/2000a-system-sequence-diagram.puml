@@ -1,0 +1,22 @@
+@startuml
+title US 2000a - Register a candidate and create a corresponding user
+
+actor Operator as Operator
+participant System as "System"
+participant UI as "User Interface"
+participant DB as "Database"
+
+Operator -> UI: Request to register candidate
+UI -> System: Receive request to register candidate
+System -> DB: Create candidate record
+DB --> System: Record created
+System -> UI: Candidate registered successfully
+UI -> Operator: Confirmation of candidate registration
+Operator -> UI: Request to create user for candidate
+UI -> System: Receive request to create user
+System -> DB: Create user record
+DB --> System: User record created
+System -> UI: User created
+UI -> Operator: Confirmation of user creation
+
+@enduml
