@@ -1,0 +1,42 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Register job opening
+
+autonumber
+
+actor "Customer Manager" as Manager
+participant ":System" as System
+
+activate Manager
+
+    Manager -> System : requests to register a job opening
+    activate System
+
+    System --> Manager : prompts for job details (title, description, location, requirements, salary)
+    deactivate System
+
+    Manager -> System : provides job details
+
+    activate System
+
+    alt Job details are complete and valid
+
+        System --> Manager : requests confirmation for job registration
+        deactivate System
+
+        Manager -> System : confirms job registration
+        activate System
+
+        System --> Manager : confirms successful registration
+
+    else Job details are incomplete or invalid
+
+        System --> Manager : requests missing information
+    end
+
+@enduml
+
+@enduml

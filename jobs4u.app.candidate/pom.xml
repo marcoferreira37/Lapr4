@@ -10,10 +10,10 @@
     </parent>
 
     <groupId>lapr4</groupId>
-    <artifactId>jobs4u.app1</artifactId>
+    <artifactId>jobs4u.app.candidate</artifactId>
     <packaging>jar</packaging>
 
-    <name>jobs4u.app1</name>
+    <name>jobs4u.app.candidate</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
