@@ -41,13 +41,18 @@ skinparam packageStyle rectangle
 
 package "Job Offer" {
 
-class Phase <<Value Object>>
-class JobOpeningRequirements <<Value Object>>
 class InterviewDescription <<Value Object>>
 class JobOpening <<Root Entity>>
-class JobOpeningID <<Identifier>>
+class JobReference <<Identifier>>
 class Report <<Value Object>>
 class Address <<Value Object>>
+
+}
+
+package "Phases" {
+
+class Phase <<Root Entity>>
+class PhaseData <<Value Object>>
 
 }
 
@@ -66,9 +71,12 @@ class Application <<Root Entity>>
 class ApplicationID <<Identifier>>
 class ApplicationStatus <<Value Object>>
 class AnalyzedRequirements <<Value Object>>
-class InterviewFeedback <<Value Object>>
 class ReportFiles <<Value Object>>
 
+}
+
+package "ApplicationFeedback"{
+class InterviewFeedback <<Entity>>
 }
 
 package "Customer Manager" {
@@ -106,6 +114,11 @@ class AdminID <<Identifier>>
 
 }
 
+package "Clients" {
+class ClientID <<Identifier>>
+class Client <<Root Entity>>
+}
+
 
 
 CustomerManager "1" -- "*" Company
@@ -114,14 +127,12 @@ CustomerManager "1" -- "*" Company
 CustomerManager "1" -- "*" JobOpening : manage >
 
 
-Company "1" -- "*" JobOpening : submits >
+Client "1" -- "*" JobOpening : submits >
 
-JobOpening "1" --- "4..5" Phase :  >
-JobOpening "0..1" -- "1" JobOpeningRequirements : composed by >
 JobOpening "0..1" --- "0..1" InterviewDescription : has >
 JobOpening "1" -- "1" Report : >
 JobOpening "1" --- "1" Address :  >
-JobOpening "1" -- "1" JobOpeningID : >
+JobOpening "1" -- "1" JobReference : >
 JobOpening "1" -- "1" Application : >
 
 
@@ -162,7 +173,7 @@ Plugin "1" -- "1" PluginID :  >
 Plugin <|-- InterviewModel : extends
 Plugin <|-- RequirementsSpecification : extends
 
-JobOpening "1" -- "1" InterviewModel : >
+JobOpening "1" -- "0..1" InterviewModel : >
 JobOpening "1" -- "1" RequirementsSpecification : >
 
 LanguageEngineer "1" -- "1" Plugin : deploy >
@@ -173,6 +184,12 @@ Operator "1" -- "*" Application : register >
 
 CustomerManager "1" -- "*" Application : list >
 
-CustomerManager "1" -- "*" Candidate :  >
+CustomerManager "1" --> "*" Candidate :  >
+
+JobOpening "1" -- "4..5" Phase : >
+
+Phase "1" -- "1" PhaseData : >
+
+Client "1" -- "1" ClientID : >
 
 @enduml
