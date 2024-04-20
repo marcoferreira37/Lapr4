@@ -23,7 +23,6 @@
  */
 package eapli.base.app.user.console.presentation;
 
-import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -36,7 +35,7 @@ import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 /**
  * @author Paulo Gandra Sousa
  */
-class MainMenu extends ClientUserBaseUI {
+class MainMenu extends CustomerBaseUI {
 
     private static final String SEPARATOR_LABEL = "--------------";
 

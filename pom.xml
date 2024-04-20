@@ -12,11 +12,12 @@
 		<module>jobs4u.app.backoffice</module>
 		<module>jobs4u.util.ci</module>
 		<module>jobs4u.core</module>
-		<module>jobs4u.candidate.app</module>
 		<module>jobs4u.infrastructure</module>
 		<module>jobs4u.persistence</module>
 		<module>jobs4u.bootstrappers</module>
-		<module>jobs4u.candidate.app</module>
+		<module>jobs4u.app.candidate</module>
+		<module>jobs4u.app.customer</module>
+
 
 
 

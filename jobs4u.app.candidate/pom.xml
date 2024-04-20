@@ -9,10 +9,10 @@
         <version>1.4.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>jobs4u.customer.app</artifactId>
+    <artifactId>jobs4u.app.candidate</artifactId>
     <packaging>jar</packaging>
 
-    <name>jobs4u.customer.app</name>
+    <name>jobs4u.app.candidate</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
