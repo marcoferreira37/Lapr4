@@ -10,10 +10,10 @@
     </parent>
 
     <groupId>lapr4</groupId>
-    <artifactId>jobs4u.app.backoffice</artifactId>
+    <artifactId>jobs4u.bootstrap</artifactId>
     <packaging>jar</packaging>
 
-    <name>jobs4u.app.backoffice</name>
+    <name>jobs4u.app.candidate</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,11 +21,5 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>lapr4</groupId>
-            <artifactId>jobs4u</artifactId>
-            <version>0.1.0</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 </project>
