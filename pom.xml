@@ -17,6 +17,7 @@
 		<module>jobs4u.bootstrappers</module>
 		<module>jobs4u.app.candidate</module>
 		<module>jobs4u.app.customer</module>
+		<module>jobs4u.common.console</module>
 
 
 
