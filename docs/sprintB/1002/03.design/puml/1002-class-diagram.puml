@@ -1,10 +1,38 @@
 @startuml
-'skinparam monochrome true
-skinparam packageStyle rectangle
-skinparam shadowing false
-skinparam linetype polyline
-'skinparam linetype orto
+skinparam monochrome true
+skinparam class {
+    BackgroundColor Snow
+    BorderColor Black
+}
 
-skinparam classAttributeIconSize 0
+class CustomerManager {
+    - name: String
+    - email: String
+    - phoneNumber: String
+}
+
+class JobOpening {
+    - title: String
+    - description: String
+    - requirements: String
+    - deadline: Date
+}
+
+class RegisterJobOpeningController {
+    + createJobOpening(jobOpening: JobOpening): void
+}
+
+class JobOpeningRepository {
+    + save(jobOpening: JobOpening): void
+}
+
+class EmailService {
+    + sendJobOpeningNotification(jobOpening: JobOpening): void
+}
+
+CustomerManager "1" -- "*" JobOpening : creates
+RegisterJobOpeningController --> JobOpening : creates
+RegisterJobOpeningController --> JobOpeningRepository : uses
+RegisterJobOpeningController --> EmailService : uses
 
 @enduml

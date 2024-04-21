@@ -15,7 +15,7 @@ activate Manager
     Manager -> System : requests to register a job opening
     activate System
 
-    System --> Manager : prompts for job details (title, description, location, requirements, salary)
+    System --> Manager : prompts for job details (title, description, requirements, deadline)
     deactivate System
 
     Manager -> System : provides job details

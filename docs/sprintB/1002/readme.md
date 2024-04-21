@@ -9,6 +9,30 @@ It's essential for the Customer Manager role to have this functionality availabl
 This task is assigned for development in this sprint.
 
 
+**Client Questions:**
+
+**Q77 Simões** – *US1002 Critérios de Aceitação* – Relativamente à US1002 - "As Customer Manager, I want to register a job opening", 
+existe algum critério de aceitação ainda não mencionado, relacionado com os atributos? Ou fica ao critério da equipa de 
+desenvolvimento consoante boas práticas e senso comum? Alguns exemplos: - O "Number of Vacancies" não poder ser menor ou igual a 0 ou pode ser opcional; 
+- A "Description" ter um tamanho de caracteres limite ou ser opcional;
+
+**A77** -  Sobre se existem critérios de aceitação não mencionados não me vou pronunciar, faz parte do processo descobrirem. 
+Eu sugeria usarem algo mais que o senso comum
+
+
+**Q79 Padilla** – *US1002* - Could we use the same interview model for more than one job opening?
+
+**A79** - See Q38. Yes.
+
+
+**Q88 Cardoso** – *US1002* – Quando o Customer Manager regista uma job offer, é ele que cria as requirement specifications e 
+as interview models ou é-lhe dada uma lista destes para ele selecionar?
+
+**A88** - Existe a US1002 e as US1009 e US1011. Penso que está claro qual a responsabilidade de cada uma. 
+A criação dos modelos das entrevistas e dos requisitos é um caso de uso especifico e com um US especifica para registar no sistema os respectivos plugins (US1008).
+
+
+
 ## 2. Requirements
 
 [//]: # (*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements &#40;i.e., dependencies&#41;. You should also add acceptance criteria.*)
@@ -52,7 +76,8 @@ This task is assigned for development in this sprint.
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. 
+This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
 
 ## 4. Design
 
