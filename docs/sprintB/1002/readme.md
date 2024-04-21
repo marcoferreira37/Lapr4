@@ -1,28 +1,54 @@
-# US 3004
-
-*This is an example template*
+# US 1002
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+[//]: # (Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*)
+
+This task involves registering a job opening. 
+It's essential for the Customer Manager role to have this functionality available. 
+This task is assigned for development in this sprint.
+
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
+[//]: # (*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements &#40;i.e., dependencies&#41;. You should also add acceptance criteria.*)
 
-*Example*
+[//]: # ()
+[//]: # (*Example*)
 
-**US G002** As {Ator} I Want...
+[//]: # ()
+[//]: # (**US G002** As {Ator} I Want...)
 
-**Acceptance Criteria:**
+[//]: # ()
+[//]: # (**Acceptance Criteria:**)
 
-- G002.1. The system should...Blá Blá Blá ...
+[//]: # ()
+[//]: # (- G002.1. The system should...Blá Blá Blá ...)
 
-- G002.2. Blá Blá Blá ...
+[//]: # ()
+[//]: # (- G002.2. Blá Blá Blá ...)
+
+[//]: # ()
+[//]: # (**Dependencies/References:**)
+
+[//]: # ()
+[//]: # (*Regarding this requirement we understand that it relates to...*)
+
+
+**US 1002** As Customer Manager, I want to register a job opening.
+
+**Acceptance Criteria**
+
+* 1002.1. The system should allow the Customer Manager to create a new job opening.
+* 1002.2. The job opening should include fields for job title, description, requirements, and deadline.
+* 1002.3. Once created, the job opening should be visible to applicants.
+* 1002.4. The Customer Manager should be able to edit or delete a job opening.
+
 
 **Dependencies/References:**
 
-*Regarding this requirement we understand that it relates to...*
+*Alternatively, this can be achieved by a bootstrap process.*
+
 
 ## 3. Analysis
 

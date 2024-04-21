@@ -34,7 +34,7 @@ activate Manager
 
     else Job details are incomplete or invalid
 
-        System --> Manager : requests missing information
+        System --> Manager :  cancels operation
     end
 
 @enduml
