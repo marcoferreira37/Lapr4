@@ -15,16 +15,16 @@ activate CustomerManager
     CustomerManager -> System : asks to manage a job opening
     activate System
 
-        System --> CustomerManager : show
+        System --> CustomerManager : show the registered job openings that is possible to edit
     deactivate System
 
     CustomerManager -> System : Select the job opening
     activate System
 
-        System --> CustomerManager : shows the registered jobs to select one for the collaborator
+        System --> CustomerManager : shows the phase of the selected job opening
     deactivate System
 
-    CustomerManager -> System : Setup the phases of the process for the selected job opening
+    CustomerManager -> System : Setup the phase of the process for the selected job opening
     activate System
 
         System --> CustomerManager : shows the phases of the process setups by the CustomerManager
