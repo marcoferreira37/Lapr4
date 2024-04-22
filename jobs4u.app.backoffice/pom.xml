@@ -31,5 +31,11 @@
             <artifactId>jobs4u.common.console</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>lapr4</groupId>
+            <artifactId>jobs4u.persistence</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 </project>
