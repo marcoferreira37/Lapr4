@@ -1,0 +1,21 @@
+@startuml
+'skinparam monochrome true
+'skinparam packageStyle rectangle
+'skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Generate and Export Interview Template Text File
+
+actor "Customer Manager" as Agent
+participant ":System" as System
+
+activate Agent
+
+Agent -> System : Request interview template text file
+
+activate System
+
+System --> Agent : Generates and provides template text file
+
+deactivate System
+
+@enduml

@@ -1,24 +1,49 @@
-# US 3004
-
-*This is an example template*
+# US 1003
 
 ## 1. Context
-
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+This task is related to the User Story (US) 1003, which involves the functionality for listing job openings. 
+This is the first time this task is being developed as part of the project to automate the main activities of the company, Jobs4U.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
+The functionality to be developed involves allowing the Customer Manager to list job openings. 
+The criteria for listing job openings include the ability to filter by customer and date.
+
+*Client Questions*:
+
+> *Question*: Q68 Pedro – US1003 – Na us1003 é pedido que se liste job openings, há algum critério para definir quais listar? Ou são as do sistema inteiro?
+> *Answer*: A68. Suponho que poder filtrar por Customer e data seja útil. Também poder filtrar apenas as activas ou todas parece-me útil.
+
+> *Question*: Q87 Lopes – US1003 – Relativamente a uma questão já colocada foi referido que "pode-se filtrar por Customer" nesta US.
+> Nesta caso qual será a forma que o Customer Manager utilizará para filtrar as Job Openings por Costumer (nome, email,...)? 
+> E quando se refere a "poder filtrar por data" significa que é uma determinada data ou um intervalo de tempo?
+> *Answer*: A87. O Customer é tipicamente uma empresa e tem um nome. Também já foi referida a existência de um customer code.
+> Quanto ao filtro por data se estiverem no papel do customer manager que tem de consultar job openings faz sentido ser para um dia? Ou seja ele teria de sabe em que dia é que registou o job opening que está a pesquisar…
+
+> *Question*: Q95 Varela – [1003] Job Openings Ativas – A resposta à questão Q68 suscitou-nos algumas dúvidas sobre uma job opening no estado "ativa".
+> Em que instante uma job opening se torna ativa? É quando é criada e tem um conjunto de requisitos associada a si? É quando está ligada a um processo de recrutamento ainda a decorrer?
+> Agradecíamos alguns esclarecimentos
+> *Answer*: A95. No contexto da Q68 a referência a activa surge no contexto de datas. 
+> Uma job opening cujo processo já tenha terminado não está ativa.
+
+> *Question*: Q96 Semikina – [1003] - As Customer Manager, I want to list job openings – Em relação à listagem dos jobs openings,
+> um customer manager pode listar todos os jobs openings ou apenas os que lhe foram atribuídos. 
+> Posto de outra forma, os job openings são atribuídos a um customer manager específico, e o mesmo só pode ter acesso à sua lista de job openings?
+> *Answer*: A96. Ver Q68. Penso que faz sentido listar apenas os “seus” job openings.
+
+
+
 
 *Example*
 
-**US G002** As {Ator} I Want...
+**US 1003** As Customer Manager, I want to list job openings
 
 **Acceptance Criteria:**
 
-- G002.1. The system should...Blá Blá Blá ...
+- 1003.1. The system should allow the Customer Manager to list job openings.
 
-- G002.2. Blá Blá Blá ...
+- G002.2. The Customer Manager should be able to filter job openings by customer and date.
+
 
 **Dependencies/References:**
 

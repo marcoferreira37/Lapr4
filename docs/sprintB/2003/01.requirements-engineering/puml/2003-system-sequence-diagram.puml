@@ -1,0 +1,14 @@
+@startuml
+
+title System Sequence Diagram (US 2003 - Generate and export a template text file to help collect data fields for candidates of a job opening)
+actor Operator as Operator
+participant System as "System"
+activate Operator
+
+Operator -> System: Request to generate template file for job opening
+activate System
+System --> Operator: Generating the template file
+System --> Operator: Template file ready for export
+deactivate System
+
+@enduml
