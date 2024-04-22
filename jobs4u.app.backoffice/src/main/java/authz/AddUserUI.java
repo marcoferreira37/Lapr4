@@ -1,7 +1,7 @@
 package authz;
 
 
-import LogIn.AddUserController;
+import eapli.base.usermanagement.application.AddUserController;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;

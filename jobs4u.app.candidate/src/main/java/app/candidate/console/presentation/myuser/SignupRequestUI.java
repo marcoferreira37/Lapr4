@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eapli.base.app.user.console.presentation.myuser;
+package app.candidate.console.presentation.myuser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ import eapli.framework.presentation.console.AbstractUI;
  */
 @SuppressWarnings("squid:S106")
 public class SignupRequestUI extends AbstractUI {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SignupRequestUI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(customer.console.presentation.myuser.SignupRequestUI.class);
 
     private final SignupController theController = new SignupController();
 

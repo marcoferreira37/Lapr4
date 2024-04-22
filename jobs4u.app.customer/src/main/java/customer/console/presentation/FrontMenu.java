@@ -1,6 +1,7 @@
-package eapli.base.app.user.console.presentation;
+package customer.console.presentation;
 
-import eapli.base.app.user.console.presentation.myuser.SignupRequestAction;
+import customer.console.presentation.myuser.SignupRequestAction;
+import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.ChainedAction;

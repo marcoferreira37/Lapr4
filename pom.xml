@@ -31,6 +31,23 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
+
+		<eapli.framework.core.version>v24.0.1_RELEASE</eapli.framework.core.version>
+		<eapli.framework.authz.version>v24.0.1_RELEASE</eapli.framework.authz.version>
+		<eapli.framework.pubsub.version>v24.0.1_RELEASE</eapli.framework.pubsub.version>
+
+		<eapli.framework.core.version-snapshot>25.0.0</eapli.framework.core.version-snapshot>
+		<eapli.framework.authz.version-snapshot>21.0.0</eapli.framework.authz.version-snapshot>
+		<eapli.framework.pubsub.version-snapshot>22.0.0</eapli.framework.pubsub.version-snapshot>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+
+		<sonar.jacoco.reportPaths>target/jacoco.exec</sonar.jacoco.reportPaths>
+		<sonar.exclusions>src/main/java/*//package-info.java</sonar.exclusions>
 	</properties>
 
 	<dependencies>
@@ -41,11 +58,20 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.bitbucket.pag_isep</groupId>
-			<artifactId>eapliframework</artifactId>
-			<version>v24.0.1_RELEASE</version>
+			<groupId>org.bitbucket.pag_isep.eapliframework</groupId>
+			<artifactId>eapli.framework.core</artifactId>
+			<version>${eapli.framework.core.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.bitbucket.pag_isep.eapliframework</groupId>
+			<artifactId>eapli.framework.infrastructure.authz</artifactId>
+			<version>${eapli.framework.authz.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bitbucket.pag_isep.eapliframework</groupId>
+			<artifactId>eapli.framework.infrastructure.pubsub</artifactId>
+			<version>${eapli.framework.pubsub.version}</version>
+		</dependency>
 		<!-- keep junit4 engine for now -->
 		<dependency>
 			<groupId>org.junit.vintage</groupId>
@@ -82,6 +108,13 @@
 			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>lapr4</groupId>
+			<artifactId>jobs4u.common.console</artifactId>
+			<version>0.1.0</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -92,7 +125,6 @@
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
-					<testFailureIgnore>true</testFailureIgnore>
 					<aggregate>true</aggregate>
 				</configuration>
 				<executions>

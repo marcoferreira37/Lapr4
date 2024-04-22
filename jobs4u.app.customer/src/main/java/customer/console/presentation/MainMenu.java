@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.app.user.console.presentation;
+package customer.console.presentation;
 
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.framework.actions.menu.Menu;

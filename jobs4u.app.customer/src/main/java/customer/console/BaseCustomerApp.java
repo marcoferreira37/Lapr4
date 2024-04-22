@@ -1,7 +1,7 @@
 
-package eapli.base.app.user.console;
+package customer.console;
 
-import eapli.base.app.user.console.presentation.FrontMenu;
+import customer.console.presentation.FrontMenu;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;

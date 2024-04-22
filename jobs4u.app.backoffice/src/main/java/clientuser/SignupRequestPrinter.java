@@ -20,6 +20,7 @@
  */
 package clientuser;
 
+import eapli.base.clientusermanagement.domain.SignupRequest;
 import eapli.framework.visitor.Visitor;
 
 class SignupRequestPrinter implements Visitor<SignupRequest> {

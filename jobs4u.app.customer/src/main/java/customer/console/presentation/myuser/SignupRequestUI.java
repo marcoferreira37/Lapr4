@@ -1,4 +1,4 @@
-/*
+package customer.console.presentation.myuser;/*
  * Copyright (c) 2013-2024 the original author or authors.
  *
  * MIT License
@@ -18,7 +18,6 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eapli.base.app.user.console.presentation.myuser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

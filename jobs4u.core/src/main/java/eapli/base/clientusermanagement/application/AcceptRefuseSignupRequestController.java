@@ -51,7 +51,6 @@ import eapli.base.clientusermanagement.domain.SignupRequest;
  * status, if something fails in the middle of the process it is not easy to
  * compensate (rollback) and there is no temporal coupling so the system needs
  * to handle "waiting" for something to happen before proceeding (see
- * {@link AddClientUserOnSignupAcceptedController})
  *
  * @author Paulo Gandra de Sousa
  */

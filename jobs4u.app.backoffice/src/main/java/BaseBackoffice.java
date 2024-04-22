@@ -1,5 +1,5 @@
-import LogIn.LoginUI;
-import base.infrastructure.authz.AuthenticationCredentialHandler;
+import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
+import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.clientusermanagement.application.eventhandlers.NewUserRegisteredFromSignupWatchDog;
 import eapli.base.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
@@ -7,10 +7,17 @@ import eapli.base.clientusermanagement.domain.events.SignupAcceptedEvent;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.application.eventhandlers.SignupAcceptedWatchDog;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
+import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
+
+/**
+ *
+ *
+ */
+@SuppressWarnings("squid:S106")
 public final class BaseBackoffice extends BaseApplication {
 
     /**
@@ -33,9 +40,8 @@ public final class BaseBackoffice extends BaseApplication {
 
     @Override
     protected void doMain(final String[] args) {
-        // login and go to main menu
-        if (new LoginUI(new AuthenticationCredentialHandler()).show()) {
-            // go to main menu
+        LoginUI loginUI = new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.ADMIN);
+        if (loginUI.show()) {
             final MainMenu menu = new MainMenu();
             menu.mainLoop();
         }

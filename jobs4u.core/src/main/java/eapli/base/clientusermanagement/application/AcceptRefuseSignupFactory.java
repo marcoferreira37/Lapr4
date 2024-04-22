@@ -25,7 +25,6 @@ package eapli.base.clientusermanagement.application;
 
 /**
  * A simple factory to obtain the desired implementation of the
- * {@link AcceptRefuseSignupController}.
  *
  * @author Paulo Gandra de Sousa 16/05/2019
  *

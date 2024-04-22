@@ -13,7 +13,7 @@
     <artifactId>jobs4u.bootstrap</artifactId>
     <packaging>jar</packaging>
 
-    <name>jobs4u.app.candidate</name>
+    <name>jobs4u.bootstrap</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

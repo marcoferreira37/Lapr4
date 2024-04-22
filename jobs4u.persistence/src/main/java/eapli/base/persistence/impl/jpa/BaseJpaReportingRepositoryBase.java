@@ -26,8 +26,6 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaTransactionalCont
 /**
  * a base class for all reporting repositories to use the same persistence unit
  *
- * @param <T>
- * @param <K>
  *
  * @author Paulo Gandra de Sousa
  */
