@@ -1,0 +1,51 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "Customer Manager" as Manager
+participant ":RegisterJobOpeningUI" as UI
+participant "controller\n:RegisterJobOpeningController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:JobOpeningRepository" as JOREPO
+participant "emailService\n:EmailService" as EMSERV
+participant "jobOpening\n:JobOpening" as JOB
+participant "UserRepositories\n:UserRepositories" as EMREPO
+activate Manager
+
+Manager -> UI : Requests to register a job opening
+activate UI
+
+UI -> CTRL : createJobOpening()
+activate CTRL
+
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+
+RepositorySingleton --> CTRL : repositories
+
+deactivate RepositorySingleton
+
+CTRL -> JOREPO : save(jobOpening)
+activate JOREPO
+
+JOREPO --> CTRL : success
+
+deactivate JOREPO
+
+CTRL -> EMSERV : sendJobOpeningNotification(jobOpening)
+activate EMSERV
+
+EMSERV -> EMSERV : sendEmail()
+EMSERV --> CTRL
+
+deactivate EMSERV
+
+CTRL --> UI : notifySuccess()
+deactivate CTRL
+
+UI --> Manager : Informs of the operation's success
+
+deactivate UI
+deactivate Manager
+@enduml

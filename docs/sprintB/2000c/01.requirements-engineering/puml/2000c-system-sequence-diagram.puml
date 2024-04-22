@@ -1,0 +1,21 @@
+@startuml
+title System Sequence Diagram (US 2000c - List all candidates)
+
+actor Operator as Operator
+participant System as "System"
+
+activate Operator
+Operator -> System: Request to list all the candidates
+activate System
+System --> Operator: Receive request to list all the candidates
+deactivate System
+Operator -> System: Get candidates from database
+activate System
+System --> Operator: Candidates data
+deactivate System
+Operator -> System: Send candidates data
+activate System
+System --> Operator: Displays the candidates list
+deactivate System
+
+@enduml

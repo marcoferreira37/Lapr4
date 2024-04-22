@@ -1,0 +1,40 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "CustomerManager" as CustomerManager
+participant ":System" as System
+
+activate CustomerManager
+
+    CustomerManager -> System : asks to register a new user
+    activate System
+
+        System --> CustomerManager : requests data
+    deactivate System
+
+    CustomerManager -> System : types requested data
+    activate System
+
+        System --> CustomerManager : shows all data and requests confirmation
+    deactivate System
+
+    CustomerManager -> System : confirms data
+    activate System
+
+        System --> CustomerManager : asks if the user will be disabled or enabled
+    deactivate System
+
+    CustomerManager -> System : chose how the user should stay
+    activate System
+
+        System --> CustomerManager : shows a list updated of all the registered users
+    deactivate System
+
+
+@enduml
