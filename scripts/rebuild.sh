@@ -1,2 +1,1 @@
-#!/usr/bin/env bash
-./build.sh clean
+./build-all.sh clean
