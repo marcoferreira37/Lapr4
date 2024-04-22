@@ -41,7 +41,7 @@
         <dependency>
         	<groupId>lapr4</groupId>
         	<artifactId>jobs4u.common.console</artifactId>
-        	<version>0.0.1</version>
+        	<version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 </project>
