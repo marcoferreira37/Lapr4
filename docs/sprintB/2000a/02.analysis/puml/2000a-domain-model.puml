@@ -1,0 +1,17 @@
+@startuml
+
+class Candidate {
+    - String fullName
+    - String email
+    - String phoneNumber
+}
+
+class User {
+    - String username
+    - String password
+    - Candidate candidate
+}
+
+Candidate --* User
+
+@enduml
