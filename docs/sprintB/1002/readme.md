@@ -2,14 +2,12 @@
 
 ## 1. Context
 
-[//]: # (Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*)
-
 This task involves registering a job opening. 
 It's essential for the Customer Manager role to have this functionality available. 
 This task is assigned for development in this sprint.
 
 
-**Client Questions:**
+## Client Specifications
 
 > *Question*: Q77 Simões – US1002 Critérios de Aceitação – Relativamente à US1002 - "As Customer Manager, I want to register a job opening", 
 > existe algum critério de aceitação ainda não mencionado, relacionado com os atributos? Ou fica ao critério da equipa de 
@@ -32,28 +30,6 @@ This task is assigned for development in this sprint.
 
 ## 2. Requirements
 
-[//]: # (*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements &#40;i.e., dependencies&#41;. You should also add acceptance criteria.*)
-
-[//]: # ()
-[//]: # (*Example*)
-
-[//]: # ()
-[//]: # (**US G002** As {Ator} I Want...)
-
-[//]: # ()
-[//]: # (**Acceptance Criteria:**)
-
-[//]: # ()
-[//]: # (- G002.1. The system should...Blá Blá Blá ...)
-
-[//]: # ()
-[//]: # (- G002.2. Blá Blá Blá ...)
-
-[//]: # ()
-[//]: # (**Dependencies/References:**)
-
-[//]: # ()
-[//]: # (*Regarding this requirement we understand that it relates to...*)
 
 
 **US 1002** As Customer Manager, I want to register a job opening.

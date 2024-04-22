@@ -14,13 +14,13 @@ activate Agent
 
 Agent -> System : Request to list job openings
 
+opt If user pretends to filter by date interval
 activate System
 
     System --> Agent : Asks to input the start date of the filtering
 deactivate System
 
 Agent -> System : Submits the start date
-
 activate System
 
 System --> Agent: Asks to input the end date of the filtering
@@ -29,33 +29,20 @@ deactivate System
 Agent -> System : Submits the end date
 
 activate System
-
+end
+opt If the user chooses to filter by customer name or code
 System --> Agent : Asks to input the customer name or code for filtering (optional)
 deactivate System
 
 Agent -> System : Submits the customer name or code (if applicable)
 
 activate System
+end
 
-    System --> Agent : Shows the details and asks for confirmation
-deactivate System
-
-Agent -> System : Confirms the data
-
-activate System
-
-opt if the data is not valid
-
-System --> Agent : displays canceled operation
-
-
-else
-
-    System --> Agent : Displays the list of job openings sorted by the selected algorithm
+ System --> Agent : Displays the list of job openings sorted by the selected algorithm
 
 deactivate System
 
 deactivate Agent
 
-end
 @enduml

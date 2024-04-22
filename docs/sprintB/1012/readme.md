@@ -1,18 +1,18 @@
-# US 3004
-
-*This is an example template*
+# US 1012
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+This task is being assigned as part of the ongoing development efforts to automate the main activities of the company. 
+The goal is to provide the Customer Manager with the ability to generate and export a template text file to assist in collecting candidate answers during interviews. 
+This task is not related to fixing a bug but rather adding a new feature to the system.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
 
 *Example*
 
-**US G002** As {Ator} I Want...
+**US 1012** As Customer Manager, I want to generate and export a template text le to help
+collect the candidate answers during the interviews.
 
 **Acceptance Criteria:**
 

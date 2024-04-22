@@ -9,7 +9,7 @@ This is the first time this task is being developed as part of the project to au
 The functionality to be developed involves allowing the Customer Manager to list job openings. 
 The criteria for listing job openings include the ability to filter by customer and date.
 
-*Client Questions*:
+## Client Specifications:
 
 > *Question*: Q68 Pedro – US1003 – Na us1003 é pedido que se liste job openings, há algum critério para definir quais listar? Ou são as do sistema inteiro?
 > *Answer*: A68. Suponho que poder filtrar por Customer e data seja útil. Também poder filtrar apenas as activas ou todas parece-me útil.

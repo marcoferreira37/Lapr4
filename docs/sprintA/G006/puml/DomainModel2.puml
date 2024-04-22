@@ -1,0 +1,63 @@
+
+
+@startuml
+
+skinparam monochrome false
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+
+top to bottom direction
+
+skinparam classAttributeIconSize 0
+
+skinparam class {
+    LifeLineBorderColor DarkBlue
+    LifeLineBackgroundColor APPLICATION
+    BackgroundColor #F0FF99
+    ArrowColor grey
+    BorderColor black
+}
+
+skinparam card {
+    LifeLineBorderColor Green
+    LifeLineBackgroundColor APPLICATION
+    BackgroundColor #F0FFDD
+    ArrowColor DarkGrey
+    BorderColor Black
+}
+
+
+hide methods
+
+title Domain Model
+
+
+
+skinparam packageStyle rectangle
+
+
+package "Job Offer" {
+
+class JobOffer <<Root Entity>>
+class JobReference <<Identifier>>
+class PhaseDate <<Value Object>>
+class Address <<Value Object>>
+class Mode <<Value Object>>
+class Vacancies <<Value Object>>
+class Description <<Value Object>>
+class Requirements <<Value Object>>
+class InterviewModel <<Value Object>>
+class ClientID <<Value Object>>
+class Company <<Value Object>>
+class ConcactType <<Value Object>>
+
+}
+
+JobOffer "1" --> "1" InterviewModel
+
+
+
+}
+
+@enduml
