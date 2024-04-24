@@ -10,7 +10,6 @@
 	<packaging>pom</packaging>
 	<modules>
 
-		<module>jobs4u.util.ci</module>
 		<module>jobs4u.core</module>
 		<module>jobs4u.infrastructure</module>
 		<module>jobs4u.persistence</module>
@@ -56,11 +55,13 @@
 			<artifactId>eapli.framework.core</artifactId>
 			<version>${eapli.framework.core.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.bitbucket.pag_isep.eapliframework</groupId>
 			<artifactId>eapli.framework.infrastructure.authz</artifactId>
 			<version>${eapli.framework.authz.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.bitbucket.pag_isep.eapliframework</groupId>
 			<artifactId>eapli.framework.infrastructure.pubsub</artifactId>
