@@ -20,12 +20,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>lapr4</groupId>
             <artifactId>jobs4u.core</artifactId>
             <version>${project.parent.version}</version>

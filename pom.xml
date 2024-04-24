@@ -102,12 +102,6 @@
 			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>lapr4</groupId>
-			<artifactId>jobs4u.common.console</artifactId>
-			<version>0.0.1</version>
-			<scope>compile</scope>
-		</dependency>
 
 
 	</dependencies>
@@ -160,6 +154,11 @@
 							<version>1.18.24</version>
 						</path>
 					</annotationProcessorPaths>
+					<excludes>
+						<exclude>jobs4u.common.console</exclude>
+						<exclude>jobs4u.core</exclude>
+						<exclude>jobs4u.infrastructure</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>

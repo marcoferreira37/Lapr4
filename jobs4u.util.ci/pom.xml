@@ -29,6 +29,16 @@
             <groupId>lapr4</groupId>
             <artifactId>jobs4u.app.backoffice</artifactId>
         </dependency>
+        <dependency>
+            <groupId>lapr4</groupId>
+            <artifactId>jobs4u.app.candidate</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>lapr4</groupId>
+            <artifactId>jobs4u.app.customer</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

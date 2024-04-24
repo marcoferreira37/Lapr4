@@ -7,8 +7,9 @@
         <artifactId>jobs4u</artifactId>
         <version>0.0.1</version>
     </parent>
-    
+
     <artifactId>jobs4u.persistence</artifactId>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>jobs4u.persistence</name>
@@ -24,7 +25,6 @@
             <artifactId>jobs4u.core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-
         <dependency>
             <groupId>lapr4</groupId>
             <artifactId>jobs4u.bootstrappers</artifactId>

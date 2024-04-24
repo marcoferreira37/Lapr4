@@ -20,7 +20,7 @@
  */
 package app.candidate.console;
 
-import customer.console.presentation.FrontMenu;
+import app.candidate.console.presentation.FrontMenu;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;

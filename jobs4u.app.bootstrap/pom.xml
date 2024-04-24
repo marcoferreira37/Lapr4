@@ -7,8 +7,7 @@
         <artifactId>jobs4u</artifactId>
         <version>0.0.1</version>
     </parent>
-    
-    
+
     <artifactId>jobs4u.app.bootstrap</artifactId>
     <packaging>jar</packaging>
 

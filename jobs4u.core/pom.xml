@@ -8,15 +8,17 @@
         <artifactId>jobs4u</artifactId>
         <version>0.0.1</version>
     </parent>
-    
+
     <artifactId>jobs4u.core</artifactId>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>jobs4u.core</name>
 
     <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>

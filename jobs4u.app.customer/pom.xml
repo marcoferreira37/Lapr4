@@ -29,5 +29,10 @@
             <artifactId>jobs4u.persistence</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>lapr4</groupId>
+            <artifactId>jobs4u.core</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 </project>
