@@ -1,0 +1,19 @@
+@startuml
+
+autonumber
+actor "CustomerManager" as CM
+
+activate CM
+CM -> ":System": asks to set the phase of job opening
+
+activate ":System"
+":System" --> CM : presents list of job openings
+CM -> ":System": selects a job opening
+":System" --> CM : presents list of phases possible to \nsetup for the chosen job opening
+CM -> ":System": selects a phase for the job opening
+":System" --> CM : presents success message
+
+deactivate ":System"
+deactivate CM
+
+@enduml

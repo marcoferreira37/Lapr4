@@ -1,0 +1,67 @@
+@startuml
+
+title Set Course's Teacher In Charge
+
+autonumber
+actor CustomerManager as CM
+participant "SetPhaseInProcessUI" as UI <<ui>>
+participant "SetPhaseInProcessController" as CTRL <<application>>
+participant "ListJobOpeningsController" as LCTRL <<application>>
+database "JobOpeningRepository" as JOR <<repository>>
+participant "PossiblePhasesService" as PPS <<service>>
+database "IeJobOpeningUserRepository" as IE <<repository>>
+participant "JobOpening" as JO <<domain>>
+
+-> UI : onLoad
+
+activate UI
+UI -> CTRL : create(jobOpeningRepo,\npossibleblePhasesSvc)
+UI -> CTRL : notClosedJobOpenings()
+activate CTRL
+CTRL -> LCTRL : findAllNotClosedJobOpenings()
+activate LCTRL
+LCTRL -> JOR : findAllNotClosedJobOpenings()
+activate JOR
+JOR --> LCTRL : jobOpenings
+deactivate JOR
+LCTRL --> CTRL : jobOpenings
+deactivate LCTRL
+CTRL --> UI : jobOpenings
+deactivate CTRL
+UI  --> CM : lists the\njob openings
+CM -> UI : selects the\njob opening
+UI -> CTRL : possiblePhases(course)
+activate CTRL
+CTRL -> PPS : possiblePhases(jobOpening)
+activate PPS
+PPS -> IE : findAllPhases(jobOpening)
+activate IE
+IE --> PPS : phases
+deactivate IE
+PPS -> JO : phases()
+activate JO
+JO --> PPS : jobOpeningPhases
+deactivate JO
+PPS -> PPS : filterPossiblePhases\n(phases, jobOpeningPhases)
+activate PPS
+deactivate PPS
+PPS --> CTRL : possiblePhases
+deactivate PPS
+CTRL --> UI : possiblePhases
+deactivate CTRL
+UI --> CM : lists the\nphases
+CM -> UI : selects the\nphases
+UI -> CTRL: definePhaseForJobOpening(jobOpening, phase)
+activate CTRL
+CTRL -> JO : definePhase(phase)
+activate JO
+deactivate JO
+CTRL -> JOR : save(jobOpening)
+CTRL --> UI : returns success
+deactivate CTRL
+UI --> CM : displays success
+
+
+
+
+@enduml
