@@ -1,0 +1,17 @@
+@startuml
+title System Sequence Diagram (US 2000a - Register a candidate and create a corresponding user)
+
+actor Operator as Operator
+participant System as "System"
+
+activate Operator
+Operator -> System: Request to register candidate
+activate System
+System --> Operator: Request the name, email and phone
+deactivate System
+Operator -> System: Types in the data
+activate System
+System --> Operator: Creates the registered candidate and throws operation success
+deactivate System
+
+@enduml

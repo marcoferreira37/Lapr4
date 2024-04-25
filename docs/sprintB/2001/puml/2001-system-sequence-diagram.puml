@@ -1,0 +1,22 @@
+@startuml
+actor Operator as Operator
+participant System as "System"
+
+activate Operator
+Operator -> System: Request to import files
+activate System
+System --> Operator: Start processing files
+
+loop Continuously process files
+    System --> Operator: Request next file
+    deactivate System
+    Operator -> System: Send file
+    activate System
+    System --> Operator: Import file into the system
+    deactivate System
+end
+Operator -> System: Files imported
+activate System
+System --> Operator: Confirmation of the files imported successfully
+deactivate System
+@enduml
