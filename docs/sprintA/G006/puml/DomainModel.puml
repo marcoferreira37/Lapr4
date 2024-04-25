@@ -5,7 +5,7 @@
 skinparam monochrome false
 skinparam packageStyle rectangle
 skinparam shadowing false
-skinparam linetype polyline
+skinparam linetype ortho
 
 top to bottom direction
 
@@ -87,30 +87,10 @@ class Company <<Value Object>>
 
 }
 
-package "Language Engineer"{
-class LanguageEngineer <<Root Entity>>
-class LanguageEngineerID <<Identifier>>
-}
-
 package "Application Candidate" {
 
 class Candidate <<Root Entity>>
 class CandidateID <<Identifier>>
-
-}
-
-package "Operation"{
-class Operator <<Root Entity>>
-class OperatorID <<Identifier>>
-}
-
-
-
-package "Administrator"{
-
-class Admin <<Root Entity>>
-class AdminID <<Identifier>>
-
 
 }
 
@@ -121,75 +101,51 @@ class Client <<Root Entity>>
 
 
 
-CustomerManager "1" -- "*" Company
+CustomerManager "1" --> "*" Company
+CustomerManager "1" --> "1" CustomerManagerID
+
+CustomerManager "1" --> "*" JobOpening : manage >
 
 
-CustomerManager "1" -- "*" JobOpening : manage >
+Client "1" --> "*" JobOpening : submits >
 
-
-Client "1" -- "*" JobOpening : submits >
-
-JobOpening "0..1" --- "0..1" InterviewDescription : has >
-JobOpening "1" -- "1" Report : >
-JobOpening "1" --- "1" Address :  >
-JobOpening "1" -- "1" JobReference : >
-JobOpening "1" -- "1" Application : >
-
-
-
-Report "1" -- "*" ReportFiles : originates >
-
-Application "1" -- "1" InterviewFeedback :  >
-Application "1" -- "1" AnalyzedRequirements :  >
-Application "1" -- "1" ApplicationStatus : >
-Application "1" -- "*" ReportFiles : >
-ApplicationID "1" -- "1" Application : <
-
-
-CustomerManager "1" -- "1" CustomerManagerID :  >
-LanguageEngineer "1" -- "1" LanguageEngineerID :  >
+JobOpening "0..1" ---> "0..1" InterviewDescription : has >
+JobOpening "1" --> "1" Report : >
+JobOpening "1" ---> "1" Address :  >
+JobOpening "1" --> "1" JobReference : >
+JobOpening "1" <-- "1" Application : >
 
 
 
+Report "1" --> "*" ReportFiles : originates >
 
+Application "1" --> "1" InterviewFeedback :  >
+Application "1" --> "1" AnalyzedRequirements :  >
+Application "1" --> "1" ApplicationStatus : >
+Application "1" --> "*" ReportFiles : >
+ApplicationID "1" --> "1" Application : <
 
-Candidate "1" -- "*" Application : makes >
-Candidate "1" -- "1" CandidateID :  >
+Candidate "1" --> "*" Application : makes >
+Candidate "1" --> "1" CandidateID :  >
 
-Admin "1" -- "1" AdminID :  >
-Admin "1" -- "*" CustomerManager : manage >
-
-Operator "1" -- "1" OperatorID :  >
-Admin "1" -- "*" Operator : manage >
-
-
-Admin "1" -- "*" LanguageEngineer : manage >
-
-
-Plugin "1" -- "1" PluginDescription :  >
-Plugin "1" -- "1" JarFile :  >
-Plugin "1" -- "1" PluginID :  >
+Plugin "1" --> "1" PluginDescription :  >
+Plugin "1" --> "1" JarFile :  >
+Plugin "1" --> "1" PluginID :  >
 
 Plugin <|-- InterviewModel : extends
 Plugin <|-- RequirementsSpecification : extends
 
-JobOpening "1" -- "0..1" InterviewModel : >
-JobOpening "1" -- "1" RequirementsSpecification : >
+JobOpening "1" --> "0..1" InterviewModel : >
+JobOpening "1" --> "1" RequirementsSpecification : >
 
-LanguageEngineer "1" -- "1" Plugin : deploy >
-
-Operator "1" -- "*" Candidate : manage >
-
-Operator "1" -- "*" Application : register >
-
-CustomerManager "1" -- "*" Application : list >
+CustomerManager "1" --> "*" Application : list >
 
 CustomerManager "1" --> "*" Candidate :  >
 
-JobOpening "1" -- "4..5" Phase : >
+JobOpening "1" --> "4..5" Phase : >
 
-Phase "1" -- "1" PhaseData : >
+Phase "1" --> "1" PhaseData
 
-Client "1" -- "1" ClientID : >
+Client "1" --> "1" ClientID
 
 @enduml
