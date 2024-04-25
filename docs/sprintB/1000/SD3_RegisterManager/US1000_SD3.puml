@@ -1,0 +1,43 @@
+@startuml
+
+title Register Manager Sequence Diagram
+
+autonumber
+actor Administrator as ADM
+participant "RegisterLanguageEngineerUI" as UI <<ui>>
+participant "RegisterLanguageEngineerController" as CTRL <<application>>
+participant "Jobs4UUserBuilderFactory" as FAC <<factory>>
+participant "LanguageEngineerBuilder" as BLD <<builder>>
+participant "SystemUser" as SU <<f_entity>>
+participant "Jobs4UUser" as J4UU <<domain>>
+database "Jobs4UUserRepository" as REPO <<repository>>
+
+
+-> UI : onLoad
+activate UI
+UI -> CTRL : create(userRepo, userBuilderFactory)
+UI --> ADM : asks input of\n language engineer details
+ADM -> UI : inputs language engineer details
+UI -> CTRL : registerLanguageEngineer(username, pwd,\n firstName, lastName, email)
+activate CTRL
+CTRL -> FAC : createJobs4UUserBuilder(role)
+activate FAC
+FAC -> BLD : create
+FAC --> CTRL : builder
+deactivate FAC
+CTRL -> SU : create
+CTRL -> BLD : withSystemUser(sysUser)
+CTRL -> BLD : build()
+activate BLD
+BLD -> J4UU : create(sysUser)
+BLD --> CTRL : user
+deactivate BLD
+CTRL -> REPO : save(user)
+CTRL --> UI : returns success
+deactivate CTRL
+UI --> ADM : displays success
+
+
+
+
+@enduml
