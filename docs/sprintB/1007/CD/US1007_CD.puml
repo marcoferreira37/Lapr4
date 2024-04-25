@@ -1,0 +1,67 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+title US1007 -  Set the phases of the process
+
+package usermanagement{
+    interface IeJobOpeningUserRepository{
+        +findAllPhases() : Iterable<EJobOpeningUser>
+    }
+}
+
+package coursemanagement {
+
+    package repository{
+        interface JobOpeningRepository{
+            +findAllNotClosedJobOpenings() : Iterable<JobOpening>
+            +findAllPhases(jobOpening) : Iterable<EJobOpeningUser>
+            +save(jobOpening) : Optional<JobOpening>
+        }
+    }
+
+    package application {
+
+        class ListJobOpeningsController {
+            +ListJobOpeningsController(jobOpeningRepository)
+            +findAllNotClosedOpeningJobs(): Iterable<JobOpening>
+        }
+
+        class SetPhaseInProcessController {
+            +SetPhaseInProcessController(courseRepository, possiblePhasesService)
+            +notClosedJobOpenings() : Iterable<JobOpening>
+            +possiblePhases() : Iterable<EJobOpeningUser>
+            +definePhase(phase) : void
+        }
+
+        interface PossiblePhasesService {
+            +possiblePhases(jobOpening) : Iterable<EJobOpeningUser>
+        }
+    }
+
+    ListJobOpeningsController ..> JobOpeningRepository
+    SetPhaseInProcessController ..> JobOpeningRepository
+    PossiblePhasesService ..> IeJobOpeningUserRepository
+    SetPhaseInProcessController ..> PossiblePhasesService
+    SetPhaseInProcessController ..> ListJobOpeningsController
+
+    package domain {
+        class JobOpening {
+            +definePhase(phase) : void
+        }
+    }
+
+    PossiblePhasesService ..> JobOpening
+    ListJobOpeningsController ..> JobOpening
+    SetPhaseInProcessController ..> JobOpening
+
+
+}
+
+package ui {
+    class SetPhaseInProcessUI {
+    }
+}
+
+SetPhaseInProcessUI ..> SetPhaseInProcessController
+
+@enduml
