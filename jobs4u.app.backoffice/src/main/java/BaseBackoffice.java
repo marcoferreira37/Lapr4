@@ -40,7 +40,7 @@ public final class BaseBackoffice extends BaseApplication {
 
     @Override
     protected void doMain(final String[] args) {
-        LoginUI loginUI = new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.ADMIN);
+        LoginUI loginUI = new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.OPERATOR, BaseRoles.ADMIN,BaseRoles.POWER_USER);
         if (loginUI.show()) {
             final MainMenu menu = new MainMenu();
             menu.mainLoop();

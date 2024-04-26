@@ -92,6 +92,12 @@ public class MainMenu extends AbstractUI {
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
+        if(authz.isAuthenticatedUserAuthorizedTo(BaseRoles.OPERATOR)){
+            final Menu operatorMenu = buildOperatorMenu();
+            mainMenu.addSubMenu(USERS_OPTION, operatorMenu);
+            final Menu settingsMenu = buildAdminSettingsMenu();
+            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+        }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
@@ -100,6 +106,16 @@ public class MainMenu extends AbstractUI {
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;
+    }
+
+    private Menu buildOperatorMenu() {
+        final Menu menu = new Menu("Operator:");
+
+        menu.addItem(ADD_USER_OPTION, "Register a candidate", new AddUserUI()::show);
+        menu.addItem(LIST_USERS_OPTION, "List all candidates", new ListUsersAction());
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
     }
 
     private Menu buildAdminSettingsMenu() {

@@ -36,7 +36,7 @@ import eapli.framework.presentation.console.AbstractUI;
 @SuppressWarnings("squid:S106")
 public class LoginUI extends AbstractUI {
 
-	private Role onlyWithThis;
+	private Role[] onlyWithThis;
 	private static final int DEFAULT_MAX_ATTEMPTS = 3;
 	private final int maxAttempts;
 
@@ -47,13 +47,13 @@ public class LoginUI extends AbstractUI {
 		this.credentialHandler = credentialHandler;
 	}
 
-	public LoginUI(CredentialHandler credentialHandler, final Role onlyWithThis) {
+	public LoginUI(CredentialHandler credentialHandler, final Role... onlyWithThis) {
 		this.onlyWithThis = onlyWithThis;
 		maxAttempts = DEFAULT_MAX_ATTEMPTS;
 		this.credentialHandler = credentialHandler;
 	}
 
-	public LoginUI(CredentialHandler credentialHandler, final Role onlyWithThis, final int maxAttempts) {
+	public LoginUI(CredentialHandler credentialHandler, final int maxAttempts,final Role... onlyWithThis) {
 		this.onlyWithThis = onlyWithThis;
 		this.maxAttempts = maxAttempts;
 		this.credentialHandler = credentialHandler;

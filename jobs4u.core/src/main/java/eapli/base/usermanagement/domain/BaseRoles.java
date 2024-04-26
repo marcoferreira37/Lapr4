@@ -35,6 +35,10 @@ public final class BaseRoles {
      */
     public static final Role POWER_USER = Role.valueOf("POWER_USER");
     /**
+     * operator
+     */
+    public  static final Role OPERATOR = Role.valueOf("OPERATOR");
+    /**
      * Utente
      */
     public static final Role CLIENT_USER = Role.valueOf("CLIENT_USER");
