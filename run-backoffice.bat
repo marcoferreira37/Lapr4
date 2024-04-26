@@ -1,6 +1,6 @@
 REM set the class path,
 REM assumes the build was executed with maven copy-dependencies
-SET BASE_CP=base.app.backoffice.console\target\base.app.backoffice.console-1.4.0-SNAPSHOT.jar;base.app.backoffice.console\target\dependency\*;
+SET BASE_CP=.\jobs4u.app.backoffice\target\jobs4u.app.backoffice-0.0.1.jar;jobs4u.app.backoffice\target\dependency\*;
 
 REM call the java VM, e.g,
-java -cp %BASE_CP% eapli.base.app.backoffice.console.BaseBackoffice
+java -cp %BASE_CP% jobs4u.app.backoffice\src\main\java\BaseBackoffice.java
