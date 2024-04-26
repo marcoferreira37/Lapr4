@@ -2,8 +2,8 @@
 import authz.AddUserUI;
 import authz.DeactivateUserAction;
 import authz.ListUsersAction;
-import base.Application;
 import clientuser.AcceptRefuseSignupRequestAction;
+import eapli.base.Application;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
