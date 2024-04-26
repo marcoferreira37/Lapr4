@@ -1,7 +1,7 @@
 @startuml
 
 left to right direction
-title US1001 - ECourseUser Management Use Cases
+title US1001 - Jobs4UUser Management Use Cases
 skinparam titleBorderRoundCorner 20
 skinparam titleBorderThickness 2
 skinparam arrowThickness 3
