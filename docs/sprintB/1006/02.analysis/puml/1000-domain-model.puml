@@ -1,4 +1,10 @@
+@startuml
 
-participant listJobOpeningsUI
-participant listJobOpeningsController
-participant JobOpeningsRepository
+
+class listJobOpeningsUI {
+    +listJobOpeningsUI()
+    +void showJobOpenings()
+}
+
+
+@enduml
