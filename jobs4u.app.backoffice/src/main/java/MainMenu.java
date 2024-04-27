@@ -98,6 +98,12 @@ public class MainMenu extends AbstractUI {
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
+        if(authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CUSTOMER_MANAGER)){
+            final Menu CustomerManagerMenu = buildCustomerManagerMenu();
+            mainMenu.addSubMenu(USERS_OPTION, CustomerManagerMenu);
+            final Menu settingsMenu = buildAdminSettingsMenu();
+            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+        }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
@@ -110,6 +116,25 @@ public class MainMenu extends AbstractUI {
 
     private Menu buildOperatorMenu() {
         final Menu menu = new Menu("Operator:");
+
+        menu.addItem(ADD_USER_OPTION, "Register a candidate", new AddUserUI()::show);
+        menu.addItem(LIST_USERS_OPTION, "List all candidates", new ListUsersAction());
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+    private Menu buildCustomerManagerMenu() {
+        final Menu menu = new Menu("Customer Manager:");
+
+        menu.addItem(ADD_USER_OPTION, "Register a customer", new AddUserUI()::show);
+        menu.addItem(LIST_USERS_OPTION, "List all customers", new ListUsersAction());
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildCustomerMenu() {
+        final Menu menu = new Menu("Customer:");
 
         menu.addItem(ADD_USER_OPTION, "Register a candidate", new AddUserUI()::show);
         menu.addItem(LIST_USERS_OPTION, "List all candidates", new ListUsersAction());
