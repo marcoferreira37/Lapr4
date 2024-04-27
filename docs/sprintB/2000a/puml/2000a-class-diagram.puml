@@ -1,0 +1,60 @@
+@startuml
+
+
+
+
+package ui {
+        class AddCandidateUI {
+        }
+    }
+
+
+
+
+    package application {
+        class AddUserController {
+            +addUser()
+        }
+    }
+
+    package repository {
+        interface UserRepository {
+        }
+        interface CandidateRepository{
+        }
+    }
+
+    package domain {
+        class Role {}
+
+        class AuthorizationService {
+            +authorizationService() : AuthorizationService
+            +ensureAuthenticatedUserHasAnyOf()
+        }
+
+        class UserManagementService {
+            +userService() : UserManagementService
+            +registerNewUser()
+        }
+
+        class SystemUserBuilder {
+            +with() : SystemUserBuilder
+            +build(): Candidate
+        }
+
+        class Candidate {
+        }
+    }
+
+
+
+UserManagementService --> UserRepository
+UserManagementService --> SystemUserBuilder
+AddCandidateUI --> AddUserController
+AddUserController --> UserManagementService
+AddUserController --> SystemUserBuilder
+AddUserController --> UserRepository
+AddUserController --> CandidateRepository
+CandidateRepository -> Candidate
+
+@enduml
