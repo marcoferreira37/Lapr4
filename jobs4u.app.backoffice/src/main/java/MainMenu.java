@@ -1,4 +1,5 @@
 
+import authz.AddCustomerUI;
 import authz.AddUserUI;
 import authz.DeactivateUserAction;
 import authz.ListUsersAction;
@@ -126,22 +127,13 @@ public class MainMenu extends AbstractUI {
     private Menu buildCustomerManagerMenu() {
         final Menu menu = new Menu("Customer Manager:");
 
-        menu.addItem(ADD_USER_OPTION, "Register a customer", new AddUserUI()::show);
+        menu.addItem(ADD_USER_OPTION, "Register a customer", new AddCustomerUI()::show);
         menu.addItem(LIST_USERS_OPTION, "List all customers", new ListUsersAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
     }
 
-    private Menu buildCustomerMenu() {
-        final Menu menu = new Menu("Customer:");
-
-        menu.addItem(ADD_USER_OPTION, "Register a candidate", new AddUserUI()::show);
-        menu.addItem(LIST_USERS_OPTION, "List all candidates", new ListUsersAction());
-        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
-
-        return menu;
-    }
 
     private Menu buildAdminSettingsMenu() {
         final Menu menu = new Menu("Settings >");
