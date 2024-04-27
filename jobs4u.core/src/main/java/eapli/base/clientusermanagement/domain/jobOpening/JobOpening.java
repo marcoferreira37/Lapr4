@@ -2,7 +2,11 @@ package eapli.base.clientusermanagement.domain.jobOpening;
 
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "JOB_OPENING")
 
@@ -40,4 +44,5 @@ public class JobOpening implements AggregateRoot<JobReference> {
     public JobReference identity() {
         return null;
     }
+
 }
