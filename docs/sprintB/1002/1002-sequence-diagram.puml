@@ -1,51 +1,57 @@
 @startuml
-skinparam monochrome true
-skinparam packageStyle rectangle
-skinparam shadowing false
 
-actor "Customer Manager" as Manager
-participant ":RegisterJobOpeningUI" as UI
-participant "controller\n:RegisterJobOpeningController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:JobOpeningRepository" as JOREPO
-participant "emailService\n:EmailService" as EMSERV
-participant "jobOpening\n:JobOpening" as JOB
-participant "UserRepositories\n:UserRepositories" as EMREPO
-activate Manager
+title Register Job Opening - Sequence Diagram
 
-Manager -> UI : Requests to register a job opening
+autonumber
+actor "Customer Manager" as M
+participant RegisterJobOpeningUI as UI <<UI>>
+participant RegisterJobOpeningController as Controller <<Application>>
+participant JobOpeningBuilder as JB <<Domain>>
+participant JobOpening as JO <<Domain>>
+database JobOpeningRepository as JRepo <<Persistence>>
+
+activate M
 activate UI
 
-UI -> CTRL : createJobOpening()
-activate CTRL
+M -> UI : requests to register a job opening
 
-CTRL -> RepositorySingleton : getInstance()
-activate RepositorySingleton
+UI --> M :prompts for job details (name, code, description)
 
-RepositorySingleton --> CTRL : repositories
+M -> UI : provides job details
 
-deactivate RepositorySingleton
+UI --> M : shows and requests confirmation for job registration
 
-CTRL -> JOREPO : save(jobOpening)
-activate JOREPO
+M -> UI : confirms job registration
 
-JOREPO --> CTRL : success
+UI -> Controller: registerJobOpening(code, name, description)
 
-deactivate JOREPO
+activate Controller
 
-CTRL -> EMSERV : sendJobOpeningNotification(jobOpening)
-activate EMSERV
+Controller -> JB: withJobOpeningCode(code)
+activate JB
+Controller -> JB: withJobOpeningName(name)
+Controller -> JB: withJobOpeningDescription(description)
+Controller -> JB: build()
 
-EMSERV -> EMSERV : sendEmail()
-EMSERV --> CTRL
+JB -> JRepo: ofIdentity(code)
+activate JRepo
 
-deactivate EMSERV
+JRepo --> JB: returns job opening
+deactivate JRepo
+JB -> JO: create
+JB --> Controller: returns job opening
+deactivate JB
 
-CTRL --> UI : notifySuccess()
-deactivate CTRL
 
-UI --> Manager : Informs of the operation's success
 
-deactivate UI
-deactivate Manager
+Controller -> JRepo: save(job opening)
+activate JRepo
+
+JRepo --> Controller: returns success
+deactivate JRepo
+Controller --> UI: returns success
+deactivate Controller
+
+UI --> M: confirms successful registration
+
 @enduml

@@ -15,26 +15,20 @@ activate Manager
     Manager -> System : requests to register a job opening
     activate System
 
-    System --> Manager : prompts for job details (title, description, requirements, deadline)
+    System --> Manager : prompts for job details (name, code, description)
     deactivate System
 
     Manager -> System : provides job details
 
     activate System
 
-    alt Job details are complete and valid
 
-        System --> Manager : requests confirmation for job registration
+        System --> Manager : shows and requests confirmation for job registration
         deactivate System
 
         Manager -> System : confirms job registration
         activate System
 
         System --> Manager : confirms successful registration
-
-    else Job details are incomplete or invalid
-
-        System --> Manager :  cancels operation
-    end
 
 @enduml

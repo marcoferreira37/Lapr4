@@ -1,38 +1,48 @@
 @startuml
-skinparam monochrome true
-skinparam class {
-    BackgroundColor Snow
-    BorderColor Black
-}
 
-class CustomerManager {
-    - name: String
-    - email: String
-    - phoneNumber: String
-}
+title Register Job Opening - Sequence Diagram
 
-class JobOpening {
-    - title: String
-    - description: String
-    - requirements: String
-    - deadline: Date
-}
+autonumber
+actor Manager as M
+participant RegisterJobOpeningUI as UI <<UI>>
+participant RegisterJobOpeningController as Controller <<Application>>
+participant JobOpeningBuilder as JB <<Domain>>
+participant JobOpening as JO <<Domain>>
+database JobOpeningRepository as JRepo <<Persistence>>
 
-class RegisterJobOpeningController {
-    + createJobOpening(jobOpening: JobOpening): void
-}
 
-class JobOpeningRepository {
-    + save(jobOpening: JobOpening): void
-}
+activate UI
+M -> UI : enters data (code, name, description)
+M -> UI : submit data
 
-class EmailService {
-    + sendJobOpeningNotification(jobOpening: JobOpening): void
-}
 
-CustomerManager "1" -- "*" JobOpening : creates
-RegisterJobOpeningController --> JobOpening : creates
-RegisterJobOpeningController --> JobOpeningRepository : uses
-RegisterJobOpeningController --> EmailService : uses
+UI -> Controller: registerJobOpening(code, name, description)
+activate Controller
+
+Controller -> JB: withJobOpeningCode(code)
+activate JB
+Controller -> JB: withJobOpeningName(name)
+Controller -> JB: withJobOpeningDescription(description)
+Controller -> JB: build()
+
+JB -> JRepo: ofIdentity(code)
+activate JRepo
+
+JRepo --> JB: returns job opening
+deactivate JRepo
+JB -> JO: create
+JB -> Controller: returns job opening
+deactivate JB
+
+
+
+Controller -> JRepo: save(job opening)
+activate JRepo
+
+JRepo --> Controller: returns success
+deactivate JRepo
+Controller -> UI: returns success
+deactivate Controller
+UI --> M: shows success
 
 @enduml
