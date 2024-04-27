@@ -32,6 +32,13 @@ The criteria for listing job openings include the ability to filter by customer 
 > *Answer*: A96. Ver Q68. Penso que faz sentido listar apenas os “seus” job openings.
 
 
+> *Question*: Q120 Varela – [US1003] Job Opening Status- O cliente esclareceu o aspeto do status de uma job opening nas questões Q68 e Q95. 
+> Disse que uma job opening deixava de estar ativa quando o seu processo de recrutamento termina-se. 
+> Contudo, em que estado estão as job openings que já foram registadas mas ainda não têm um processo de recrutamento associado a si?
+> *Answer*: A120. Relativamente ao estado (nome do estado) em que estão depois de serem registadas mas ainda não terem um processo eu não sei o que responder. 
+> Mas posso acrescentar que se não têm processo então não têm datas para as fases do processo e, portanto,
+> parece-me que ainda não entraram na fase de application, pelo que ninguém tem “oficialmente” conhecimento dessa oferta de emprego e não devem haver candidaturas para essa oferta.
+
 
 
 *Example*
