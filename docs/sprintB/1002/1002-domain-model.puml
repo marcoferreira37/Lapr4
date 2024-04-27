@@ -3,14 +3,49 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-'left to right direction
+' Classes e Atributos
+package jobOpening {
+    class JobOpening {
+        - code: String
+        - name: String
+        - description: String
+        - address: Address
+        - contractType: ContractType
+        - mode: Mode
+        - titleOrFunction: TitleOrFunction
+        - vacanciesNumber: VacanciesNumber
+    }
 
-skinparam classAttributeIconSize 0
+    class JobReference {
+        - reference: String
+    }
 
-hide circle
-hide methods
+    class Address {
+        - address: String
+    }
 
-title US1000 - Domain Model
+    class ContractType {
+        - contractType: String
+    }
 
+    class Mode {
+        - mode: String
+    }
+
+    class TitleOrFunction {
+        - titleOrFunction: String
+    }
+
+    class VacanciesNumber {
+        - vacanciesNumber: int
+    }
+}
+
+' Relacionamentos
+JobOpening "1" -- "1" JobReference
+JobOpening "1" -- "1" Address
+JobOpening "1" -- "1" ContractType
+JobOpening "1" -- "1" Mode
+JobOpening "1" -- "1" TitleOrFunction
+JobOpening "1" -- "1" VacanciesNumber
 @enduml
-
