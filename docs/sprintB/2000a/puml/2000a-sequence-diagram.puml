@@ -1,0 +1,69 @@
+@startuml
+title Sequence Diagram (US 2000a - Register a candidate and create a corresponding user)
+
+autonumber
+actor Operator as Operator
+participant AddCandidateUI as UI <<UI>>
+participant AddUserController as CTRL <<Application>>
+participant Role as Role <<Domain>>
+participant AuthorizationService as AS <<Domain>>
+participant UserManagementService as UMS <<Domain>>
+participant SystemUserBuilder as SUB <<Domain>>
+database UserRepository as URepo <<Persistence>>
+participant Candidate as C <<Domain>>
+database CandidateRepository as CRepo <<Persistence>>
+
+
+activate Operator
+activate UI
+Operator -> UI: Request to register candidate
+
+UI -> CTRL**:create
+activate CTRL
+CTRL -> AS : authorizationService()
+activate AS
+AS --> CTRL: authz
+deactivate AS
+CTRL-> UMS : userService()
+activate UMS
+UMS-->CTRL: userSvc
+deactivate UMS
+deactivate CTRL
+UI --> Operator: Request the username, password, \nfirstName, lastName, email, roleTypes
+deactivate UI
+Operator -> UI: Types in the data (username, password, \nfirstName, lastName, email, roleTypes)
+activate UI
+UI-->UI : saves the data
+UI-> UI : .add(ROLE.CANDIDATE)
+UI-> CTRL: addCandidate(this.theController.addUser(username, password, \nfirstName, lastName, email, roleTypes))
+activate CTRL
+CTRL-->CTRL: addUser(username,password, \nfirstName,lastName, email, roles, createdOn)
+CTRL->AS : ensureAuthenticatedUserHasAnyOf()
+activate AS
+deactivate AS
+CTRL-> UMS : registerNewUser(username, password, \nfirstName, lastName, email, roles, createdOn)
+activate UMS
+UMS->SUB: .with(username, rawPassword, \nfirstName, lastName, email).createdOn(createdOn).withRoles(roles)
+activate SUB
+UMS-> SUB: .build()
+SUB--> UMS: user
+deactivate SUB
+UMS->URepo: save the user
+activate URepo
+deactivate URepo
+UMS-->CTRL: user
+deactivate UMS
+CTRL-->CTRL: saves the user
+CTRL-> C: Candidate (user, curriculum)
+activate C
+C--> CTRL: candidate
+deactivate C
+CTRL->CRepo: save(candidate)
+activate CRepo
+deactivate CRepo
+CTRL-->UI : candidate added successfully
+deactivate CTRL
+UI --> Operator: Creates the registered candidate and throws operation success
+deactivate UI
+
+@enduml
