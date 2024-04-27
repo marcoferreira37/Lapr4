@@ -3,26 +3,19 @@ package eapli.base.clientusermanagement.domain.jobOpening;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Embeddable
 public class ContractType implements ValueObject {
 
     private String contractType;
 
-    public ContractType(String contractType) {
-        this.contractType = contractType;
-    }
 
     protected ContractType() {
         // Necessário para JPA
-    }
-
-    public String getContractType() {
-        return contractType;
-    }
-
-    public void setContractType(String contractType) {
-        this.contractType = contractType;
     }
 
     @Override

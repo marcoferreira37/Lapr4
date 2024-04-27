@@ -3,26 +3,19 @@ package eapli.base.clientusermanagement.domain.jobOpening;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Embeddable
 public class Description implements ValueObject {
 
     private String description;
 
-    public Description(String description) {
-        this.description = description;
-    }
 
     protected Description() {
         // Necessário para JPA
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override

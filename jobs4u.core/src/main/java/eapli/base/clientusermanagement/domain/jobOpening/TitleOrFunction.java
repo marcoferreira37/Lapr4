@@ -2,28 +2,21 @@ package eapli.base.clientusermanagement.domain.jobOpening;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
+@Setter
+@Getter
 @Embeddable
 public class TitleOrFunction implements ValueObject {
 
     private String titleOrFunction;
 
-    public TitleOrFunction(String titleOrFunction) {
-        this.titleOrFunction = titleOrFunction;
-    }
 
     protected TitleOrFunction() {
         // Necessário para JPA
-    }
-
-    public String getTitleOrFunction() {
-        return titleOrFunction;
-    }
-
-    public void setTitleOrFunction(String titleOrFunction) {
-        this.titleOrFunction = titleOrFunction;
     }
 
     @Override

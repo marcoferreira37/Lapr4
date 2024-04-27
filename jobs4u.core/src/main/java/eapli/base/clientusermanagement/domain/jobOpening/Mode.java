@@ -2,39 +2,23 @@ package eapli.base.clientusermanagement.domain.jobOpening;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
 
+@Setter
+@Getter
 @Embeddable
 public class Mode implements ValueObject {
 
     private String modeType;
     private int durationInMonths;
 
-    public Mode(String modeType, int durationInMonths) {
-        this.modeType = modeType;
-        this.durationInMonths = durationInMonths;
-    }
 
     protected Mode() {
         // Necessário para JPA
-    }
-
-    public String getModeType() {
-        return modeType;
-    }
-
-    public void setModeType(String modeType) {
-        this.modeType = modeType;
-    }
-
-    public int getDurationInMonths() {
-        return durationInMonths;
-    }
-
-    public void setDurationInMonths(int durationInMonths) {
-        this.durationInMonths = durationInMonths;
     }
 
     @Override

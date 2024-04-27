@@ -2,29 +2,21 @@ package eapli.base.clientusermanagement.domain.jobOpening;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
 
+@Setter
+@Getter
 @Embeddable
 public class VacanciesNumber implements ValueObject {
 
     private int number;
 
-    public VacanciesNumber(int number) {
-        this.number = number;
-    }
-
     protected VacanciesNumber() {
         // Necessário para JPA
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     @Override

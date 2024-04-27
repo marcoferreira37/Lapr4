@@ -3,26 +3,19 @@ package eapli.base.clientusermanagement.domain.jobOpening;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Embeddable
 public class Address implements ValueObject {
 
     private String address;
 
-    public Address(String address) {
-        this.address = address;
-    }
 
     protected Address() {
         // Necessário para JPA
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     @Override
