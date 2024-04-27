@@ -13,7 +13,33 @@ public class ContractType implements ValueObject {
         this.contractType = contractType;
     }
 
-    public ContractType() {
+    protected ContractType() {
+        // Necessário para JPA
+    }
 
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContractType other = (ContractType) o;
+        return contractType.equals(other.contractType);
+    }
+
+    @Override
+    public int hashCode() {
+        return contractType.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return contractType;
     }
 }

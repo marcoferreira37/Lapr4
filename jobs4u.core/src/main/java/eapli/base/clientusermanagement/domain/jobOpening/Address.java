@@ -13,7 +13,33 @@ public class Address implements ValueObject {
         this.address = address;
     }
 
-    public Address() {
+    protected Address() {
+        // Necessário para JPA
+    }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address other = (Address) o;
+        return address.equals(other.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return address.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return address;
     }
 }
