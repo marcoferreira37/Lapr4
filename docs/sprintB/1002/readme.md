@@ -19,12 +19,22 @@ This task is assigned for development in this sprint.
 > *Question*: Q79 Padilla – US1002 - Could we use the same interview model for more than one job opening?
 > *Answer*: A79 - See Q38. Yes.
 
-
 > *Question*: Q88 Cardoso** – US1002 – Quando o Customer Manager regista uma job offer, é ele que cria as requirement specifications e 
 > as interview models ou é-lhe dada uma lista destes para ele selecionar?
 > *Answer*: A88 - Existe a US1002 e as US1009 e US1011. Penso que está claro qual a responsabilidade de cada uma. 
 > A criação dos modelos das entrevistas e dos requisitos é um caso de uso especifico e com um US especifica para 
 > registar no sistema os respectivos plugins (US1008).
+
+> *Question*: Q109 Varela – [US1002] Modo de Trabalho e Tipo de Contrato- Numa job opening, 
+> o tipo de contrato e o modo de trabalho são elementos fixos, na medida em que os tipos apresentados na documentação 
+> são estáticos e não mudam, ou poderão haver mais tipos deste dois elementos?
+> *Answer*: A109 Os mais “normais” serão os que aparecem na documentação. 
+> Mas penso que faz sentido o sistema aceitar outros diferentes caso o Customer Manager assim o entender.
+
+> *Question*: Q114 Guedes – US1002 - Um customer manager tem a responsabilidade de criar job openings para os customers 
+> em que é responsável. Na hora da criação da job opening, como é que ele refere qual é o customer daquela job opening? 
+> Seleciona um customer dentro dos que está responsável?
+> *Answer*: A114. Sim, pode ser como indica.
 
 
 
