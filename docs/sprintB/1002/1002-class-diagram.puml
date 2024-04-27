@@ -1,48 +1,60 @@
 @startuml
 
-title Register Job Opening - Sequence Diagram
-
-autonumber
-actor Manager as M
-participant RegisterJobOpeningUI as UI <<UI>>
-participant RegisterJobOpeningController as Controller <<Application>>
-participant JobOpeningBuilder as JB <<Domain>>
-participant JobOpening as JO <<Domain>>
-database JobOpeningRepository as JRepo <<Persistence>>
+left to right direction
 
 
-activate UI
-M -> UI : enters data (code, name, description)
-M -> UI : submit data
+package ui {
+        class RegisterJobOpeningUI {
+        }
+    }
+
+package coursemanagement {
 
 
-UI -> Controller: registerJobOpening(code, name, description)
-activate Controller
+    package application {
+        class RegisterJobOpeningController {
+            +registerJobOpening()
+        }
+    }
 
-Controller -> JB: withJobOpeningCode(code)
-activate JB
-Controller -> JB: withJobOpeningName(name)
-Controller -> JB: withJobOpeningDescription(description)
-Controller -> JB: build()
+    package repository {
+        interface JobOpeningRepository {
+            +ofIdentity(): JobOpening
+        }
+    }
 
-JB -> JRepo: ofIdentity(code)
-activate JRepo
+    package domain {
+        class JobOpening {}
 
-JRepo --> JB: returns job opening
-deactivate JRepo
-JB -> JO: create
-JB -> Controller: returns job opening
-deactivate JB
+        class JobOpeningCode {}
+
+        class JobOpeningName {}
+
+        class JobOpeningDescription {}
+
+        enum JobOpeningState {}
+
+        class JobOpeningBuilder {
+            +withJobOpeningCode(): JobOpeningBuilder
+            +withJobOpeningName(): JobOpeningBuilder
+            +withJobOpeningDescription(): JobOpeningBuilder
+            +build(): JobOpening
+        }
+    }
 
 
+}
 
-Controller -> JRepo: save(job opening)
-activate JRepo
+JobOpening --> JobOpeningCode
+JobOpening --> JobOpeningDescription
+JobOpening --> JobOpeningName
+JobOpening --> JobOpeningState
+JobOpeningBuilder --> JobOpening
+JobOpeningBuilder --> JobOpeningRepository
 
-JRepo --> Controller: returns success
-deactivate JRepo
-Controller -> UI: returns success
-deactivate Controller
-UI --> M: shows success
+RegisterJobOpeningUI --> RegisterJobOpeningController
+RegisterJobOpeningController --> JobOpeningRepository
+RegisterJobOpeningController --> JobOpeningBuilder
+JobOpeningRepository -> JobOpening
 
 @enduml

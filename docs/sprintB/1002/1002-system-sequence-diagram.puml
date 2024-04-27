@@ -15,7 +15,8 @@ activate Manager
     Manager -> System : requests to register a job opening
     activate System
 
-    System --> Manager : prompts for job details (name, code, description)
+    System --> Manager : prompts for job details (jobReference, description, address,\n contractType, mode, titlleOrFunction, vacanciesNumber)
+
     deactivate System
 
     Manager -> System : provides job details
