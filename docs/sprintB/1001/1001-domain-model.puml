@@ -4,17 +4,17 @@ interface ClientUser {
 
 }
 
-class SystemUser <<Root>>{
+class Customer <<Root>>{
     -email
-    -fullName
-    -shortName
     -username
+    -firstName
+    -lastName
     -password
     -role
 }
 
 class Student <<Root>>{
-    -systemUser
+    -Customer
     -birthDate
     -taxPayerNumber
     -mechanographicNumber
@@ -25,12 +25,7 @@ class MechanographicNumber <<Value Object>>{
     -validMechanographic(mechanographicNumber)
 }
 
-class Teacher <<Root>>{
-    -systemUser
-    -birthDate
-    -taxPayerNumber
-    -acronym
-}
+
 
 class Acronym <<Value Object>>{
     -acronym
@@ -48,17 +43,13 @@ class TaxPayerNumber <<Value Object>>{
 }
 
 ClientUser <|.. Student
-ClientUser <|.. Teacher
 Student *-- TaxPayerNumber
-Teacher *-- TaxPayerNumber
-SystemUser *-- Email
-Teacher "1" *-- "1" Acronym
+Customer *-- Email
 Student "1" *-- "1" MechanographicNumber
 
-note "Only SystemUser with \nManager Role can manage \nother SystemUsers" as N_Man
+note "Only Customer with \nManager Role can manage \nother Customers" as N_Man
 
-SystemUser "*" -- "*" SystemUser : manages >
-SystemUser --o Teacher
-SystemUser --o Student
+Customer "*" -- "*" Customer : manages >
+Customer --o Student
 
 @enduml

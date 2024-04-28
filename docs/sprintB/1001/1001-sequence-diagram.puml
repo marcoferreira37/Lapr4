@@ -1,34 +1,43 @@
 @startuml
-'https://plantuml.com/sequence-diagram
+
+title Register Customer - Sequence Diagram
 
 autonumber
-actor Manager
+actor "Customer Manager" as M
+participant AddCustomerUI as UI <<UI>>
+participant AddCustomerController as Controller <<Application>>
+participant UserManagementService as MN <<Domain>>
+participant JobOpening as JO <<Domain>>
+database UserRepository as UserRepo <<Persistence>>
 
-Manager -> RegisterUserUI: onLoad
-RegisterUserUI -> RegisterUserController: getRoles()
-RegisterUserController -> BaseRoles: getAvailableRoles()
-RegisterUserUI -> RegisterUserUI : showRoles
-Manager -> RegisterUserUI: enter data
-Manager -> RegisterUserUI: submit
-group Role [depends on the role chosen]
-RegisterUserUI -> RegisterUserController: addManager(...)
-RegisterUserUI -> RegisterUserController: addStudent(...)
-RegisterUserUI -> RegisterUserController: addTeacher(...)
-end
-RegisterUserController -> UserManagementService: registerNewUser(...)
-UserManagementService -> SystemUserFactory: newSystemUser(...)
-entity SystemUser
-SystemUserFactory -> SystemUser: create
-UserManagementService -> UserRepository: save
-group Student
-RegisterUserController -> NewStudentRegisteredFromSignupEvent: create()
-end
-group Teacher
-RegisterUserController -> NewTeacherRegisteredFromSignupEvent: create()
-end
-group Teacher/Student
-RegisterUserController -> EventPublisher: publish(event)
-end
-RegisterUserUI -> RegisterUserUI: show
+activate M
+M -> UI : onLoad
+activate UI
+UI -> Controller: addCustomer()
+activate Controller
+Controller -> MN: registerNewUser()
+
+activate MN
+MN -> UserRepo: registerNewUser()
+activate UserRepo
+
+UserRepo --> MN: returns customer
+deactivate UserRepo
+MN -> JO: create
+MN --> Controller: returns customer
+deactivate MN
+
+
+
+
+Controller -> UserRepo: save(customer)
+activate UserRepo
+
+UserRepo --> Controller: returns success
+deactivate UserRepo
+Controller --> UI: returns success
+deactivate Controller
+
+UI --> M: confirms successful registration
 
 @enduml
