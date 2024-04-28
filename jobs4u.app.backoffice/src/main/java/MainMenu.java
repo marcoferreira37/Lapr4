@@ -1,8 +1,5 @@
 
-import authz.AddCustomerUI;
-import authz.AddUserUI;
-import authz.DeactivateUserAction;
-import authz.ListUsersAction;
+import authz.*;
 import clientuser.AcceptRefuseSignupRequestAction;
 import eapli.base.Application;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
@@ -128,7 +125,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Customer Manager:");
 
         menu.addItem(ADD_USER_OPTION, "Register a customer", new AddCustomerUI()::show);
-        menu.addItem(LIST_USERS_OPTION, "List all customers", new ListUsersAction());
+        menu.addItem(LIST_USERS_OPTION, "List all customers", new ListCustomerManagerActions());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
