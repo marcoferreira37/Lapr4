@@ -5,10 +5,10 @@ title US 1005 - List Job Opening Applications
 
 actor "User - Customer Manager" as User
 
-participant "ListJobOpeningAplicationsUI" as UI
-participant "ListJobOpeningAplicationsController" as Controller
-participant "JobOpeningRepository" as Repository
-participant "ApplicationRepository" as ApplicationRepository
+participant "ListJobOpeningAplicationsUI" as UI <<UI>>
+participant "ListJobOpeningAplicationsController" as Controller <<Application>>
+participant "JobOpeningRepository" as Repository <<Persistence>>
+participant "ApplicationRepository" as ApplicationRepository <<Persistence>>
 
 
 
