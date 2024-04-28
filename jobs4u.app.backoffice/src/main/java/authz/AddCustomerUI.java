@@ -35,7 +35,7 @@ public class AddCustomerUI extends AbstractUI {
 
 
         try {
-            this.theController.addCustomer(username, password, firstName, lastName, email, (Set<Role>) role);
+            this.theController.addCustomer(username, password, firstName, lastName, email, role);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That username is already in use.");
         }

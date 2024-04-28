@@ -1,0 +1,64 @@
+@startuml
+
+interface ClientUser {
+
+}
+
+class SystemUser <<Root>>{
+    -email
+    -fullName
+    -shortName
+    -username
+    -password
+    -role
+}
+
+class Student <<Root>>{
+    -systemUser
+    -birthDate
+    -taxPayerNumber
+    -mechanographicNumber
+}
+
+class MechanographicNumber <<Value Object>>{
+    -mechanographicNumber
+    -validMechanographic(mechanographicNumber)
+}
+
+class Teacher <<Root>>{
+    -systemUser
+    -birthDate
+    -taxPayerNumber
+    -acronym
+}
+
+class Acronym <<Value Object>>{
+    -acronym
+    -validAcronym(acronym)
+}
+
+class Email <<Value Object>>{
+    -email
+    -validEmail(email)
+}
+
+class TaxPayerNumber <<Value Object>>{
+    -taxPayerNumber
+    -validTaxPayerNumber(taxPayerNumber)
+}
+
+ClientUser <|.. Student
+ClientUser <|.. Teacher
+Student *-- TaxPayerNumber
+Teacher *-- TaxPayerNumber
+SystemUser *-- Email
+Teacher "1" *-- "1" Acronym
+Student "1" *-- "1" MechanographicNumber
+
+note "Only SystemUser with \nManager Role can manage \nother SystemUsers" as N_Man
+
+SystemUser "*" -- "*" SystemUser : manages >
+SystemUser --o Teacher
+SystemUser --o Student
+
+@enduml

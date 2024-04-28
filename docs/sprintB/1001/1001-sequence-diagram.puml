@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor Manager
+
+Manager -> RegisterUserUI: onLoad
+RegisterUserUI -> RegisterUserController: getRoles()
+RegisterUserController -> BaseRoles: getAvailableRoles()
+RegisterUserUI -> RegisterUserUI : showRoles
+Manager -> RegisterUserUI: enter data
+Manager -> RegisterUserUI: submit
+group Role [depends on the role chosen]
+RegisterUserUI -> RegisterUserController: addManager(...)
+RegisterUserUI -> RegisterUserController: addStudent(...)
+RegisterUserUI -> RegisterUserController: addTeacher(...)
+end
+RegisterUserController -> UserManagementService: registerNewUser(...)
+UserManagementService -> SystemUserFactory: newSystemUser(...)
+entity SystemUser
+SystemUserFactory -> SystemUser: create
+UserManagementService -> UserRepository: save
+group Student
+RegisterUserController -> NewStudentRegisteredFromSignupEvent: create()
+end
+group Teacher
+RegisterUserController -> NewTeacherRegisteredFromSignupEvent: create()
+end
+group Teacher/Student
+RegisterUserController -> EventPublisher: publish(event)
+end
+RegisterUserUI -> RegisterUserUI: show
+
+@enduml
