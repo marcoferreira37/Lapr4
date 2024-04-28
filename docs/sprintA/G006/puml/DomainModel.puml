@@ -39,13 +39,13 @@ skinparam packageStyle rectangle
 
 
 
-package "Job Offer" {
+package "Job Opening" {
 
-class InterviewDescription <<Value Object>>
 class JobOpening <<Root Entity>>
 class JobReference <<Identifier>>
-class Report <<Value Object>>
 class Address <<Value Object>>
+class JobTitle <<Value Object>>
+class
 
 }
 
