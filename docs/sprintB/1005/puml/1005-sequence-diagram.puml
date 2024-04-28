@@ -1,0 +1,31 @@
+@startuml
+
+actor User as U
+participant "System" as S
+
+activate U
+loop until User wants to stop
+    U -> S: Request to list job applications for a job opening
+    activate S
+
+    S --> U : asks for job reference number
+
+    deactivate S
+    U -> S: Input job reference number
+    activate S
+
+    S --> U : returns list of job applications for the job opening
+    S -> U: Ask if user wants to continue to view job applications
+    deactivate S
+end
+alt User wants to stop
+
+   U --> S: Request to stop
+
+   activate S
+
+   S -> U: goodbye message
+   deactivate S
+end
+
+@enduml

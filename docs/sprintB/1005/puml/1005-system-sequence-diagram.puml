@@ -1,0 +1,59 @@
+@startuml
+
+actor "User - Customer Manager" as User
+
+participant "ListJobOpeningAplicationsUI" as UI
+participant "ListJobOpeningAplicationsController" as Controller
+participant "JobOpeningRepository" as Repository
+participant "ApplicationRepository" as ApplicationRepository
+
+
+
+loop until user wants to stop
+activate User
+
+User -> UI: asks to list job opening applications
+
+activate UI
+
+UI -> User: request job reference number
+
+deactivate UI
+
+User -> UI: provides job reference number
+
+activate UI
+
+UI -> Controller: getJobOpeningApplications(jobReferenceNumber)
+
+activate Controller
+
+Controller -> Repository: getJobOpening(jobReferenceNumber)
+activate Repository
+
+Repository --> Controller: jobOpening
+deactivate Repository
+
+Controller -> ApplicationRepository: findApplicationsByJobOpening(jobOpening)
+activate ApplicationRepository
+
+ApplicationRepository --> Controller:  returns Map<JobOpening, List<Application>> applications
+
+deactivate ApplicationRepository
+Controller --> UI: applications
+deactivate Controller
+
+UI --> User: displayApplications(applications)
+
+
+UI -> User : asks User if they want to list more applications
+
+User -> UI: provides answer
+
+end loop
+
+UI --> User: goodbye message
+
+deactivate UI
+
+@enduml
