@@ -3,14 +3,14 @@ package eapli.base.domain.jobOpening;
 import eapli.base.domain.company.Company;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-@Entity
 @Table(name = "JOB_OPENING")
-
+@Entity
+@Getter
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class JobOpening implements AggregateRoot<JobReference> {
 
     @EmbeddedId
@@ -41,16 +41,15 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @ManyToOne
     private Company company;
 
-    protected JobOpening() {}
 
     @Override
     public boolean sameAs(Object other) {
-        return false;
+        return other instanceof JobOpening && ((JobOpening) other).identity().equals(identity());
     }
 
     @Override
     public JobReference identity() {
-        return null;
+        return jobReference;
     }
 
 }

@@ -44,8 +44,11 @@ package "Job Opening" {
 class JobOpening <<Root Entity>>
 class JobReference <<Identifier>>
 class Address <<Value Object>>
-class JobTitle <<Value Object>>
-class
+class ContractType <<Value Object>>
+class Description <<Value Object>>
+class Mode <<Value Object>>
+class TitleOrFunction <<Value Object>>
+class VacanciesNumber <<Value Object>>
 
 }
 
@@ -101,51 +104,61 @@ class Client <<Root Entity>>
 
 
 
-CustomerManager "1" --> "*" Company
-CustomerManager "1" --> "1" CustomerManagerID
-
-CustomerManager "1" --> "*" JobOpening : manage >
-
-
-Client "1" --> "*" JobOpening : submits >
-
-JobOpening "0..1" ---> "0..1" InterviewDescription : has >
-JobOpening "1" --> "1" Report : >
-JobOpening "1" ---> "1" Address :  >
-JobOpening "1" --> "1" JobReference : >
-JobOpening "1" <-- "1" Application : >
+JobOpening "1" --> "1" Address
+JobOpening "1" --> "*" ContractType
+JobOpening "1" --> "1" Description
+JobOpening "1" --> "1" JobReference
+JobOpening "1" --> "*" Mode
+JobOpening "1" --> "1" TitleOrFunction
+JobOpening "1" --> "1" VacanciesNumber
 
 
-
-Report "1" --> "*" ReportFiles : originates >
-
-Application "1" --> "1" InterviewFeedback :  >
-Application "1" --> "1" AnalyzedRequirements :  >
-Application "1" --> "1" ApplicationStatus : >
-Application "1" --> "*" ReportFiles : >
-ApplicationID "1" --> "1" Application : <
-
-Candidate "1" --> "*" Application : makes >
-Candidate "1" --> "1" CandidateID :  >
-
-Plugin "1" --> "1" PluginDescription :  >
-Plugin "1" --> "1" JarFile :  >
-Plugin "1" --> "1" PluginID :  >
-
-Plugin <|-- InterviewModel : extends
-Plugin <|-- RequirementsSpecification : extends
-
-JobOpening "1" --> "0..1" InterviewModel : >
-JobOpening "1" --> "1" RequirementsSpecification : >
-
-CustomerManager "1" --> "*" Application : list >
-
-CustomerManager "1" --> "*" Candidate :  >
-
-JobOpening "1" --> "4..5" Phase : >
-
-Phase "1" --> "1" PhaseData
-
-Client "1" --> "1" ClientID
+'
+'CustomerManager "1" --> "*" Company
+'CustomerManager "1" --> "1" CustomerManagerID
+'
+'CustomerManager "1" --> "*" JobOpening : manage >
+'
+'
+'Client "1" --> "*" JobOpening : submits >
+'
+'JobOpening "0..1" ---> "0..1" InterviewDescription : has >
+'JobOpening "1" --> "1" Report : >
+'JobOpening "1" ---> "1" Address :  >
+'JobOpening "1" --> "1" JobReference : >
+'JobOpening "1" <-- "1" Application : >
+'
+'
+'
+'Report "1" --> "*" ReportFiles : originates >
+'
+'Application "1" --> "1" InterviewFeedback :  >
+'Application "1" --> "1" AnalyzedRequirements :  >
+'Application "1" --> "1" ApplicationStatus : >
+'Application "1" --> "*" ReportFiles : >
+'ApplicationID "1" --> "1" Application : <
+'
+'Candidate "1" --> "*" Application : makes >
+'Candidate "1" --> "1" CandidateID :  >
+'
+'Plugin "1" --> "1" PluginDescription :  >
+'Plugin "1" --> "1" JarFile :  >
+'Plugin "1" --> "1" PluginID :  >
+'
+'Plugin <|-- InterviewModel : extends
+'Plugin <|-- RequirementsSpecification : extends
+'
+'JobOpening "1" --> "0..1" InterviewModel : >
+'JobOpening "1" --> "1" RequirementsSpecification : >
+'
+'CustomerManager "1" --> "*" Application : list >
+'
+'CustomerManager "1" --> "*" Candidate :  >
+'
+'JobOpening "1" --> "4..5" Phase : >
+'
+'Phase "1" --> "1" PhaseData
+'
+'Client "1" --> "1" ClientID
 
 @enduml

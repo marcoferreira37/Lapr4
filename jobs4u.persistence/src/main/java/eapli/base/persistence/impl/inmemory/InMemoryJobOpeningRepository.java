@@ -6,7 +6,8 @@ import eapli.base.persistence.impl.inmemory.InMemoryInitializer;
 import eapli.base.repositories.JobOpeningRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class InMemoryJobOpeningRepository
         extends InMemoryDomainRepository<JobOpening, JobReference>
@@ -25,5 +26,13 @@ public class InMemoryJobOpeningRepository
     public void deleteOfIdentity(JobReference jobReference) {
         final Optional<JobOpening> jobOpeningOptional = ofIdentity(jobReference);
         jobOpeningOptional.ifPresent(this::delete); // Delete if the JobOpening exists
+    }
+
+    @Override
+    public Long getLastIdFromCompany(Long companyId) {
+
+        LinkedList<JobOpening> l = new LinkedList<>((Collection<JobOpening>) findAll());
+        l.sort((o1, o2) -> Long.compare(o2.getJobReference().iD(), o1.getJobReference().iD()));
+        return l.getFirst().getJobReference().iD();
     }
 }
