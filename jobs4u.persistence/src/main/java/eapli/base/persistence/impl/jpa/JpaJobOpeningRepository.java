@@ -16,19 +16,16 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Lon
     }
 
     @Override
-    public Optional<JobOpening> ofIdentity(JobReference id) {
+    public Optional<JobOpening> ofIdentity(JobReference jobReference) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("jobReference", id);
-        return matchOne("e.jobReference=:id", params);
+        params.put("jobReference", jobReference);
+        return matchOne("e.jobReference = :jobReference", params);
     }
+
 
     @Override
-    public void deleteOfIdentity(JobReference entityId) {
-        EntityManager entityManager = entityManager(); // Retrieve EntityManager from JpaAutoTxRepository
-        JobOpening jobOpening = entityManager.find(JobOpening.class, entityId);
-        if (jobOpening != null) {
-            entityManager.remove(jobOpening);
-        }
+    public void deleteOfIdentity(JobReference jobReference) {
+        final Optional<JobOpening> jobOpeningOptional = ofIdentity(jobReference);
+        jobOpeningOptional.ifPresent(this::delete); // Delete if the JobOpening exists
     }
-
 }
