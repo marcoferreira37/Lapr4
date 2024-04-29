@@ -22,7 +22,7 @@ public class ListCustomersUI extends AbstractListUI<SystemUser> {
     }
 
     @Override
-    protected Iterable<Customer> elements() {
+    protected Iterable<SystemUser> elements() {
         return theController.allCustomers();
     }
 

@@ -69,6 +69,7 @@ public final class BaseRoles implements Set<RoleAssignment>, Serializable {
     public static final Role CUSTOMER_MANAGER = Role.valueOf("CUSTOMER_MANAGER");
 
     public static final Role CUSTOMER = Role.valueOf("CUSTOMER");
+    public static final Role CANDIDATE = Role.valueOf("CANDIDATE");
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private final Set<RoleAssignment> assignments = new HashSet<>();
 
