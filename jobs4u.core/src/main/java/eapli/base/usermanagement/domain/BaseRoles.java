@@ -24,12 +24,19 @@
 package eapli.base.usermanagement.domain;
 
 import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.RoleAssignment;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * @author Paulo Gandra Sousa
  *
  */
-public final class BaseRoles {
+public final class BaseRoles implements Set<RoleAssignment>, Serializable {
     /**
      * poweruser
      */
@@ -62,6 +69,8 @@ public final class BaseRoles {
     public static final Role CUSTOMER_MANAGER = Role.valueOf("CUSTOMER_MANAGER");
 
     public static final Role CUSTOMER = Role.valueOf("CUSTOMER");
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private final Set<RoleAssignment> assignments = new HashSet<>();
 
     /**
      * get available role types for adding new users
@@ -74,5 +83,70 @@ public final class BaseRoles {
 
     public boolean isCollaborator(final Role role) {
         return role != CLIENT_USER;
+    }
+
+
+    @Override
+    public int size() {
+        return 0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return false;
+    }
+
+    @Override
+    public Iterator<RoleAssignment> iterator() {
+        return null;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return new Object[0];
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a) {
+        return null;
+    }
+
+    @Override
+    public boolean add(RoleAssignment roleAssignment) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        return false;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        return false;
+    }
+
+    public boolean addAll(final Collection<? extends RoleAssignment> arg0) {
+        return assignments.addAll(arg0);
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public void clear() {
+
     }
 }

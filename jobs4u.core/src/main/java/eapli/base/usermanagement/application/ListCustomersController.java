@@ -25,6 +25,8 @@ package eapli.base.usermanagement.application;
 
 import java.util.Optional;
 
+import eapli.base.customer.Customer;
+import eapli.base.customer.CustomerManagementService;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -43,13 +45,18 @@ public class ListCustomersController{
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
 
-    public Iterable<SystemUser> allCustomers() {
+    private final CustomerManagementService customerSvc = AuthzRegistry.userService();
+
+    public Iterable<Customer> allCustomers() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER);
 
-//        return userSvc.allCustomers();
-        return userSvc.allUsers();
+        return customerSvc.allCustomers();
     }
-
+//    public Iterable<SystemUser> allCustomers() {
+//        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER);
+//
+//        return userSvc.allUsers();
+//    }
     public Optional<SystemUser> find(final Username u) {
         return userSvc.userOfIdentity(u);
     }

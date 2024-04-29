@@ -1,6 +1,7 @@
 package authz;
 
 
+import eapli.base.customer.Customer;
 import eapli.base.usermanagement.application.ListCustomersController;
 import eapli.base.usermanagement.application.ListUsersController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
@@ -21,7 +22,7 @@ public class ListCustomersUI extends AbstractListUI<SystemUser> {
     }
 
     @Override
-    protected Iterable<SystemUser> elements() {
+    protected Iterable<Customer> elements() {
         return theController.allCustomers();
     }
 
