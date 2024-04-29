@@ -1,15 +1,13 @@
 package authz;
 
 
-import eapli.base.customer.Customer;
-import eapli.base.usermanagement.application.ListCustomersController;
-import eapli.base.usermanagement.application.ListUsersController;
+import eapli.base.usermanagement.application.ListCandidatesController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;
 
-public class ListCustomersUI extends AbstractListUI<SystemUser> {
-    private ListCustomersController theController = new ListCustomersController();
+public class ListCandidatesUI extends AbstractListUI<SystemUser> {
+    private ListCandidatesController theController = new ListCandidatesController();
 
     @Override
     public String headline() {
@@ -23,7 +21,7 @@ public class ListCustomersUI extends AbstractListUI<SystemUser> {
 
     @Override
     protected Iterable<SystemUser> elements() {
-        return theController.allCustomers();
+        return theController.allCandidates();
     }
 
     @Override
