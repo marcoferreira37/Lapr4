@@ -21,6 +21,7 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
+import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -43,6 +44,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public UserRepository users() {
         return new JpaAutoTxUserRepository(Application.settings().getPersistenceUnitName(),
                 Application.settings().getExtendedPersistenceProperties());
+    }
+
+    @Override
+    public Ijobs4UUserRepository jobs4UUsers() {
+        return new JpaJobs4UUserRepository();
     }
 
     @Override

@@ -100,7 +100,9 @@ public class AppSettings {
                 this.applicationProperties.getProperty(SCHEMA_GENERATION_KEY));
         return ret;
     }
-
+    public boolean isOperativeSystemLinux() {
+        return System.getProperty("os.name").toLowerCase().contains("linux");
+    }
     public String getProperty(final String prop) {
         return this.applicationProperties.getProperty(prop);
     }
