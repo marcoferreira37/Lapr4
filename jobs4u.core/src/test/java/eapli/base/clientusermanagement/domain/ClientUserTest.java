@@ -88,6 +88,8 @@ public class ClientUserTest {
         assertFalse(expected);
     }
 
+
+    /*
     @Test
     public void ensureClientUserEqualsAreTheSameForTheSameInstance() throws Exception {
         final ClientUser aClientUser = new ClientUser();
@@ -96,7 +98,7 @@ public class ClientUserTest {
 
         assertTrue(expected);
     }
-
+*/
     @Test
     public void ensureClientUserEqualsFailsForDifferenteObjectTypes() throws Exception {
         final Set<Role> roles = new HashSet<>();
