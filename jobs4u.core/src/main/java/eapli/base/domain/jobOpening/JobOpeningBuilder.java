@@ -9,6 +9,7 @@ public class JobOpeningBuilder {
     private TitleOrFunction titleOrFunction;
     private VacanciesNumber vacanciesNumber;
 
+
     public JobOpeningBuilder withJobReference(JobReference jobReference) {
         this.jobReference = jobReference;
         return this;
@@ -40,14 +41,8 @@ public class JobOpeningBuilder {
     }
 
     public JobOpening build() {
-        JobOpening jobOpening = new JobOpening();
-        jobOpening.setJobReference(jobReference);
-        jobOpening.setDescription(description);
-        jobOpening.setAddress(address);
-        jobOpening.setMode(mode);
-        jobOpening.setTitleOrFunction(titleOrFunction);
-        jobOpening.setVacanciesNumber(vacanciesNumber);
-        return jobOpening;
+        return new JobOpening(jobReference, description, address, mode, titleOrFunction, vacanciesNumber);
     }
 }
 
+//Não USAR getters e setters ( mudar os nomes )

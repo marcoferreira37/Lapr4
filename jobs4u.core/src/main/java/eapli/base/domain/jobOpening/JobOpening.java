@@ -2,7 +2,6 @@ package eapli.base.domain.jobOpening;
 
 import eapli.base.domain.company.Company;
 import eapli.framework.domain.model.AggregateRoot;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,9 +41,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @ManyToOne
     private Company company;
 
-    protected JobOpening() {
-
-    }
+    protected JobOpening() {}
 
     @Override
     public boolean sameAs(Object other) {
