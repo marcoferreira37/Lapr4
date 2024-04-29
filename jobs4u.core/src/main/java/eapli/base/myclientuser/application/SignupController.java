@@ -25,8 +25,8 @@ package eapli.base.myclientuser.application;
 
 import java.util.Calendar;
 
-import eapli.base.clientusermanagement.domain.SignupRequest;
-import eapli.base.clientusermanagement.domain.SignupRequestBuilder;
+import eapli.base.domain.SignupRequest;
+import eapli.base.domain.SignupRequestBuilder;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.UserBuilderHelper;

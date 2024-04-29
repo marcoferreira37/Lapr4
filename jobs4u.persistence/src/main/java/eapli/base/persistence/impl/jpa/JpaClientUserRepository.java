@@ -25,8 +25,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import eapli.base.Application;
-import eapli.base.clientusermanagement.domain.ClientUser;
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
+import eapli.base.domain.ClientUser;
+import eapli.base.domain.MecanographicNumber;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;

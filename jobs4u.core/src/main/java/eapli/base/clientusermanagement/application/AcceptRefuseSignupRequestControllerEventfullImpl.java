@@ -25,8 +25,8 @@ package eapli.base.clientusermanagement.application;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import eapli.base.clientusermanagement.domain.SignupRequest;
-import eapli.base.clientusermanagement.domain.events.SignupAcceptedEvent;
+import eapli.base.domain.SignupRequest;
+import eapli.base.clientusermanagement.events.SignupAcceptedEvent;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;

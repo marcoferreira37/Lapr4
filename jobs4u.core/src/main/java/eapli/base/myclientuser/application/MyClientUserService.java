@@ -22,7 +22,7 @@ package eapli.base.myclientuser.application;
 
 import java.util.Optional;
 
-import eapli.base.clientusermanagement.domain.ClientUser;
+import eapli.base.domain.ClientUser;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;

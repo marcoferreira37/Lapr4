@@ -23,8 +23,8 @@
  */
 package eapli.base.clientusermanagement.application;
 
-import eapli.base.clientusermanagement.domain.ClientUser;
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
+import eapli.base.domain.ClientUser;
+import eapli.base.domain.MecanographicNumber;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;

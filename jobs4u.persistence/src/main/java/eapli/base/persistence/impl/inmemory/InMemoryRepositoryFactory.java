@@ -21,6 +21,7 @@
 package eapli.base.persistence.impl.inmemory;
 
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
+import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
@@ -47,6 +48,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     @Override
     public UserRepository users() {
         return users(null);
+    }
+
+    @Override
+    public Ijobs4UUserRepository jobs4UUsers() {
+        return null;
     }
 
     @Override

@@ -26,8 +26,8 @@ package eapli.base.clientusermanagement.application;
 import java.util.HashSet;
 import java.util.Set;
 
-import eapli.base.clientusermanagement.domain.ClientUserBuilder;
-import eapli.base.clientusermanagement.domain.SignupRequest;
+import eapli.base.domain.ClientUserBuilder;
+import eapli.base.domain.SignupRequest;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;

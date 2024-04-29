@@ -20,7 +20,7 @@
  */
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.clientusermanagement.domain.SignupRequest;
+import eapli.base.domain.SignupRequest;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
