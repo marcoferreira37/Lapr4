@@ -16,6 +16,11 @@ import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
+import authz.ListUsersAction;
+import users.enable_disable.DisableUserAction;
+import users.enable_disable.EnableUserAction;
+import users.list.ListAllUsersAction;
+import users.register.RegisterUserAction;
 
 /**
  * TODO split this class in more specialized classes for each menu
@@ -32,7 +37,9 @@ public class MainMenu extends AbstractUI {
     private static final int ADD_USER_OPTION = 1;
     private static final int LIST_USERS_OPTION = 2;
     private static final int DEACTIVATE_USER_OPTION = 3;
-    private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
+
+    private static final int ACTIVATE_USER_OPTION = 4;
+    private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 5;
 
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
@@ -145,9 +152,10 @@ public class MainMenu extends AbstractUI {
     private Menu buildUsersMenu() {
         final Menu menu = new Menu("Users >");
 
-        menu.addItem(ADD_USER_OPTION, "Add User", new AddUserUI()::show);
-        menu.addItem(LIST_USERS_OPTION, "List all Users", new ListUsersAction());
-        menu.addItem(DEACTIVATE_USER_OPTION, "Deactivate User", new DeactivateUserAction());
+        menu.addItem(ADD_USER_OPTION, "Register a User", new RegisterUserAction());
+        menu.addItem(LIST_USERS_OPTION, "List all Users", new ListAllUsersAction());
+        menu.addItem(DEACTIVATE_USER_OPTION, "Disable a User", new DisableUserAction());
+        menu.addItem(ACTIVATE_USER_OPTION, "Enable a User", new EnableUserAction());
         menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
                 new AcceptRefuseSignupRequestAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
