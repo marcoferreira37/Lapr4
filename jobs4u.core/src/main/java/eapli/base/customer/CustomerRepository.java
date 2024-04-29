@@ -29,7 +29,7 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
  *
  * @author nuno on 21/03/16.
  */
-public interface CustomerRepository extends DomainRepository<Username, SystemUser> {
+public interface CustomerRepository extends DomainRepository<Username, Customer> {
 
     /**
      * Returns the currently active/inactive users.
@@ -39,5 +39,5 @@ public interface CustomerRepository extends DomainRepository<Username, SystemUse
      *
      * @return the currently active/inactive users
      */
-    Iterable<SystemUser> findByActive(boolean active);
+    Iterable<Customer> findByActive(boolean active);
 }

@@ -183,7 +183,7 @@ public class Customer extends SystemUser implements AggregateRoot<Username>, DTO
         if (!(other instanceof Customer)) {
             return false;
         }
-
+        //FIXME Cannot cast to Customer due to being System User. Customer does not extend system user. Find by id
         final Customer that = (Customer) other;
         if (this == that) {
             return true;

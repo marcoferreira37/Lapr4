@@ -49,7 +49,7 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
  * a need for a builder
  * and a simple factory or even the constructor would suffice.
  */
-public class SystemCustomerBuilder implements DomainFactory<SystemUser> {
+public class SystemCustomerBuilder implements DomainFactory<Customer> {
 
     private static final Logger LOGGER = LogManager.getLogger(SystemCustomerBuilder.class);
 
@@ -63,6 +63,13 @@ public class SystemCustomerBuilder implements DomainFactory<SystemUser> {
 
     private final PasswordPolicy policy;
     private final PasswordEncoder encoder;
+
+    public SystemCustomerBuilder() {
+        policy = null;
+        encoder = null;
+        roles = new BaseRoles();
+    }
+
 
     public SystemCustomerBuilder(final PasswordPolicy policy, final PasswordEncoder encoder) {
         this.policy = policy;
@@ -85,7 +92,7 @@ public class SystemCustomerBuilder implements DomainFactory<SystemUser> {
                                   final String lastName, final String email) {
         withUsername(userName);
         withPassword(password);
-//        withName(firstName, lastName);
+        withName(firstName, lastName);
         withEmail(email);
         return this;
     }
@@ -148,10 +155,10 @@ public class SystemCustomerBuilder implements DomainFactory<SystemUser> {
         return this;
     }
 
-//    public SystemCustomerBuilder withName(final String firstName, final String lastName) {
-//        name = new Name(firstName, lastName);
-//        return this;
-//    }
+   public SystemCustomerBuilder withName(final String firstName, final String lastName) {
+        name = Name.valueOf(firstName, lastName);
+        return this;
+}
 
     public SystemCustomerBuilder withName(final Name name) {
         this.name = name;
@@ -168,10 +175,8 @@ public class SystemCustomerBuilder implements DomainFactory<SystemUser> {
         return this;
     }
 
-    public SystemCustomerBuilder withRoles(final Role... onlyWithThis) {
-        for (final Role each : onlyWithThis) {
-            roles.add(new RoleAssignment(each));
-        }
+    public SystemCustomerBuilder withRoles(Role role) {
+            roles.add(new RoleAssignment(role));
         return this;
     }
 
@@ -205,18 +210,17 @@ public class SystemCustomerBuilder implements DomainFactory<SystemUser> {
     @Override
     public Customer build() {
         // since the factory knows that all the parts are needed it could throw
-        // an exception. however, we will leave that to the constructor
-        Customer customer;
-        if (createdOn != null) {
-            customer = new Customer(username, password, name, email,  roles, createdOn);
-        } else {
-            customer = new Customer(username, password, name, email, roles);
-        }
+        // an exception. however, we will leave that to the constructorustomer;
+//        if (createdOn != null) {
+//            customer = new Customer(username, password, name, email,  roles, createdOn);
+//        } else {
+//            customer = new Customer(username, password, name, email, roles);
+//        }
 //        if (LOGGER.isDebugEnabled()) {
 //            final String roleLog = roles.roleTypes().toString();
 //            LOGGER.debug("Creating new user [{}] {} ({} {}) with roles {}", customer, username, name,
 //                    email, roleLog);
 //        }
-        return customer;
+        return new Customer(username, password, name, email,  roles, createdOn);
     }
 }

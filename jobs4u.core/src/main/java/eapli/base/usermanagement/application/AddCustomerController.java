@@ -23,17 +23,23 @@ package eapli.base.usermanagement.application;
 import java.util.Calendar;
 import java.util.Set;
 
+import eapli.base.customer.Customer;
+import eapli.base.customer.CustomerManagementService;
+import eapli.base.customer.CustomerRepository;
+import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.PasswordPolicy;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
+import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
 
 /**
- *
  * Created by nuno on 21/03/16.
  */
 @UseCaseController
@@ -42,6 +48,7 @@ public class AddCustomerController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
 
+    private final CustomerManagementService customerSvc = new CustomerManagementService(PersistenceContext.repositories().customer(), new BasePasswordPolicy(), new PlainTextEncoder());
     /**
      * Get existing RoleTypes available to the user.
      *
@@ -51,11 +58,13 @@ public class AddCustomerController {
         return BaseRoles.nonUserValues();
     }
 
-    public SystemUser addCustomer(final String username, final String password, final String firstName,
-                              final String lastName,
-                              final String email, final Set<Role> roles) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER);
+    public Customer addCustomer(final String username,
+                                final String password,
+                                final String firstName,
+                                final String lastName,
+                                final String email) {
 
-        return userSvc.registerNewUser(username, password, firstName, lastName, email, roles);
+
+        return customerSvc.registerNewCustomer(username, password, firstName, lastName, email, Calendar.getInstance());
     }
 }

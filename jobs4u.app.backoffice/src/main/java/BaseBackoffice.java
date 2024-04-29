@@ -6,6 +6,7 @@ import eapli.base.clientusermanagement.events.NewUserRegisteredFromSignupEvent;
 import eapli.base.clientusermanagement.events.SignupAcceptedEvent;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.application.eventhandlers.SignupAcceptedWatchDog;
+import eapli.base.usermanagement.application.registry.CustomerRegistry;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -33,6 +34,8 @@ public final class BaseBackoffice extends BaseApplication {
     public static void main(final String[] args) {
 
         AuthzRegistry.configure(PersistenceContext.repositories().users(),
+                new BasePasswordPolicy(), new PlainTextEncoder());
+        CustomerRegistry.configure(PersistenceContext.repositories().customer(),
                 new BasePasswordPolicy(), new PlainTextEncoder());
 
         new BaseBackoffice().run(args);

@@ -15,7 +15,6 @@ import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 public class AddCustomerUI extends AbstractUI {
@@ -31,11 +30,11 @@ public class AddCustomerUI extends AbstractUI {
         final String firstName = Console.readLine("First Name");
         final String lastName = Console.readLine("Last Name");
         final String email = Console.readLine("E-Mail");
-        final Set<Role> role = Collections.singleton(Role.valueOf("CUSTOMER"));
+      //  final Set<Role> role = Collections.singleton(Role.valueOf("CUSTOMER"));
 
 
         try {
-            this.theController.addCustomer(username, password, firstName, lastName, email, role);
+            this.theController.addCustomer(username, password, firstName, lastName, email);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That username is already in use.");
         }
@@ -43,13 +42,15 @@ public class AddCustomerUI extends AbstractUI {
         return false;
     }
 
+    /*
     private boolean showRoles(final Set<Role> roleTypes) {
         // TODO we could also use the "widget" classes from the framework...
         final Menu rolesMenu = buildRolesMenu(roleTypes);
         final MenuRenderer renderer = new VerticalMenuRenderer(rolesMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
-
+    */
+/*
     private Menu buildRolesMenu(final Set<Role> roleTypes) {
         final Menu rolesMenu = new Menu();
         int counter = 0;
@@ -59,6 +60,8 @@ public class AddCustomerUI extends AbstractUI {
         }
         return rolesMenu;
     }
+
+ */
 
     @Override
     public String headline() {
