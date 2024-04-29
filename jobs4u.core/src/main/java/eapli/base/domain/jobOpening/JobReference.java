@@ -10,16 +10,18 @@ import javax.annotation.processing.Generated;
 @Getter
 @Setter
 public class JobReference implements ValueObject, Comparable<JobReference> {
-    private static long nextID = 1; // Initial ID value
+
 
     private long iD;
-    private String jobReference;
 
-    public JobReference(String jobReference) {
-        this.iD = nextID++;
-        this.jobReference = jobReference + "-" + iD;
+
+    public JobReference(Long jobReference) {
+        this.iD = jobReference;
+
     }
-
+    public long iD() {
+        return iD;
+    }
 
     @Override
     public int compareTo(JobReference o) {
