@@ -23,6 +23,7 @@ package eapli.base.infrastructure.persistence;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
+import eapli.base.repositories.JobOpeningRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
@@ -86,5 +87,7 @@ public interface RepositoryFactory {
      * @return
      */
     SignupRequestRepository signupRequests();
+
+    JobOpeningRepository jobOpenings();
 
 }

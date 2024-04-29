@@ -42,6 +42,24 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @ManyToOne
     private Company company;
 
+    public JobOpening(JobReference jobReference,
+                      Description description,
+                      Address address,
+                      Mode mode,
+                      ContractType contractType,
+                      TitleOrFunction titleOrFunction,
+                      VacanciesNumber vacanciesNumber,
+                      Company company) {
+        this.jobReference = jobReference;
+        this.description = description;
+        this.address = address;
+        this.mode = mode;
+        this.contractType = contractType;
+        this.titleOrFunction = titleOrFunction;
+        this.vacanciesNumber = vacanciesNumber;
+        this.company = company;
+    }
+
     protected JobOpening() {
 
     }

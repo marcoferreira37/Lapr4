@@ -1,5 +1,7 @@
 package eapli.base.domain.jobOpening;
 
+import eapli.base.domain.company.Company;
+
 public class JobOpeningBuilder {
 
     private JobReference jobReference;
@@ -8,6 +10,7 @@ public class JobOpeningBuilder {
     private Mode mode;
     private TitleOrFunction titleOrFunction;
     private VacanciesNumber vacanciesNumber;
+    private Company company;
 
     public JobOpeningBuilder withJobReference(JobReference jobReference) {
         this.jobReference = jobReference;
@@ -29,6 +32,11 @@ public class JobOpeningBuilder {
         return this;
     }
 
+    public JobOpeningBuilder withCompany(Company company) {
+        this.company = company;
+        return this;
+    }
+
     public JobOpeningBuilder withTitleOrFunction(TitleOrFunction titleOrFunction) {
         this.titleOrFunction = titleOrFunction;
         return this;
@@ -47,6 +55,7 @@ public class JobOpeningBuilder {
         jobOpening.setMode(mode);
         jobOpening.setTitleOrFunction(titleOrFunction);
         jobOpening.setVacanciesNumber(vacanciesNumber);
+        jobOpening.setCompany(company);
         return jobOpening;
     }
 }

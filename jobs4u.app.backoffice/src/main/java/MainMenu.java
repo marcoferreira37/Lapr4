@@ -4,6 +4,7 @@ import clientuser.AcceptRefuseSignupRequestAction;
 import eapli.base.Application;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.framework.actions.Action;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -36,6 +37,7 @@ public class MainMenu extends AbstractUI {
     // USERS
     private static final int ADD_USER_OPTION = 1;
     private static final int LIST_USERS_OPTION = 2;
+
     private static final int DEACTIVATE_USER_OPTION = 3;
 
     private static final int ACTIVATE_USER_OPTION = 4;
@@ -133,7 +135,8 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(ADD_USER_OPTION, "Register a customer", new AddCustomerUI()::show);
         menu.addItem(LIST_USERS_OPTION, "List all customers", new ListCustomerManagerActions());
-        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+        menu.addItem(3, "Add a job opening", (Action) new AddJobOpeningAction());
+        menu.addItem(4, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
     }

@@ -14,7 +14,7 @@ public class Address implements ValueObject {
     private String address;
 
 
-    protected Address() {
+    public Address(String address) {
         // Necessário para JPA
     }
 
