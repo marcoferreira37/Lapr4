@@ -73,13 +73,18 @@ public final class BaseRoles implements Set<RoleAssignment>, Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private final Set<RoleAssignment> assignments = new HashSet<>();
 
+    public static final Role APPLICATIONS_EMAIL_BOT = Role.valueOf("APPLICATIONS_EMAIL_BOT");
+
+    public static final Role LANGUAGE_ENGINEER = Role.valueOf("LANGUAGE_ENGINEER");
+
+
     /**
      * get available role types for adding new users
      *
      * @return
      */
     public static Role[] nonUserValues() {
-        return new Role[] { ADMIN, KITCHEN_MANAGER, MENU_MANAGER, CASHIER, CUSTOMER, CUSTOMER_MANAGER};
+        return new Role[] { ADMIN,CANDIDATE, LANGUAGE_ENGINEER, APPLICATIONS_EMAIL_BOT, CUSTOMER_MANAGER,CUSTOMER, OPERATOR};
     }
 
     public boolean isCollaborator(final Role role) {
@@ -149,5 +154,9 @@ public final class BaseRoles implements Set<RoleAssignment>, Serializable {
     @Override
     public void clear() {
 
+    }
+
+    public static Role[] backOfficeValues(){
+        return new Role[]{ADMIN, CUSTOMER_MANAGER, OPERATOR};
     }
 }

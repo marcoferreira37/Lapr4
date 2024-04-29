@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import eapli.base.customer.Customer;
-import eapli.base.customer.CustomerManagementService;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -42,7 +40,7 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
  * @author losa
  */
 @UseCaseController
-public class ListCustomersController{
+public class ListCandidatesController{
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
@@ -55,17 +53,17 @@ public class ListCustomersController{
     }
 */
 
-    public Iterable<SystemUser> allCustomers() {
+    public Iterable<SystemUser> allCandidates() {
 
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CANDIDATE);
-        List<SystemUser> customer = new ArrayList<>();
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR);
+        List<SystemUser> candidate = new ArrayList<>();
             for (SystemUser user : userSvc.allUsers() ){
-                if (user.roleTypes().contains(BaseRoles.CANDIDATE) ){
-                    customer.add(user);
+                if (user.roleTypes().contains(BaseRoles.OPERATOR) ){
+                    candidate.add(user);
                 }
             }
-     if (!customer.isEmpty()) {
-         return customer;
+     if (!candidate.isEmpty()) {
+         return candidate;
      }else
          return null;
     }
