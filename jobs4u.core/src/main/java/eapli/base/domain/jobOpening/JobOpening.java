@@ -1,5 +1,6 @@
 package eapli.base.domain.jobOpening;
 
+import eapli.base.domain.company.Company;
 import eapli.framework.domain.model.AggregateRoot;
 
 import jakarta.persistence.*;
@@ -36,6 +37,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     @Column (name = "VACANCIESNUMBER")
     private VacanciesNumber vacanciesNumber;
+
+    @Column (name = "COMPANY")
+    @ManyToOne
+    private Company company;
 
     protected JobOpening() {
 
