@@ -36,7 +36,7 @@ import eapli.framework.presentation.console.AbstractUI;
 @SuppressWarnings("squid:S106")
 public class LoginUI extends AbstractUI {
 
-	private Role[] onlyWithThis;
+	private Role onlyWithThis;
 	private static final int DEFAULT_MAX_ATTEMPTS = 3;
 	private final int maxAttempts;
 
@@ -47,13 +47,13 @@ public class LoginUI extends AbstractUI {
 		this.credentialHandler = credentialHandler;
 	}
 
-	public LoginUI(CredentialHandler credentialHandler, final Role... onlyWithThis) {
+	public LoginUI(CredentialHandler credentialHandler, final Role onlyWithThis) {
 		this.onlyWithThis = onlyWithThis;
 		maxAttempts = DEFAULT_MAX_ATTEMPTS;
 		this.credentialHandler = credentialHandler;
 	}
 
-	public LoginUI(CredentialHandler credentialHandler, final int maxAttempts,final Role... onlyWithThis) {
+	public LoginUI(CredentialHandler credentialHandler, final int maxAttempts,final Role onlyWithThis) {
 		this.onlyWithThis = onlyWithThis;
 		this.maxAttempts = maxAttempts;
 		this.credentialHandler = credentialHandler;
@@ -61,6 +61,24 @@ public class LoginUI extends AbstractUI {
 
 	public LoginUI(CredentialHandler credentialHandler, final int maxAttempts) {
 		this.maxAttempts = maxAttempts;
+		this.credentialHandler = credentialHandler;
+	}
+
+	public LoginUI(CredentialHandler credentialHandler, Role role1, Role role2, Role role3, Role role4) {
+		Role[] validRoles = new Role[4];
+		validRoles[0] = role1;
+		validRoles[1] = role2;
+		validRoles[2] = role3;
+		validRoles[3] = role4;
+		maxAttempts = DEFAULT_MAX_ATTEMPTS;
+		this.credentialHandler = credentialHandler;
+	}
+
+	public LoginUI(CredentialHandler credentialHandler, Role role1, Role role2) {
+		Role[] validRoles = new Role[2];
+		validRoles[0] = role1;
+		validRoles[1] = role2;
+		maxAttempts = DEFAULT_MAX_ATTEMPTS;
 		this.credentialHandler = credentialHandler;
 	}
 
