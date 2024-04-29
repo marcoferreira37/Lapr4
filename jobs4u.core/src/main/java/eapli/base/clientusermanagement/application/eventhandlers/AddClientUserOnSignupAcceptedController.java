@@ -25,9 +25,9 @@ package eapli.base.clientusermanagement.application.eventhandlers;
 
 import java.util.Optional;
 
-import eapli.base.clientusermanagement.domain.ClientUser;
-import eapli.base.clientusermanagement.domain.ClientUserBuilder;
-import eapli.base.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import eapli.base.domain.ClientUser;
+import eapli.base.domain.ClientUserBuilder;
+import eapli.base.clientusermanagement.events.NewUserRegisteredFromSignupEvent;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.framework.functional.Functions;

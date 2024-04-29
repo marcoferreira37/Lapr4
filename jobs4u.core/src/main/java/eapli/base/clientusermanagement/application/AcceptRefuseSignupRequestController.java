@@ -23,7 +23,7 @@
  */
 package eapli.base.clientusermanagement.application;
 
-import eapli.base.clientusermanagement.domain.SignupRequest;
+import eapli.base.domain.SignupRequest;
 
 /**
  * The controller for the use case "Accept or refuse signup request".

@@ -22,8 +22,8 @@ package eapli.base.app.bootstrap;
 
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.clientusermanagement.application.eventhandlers.NewUserRegisteredFromSignupWatchDog;
-import eapli.base.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import eapli.base.clientusermanagement.domain.events.SignupAcceptedEvent;
+import eapli.base.clientusermanagement.events.NewUserRegisteredFromSignupEvent;
+import eapli.base.clientusermanagement.events.SignupAcceptedEvent;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.base.infrastructure.bootstrapers.demo.BaseDemoBootstrapper;
 import eapli.base.infrastructure.persistence.PersistenceContext;

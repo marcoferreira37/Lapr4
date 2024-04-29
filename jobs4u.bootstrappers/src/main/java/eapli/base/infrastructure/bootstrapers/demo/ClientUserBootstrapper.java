@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import eapli.base.clientusermanagement.application.AcceptRefuseSignupFactory;
 import eapli.base.clientusermanagement.application.AcceptRefuseSignupRequestController;
-import eapli.base.clientusermanagement.domain.SignupRequest;
+import eapli.base.domain.SignupRequest;
 import eapli.base.infrastructure.bootstrapers.TestDataConstants;
 import eapli.base.myclientuser.application.SignupController;
 import eapli.framework.actions.Action;

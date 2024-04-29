@@ -1,9 +1,9 @@
 package eapli.base.usermanagement.application.register;
 
-import eapli.base.clientusermanagement.domain.Jobs4URoles;
-import eapli.base.clientusermanagement.domain.Jobs4UUser;
-import eapli.base.clientusermanagement.domain.jobs4uuserbuilders.Ijobs4UUserBuilderFactory;
-import eapli.base.clientusermanagement.domain.jobs4uuserbuilders.LanguageEngineerBuilder;
+import eapli.base.domain.Jobs4URoles;
+import eapli.base.domain.Jobs4UUser;
+import eapli.base.domain.jobs4uuserbuilders.Ijobs4UUserBuilderFactory;
+import eapli.base.domain.jobs4uuserbuilders.LanguageEngineerBuilder;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.usermanagement.application.CreateSystemUserController;
 import eapli.framework.infrastructure.authz.domain.model.Role;

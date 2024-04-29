@@ -23,7 +23,7 @@
  */
 package eapli.base.clientusermanagement.application.eventhandlers;
 
-import eapli.base.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import eapli.base.clientusermanagement.events.NewUserRegisteredFromSignupEvent;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.infrastructure.pubsub.EventHandler;
 

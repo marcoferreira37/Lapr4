@@ -4,11 +4,9 @@ import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.ListPrinter;
 import eapli.base.app.common.console.ui.components.ListSelector;
 import eapli.base.app.common.console.ui.components.Sleeper;
-import eapli.base.clientusermanagement.domain.Jobs4UUser;
-import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
+import eapli.base.domain.Jobs4UUser;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.application.ListAllUsersController;
-import eapli.base.usermanagement.application.UserSessionService;
 
 import java.util.List;
 

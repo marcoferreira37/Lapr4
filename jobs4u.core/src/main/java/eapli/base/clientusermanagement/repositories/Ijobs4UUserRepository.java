@@ -1,6 +1,6 @@
 package eapli.base.clientusermanagement.repositories;
 
-import eapli.base.clientusermanagement.domain.Jobs4UUser;
+import eapli.base.domain.Jobs4UUser;
 import eapli.framework.domain.repositories.DomainRepository;
 
 import java.util.Optional;

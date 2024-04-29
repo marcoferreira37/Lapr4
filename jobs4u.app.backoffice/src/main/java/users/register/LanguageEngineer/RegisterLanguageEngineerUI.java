@@ -3,10 +3,9 @@ package users.register.LanguageEngineer;
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.app.common.console.ui.components.Sleeper;
-import eapli.base.clientusermanagement.domain.jobs4uuserbuilders.Jobs4UUserBuilderFactory;
+import eapli.base.domain.jobs4uuserbuilders.Jobs4UUserBuilderFactory;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.application.register.RegisterLanguageEngineerController;
-import eapli.base.usermanagement.application.register.RegisterOperatorController;
 
 public class RegisterLanguageEngineerUI extends AbstractUI {
 

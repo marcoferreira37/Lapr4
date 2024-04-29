@@ -1,6 +1,6 @@
 package eapli.base.usermanagement.application;
 
-import eapli.base.clientusermanagement.domain.Jobs4UUser;
+import eapli.base.domain.Jobs4UUser;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 
 

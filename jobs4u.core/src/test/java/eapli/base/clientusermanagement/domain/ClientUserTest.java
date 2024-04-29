@@ -29,6 +29,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
 
+import eapli.base.domain.ClientUser;
+import eapli.base.domain.ClientUserBuilder;
 import org.junit.Test;
 
 import eapli.base.usermanagement.domain.BaseRoles;

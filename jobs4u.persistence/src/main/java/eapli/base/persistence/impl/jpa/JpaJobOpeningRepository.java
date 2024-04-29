@@ -1,9 +1,9 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.Domain.jobOpening.JobOpening;
-import eapli.base.Domain.jobOpening.JobReference;
+import eapli.base.domain.jobOpening.JobOpening;
+import eapli.base.domain.jobOpening.JobReference;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
-import eapli.base.Domain.repositories.JobOpeningRepository;
+import eapli.base.repositories.JobOpeningRepository;
 import jakarta.persistence.EntityManager;
 
 import java.util.HashMap;

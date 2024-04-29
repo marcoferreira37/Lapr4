@@ -1,6 +1,6 @@
 package eapli.base.clientusermanagement.application;
 
-import eapli.base.clientusermanagement.domain.Jobs4URoles;
+import eapli.base.domain.Jobs4URoles;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
 

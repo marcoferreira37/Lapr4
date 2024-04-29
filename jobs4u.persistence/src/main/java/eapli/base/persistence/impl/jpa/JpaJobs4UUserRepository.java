@@ -1,7 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.clientusermanagement.domain.Jobs4UUser;
-import eapli.base.clientusermanagement.domain.UserState;
+import eapli.base.domain.Jobs4UUser;
+import eapli.base.domain.UserState;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
