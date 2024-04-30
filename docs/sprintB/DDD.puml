@@ -66,7 +66,7 @@ rectangle opening #bbccaa {
         - address : String
     }
 
-    class Vacancies<<Value Object>>{
+    class VacanciesNumber<<Value Object>>{
         - numberOfVacancies : Integer
     }
 
@@ -83,7 +83,7 @@ rectangle opening #bbccaa {
 }
 
 
-rectangle asafilhadasdotualipa #aaccbb {
+rectangle application #aaccbb {
 
     class Application<<Aggregate Root>><<Entity>>{}
 
@@ -139,6 +139,39 @@ rectangle interview #ccbbaa{
 
 }
 
+
+JobOpening "1" -up-> "1" JobReference
+JobOpening "1" --> "1" JobAddress
+JobOpening "1" --> "1" TitleOrFunction
+JobOpening "1" ---> "1" ContractType
+JobOpening "1" -left-> "1" Mode
+JobOpening "1" ---> "1" VacanciesNumber
+JobOpening "1" --> "1" Description
+JobOpening "1" -> "1" Requirements
+
+Candidate "1" --> "*" PhoneNumber
+Candidate "1" --> "1" CandidateId
+Candidate "1" --> "1" CandidateName
+Candidate "1" --> "1" CandidateAddress
+
+
+Application "1" --> "1" ApplicationId
+Application "1" --> "1" AttachedEmail
+Application "1" --> "1" AttachedFile
+Application "1" --> "1" ApplicatorData
+
+
+CustomerManager "1" --> "1" CustomerManagerId
+
+
+JobOpening "0..*" --> "0..*" Candidate : has
+JobOpening "1" --> "0..*" Application : has
+Candidate "1" --> "0..*" Application : submits
+CustomerManager "1" --> "0..*" JobOpening : registers
+
+InterviewModel "1" --> "1" InterviewModelName : has
+InterviewModel "1" --> "*" Question : contains
+Question <|-- InterviewModel : belongs to
 
 
 
