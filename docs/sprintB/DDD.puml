@@ -3,12 +3,6 @@
 
 hide methods
 
-rectangle authz #505050{
-
-    class SystemUser <<Aggregate Root>><<Entity>>
-
-}
-
 
 
 rectangle candidate #aabbcc{
@@ -16,25 +10,31 @@ rectangle candidate #aabbcc{
     class CandidateId<<Identity>><<Value Object>>{
         -id : Long
     }
-    class PhoneNumber<<Value Object>>{
-        - number : String
-    }
-    class CandidateName<<Value Object>>{
-        - name : String
-    }
+
     class CandidateAddress<<Value Object>>{
         - address : String
     }
 }
 
 
-rectangle manager #bbaacc{
-    class CustomerManager <<Aggregate Root>><<Entity>>{
+rectangle customer #bbaacc{
+    class Customer <<Aggregate Root>><<Entity>>{
     }
-    class CustomerManagerId<<Identity>><<Value Object>>{
+    class CustomerId<<Identity>><<Value Object>>{
         - id : Long
     }
 }
+
+
+rectangle sharedObjects {
+
+    class Email <<Value Object>>
+    class PhoneNumber <<Value Object>>
+    class Username <<Value Object>>
+
+}
+
+
 
 rectangle opening #bbccaa {
 
@@ -56,7 +56,7 @@ rectangle opening #bbccaa {
         + PART_TIME
     }
 
-    enum Mode<<Enumerated>><<Value Object>>{
+    class Mode<<Enumerated>><<Value Object>>{
         + REMOTE
         + HYBRID
         + ON_SITE
@@ -101,7 +101,7 @@ rectangle application #aaccbb {
     }
 
     class ApplicatorData<<Value Object>>{
-        -
+
     }
 
 
@@ -149,9 +149,7 @@ JobOpening "1" ---> "1" VacanciesNumber
 JobOpening "1" --> "1" Description
 JobOpening "1" -> "1" Requirements
 
-Candidate "1" --> "*" PhoneNumber
 Candidate "1" --> "1" CandidateId
-Candidate "1" --> "1" CandidateName
 Candidate "1" --> "1" CandidateAddress
 
 
@@ -161,13 +159,13 @@ Application "1" --> "1" AttachedFile
 Application "1" --> "1" ApplicatorData
 
 
-CustomerManager "1" --> "1" CustomerManagerId
+Customer "1" --> "1" CustomerId
 
 
 JobOpening "0..*" --> "0..*" Candidate : has
 JobOpening "1" --> "0..*" Application : has
 Candidate "1" --> "0..*" Application : submits
-CustomerManager "1" --> "0..*" JobOpening : registers
+Customer "1" --> "0..*" JobOpening : registers
 
 InterviewModel "1" --> "1" InterviewModelName : has
 InterviewModel "1" --> "*" Question : contains
