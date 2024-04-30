@@ -22,6 +22,7 @@ package eapli.base.customer;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.PasswordPolicy;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
@@ -45,8 +46,6 @@ public class CustomerManagementService {
     private final PasswordEncoder encoder  ;
     private final PasswordPolicy policy ;
 
-    private final SystemCustomerBuilder builder = new SystemCustomerBuilder();
-
 
     @Autowired
     public CustomerManagementService(CustomerRepository customerRepo, final PasswordPolicy policy, PasswordEncoder encoder) {
@@ -56,39 +55,11 @@ public class CustomerManagementService {
     }
 
 
-
-
-
-    /**
-     * Registers a new user in the system allowing to specify when the user account
-     * was created.
-     *
-     * @param username
-     * @param rawPassword
-     * @param firstName
-     * @param lastName
-     * @param email
-     * @param createdOn
-     *
-     * @return the new user
-     */
     @Transactional
-    public Customer registerNewCustomer(final String username,
-                                          final String rawPassword,
-                                          final String firstName,
-                                          final String lastName,
-                                          final String email,
-                                          final Calendar createdOn) {
-        final Customer newCustomer = builder.build();
-                /*
-                new SystemCustomerBuilder(policy, encoder)
-                .with(username, rawPassword, firstName, lastName, email)
-                .createdOn(createdOn)
-                .withRoles(BaseRoles.CUSTOMER)
-                .build();
-                */
-
-
+    public Customer registerNewCustomer(final SystemUser newUser, final EmailAddress emailAddress) {
+        SystemCustomerBuilder builder = new SystemCustomerBuilder();
+        builder.withUser(newUser).withEmail(emailAddress);
+        Customer newCustomer = builder.build();
 
         return customerRepository.save(newCustomer);
     }

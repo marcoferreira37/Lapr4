@@ -21,6 +21,7 @@
 package eapli.base.usermanagement.application;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 import eapli.base.customer.Customer;
@@ -30,6 +31,7 @@ import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.PasswordPolicy;
@@ -38,6 +40,7 @@ import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
+import eapli.framework.validations.Preconditions;
 
 /**
  * Created by nuno on 21/03/16.
@@ -49,6 +52,7 @@ public class AddCustomerController {
     private final UserManagementService userSvc = AuthzRegistry.userService();
 
     private final CustomerManagementService customerSvc = new CustomerManagementService(PersistenceContext.repositories().customer(), new BasePasswordPolicy(), new PlainTextEncoder());
+
     /**
      * Get existing RoleTypes available to the user.
      *
@@ -59,12 +63,27 @@ public class AddCustomerController {
     }
 
     public Customer addCustomer(final String username,
-                                final String password,
                                 final String firstName,
                                 final String lastName,
-                                final String email) {
+                                final String email
+            , final Calendar createdOn) {
+
+        Set<Role> role = new HashSet<>();
+        role.add(BaseRoles.CUSTOMER);
+        final SystemUser newUser = createSystemUser(firstName, lastName, email, role, createdOn);
+
+        return customerSvc.registerNewCustomer(newUser, EmailAddress.valueOf(email));
+    }
+
+    private SystemUser createSystemUser(final String firstName, final String lastName, final String email, final Set<Role> roles, final Calendar createdOn) {
+        Preconditions.nonNull(firstName);
+        Preconditions.nonNull(lastName);
+        Preconditions.nonNull(email);
 
 
-        return customerSvc.registerNewCustomer(username, password, firstName, lastName, email, Calendar.getInstance());
+        roles.add(BaseRoles.CUSTOMER);
+        String password = "Password1";
+
+        return userSvc.registerNewUser(email, password, firstName, lastName, email, roles, createdOn);
     }
 }

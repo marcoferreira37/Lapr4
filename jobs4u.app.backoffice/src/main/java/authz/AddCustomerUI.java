@@ -14,6 +14,7 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Set;
 
@@ -26,15 +27,12 @@ public class AddCustomerUI extends AbstractUI {
         // FIXME avoid duplication with SignUpUI. reuse UserDataWidget from
         // UtenteApp
         final String username = Console.readLine("Username");
-        final String password = Console.readLine("Password");
         final String firstName = Console.readLine("First Name");
         final String lastName = Console.readLine("Last Name");
         final String email = Console.readLine("E-Mail");
-      //  final Set<Role> role = Collections.singleton(Role.valueOf("CUSTOMER"));
-
 
         try {
-            this.theController.addCustomer(username, password, firstName, lastName, email);
+            this.theController.addCustomer(username, firstName, lastName, email, Calendar.getInstance());
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That username is already in use.");
         }

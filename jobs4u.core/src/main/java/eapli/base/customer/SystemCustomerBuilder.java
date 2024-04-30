@@ -60,6 +60,8 @@ public class SystemCustomerBuilder implements DomainFactory<Customer> {
     private Calendar createdOn;
     private final BaseRoles roles;
 
+    private SystemUser systemUser;
+
 
     private final PasswordPolicy policy;
     private final PasswordEncoder encoder;
@@ -206,6 +208,10 @@ public class SystemCustomerBuilder implements DomainFactory<Customer> {
         this.roles.addAll(roles);
         return this;
     }
+    public SystemCustomerBuilder withUser(final SystemUser systemUser){
+        this.systemUser = systemUser;
+        return this;
+    }
 
     @Override
     public Customer build() {
@@ -221,6 +227,7 @@ public class SystemCustomerBuilder implements DomainFactory<Customer> {
 //            LOGGER.debug("Creating new user [{}] {} ({} {}) with roles {}", customer, username, name,
 //                    email, roleLog);
 //        }
-        return new Customer(username, password, name, email,  roles, createdOn);
+        return new Customer(this.systemUser, this.email);
     }
+
 }

@@ -21,6 +21,7 @@
 package eapli.base.customer;
 
 import eapli.framework.domain.repositories.DomainRepository;
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
@@ -29,7 +30,7 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
  *
  * @author nuno on 21/03/16.
  */
-public interface CustomerRepository extends DomainRepository<Username, Customer> {
+public interface CustomerRepository extends DomainRepository<EmailAddress, Customer> {
 
     /**
      * Returns the currently active/inactive users.
