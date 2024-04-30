@@ -8,37 +8,45 @@ import lombok.*;
 @Table(name = "JOB_OPENING")
 @Entity
 @Getter
+@ToString(onlyExplicitlyIncluded = true)
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@NoArgsConstructor
 public class JobOpening implements AggregateRoot<JobReference> {
 
-    @EmbeddedId
-    @Column(name = "JOB_REFERENCE")
+    @ToString.Include
+    @Id
+    @Column(name = "JOB_REFERENCE", nullable = false)
     private JobReference jobReference;
 
-    @Column (name = "DESCRIPTION")
+    @ToString.Include
+    @Embedded
     private Description description;
 
-    @Column (name = "ADDRESS")
+    @ToString.Include
+    @Embedded
     private Address address;
 
+    @ToString.Include
     @Column (name = "MODE")
     @Enumerated(EnumType.STRING)
     private Mode mode;
 
+    @ToString.Include
     @Column (name = "CONTRACTTYPE")
     @Enumerated(EnumType.STRING)
     private ContractType contractType;
 
-    @Column (name = "TITLEORFUNCTION")
+    @ToString.Include
+    @Embedded
     private TitleOrFunction titleOrFunction;
 
-    @Column (name = "VACANCIESNUMBER")
+    @ToString.Include
+    @Embedded
     private VacanciesNumber vacanciesNumber;
 
-    @Column (name = "COMPANY")
     @ManyToOne
+    @JoinColumn(name = "COMPANY")
     private Company company;
 
 

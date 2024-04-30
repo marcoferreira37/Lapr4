@@ -41,7 +41,7 @@ public class MecanographicNumber implements ValueObject, Comparable<Mecanographi
             throw new IllegalArgumentException(
                     "Mecanographic Number should neither be null nor empty");
         }
-        // TODO validate invariants, i.e., mecanographic number regular
+        // TODO validate invariants, i.e., mecanographic number regular validate or invalidate  ¯\_(ツ)_/¯
         // expression
         this.number = mecanographicNumber;
     }

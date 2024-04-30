@@ -1,0 +1,146 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+hide methods
+
+rectangle authz #505050{
+
+    class SystemUser <<Aggregate Root>><<Entity>>
+
+}
+
+
+
+rectangle candidate #aabbcc{
+    class Candidate<<Aggregate Root>><<Entity>>{}
+    class CandidateId<<Identity>><<Value Object>>{
+        -id : Long
+    }
+    class PhoneNumber<<Value Object>>{
+        - number : String
+    }
+    class CandidateName<<Value Object>>{
+        - name : String
+    }
+    class CandidateAddress<<Value Object>>{
+        - address : String
+    }
+}
+
+
+rectangle manager #bbaacc{
+    class CustomerManager <<Aggregate Root>><<Entity>>{
+    }
+    class CustomerManagerId<<Identity>><<Value Object>>{
+        - id : Long
+    }
+}
+
+rectangle opening #bbccaa {
+
+    class JobOpening<<Aggregate Root>><<Entity>>{
+
+    }
+
+    class JobReference<<Identity>><<Value Object>>{
+        - sequenceId : id
+        - companyCode: String
+    }
+
+    class TitleOrFunction<<Value Object>>{
+        - epitaph : String
+    }
+
+    enum ContractType<<Enumerated>><<Value Object>>{
+        + FULL_TIME
+        + PART_TIME
+    }
+
+    enum Mode<<Enumerated>><<Value Object>>{
+        + REMOTE
+        + HYBRID
+        + ON_SITE
+    }
+
+    class JobAddress<<Value Object>>{
+        - address : String
+    }
+
+    class Vacancies<<Value Object>>{
+        - numberOfVacancies : Integer
+    }
+
+    class Description<<Value Object>>{
+        - description : String
+    }
+
+    ''Maybe go to Interview Model
+    class Requirements<<Value Object>>{
+        - title: String
+        - value : String
+    }
+
+}
+
+
+rectangle asafilhadasdotualipa #aaccbb {
+
+    class Application<<Aggregate Root>><<Entity>>{}
+
+    class ApplicationId<<Identity>><<Value Object>>{
+        - id : Long
+    }
+
+    class AttachedEmail<<Value Object>>{
+        - text : String
+    }
+
+    class AttachedFile<<Value Object>>{
+        - orcText : String
+        - pathToFile: String
+    }
+
+    class ApplicatorData<<Value Object>>{
+        -
+    }
+
+
+
+
+}
+
+
+rectangle interview #ccbbaa{
+
+
+    class InterviewModel <<Aggregate Root>><<Entity>>{}
+
+    class InterviewModelName<<Value Object>>{}
+
+    abstract Question<<Entity>><<Prototype>>{}
+
+    class TrueFalseQuestion<<Entity>> extends Question{}
+
+    class ShortTextQuestion<<Entity>> extends Question {}
+
+    class SingleChoiceQuestion<<Entity>> extends Question {}
+
+    class MultipleChoiceQuestion<<Entity>> extends Question{}
+
+    class IntegerQuestion<<Entity>> extends Question{}
+
+    class RealNumberQuestion<<Entity>> extends Question{}
+
+    class DateQuestion<<Entity>> extends Question{}
+
+    class TimeQuestion<<Entity>> extends Question{}
+
+    class ScaleQuestion<<Entity>> extends Question{}
+
+}
+
+
+
+
+
+@enduml

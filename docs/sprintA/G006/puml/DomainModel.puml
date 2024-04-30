@@ -37,8 +37,6 @@ title Domain Model
 skinparam packageStyle rectangle
 
 
-
-
 package "Job Opening" {
 
 class JobOpening <<Root Entity>>
@@ -51,56 +49,56 @@ class TitleOrFunction <<Value Object>>
 class VacanciesNumber <<Value Object>>
 
 }
-
-package "Phases" {
-
-class Phase <<Root Entity>>
-class PhaseData <<Value Object>>
-
-}
-
-package "Plug-in" {
-class Plugin <<Root Entity>>
-class JarFile <<Value Object>>
-class PluginDescription <<Value Object>>
-class PluginID <<Identifier>>
-class InterviewModel <<Value Object>>
-class RequirementsSpecification <<Value Object>>
-}
-
-package "Job Offer Application" {
-
-class Application <<Root Entity>>
-class ApplicationID <<Identifier>>
-class ApplicationStatus <<Value Object>>
-class AnalyzedRequirements <<Value Object>>
-class ReportFiles <<Value Object>>
-
-}
-
-package "ApplicationFeedback"{
-class InterviewFeedback <<Entity>>
-}
-
-package "Customer Manager" {
-
-class CustomerManager <<Root Entity>>
-class CustomerManagerID <<Identifier>>
-class Company <<Value Object>>
-
-}
-
-package "Application Candidate" {
-
-class Candidate <<Root Entity>>
-class CandidateID <<Identifier>>
-
-}
-
-package "Clients" {
-class ClientID <<Identifier>>
-class Client <<Root Entity>>
-}
+'
+'package "Phases" {
+'
+'class Phase <<Root Entity>>
+'class PhaseData <<Value Object>>
+'
+'}
+'
+'package "Plug-in" {
+'class Plugin <<Root Entity>>
+'class JarFile <<Value Object>>
+'class PluginDescription <<Value Object>>
+'class PluginID <<Identifier>>
+'class InterviewModel <<Value Object>>
+'class RequirementsSpecification <<Value Object>>
+'}
+'
+'package "Job Offer Application" {
+'
+'class Application <<Root Entity>>
+'class ApplicationID <<Identifier>>
+'class ApplicationStatus <<Value Object>>
+'class AnalyzedRequirements <<Value Object>>
+'class ReportFiles <<Value Object>>
+'
+'}
+'
+'package "ApplicationFeedback"{
+'class InterviewFeedback <<Entity>>
+'}
+'
+'package "Customer Manager" {
+'
+'class CustomerManager <<Root Entity>>
+'class CustomerManagerID <<Identifier>>
+'class Company <<Value Object>>
+'
+'}
+'
+'package "Application Candidate" {
+'
+'class Candidate <<Root Entity>>
+'class CandidateID <<Identifier>>
+'
+'}
+'
+'package "Clients" {
+'class ClientID <<Identifier>>
+'class Client <<Root Entity>>
+'}
 
 
 
@@ -124,8 +122,6 @@ JobOpening "1" --> "1" VacanciesNumber
 '
 'JobOpening "0..1" ---> "0..1" InterviewDescription : has >
 'JobOpening "1" --> "1" Report : >
-'JobOpening "1" ---> "1" Address :  >
-'JobOpening "1" --> "1" JobReference : >
 'JobOpening "1" <-- "1" Application : >
 '
 '
