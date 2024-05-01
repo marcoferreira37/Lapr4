@@ -15,7 +15,7 @@ import lombok.*;
 public class JobOpening implements AggregateRoot<JobReference> {
 
     @ToString.Include
-    @Id
+    @EmbeddedId
     @Column(name = "JOB_REFERENCE", nullable = false)
     private JobReference jobReference;
 

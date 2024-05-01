@@ -78,6 +78,10 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public CustomerRepository customer() {
         return new JpaCustomerRepository(Application.settings().getPersistenceUnitName());
     }
+    @Override
+    public JobOpeningRepository jobOpeningRepository(final TransactionalContext autoTx) {
+        return new JpaJobOpeningRepository(autoTx);
+    }
 
     @Override
     public JobOpeningRepository jobOpeningRepository() {
@@ -85,8 +89,12 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
+    public CompanyRepository companyRepository(final TransactionalContext autoTx) {
+        return new JpaCompanyRepository(autoTx);
+    }
+    @Override
     public CompanyRepository companyRepository() {
-        return null;
+        return new JpaCompanyRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override

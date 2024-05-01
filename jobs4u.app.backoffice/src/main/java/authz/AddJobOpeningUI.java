@@ -5,7 +5,6 @@ import eapli.framework.presentation.console.AbstractUI;
 
 public class AddJobOpeningUI extends AbstractUI {
 
-    private AddJobOpeningController controller = new AddJobOpeningController();
 
     @Override
     protected boolean doShow() {

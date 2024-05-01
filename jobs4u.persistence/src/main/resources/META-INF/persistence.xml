@@ -13,6 +13,9 @@
     <class>eapli.base.domain.ClientUser</class>
     <class>eapli.base.domain.SignupRequest</class>
     <class>eapli.base.customer.Customer</class>
+    <class>eapli.base.domain.company.Company</class>
+    <class>eapli.base.domain.jobOpening.JobOpening</class>
+    <class>eapli.base.domain.candidate.Candidate</class>
 
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:~/base"/>

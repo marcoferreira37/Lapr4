@@ -1,24 +1,32 @@
 package eapli.base.domain.jobOpening;
 
 import eapli.framework.domain.model.ValueObject;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.annotation.processing.Generated;
-@Getter
-@Setter
+
+@Embeddable
 public class JobReference implements ValueObject, Comparable<JobReference> {
 
-
+    private String companyIndex;
     private long iD;
+    private String fullReference;
 
 
-    public JobReference(Long jobReference) {
+    public JobReference(Long jobReference, String companyIndex) {
         this.iD = jobReference;
+        this.companyIndex = companyIndex;
+        this.fullReference = companyIndex + "-" + jobReference;
 
     }
+
+    public JobReference() {
+
+    }
+
     public long iD() {
         return iD;
     }

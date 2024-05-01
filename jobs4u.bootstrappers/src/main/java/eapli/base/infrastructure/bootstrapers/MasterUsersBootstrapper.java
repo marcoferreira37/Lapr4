@@ -23,6 +23,10 @@ package eapli.base.infrastructure.bootstrapers;
 import java.util.HashSet;
 import java.util.Set;
 
+import eapli.base.domain.company.Company;
+import eapli.base.domain.company.CompanyName;
+import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.usermanagement.application.CompanyRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
@@ -39,6 +43,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerOperator("operator", TestDataConstants.PASSWORD1, "Francisco","Monteiro", "franciscomonteiro@gmail.com");
 
         registerCustomerManager("customerManager", TestDataConstants.PASSWORD1, "Francisco", "Silveira", "franciscosilveira@gmail.com");
+        registerCompany("name", 37L);
         return true;
     }
 
@@ -67,6 +72,13 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         roles.add(BaseRoles.CUSTOMER_MANAGER);
 
         registerUser(username, password, firstName, lastName, email, roles);
+    }
+
+    private void registerCompany(final String name, final Long id){
+        CompanyName n = new CompanyName(name);
+        Company c = new Company(n);
+        CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
+        companyRepository.save(c);
     }
 
 

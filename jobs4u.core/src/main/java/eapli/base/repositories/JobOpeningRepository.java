@@ -10,4 +10,6 @@ public interface JobOpeningRepository extends DomainRepository<JobReference,JobO
 
     Long getLastIdFromCompany(Long companyId);
 
+
+
 }

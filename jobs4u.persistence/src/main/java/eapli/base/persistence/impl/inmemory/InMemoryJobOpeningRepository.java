@@ -35,4 +35,5 @@ public class InMemoryJobOpeningRepository
         l.sort((o1, o2) -> Long.compare(o2.getJobReference().iD(), o1.getJobReference().iD()));
         return l.getFirst().getJobReference().iD();
     }
+
 }

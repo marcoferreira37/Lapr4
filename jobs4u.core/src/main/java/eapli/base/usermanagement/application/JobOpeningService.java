@@ -8,7 +8,6 @@ import eapli.base.repositories.JobOpeningRepository;
 
 import java.util.Optional;
 
-//TODO: FIND ME A HOME Not this sprint  ¯\_(ツ)_/¯
 public class JobOpeningService {
 
     private JobOpeningRepository repository = PersistenceContext.repositories().jobOpeningRepository();
@@ -24,11 +23,13 @@ public class JobOpeningService {
         }
 
 
-        Long lastOpening = repository.getLastIdFromCompany(companyId);
+        Long lastJR = repository.getLastIdFromCompany(companyId);
+        Company c = company.get();
+        String cIndex = c.getCompanyName().companyName().substring(0, 3).toUpperCase();
 
 
         JobOpening jo = builder
-                .jobReference(new JobReference(lastOpening+1))
+                .jobReference(new JobReference(lastJR+1,cIndex))
                 .titleOrFunction(new TitleOrFunction(epitaph))
                 .description(new Description(description))
                 .contractType(contract)

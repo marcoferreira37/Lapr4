@@ -8,9 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Candidate implements AggregateRoot<CandidateId> {
+public class Candidate implements AggregateRoot<Long> {
     @Id
-    private CandidateId id;
+    private Long id;
     @Column(name = "CANDIDATENAME")
     private CandidateName name;
 
@@ -21,7 +21,7 @@ public class Candidate implements AggregateRoot<CandidateId> {
     protected Candidate() {
     }
 
-    public Candidate(CandidateId id, CandidateName name, SystemUser user) {
+    public Candidate(Long id, CandidateName name, SystemUser user) {
         this.id = id;
         this.name = name;
         this.user = user;
@@ -33,7 +33,7 @@ public class Candidate implements AggregateRoot<CandidateId> {
     }
 
     @Override
-    public CandidateId identity() {
+    public Long identity() {
         return null;
     }
 }

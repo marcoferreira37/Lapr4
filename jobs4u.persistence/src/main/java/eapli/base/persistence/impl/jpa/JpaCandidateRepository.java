@@ -38,12 +38,12 @@ public class JpaCandidateRepository extends BasepaRepositoryBase<Candidate, Long
     }
 
     @Override
-    public Optional<Candidate> ofIdentity(CandidateId id) {
+    public Optional<Candidate> ofIdentity(Long id) {
         return Optional.empty();
     }
 
     @Override
-    public void deleteOfIdentity(CandidateId entityId) {
+    public void deleteOfIdentity(Long entityId) {
 
     }
 }

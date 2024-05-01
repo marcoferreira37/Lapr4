@@ -2,6 +2,7 @@ package eapli.base.domain.company;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
 
 @Embeddable
 public class CompanyName implements ValueObject {
