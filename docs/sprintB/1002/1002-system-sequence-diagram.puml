@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Register a customer
+title System Sequence Diagram (SSD) - Register job opening
 
 autonumber
 
@@ -12,22 +12,22 @@ participant ":System" as System
 
 activate Manager
 
-    Manager -> System : requests to register a customer
+    Manager -> System : requests to register a job opening
     activate System
 
-    System --> Manager : show information about the customer (username, password, email, firstName, lastName, role).
+    System --> Manager : prompts for job details (job reference, description, address,\n contract type, mode, titlle or function, vacancies Number)
 
     deactivate System
 
-    Manager -> System : provides the information
+    Manager -> System : provides job details
 
     activate System
 
 
-        System --> Manager : shows and requests confirmation for the customer registration
+        System --> Manager : shows and requests confirmation for job registration
         deactivate System
 
-        Manager -> System : confirms registration
+        Manager -> System : confirms job registration
         activate System
 
         System --> Manager : confirms successful registration
