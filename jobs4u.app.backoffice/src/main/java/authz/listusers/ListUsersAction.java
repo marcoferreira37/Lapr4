@@ -1,4 +1,4 @@
-package authz;
+package authz.listusers;
 
 
 import eapli.framework.actions.Action;
