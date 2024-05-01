@@ -120,23 +120,23 @@ rectangle interview #ccbbaa{
 
     abstract Question<<Entity>><<Prototype>>{}
 
-    class TrueFalseQuestion<<Entity>> extends Question{}
+    class TrueFalseQuestion<<Entity>> {}
 
-    class ShortTextQuestion<<Entity>> extends Question {}
+    class ShortTextQuestion<<Entity>>  {}
 
-    class SingleChoiceQuestion<<Entity>> extends Question {}
+    class SingleChoiceQuestion<<Entity>> {}
 
-    class MultipleChoiceQuestion<<Entity>> extends Question{}
+    class MultipleChoiceQuestion<<Entity>> {}
 
-    class IntegerQuestion<<Entity>> extends Question{}
+    class IntegerQuestion<<Entity>> {}
 
-    class RealNumberQuestion<<Entity>> extends Question{}
+    class RealNumberQuestion<<Entity>> {}
 
-    class DateQuestion<<Entity>> extends Question{}
+    class DateQuestion<<Entity>> {}
 
-    class TimeQuestion<<Entity>> extends Question{}
+    class TimeQuestion<<Entity>> {}
 
-    class ScaleQuestion<<Entity>> extends Question{}
+    class ScaleQuestion<<Entity>> {}
 
 }
 
@@ -168,7 +168,7 @@ Candidate "1" --> "0..*" Application : submits
 Customer "1" --> "0..*" JobOpening : registers
 
 InterviewModel "1" -left-> "1" InterviewModelName : has
-InterviewModel "1" --> "*" Question : contains
+InterviewModel "1" -down--> "*" Question : contains
 Question <|-- InterviewModel : belongs to
 
 
@@ -181,7 +181,14 @@ Customer "1" --> "1" Username
 Customer "1" --> "1" PhoneNumber
 Candidate "1" --> "1" Email
 
-
-
+RealNumberQuestion -up-|> Question
+ScaleQuestion -up-|> Question
+SingleChoiceQuestion --|> Question
+IntegerQuestion -up-|> Question
+TimeQuestion --|> Question
+ShortTextQuestion -left-|> Question
+TrueFalseQuestion --|> Question
+MultipleChoiceQuestion -up-|> Question
+DateQuestion --|> Question
 
 @enduml
