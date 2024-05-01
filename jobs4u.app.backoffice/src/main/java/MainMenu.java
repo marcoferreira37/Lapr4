@@ -1,5 +1,7 @@
 
 import authz.*;
+import authz.registerusers.AddUserAction;
+import authz.registerusers.AddUserUI;
 import clientuser.AcceptRefuseSignupRequestAction;
 import eapli.base.Application;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
@@ -17,12 +19,10 @@ import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
-import authz.ListUsersAction;
-import users.enable_disable.DisableUserAction;
-import users.enable_disable.EnableUserAction;
-import users.list.ListAllUsersAction;
+import authz.listusers.ListUsersAction;
+import authz.enable_disable_users.DisableUserAction;
+import authz.enable_disable_users.EnableUserAction;
 import users.register.CostumerManager.AddJobOpeningUI;
-import users.register.RegisterUserAction;
 
 /**
  * TODO split this class in more specialized classes for each menu
@@ -156,8 +156,8 @@ public class MainMenu extends AbstractUI {
     private Menu buildUsersMenu() {
         final Menu menu = new Menu("Users >");
 
-        menu.addItem(ADD_USER_OPTION, "Register a User", new RegisterUserAction());
-        menu.addItem(LIST_USERS_OPTION, "List all Users", new ListAllUsersAction());
+        menu.addItem(ADD_USER_OPTION, "Register a User", new AddUserAction());
+        menu.addItem(LIST_USERS_OPTION, "List all Users", new ListUsersAction());
         menu.addItem(DEACTIVATE_USER_OPTION, "Disable a User", new DisableUserAction());
         menu.addItem(ACTIVATE_USER_OPTION, "Enable a User", new EnableUserAction());
         menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
