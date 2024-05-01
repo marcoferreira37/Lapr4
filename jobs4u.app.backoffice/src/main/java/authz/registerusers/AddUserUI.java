@@ -1,4 +1,4 @@
-package authz;
+package authz.registerusers;
 
 
 import eapli.base.usermanagement.application.AddUserController;
