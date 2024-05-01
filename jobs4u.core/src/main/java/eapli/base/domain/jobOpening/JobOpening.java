@@ -9,7 +9,7 @@ import lombok.*;
 @Entity
 @Getter
 @ToString(onlyExplicitlyIncluded = true)
-@Builder
+@Builder // CRIAR UMA CLASS BUILDER ( nao é um builder pattern )
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobOpening implements AggregateRoot<JobReference> {
@@ -59,5 +59,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     public JobReference identity() {
         return jobReference;
     }
+
+
 
 }

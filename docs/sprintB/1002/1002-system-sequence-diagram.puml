@@ -59,4 +59,5 @@ activate Manager
         System --> Manager : confirms successful registration
 
     deactivate System
+
 @enduml

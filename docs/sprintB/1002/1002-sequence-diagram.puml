@@ -4,8 +4,8 @@ title Register Job Opening - Sequence Diagram
 
 autonumber
 actor "Customer Manager" as M
-participant RegisterJobOpeningUI as UI <<UI>>
-participant RegisterJobOpeningController as Controller <<Application>>
+participant AddJobOpeningUI  as UI <<UI>>
+participant AddJobOpeningController as Controller <<Application>>
 participant JobOpeningBuilder as JB <<Domain>>
 participant JobOpening as JO <<Domain>>
 database JobOpeningRepository as JRepo <<Persistence>>
@@ -39,7 +39,7 @@ UI --> M : shows and requests confirmation for job registration
 
 M -> UI : confirms job registration
 
-UI -> Controller: registerJobOpening(code, name, description)
+UI -> Controller: addJobopening(description, address, mode, ct, titleOrFunction, vacanciesNumber, companyId)
 
 activate Controller
 
