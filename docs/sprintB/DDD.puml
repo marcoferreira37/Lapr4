@@ -27,7 +27,7 @@ rectangle customer #bbaacc{
 }
 
 
-rectangle sharedObjects {
+rectangle "Shared Objects" {
 
     class Email <<Value Object>>
     class PhoneNumber <<Value Object>>
