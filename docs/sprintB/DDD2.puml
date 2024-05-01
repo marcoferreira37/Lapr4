@@ -1,0 +1,191 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+top to bottom direction
+left to right direction
+
+hide methods
+hide circle
+
+title Project Domain Model - Jobs4U
+
+package SystemUserAggregate {
+    class SystemUser <<Root Entity>>
+    class Name <<Value Object>>
+    class Email <<Value Object>>
+    class Password <<Value Object>>
+    enum Role <<Value Object>> {
+        ADMIN
+        CUSTOMER_MANAGER
+        OPERATOR
+        LANGUAGE_ENGINEER
+        CUSTOMER
+    }
+}
+class PasswordEncoder <<Service>>
+class PasswordPolicy <<Service>>
+note left of SystemUserAggregate: out of scope (provided by EAPLI FRAMEWORK)
+
+package OperatorAggregate {
+    class Operator <<Root Entity>>
+}
+note bottom of OperatorAggregate: conceptual class
+
+package AdminAggregate {
+    class Admin <<Root Entity>>
+}
+note left of AdminAggregate: conceptual class
+
+package CustomerManagerAggregate {
+    class CustomerManager <<Root Entity>>
+}
+note right of CustomerManagerAggregate: conceptual class
+
+package CustomerAggregate {
+    class Customer <<Root Entity>>
+}
+
+package LanguageEngineerAggregate {
+    class LanguageEngineer <<Root Entity>>
+}
+note left of LanguageEngineerAggregate: conceptual class
+
+package CandidateAggregate {
+    class Candidate <<Root Entity>>
+}
+note bottom of CandidateAggregate: conceptual class
+
+package AddressAggregate {
+    class Address <<Root Entity>>
+    class ZipCode <<Value Object>>
+    class City <<Value Object>>
+    class Street <<Value Object>>
+    class DoorNumber <<Value Object>>
+}
+
+package JobOpeningAggregate {
+    class JobOpening <<Root Entity>>
+    enum JobMode <<Value Object>> {
+        ONSITE
+        REMOTE
+    }
+    class ContractType <<Value Object>> {
+        FULL_TIME
+        PART_TIME
+    }
+    class JobReference <<Value Object>>
+    class JobOpeningProcess <<Value Object>>
+    class JobOpeningStatus <<Entity>>
+    enum JobOpeningPhase <<Value Object>> {
+        APPLICATION
+        SCREENING
+        INTERVIEWS
+        ANALYSIS
+        RESULT
+    }
+    class JobOpeningPhaseInitialDate <<Value Object>>
+    class JobOpeningPhaseFinalDate <<Value Object>>
+    class JobDescription <<Value Object>>
+    class JobFunction <<Value Object>>
+    class JobRequirements <<Value Object>>
+    class JobOpeningNumVacancies <<Value Object>>
+}
+
+package JobApplicationAggregate {
+    class JobApplication <<Root Entity>>
+    class JobApplicationReference <<Value Object>>
+    class CurriculumVitae <<Value Object>>
+    class JobApplicationGrade <<Value Object>>
+    class JobApplicationStatus <<Entity>>
+}
+
+package InterviewAggregate {
+    class Interview <<Root Entity>>
+    class InterviewDate <<Value Object>>
+    class InterviewModel <<Value Object>>
+}
+
+class ApplicationsFileBot <<Service>> {
+}
+
+class ANTLR <<Service>> {
+}
+
+SystemUser "1" -- "1" Name
+SystemUser "1" -- "1" Email
+SystemUser "1" -- "1" Password
+SystemUser "1" -- "*" Role
+
+Password "1" -. "1" PasswordEncoder
+Password "1" -. "1" PasswordPolicy
+
+SystemUser <--- Operator
+SystemUser <--- Admin
+SystemUser <--- Customer
+SystemUser <--- CustomerManager
+SystemUser <--- LanguageEngineer
+SystemUser <--- Candidate
+
+Admin "1" ---- "*" Operator
+Admin "1" ---- "*" CustomerManager
+Admin "1" ---- "*" LanguageEngineer
+
+CustomerManager "1" ---- "*" Customer
+
+Operator "1" ---- "*" Candidate
+
+LanguageEngineer "1" --- "*" JobOpening
+LanguageEngineer "1" --- "*" Interview
+
+Candidate "1" ---- "*" JobApplication
+Candidate "1" -- "1" PhoneNumber
+
+CustomerManager "1" -- "*" JobOpening
+
+PhoneNumber "1" -- "1" PhoneIndicative
+
+Customer "1" ---- "1" Address
+
+Address "1" -- "1" ZipCode
+Address "1" -- "1" City
+Address "1" -- "1" Street
+Address "1" -- "1" DoorNumber
+
+JobOpening "1" ---- "1" Address
+JobOpening "1" ---- "*" JobApplication
+JobOpening "1" -- "1" JobMode
+JobOpening "1" -- "1" ContractType
+JobOpening "1" -- "1" JobReference
+JobOpening "1" -- "1" JobOpeningStatus
+JobOpening "1" -- "1" JobDescription
+JobOpening "1" -- "1" JobFunction
+JobOpening "1" -- "1" JobRequirements
+JobOpening "1" -- "1" JobOpeningNumVacancies
+
+JobOpening "1" -- "1" JobOpeningProcess
+JobOpeningProcess -- JobOpeningPhase
+JobOpeningPhase -- JobOpeningPhaseInitialDate
+JobOpeningPhase -- JobOpeningPhaseFinalDate
+
+JobApplication "1" -- "1" JobApplicationReference
+JobApplication "1" -- "1" CurriculumVitae
+JobApplication "1" -- "1" JobApplicationGrade
+JobApplication "1" -- "1" JobApplicationStatus
+
+Interview "1" -- "1" InterviewDate
+Interview "1" -- "1" InterviewModel
+
+Interview <-- ApplicationsFileBot
+JobApplication <-- ApplicationsFileBot
+
+InterviewModel <-- ANTLR
+JobRequirements <-- ANTLR
+
+JobApplication "1" ---- "*" Interview
+
+@enduml
