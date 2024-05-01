@@ -2,17 +2,18 @@
 'https://plantuml.com/class-diagram
 
 hide methods
+skinparam linetype ortho
 
 
 
 rectangle candidate #aabbcc{
     class Candidate<<Aggregate Root>><<Entity>>{}
     class CandidateId<<Identity>><<Value Object>>{
-        -id : Long
+'        -id : Long
     }
 
     class CandidateAddress<<Value Object>>{
-        - address : String
+'        - address : String
     }
 }
 
@@ -21,7 +22,7 @@ rectangle customer #bbaacc{
     class Customer <<Aggregate Root>><<Entity>>{
     }
     class CustomerId<<Identity>><<Value Object>>{
-        - id : Long
+'        - id : Long
     }
 }
 
@@ -43,41 +44,41 @@ rectangle opening #bbccaa {
     }
 
     class JobReference<<Identity>><<Value Object>>{
-        - sequenceId : id
-        - companyCode: String
+'        - sequenceId : id
+'        - companyCode: String
     }
 
     class TitleOrFunction<<Value Object>>{
-        - epitaph : String
+'        - epitaph : String
     }
 
     enum ContractType<<Enumerated>><<Value Object>>{
-        + FULL_TIME
-        + PART_TIME
+'        + FULL_TIME
+'        + PART_TIME
     }
 
     class Mode<<Enumerated>><<Value Object>>{
-        + REMOTE
-        + HYBRID
-        + ON_SITE
+'        + REMOTE
+'        + HYBRID
+'        + ON_SITE
     }
 
     class JobAddress<<Value Object>>{
-        - address : String
+'        - address : String
     }
 
     class VacanciesNumber<<Value Object>>{
-        - numberOfVacancies : Integer
+'        - numberOfVacancies : Integer
     }
 
     class Description<<Value Object>>{
-        - description : String
+'        - description : String
     }
 
     ''Maybe go to Interview Model
     class Requirements<<Value Object>>{
-        - title: String
-        - value : String
+'        - title: String
+'        - value : String
     }
 
 }
@@ -88,16 +89,16 @@ rectangle application #aaccbb {
     class Application<<Aggregate Root>><<Entity>>{}
 
     class ApplicationId<<Identity>><<Value Object>>{
-        - id : Long
+'        - id : Long
     }
 
     class AttachedEmail<<Value Object>>{
-        - text : String
+'        - text : String
     }
 
     class AttachedFile<<Value Object>>{
-        - orcText : String
-        - pathToFile: String
+'        - orcText : String
+'        - pathToFile: String
     }
 
     class ApplicatorData<<Value Object>>{
@@ -162,14 +163,23 @@ Application "1" --> "1" ApplicatorData
 Customer "1" --> "1" CustomerId
 
 
-JobOpening "0..*" --> "0..*" Candidate : has
-JobOpening "1" --> "0..*" Application : has
+JobOpening "0..*" ---> "0..*" Candidate : has
 Candidate "1" --> "0..*" Application : submits
 Customer "1" --> "0..*" JobOpening : registers
 
-InterviewModel "1" --> "1" InterviewModelName : has
+InterviewModel "1" -left-> "1" InterviewModelName : has
 InterviewModel "1" --> "*" Question : contains
 Question <|-- InterviewModel : belongs to
+
+
+Candidate "1" --> "1" Username
+Candidate "1" --> "1" PhoneNumber
+Candidate "1" --> "1" Email
+
+
+Customer "1" --> "1" Username
+Customer "1" --> "1" PhoneNumber
+Candidate "1" --> "1" Email
 
 
 
