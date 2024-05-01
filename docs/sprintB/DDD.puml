@@ -75,7 +75,7 @@ rectangle "Job Opening Process" #ccbbcc{
     class JobOpeningProcessId<<Identity>><<Value Object>>{}
     class JobOpeningProcessStatus<<Value Object>>{}
     class JobOpeningProcessStage<<Value Object>>{}
-    class Phase<<Value Object>>{
+    class Phase<<Entity>>{
         }
     enum PhaseType<<Enumerated>><<Value Object>>{
         APPLICATION
@@ -85,6 +85,7 @@ rectangle "Job Opening Process" #ccbbcc{
         RESULT
     }
 }
+
 
 rectangle "Job Opening Interview" #ccbbaa {
     class JobInterview <<Aggregate Root>><<Entity>>{}
@@ -113,23 +114,21 @@ rectangle "PlugIn" #bababa {
     class JarFile<<Value Object>>{}
 }
 
-
-
 Plugin "1" --> "1" PluginType
 Plugin "1" -right-> "1" PluginId
 Plugin "1" --> "1" PluginDescription
 Plugin "1" --> "1" JarFile
 
 
-JobOpening "1" -up-> "1" JobReference
-JobOpening "1" -up-> "1" TitleOrFunction
-JobOpening "1" --up-> "1" ContractType
-JobOpening "1" -left-> "1" Mode
-JobOpening "1" ---> "1" VacanciesNumber
-JobOpening "1" --> "1" Description
+JobReference "1" -up-* "1" JobOpening
+TitleOrFunction "1" -up-* "1" JobOpening
+ContractType "1" --* "1" JobOpening
+Mode "1" --* "1" JobOpening
+Description "1" -up-* "1" JobOpening
+VacanciesNumber "1" -up-* "1" JobOpening
+
 JobOpening "1" ---> "1" Requirements
 JobOpening "*" --> "1" Customer : set by
-JobOpening "*" --> "1" Requirements
 
 
 Candidate "1" --> "1" CandidateId
@@ -152,7 +151,7 @@ Phase "1" --> "1" JobOpeningProcessStatus
 Phase "1" --> "1" JobOpeningProcessStage
 JobOpeningProcess "1" --> "1" Phase
 
-Phase "*" -down-> "1" PhaseType
+PhaseType "1" -down-> "*" Phase
 
 
 ''InterviewModel "1" -left-> "1" InterviewModelName : has
@@ -161,8 +160,8 @@ Phase "*" -down-> "1" PhaseType
 
 
 Candidate "1" --> "1" Username
-Candidate "1" --> "1" PhoneNumber
-Candidate "1" --> "1" Email
+PhoneNumber "1" --> "*" Candidate
+Email "1" --> "1" Candidate
 
 
 Customer "1" --> "1" Username
@@ -170,8 +169,8 @@ Customer "1" --> "1" PhoneNumber
 Candidate "1" --> "1" Email
 
 
-Customer "1" --> "*" Address
-JobOpening "1" --> "*" Address
+Address "1" --* "1" JobOpening
+Address "1" --* "1" Customer
 
 
 JobInterview "1" -up-> "1" JobInterviewId
@@ -183,6 +182,8 @@ JobInterview "1" --> "1" InterviewResult
 Requirements  -right-|> Plugin
 "Interview Model" --|> Plugin
 JobOpening "*" --> "1" "Interview Model"
+
+
 
 
 Application "1" -up-> "1" JobInterview
