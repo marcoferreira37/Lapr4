@@ -1,4 +1,4 @@
-package users.enable_disable;
+package authz.enable_disable_users;
 
 import eapli.framework.actions.Action;
 

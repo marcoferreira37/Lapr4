@@ -22,7 +22,8 @@
  * SOFTWARE.
  */
 package eapli.base.usermanagement.application;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -40,6 +41,7 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
 @UseCaseController
 public class ListUsersController{
 
+
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
 
@@ -52,4 +54,25 @@ public class ListUsersController{
     public Optional<SystemUser> find(final Username u) {
         return userSvc.userOfIdentity(u);
     }
+
+    public Iterable<SystemUser> enabledUsers() {
+        List<SystemUser> enabledUsers = new ArrayList<>();
+        for (SystemUser user : allUsers()) {
+            if (user.isActive()) {
+                enabledUsers.add(user);
+            }
+        }
+        return enabledUsers;
+    }
+
+    public Iterable<SystemUser> disabledUsers() {
+        List<SystemUser> disabledUsers = new ArrayList<>();
+        for (SystemUser user : allUsers()) {
+            if (!user.isActive()) {
+                disabledUsers.add(user);
+            }
+        }
+        return disabledUsers;
+    }
+
 }
