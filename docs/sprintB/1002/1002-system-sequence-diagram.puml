@@ -15,21 +15,48 @@ activate Manager
     Manager -> System : requests to register a job opening
     activate System
 
-    System --> Manager : prompts for job details (job reference, description, address,\n contract type, mode, titlle or function, vacancies Number)
+    System --> Manager : prompts for job details (Description, Vacancies Number and Address)
 
     deactivate System
 
-    Manager -> System : provides job details
+    Manager -> System : provides job details requested
+
+    activate System
+
+        System --> Manager : shows available job openings modes ( Remote, Hybrid and Onsite)
+
+    deactivate System
+
+        Manager -> System : selects job opening mode
+
+    activate System
+
+        System --> Manager : shows available job opening types ( Full Time and Part Time)
+
+    deactivate System
+
+        Manager -> System : selects job opening type
 
     activate System
 
 
+        System --> Manager : prompts for job opening requirements (Title or function and Company ID)
+
+    deactivate System
+
+        Manager -> System : provides job opening requirements
+
+    activate System
+
         System --> Manager : shows and requests confirmation for job registration
-        deactivate System
+
+    deactivate System
 
         Manager -> System : confirms job registration
-        activate System
+
+    activate System
 
         System --> Manager : confirms successful registration
 
+    deactivate System
 @enduml

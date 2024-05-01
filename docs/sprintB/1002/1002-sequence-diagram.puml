@@ -15,9 +15,25 @@ activate UI
 
 M -> UI : requests to register a job opening
 
-UI --> M :prompts for job details (name, code, description)
+UI --> M : prompts for job details (Description, Vacancies Number and Address)
 
-M -> UI : provides job details
+M -> UI : provides job details requested
+
+UI --> M :  shows available job openings modes ( Remote, Hybrid and Onsite)
+
+M -> UI : provides job details requested
+
+UI --> M : shows available job openings modes ( Remote, Hybrid and Onsite)
+
+M -> UI : selects job opening mode
+
+UI --> M : shows available job openings types (Full Time and Part Time)
+
+M -> UI : selects job opening type
+
+UI --> M :  prompts for job opening requirements (Title or function and Company ID)
+
+M -> UI : provides job opening requirements
 
 UI --> M : shows and requests confirmation for job registration
 
