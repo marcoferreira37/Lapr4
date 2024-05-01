@@ -11,7 +11,7 @@ public class ListCandidatesUI extends AbstractListUI<SystemUser> {
 
     @Override
     public String headline() {
-        return "List Customers";
+        return "List Candidates";
     }
 
     @Override
