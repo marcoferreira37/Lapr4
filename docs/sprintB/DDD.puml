@@ -32,12 +32,13 @@ rectangle sharedObjects {
     class Email <<Value Object>>
     class PhoneNumber <<Value Object>>
     class Username <<Value Object>>
+    class Address <<Value Object>>
 
 }
 
 
 
-rectangle opening #bbccaa {
+rectangle "Job Opening" #bbccaa {
 
     class JobOpening<<Aggregate Root>><<Entity>>{
 
@@ -63,9 +64,6 @@ rectangle opening #bbccaa {
 '        + ON_SITE
     }
 
-    class JobAddress<<Value Object>>{
-'        - address : String
-    }
 
     class VacanciesNumber<<Value Object>>{
 '        - numberOfVacancies : Integer
@@ -84,7 +82,7 @@ rectangle opening #bbccaa {
 }
 
 
-rectangle application #aaccbb {
+rectangle "Job Opening Application" #aaccbb {
 
     class Application<<Aggregate Root>><<Entity>>{}
 
@@ -110,45 +108,49 @@ rectangle application #aaccbb {
 
 }
 
-
-rectangle interview #ccbbaa{
-
-
-    class InterviewModel <<Aggregate Root>><<Entity>>{}
-
-    class InterviewModelName<<Value Object>>{}
-
-    abstract Question<<Entity>><<Prototype>>{}
-
-    class TrueFalseQuestion<<Entity>> {}
-
-    class ShortTextQuestion<<Entity>>  {}
-
-    class SingleChoiceQuestion<<Entity>> {}
-
-    class MultipleChoiceQuestion<<Entity>> {}
-
-    class IntegerQuestion<<Entity>> {}
-
-    class RealNumberQuestion<<Entity>> {}
-
-    class DateQuestion<<Entity>> {}
-
-    class TimeQuestion<<Entity>> {}
-
-    class ScaleQuestion<<Entity>> {}
-
+rectangle "Job Opening Process" #ccbbcc{
+    class JobOpeningProcess<<Aggregate Root>><<Entity>>{}
+    class JobOpeningProcessId<<Identity>><<Value Object>>{
 }
+
+''rectangle interview #ccbbaa{
+
+
+   '' class InterviewModel <<Aggregate Root>><<Entity>>{}
+
+   '' class InterviewModelName<<Value Object>>{}
+
+   '' abstract Question<<Entity>><<Prototype>>{}
+
+   '' class TrueFalseQuestion<<Entity>> {}
+
+   '' class ShortTextQuestion<<Entity>>  {}
+
+   '' class SingleChoiceQuestion<<Entity>> {}
+
+   '' class MultipleChoiceQuestion<<Entity>> {}
+
+   '' class IntegerQuestion<<Entity>> {}
+
+   '' class RealNumberQuestion<<Entity>> {}
+
+   '' class DateQuestion<<Entity>> {}
+
+   '' class TimeQuestion<<Entity>> {}
+
+   '' class ScaleQuestion<<Entity>> {}
+
+''}
 
 
 JobOpening "1" -up-> "1" JobReference
-JobOpening "1" --> "1" JobAddress
-JobOpening "1" --> "1" TitleOrFunction
-JobOpening "1" ---> "1" ContractType
+JobOpening "1" -up-> "1" TitleOrFunction
+JobOpening "1" --up-> "1" ContractType
 JobOpening "1" -left-> "1" Mode
 JobOpening "1" ---> "1" VacanciesNumber
 JobOpening "1" --> "1" Description
-JobOpening "1" -> "1" Requirements
+JobOpening "1" ---> "1" Requirements
+JobOpening "*" --> "1" Customer : set by
 
 Candidate "1" --> "1" CandidateId
 Candidate "1" --> "1" CandidateAddress
@@ -158,18 +160,20 @@ Application "1" --> "1" ApplicationId
 Application "1" --> "1" AttachedEmail
 Application "1" --> "1" AttachedFile
 Application "1" --> "1" ApplicatorData
+Application "*" -----> "1" JobOpening : submitted for
+Application "*" -> "1" Candidate : submitted by
 
 
 Customer "1" --> "1" CustomerId
 
 
-JobOpening "0..*" ---> "0..*" Candidate : has
-Candidate "1" --> "0..*" Application : submits
-Customer "1" --> "0..*" JobOpening : registers
+JobOpeningProcess "1" --> "1" JobOpeningProcessId
+JobOpening "1" -----> "*" JobOpeningProcess : has
 
-InterviewModel "1" -left-> "1" InterviewModelName : has
-InterviewModel "1" -down--> "*" Question : contains
-Question <|-- InterviewModel : belongs to
+
+''InterviewModel "1" -left-> "1" InterviewModelName : has
+''InterviewModel "1" -down--> "*" Question : contains
+''Question <|-- InterviewModel : belongs to
 
 
 Candidate "1" --> "1" Username
@@ -181,14 +185,18 @@ Customer "1" --> "1" Username
 Customer "1" --> "1" PhoneNumber
 Candidate "1" --> "1" Email
 
-RealNumberQuestion -up-|> Question
-ScaleQuestion -up-|> Question
-SingleChoiceQuestion --|> Question
-IntegerQuestion -up-|> Question
-TimeQuestion --|> Question
-ShortTextQuestion -left-|> Question
-TrueFalseQuestion --|> Question
-MultipleChoiceQuestion -up-|> Question
-DateQuestion --|> Question
+''RealNumberQuestion -up-|> Question
+''ScaleQuestion -up-|> Question
+''SingleChoiceQuestion --|> Question
+''IntegerQuestion -up-|> Question
+''TimeQuestion --|> Question
+''ShortTextQuestion -left-|> Question
+''TrueFalseQuestion --|> Question
+''MultipleChoiceQuestion -up-|> Question
+''DateQuestion --|> Question
+
+
+Customer "1" --> "*" Address
+JobOpening "1" --> "*" Address
 
 @enduml
