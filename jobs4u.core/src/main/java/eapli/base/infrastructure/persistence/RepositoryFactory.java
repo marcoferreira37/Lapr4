@@ -91,6 +91,7 @@ public interface RepositoryFactory {
     SignupRequestRepository signupRequests();
 
     CustomerRepository customer();
+    CompanyRepository customer(TransactionalContext autoTx);
 
     JobOpeningRepository jobOpeningRepository(TransactionalContext autoTx);
 

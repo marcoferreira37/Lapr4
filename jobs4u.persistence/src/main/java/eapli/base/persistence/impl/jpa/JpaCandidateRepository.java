@@ -2,8 +2,8 @@ package eapli.base.persistence.impl.jpa;
 
 
 import eapli.base.domain.candidate.Candidate;
-import eapli.base.domain.candidate.CandidateId;
 import eapli.base.repositories.CandidateRepository;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jakarta.persistence.TypedQuery;
 
 import java.util.Optional;
@@ -44,6 +44,19 @@ public class JpaCandidateRepository extends BasepaRepositoryBase<Candidate, Long
 
     @Override
     public void deleteOfIdentity(Long entityId) {
+
+    }
+
+    public Candidate findCandidateBySystemUser(SystemUser user){
+
+        final TypedQuery<Candidate> query = entityManager().createQuery("SELECT c FROM Candidate c" +
+                " WHERE c.user= :user", Candidate.class);
+        query.setParameter("user", user);
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
 
     }
 }

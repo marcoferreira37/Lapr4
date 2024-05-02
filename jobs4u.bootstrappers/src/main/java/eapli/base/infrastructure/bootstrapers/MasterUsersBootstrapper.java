@@ -44,6 +44,11 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerCustomerManager("customerManager", TestDataConstants.PASSWORD1, "Francisco", "Silveira", "franciscosilveira@gmail.com");
         registerCompany("name", 37L);
+
+        registerCandidate("candida", TestDataConstants.PASSWORD1, "Candida", "Candidata", "candida@primaDaCunhada.pt");
+
+
+
         return true;
     }
 
@@ -74,12 +79,18 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerUser(username, password, firstName, lastName, email, roles);
     }
 
+    private void registerCandidate (final String username, final String password, final String firstName,
+    final String lastName, final String email){
+        final Set<Role> roles = new HashSet<>();
+        roles.add(BaseRoles.CANDIDATE);
+
+        registerUser(username, password, firstName, lastName, email, roles);
+    }
+
     private void registerCompany(final String name, final Long id){
         CompanyName n = new CompanyName(name);
         Company c = new Company(n);
         CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
         companyRepository.save(c);
     }
-
-
 }

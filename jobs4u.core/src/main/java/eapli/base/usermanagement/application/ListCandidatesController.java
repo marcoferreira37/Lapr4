@@ -59,14 +59,11 @@ public class ListCandidatesController{
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR);
         List<SystemUser> candidate = new ArrayList<>();
             for (SystemUser user : userSvc.allUsers() ){
-                if (user.roleTypes().contains(BaseRoles.OPERATOR) ){
+                if (user.roleTypes().contains(BaseRoles.CANDIDATE) ){
                     candidate.add(user);
                 }
             }
-     if (!candidate.isEmpty()) {
          return candidate;
-     }else
-         return null;
     }
     public Optional<SystemUser> find(final Username u) {
         return userSvc.userOfIdentity(u);
