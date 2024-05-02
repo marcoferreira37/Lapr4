@@ -61,7 +61,7 @@ import javax.management.relation.Role;
 @Table  (name = "CUSTOMER")
 public class Customer  implements AggregateRoot<EmailAddress> {
     @OneToOne
-    @JoinColumn(name = "EMAIL")
+    @JoinColumn(name = "USERNAME")
     private SystemUser systemUser;
     @Id
     private EmailAddress emailAddress;

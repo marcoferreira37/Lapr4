@@ -15,14 +15,15 @@ import java.util.List;
 public class ListCustomersUI extends AbstractListUI<Customer> {
     private ListCustomerController theController = new ListCustomerController();
 
-
-
     @Override
     public String headline() {
         return "List Users";
     }
 
-
+    @Override
+    protected String emptyMessage() {
+        return "No data.";
+    }
 
     @Override
     protected Iterable<Customer> elements() {
@@ -30,24 +31,19 @@ public class ListCustomersUI extends AbstractListUI<Customer> {
     }
 
     @Override
-    protected Visitor elementPrinter() {
-        return null;
+    protected Visitor<Customer> elementPrinter() {
+        return new SystemCustomerPrinter();
     }
-
     @Override
     protected String elementName() {
-        return null;
+        return "Customer";
     }
 
     @Override
     protected String listHeader() {
-        return null;
+        return String.format("#  %-10s", "USERNAME");
     }
 
-    @Override
-    protected String emptyMessage() {
-        return null;
-    }
 
     public boolean listEnabledUsers() {
         List<Customer> users = (List<Customer>) theController.enabledUsers();
