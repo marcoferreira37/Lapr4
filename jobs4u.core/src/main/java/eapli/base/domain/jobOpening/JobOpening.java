@@ -82,4 +82,17 @@ public class JobOpening implements AggregateRoot<JobReference> {
         return description.description().equals(nameOrReference)
                 || jobReference.toString().equals(nameOrReference);
     }
+    @Override
+    public String toString() {
+        return "JobOpening{" +
+                "jobReference=" + jobReference +
+                ", description=" + description +
+                ", address=" + address +
+                ", mode=" + mode +
+                ", contractType=" + contractType +
+                ", titleOrFunction=" + titleOrFunction +
+                ", vacanciesNumber=" + vacanciesNumber +
+                ", company=" + company +
+                '}';
+    }
 }

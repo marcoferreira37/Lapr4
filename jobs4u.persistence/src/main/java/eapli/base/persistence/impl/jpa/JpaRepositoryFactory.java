@@ -26,6 +26,7 @@ import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.customer.CustomerRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.repositories.CandidateRepository;
+import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.base.repositories.JobOpeningRepository;
 import eapli.base.usermanagement.application.CompanyRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -112,6 +113,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public CandidateRepository candidateRepository() {
         return new JpaCandidateRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public JobOpeningApplicationRepository JobApplications(TransactionalContext autoTx) {
+        return new JpaJobApplicationRepository(autoTx);
+    }
+
+    @Override
+    public JobOpeningApplicationRepository jobApplications() {
+        return new JpaJobApplicationRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override

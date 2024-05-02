@@ -1,9 +1,13 @@
 package eapli.base.persistence.impl.jpa;
 
+import eapli.base.Application;
 import eapli.base.domain.JobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.repositories.JobOpeningApplicationRepository;
+import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 import java.util.Optional;
 
@@ -12,37 +16,34 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobOpeningA
         super(persistenceUnitName, identityFieldName);
     }
 
-    @Override
-    public <S extends JobOpeningApplication> S save(S entity) {
-        return null;
+    public JpaJobApplicationRepository(TransactionalContext autoTx) {
+        super(autoTx,"APPLICATIONID");
     }
-
-    @Override
-    public Iterable<JobOpeningApplication> findAll() {
-        return null;
-    }
-
-    @Override
-    public Optional<JobOpeningApplication> ofIdentity(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public void delete(JobOpeningApplication entity) {
-
-    }
-
-    @Override
-    public void deleteOfIdentity(Long entityId) {
-
-    }
-    @Override
-    public long count() {
-        return 0;
+    public JpaJobApplicationRepository(final String puname) {
+        super(puname, Application.settings().getExtendedPersistenceProperties(), "APPLICATIONID");
     }
 
     @Override
     public JobOpening findJobOpeningByApplicationId(Long id) {
-      return null;
+
+        EntityManager em = entityManager();
+        TypedQuery<JobOpeningApplication> query = em.createQuery(
+                "SELECT a FROM JobOpeningApplication a WHERE a.id = :id",
+                JobOpeningApplication.class
+        );
+        query.setParameter("id", id);
+        JobOpeningApplication jobOpeningApplication = query.getSingleResult();
+        return jobOpeningApplication.jobOpening;
+    }
+
+    @Override
+    public Iterable<JobOpeningApplication> findAllApplicationsForJobOpening(JobOpening jobOpening) {
+        EntityManager em = entityManager();
+        TypedQuery<JobOpeningApplication> query = em.createQuery(
+                "SELECT a FROM JobOpeningApplication a WHERE a.jobOpening = :jobOpening",
+                JobOpeningApplication.class
+        );
+        query.setParameter("jobOpening", jobOpening);
+        return query.getResultList();
     }
 }

@@ -2,26 +2,27 @@ package eapli.base.domain.company;
 
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import javax.management.ConstructorParameters;
 
 @Entity
 @Getter
 public class Company implements AggregateRoot<Long> {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     @Column(unique = true)
     private CompanyName companyName;
 
     public Company(CompanyName companyName) {
-        this.id = id;
         this.companyName = companyName;
+        this.id++;
     }
 
     protected Company() {
+    }
+
+    public String companyIndex(){
+        return companyName.companyName().substring(0,3).toUpperCase();
     }
 
     @Override
@@ -33,4 +34,5 @@ public class Company implements AggregateRoot<Long> {
     public Long identity() {
         return this.id;
     }
+
 }

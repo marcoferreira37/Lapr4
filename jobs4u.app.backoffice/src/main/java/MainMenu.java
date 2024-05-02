@@ -1,5 +1,5 @@
 
-import CustomerManager.ListJobOpeningUI;
+import CustomerManager.ListAllApplicationsForJobOpeningUI;
 import authz.*;
 import authz.registerusers.AddUserAction;
 import authz.registerusers.AddUserUI;
@@ -140,8 +140,8 @@ public class MainMenu extends AbstractUI {
         menu.addItem(2, "List all candidates", new ListUsersAction());
         menu.addItem(3, "List all customers", new ListCustomerManagerActions());
         menu.addItem(4, "Add a job opening", new AddJobOpeningUI()::show);
-        menu.addItem(5, "List Job Opnenings", new ListJobOpeningUI()::show);
-        menu.addItem(6,"List all info of a candidate", new ListAllDataOfCandidateUI()::show);
+        menu.addItem(5,"List all info of a candidate", new ListAllDataOfCandidateUI()::show);
+        menu.addItem(6,"List All Applications for a Job Opening", new ListAllApplicationsForJobOpeningUI()::show);
         menu.addItem(7, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

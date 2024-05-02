@@ -4,14 +4,16 @@ import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 
 @Entity
-@Table (name = "Application")
+@Table (name = "JobOpeningApplication")
+@Transactional
 public class JobOpeningApplication implements AggregateRoot<Long>  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "APPLICATIONID")
-    private Long id;
+    private long id;
 
     @ManyToOne
     @JoinColumns({
@@ -19,11 +21,30 @@ public class JobOpeningApplication implements AggregateRoot<Long>  {
             @JoinColumn(name = "JOBREFERENCE_ID", referencedColumnName = "iD"),
             @JoinColumn(name = "JOBREFERENCE_FULLREFERENCE", referencedColumnName = "fullReference")
     })
-    private JobOpening jobOpening;
+    public JobOpening jobOpening;
 
     @ManyToOne
     @JoinColumn(name = "CANDIDATEID")
     private Candidate candidate;
+
+    public JobOpeningApplication(JobOpening j, Candidate c){
+        this.id++;
+        this.jobOpening = j;
+        this.candidate = c;
+    }
+
+    public JobOpeningApplication() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "JobOpeningApplication{" +
+                "id=" + id +
+                ", jobOpening=" + jobOpening +
+                ", candidate=" + candidate +
+                '}';
+    }
 
     @Override
     public boolean sameAs(Object other) {
@@ -33,5 +54,9 @@ public class JobOpeningApplication implements AggregateRoot<Long>  {
     @Override
     public Long identity() {
         return id;
+    }
+
+    public JobOpening jobOpening() {
+        return jobOpening;
     }
 }

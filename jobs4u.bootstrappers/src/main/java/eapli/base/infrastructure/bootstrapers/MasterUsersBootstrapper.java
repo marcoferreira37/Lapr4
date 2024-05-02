@@ -23,11 +23,18 @@ package eapli.base.infrastructure.bootstrapers;
 import java.util.HashSet;
 import java.util.Set;
 
+import eapli.base.Domain.Company.AddCompanyController;
+import eapli.base.customer.AddJobOpeningController;
+import eapli.base.domain.JobApplication.AddJobApplicationController;
+import eapli.base.domain.JobApplication.JobOpeningApplication;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.company.CompanyName;
+import eapli.base.domain.jobOpening.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.CandidateRepository;
+import eapli.base.repositories.JobOpeningApplicationRepository;
+import eapli.base.repositories.JobOpeningRepository;
 import eapli.base.usermanagement.application.CompanyRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
@@ -46,14 +53,22 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerOperator("operator", TestDataConstants.PASSWORD1, "Francisco","Monteiro", "franciscomonteiro@gmail.com");
 
         registerCustomerManager("customerManager", TestDataConstants.PASSWORD1, "Francisco", "Silveira", "franciscosilveira@gmail.com");
-        registerCompany("name", 37L);
 
-        registerCandidate("candida", TestDataConstants.PASSWORD1, "Candida", "Candidata", "candida@primaDaCunhada.pt");
+        Company fiscos = registerCompany("FISQUINHO LDA");
 
+        Candidate candida = registerCandidate("candida", TestDataConstants.PASSWORD1, "Candida", "Candidata", "candida@primaDaCunhada.pt");
 
+        //ISTO CRIA UMA JOBREFERENCE NOVA E UMA COMPANY NOVA NÃO JAVARDAR MUITO CUIDADO PARA NÃO HAVER REPETIDOS!!!!!!
+        JobOpening jo = registerJobOpening("bailarino","casa do ah",Mode.ONSITE,ContractType.FULL_TIME,"baila baila",1,fiscos);
+        JobOpeningApplication application = registerApplication(jo, candida);
+
+        System.out.println(candida);
+        System.out.println(jo);
+        System.out.println(application);
 
         return true;
     }
+
 
     /**
      *
@@ -82,7 +97,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerUser(username, password, firstName, lastName, email, roles);
     }
 
-    private void registerCandidate (final String username, final String password, final String firstName,
+    private Candidate registerCandidate (final String username, final String password, final String firstName,
     final String lastName, final String email){
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.CANDIDATE);
@@ -91,12 +106,22 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         Candidate c = new Candidate(firstName + " " + lastName, u);
         CandidateRepository candidateRepository = PersistenceContext.repositories().candidateRepository();
         candidateRepository.save(c);
+        return c;
     }
 
-    private void registerCompany(final String name, final Long id){
-        CompanyName n = new CompanyName(name);
-        Company c = new Company(n);
-        CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
-        companyRepository.save(c);
+    private Company registerCompany(final String name){
+        AddCompanyController controller = new AddCompanyController();
+        Company c = controller.addCompany(name);
+        return c;
+    }
+
+    private JobOpening registerJobOpening( String description, String address, Mode mode,ContractType contractType, String title,int vacancies ,Company c){
+        AddJobOpeningController controller = new AddJobOpeningController();
+       return controller.addJobopening(description,address,mode,contractType,title,vacancies, Math.toIntExact( c.identity() ));
+    }
+
+    private JobOpeningApplication registerApplication(JobOpening jo, Candidate c) {
+        AddJobApplicationController controller = new AddJobApplicationController();
+        return controller.addJobOpeningApplication(jo, c);
     }
 }

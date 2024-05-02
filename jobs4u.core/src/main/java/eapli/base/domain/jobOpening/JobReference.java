@@ -35,5 +35,9 @@ public class JobReference implements ValueObject, Comparable<JobReference> {
     public int compareTo(JobReference o) {
         return Long.compare(this.iD, o.iD);
     }
+
+    public String fullReference(){
+        return fullReference;
+    }
 }
 

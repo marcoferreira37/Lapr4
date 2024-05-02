@@ -10,7 +10,7 @@ import lombok.Getter;
 public class Candidate implements AggregateRoot<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
     @Column(name = "CANDIDATENAME")
     private String name;
 
@@ -22,6 +22,7 @@ public class Candidate implements AggregateRoot<Long> {
     }
 
     public Candidate(String name, SystemUser user) {
+        this.id++;
         this.name = name;
         this.user = user;
     }
@@ -38,5 +39,15 @@ public class Candidate implements AggregateRoot<Long> {
 
     public String name() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Candidate{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", user=" + user +
+                ", telephoneNumber=" + telephoneNumber +
+                '}';
     }
 }
