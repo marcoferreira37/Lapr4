@@ -1,53 +1,52 @@
 package eapli.base.domain.candidate;
 
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.domain.model.DomainEntities;
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
-import lombok.Getter;
 
 @Entity
-@Getter
-public class Candidate implements AggregateRoot<Long> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @Column(name = "CANDIDATENAME")
-    private String name;
-
+@Table  (name = "CANDIDATE")
+public class Candidate implements AggregateRoot<EmailAddress> {
     @OneToOne
-    private SystemUser user;
+    @JoinColumn(name = "USERNAME")
+    private SystemUser systemUser;
+    @Id
+    private EmailAddress emailAddress;
 
-    private TelephoneNumber telephoneNumber;
+    private boolean active;
+
+
+    public Candidate(final SystemUser systemUser, final EmailAddress emailAddress){
+        Preconditions.nonNull(systemUser, "systemUser cannot be null");
+        Preconditions.nonNull(emailAddress, "emailAddress cannot be null");
+        this.systemUser = systemUser;
+        this.emailAddress = emailAddress;
+    }
+
     protected Candidate() {
+        // for ORM
     }
-
-    public Candidate(String name, SystemUser user) {
-        this.id++;
-        this.name = name;
-        this.user = user;
-    }
-
-    @Override
-    public boolean sameAs(Object other) {
-        return false;
+    public SystemUser user() {
+        return this.systemUser;
     }
 
     @Override
-    public Long identity() {
-        return id;
+    public int hashCode() {
+        return DomainEntities.hashCode(this);
     }
-
-    public String name() {
-        return name;
-    }
-
     @Override
-    public String toString() {
-        return "Candidate{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", user=" + user +
-                ", telephoneNumber=" + telephoneNumber +
-                '}';
+    public boolean sameAs(final Object other) {
+        return DomainEntities.areEqual(this, other);
+    }
+    @Override
+    public EmailAddress identity() {
+        return this.emailAddress;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }

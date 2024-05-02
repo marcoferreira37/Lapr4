@@ -129,6 +129,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Operator:");
 
         menu.addItem(ADD_USER_OPTION, "Register a candidate", new AddUserUI()::show);
+        menu.addItem(6, "Regist a candidate", new AddCandidateUI():: show);
         menu.addItem(LIST_USERS_OPTION, "List all candidates", new ListUsersAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 

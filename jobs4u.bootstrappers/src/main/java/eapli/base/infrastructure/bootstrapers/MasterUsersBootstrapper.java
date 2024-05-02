@@ -38,6 +38,7 @@ import eapli.base.repositories.JobOpeningRepository;
 import eapli.base.usermanagement.application.CompanyRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
@@ -56,7 +57,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         Company fiscos = registerCompany("FISQUINHO LDA");
 
-        Candidate candida = registerCandidate("candida", TestDataConstants.PASSWORD1, "Candida", "Candidata", "candida@primaDaCunhada.pt");
+        Candidate candida = registerCandidate("candida", TestDataConstants.PASSWORD1, "Candida", "Candidata", EmailAddress.valueOf("candida@primaDaCunhada.pt"));
 
         //ISTO CRIA UMA JOBREFERENCE NOVA E UMA COMPANY NOVA NÃO JAVARDAR MUITO CUIDADO PARA NÃO HAVER REPETIDOS!!!!!!
         JobOpening jo = registerJobOpening("bailarino","casa do ah",Mode.ONSITE,ContractType.FULL_TIME,"baila baila",1,fiscos);
@@ -98,12 +99,12 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private Candidate registerCandidate (final String username, final String password, final String firstName,
-    final String lastName, final String email){
+    final String lastName, final EmailAddress email){
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.CANDIDATE);
 
-        SystemUser u = registerUser(username, password, firstName, lastName, email, roles);
-        Candidate c = new Candidate(firstName + " " + lastName, u);
+        SystemUser u = registerUser(username, password, firstName, lastName, String.valueOf(email), roles);
+        Candidate c = new Candidate(u, email);
         CandidateRepository candidateRepository = PersistenceContext.repositories().candidateRepository();
         candidateRepository.save(c);
         return c;
