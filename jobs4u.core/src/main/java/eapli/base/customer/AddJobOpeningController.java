@@ -15,7 +15,7 @@ public class AddJobOpeningController {
 
     public JobOpening addJobopening(String description, String address, Mode mode, ContractType contract,
                                     String epitaph, int vacancies, int companyId) {
-        autzService.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER);
+        autzService.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN, BaseRoles.POWER_USER);
         JobOpening jo = service.create(description, address, mode, contract,
                 epitaph, vacancies, companyId);
         return jo;
