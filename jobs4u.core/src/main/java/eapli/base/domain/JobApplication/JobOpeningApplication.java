@@ -1,4 +1,3 @@
-
 package eapli.base.domain.JobApplication;
 
 import eapli.base.domain.candidate.Candidate;
@@ -15,12 +14,17 @@ public class JobOpeningApplication implements AggregateRoot<Long>  {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "JOBREFERENCE")
+    @JoinColumns({
+            @JoinColumn(name = "JOBREFERENCE_COMPANYINDEX", referencedColumnName = "companyIndex"),
+            @JoinColumn(name = "JOBREFERENCE_ID", referencedColumnName = "iD"),
+            @JoinColumn(name = "JOBREFERENCE_FULLREFERENCE", referencedColumnName = "fullReference")
+    })
     private JobOpening jobOpening;
 
     @ManyToOne
     @JoinColumn(name = "CANDIDATEID")
     private Candidate candidate;
+
     @Override
     public boolean sameAs(Object other) {
         return false;

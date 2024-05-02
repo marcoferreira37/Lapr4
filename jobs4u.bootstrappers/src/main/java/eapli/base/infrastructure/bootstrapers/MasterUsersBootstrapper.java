@@ -23,13 +23,16 @@ package eapli.base.infrastructure.bootstrapers;
 import java.util.HashSet;
 import java.util.Set;
 
+import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.company.CompanyName;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.repositories.CandidateRepository;
 import eapli.base.usermanagement.application.CompanyRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 /**
  * @author Paulo Gandra Sousa
@@ -84,7 +87,10 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.CANDIDATE);
 
-        registerUser(username, password, firstName, lastName, email, roles);
+        SystemUser u = registerUser(username, password, firstName, lastName, email, roles);
+        Candidate c = new Candidate(firstName + " " + lastName, u);
+        CandidateRepository candidateRepository = PersistenceContext.repositories().candidateRepository();
+        candidateRepository.save(c);
     }
 
     private void registerCompany(final String name, final Long id){

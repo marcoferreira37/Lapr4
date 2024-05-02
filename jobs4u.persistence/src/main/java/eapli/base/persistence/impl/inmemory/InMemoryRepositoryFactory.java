@@ -26,6 +26,7 @@ import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.customer.CustomerRepository;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
+import eapli.base.repositories.CandidateRepository;
 import eapli.base.repositories.JobOpeningRepository;
 import eapli.base.usermanagement.application.CompanyRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -103,6 +104,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     @Override
     public CompanyRepository companyRepository() {
         return new InMemoryCompanyRepository();
+    }
+
+    @Override
+    public CandidateRepository candidateRepository(TransactionalContext autoTx) {
+        return new InMemoryCandidateRepository();
+    }
+
+    @Override
+    public CandidateRepository candidateRepository() {
+        return candidateRepository(null);
     }
 
     @Override

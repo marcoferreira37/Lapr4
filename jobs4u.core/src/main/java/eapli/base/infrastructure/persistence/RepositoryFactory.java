@@ -24,6 +24,7 @@ import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.customer.CustomerRepository;
+import eapli.base.repositories.CandidateRepository;
 import eapli.base.repositories.JobOpeningRepository;
 import eapli.base.usermanagement.application.CompanyRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -100,4 +101,7 @@ public interface RepositoryFactory {
     CompanyRepository companyRepository(TransactionalContext autoTx);
 
     CompanyRepository companyRepository();
+
+    CandidateRepository candidateRepository(TransactionalContext autoTx);
+    CandidateRepository candidateRepository();
 }

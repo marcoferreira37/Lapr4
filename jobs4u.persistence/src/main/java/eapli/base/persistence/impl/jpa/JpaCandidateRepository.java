@@ -1,17 +1,25 @@
 package eapli.base.persistence.impl.jpa;
 
 
+import eapli.base.Application;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.repositories.CandidateRepository;
+import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jakarta.persistence.TypedQuery;
 
 import java.util.Optional;
 
 
-public class JpaCandidateRepository extends BasepaRepositoryBase<Candidate, Long, Long> implements CandidateRepository {
-    public JpaCandidateRepository() {
-        super("id");
+public class JpaCandidateRepository extends JpaAutoTxRepository<Candidate, Long, Long> implements CandidateRepository {
+    public JpaCandidateRepository(String persistenceUnitName) {
+
+        super(persistenceUnitName, Application.settings().getExtendedPersistenceProperties(), "id");
+    }
+
+    public JpaCandidateRepository(TransactionalContext autoTx) {
+        super(autoTx, "id");
     }
 
     @Override
@@ -29,12 +37,7 @@ public class JpaCandidateRepository extends BasepaRepositoryBase<Candidate, Long
 
     @Override
     public Iterable<Candidate> findAllCandidates() {
-        TypedQuery<Candidate> query = entityManager().createQuery(
-                "SELECT DISTINCT c FROM Candidate c " +
-                        "JOIN c.user u " +
-                        "WHERE u.email = :email", Candidate.class);
-
-        return query.getResultList();
+      return this.findAll();
     }
 
     @Override
