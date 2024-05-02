@@ -1,28 +1,30 @@
-package authz;
+package eapli.base.usermanagement.application;
 
-import eapli.base.app.common.console.ui.components.ListPrinter;
-import eapli.base.app.common.console.ui.components.Sleeper;
+
+
+
 import eapli.base.customer.Customer;
-import eapli.base.usermanagement.application.ListCustomerController;
-import eapli.base.usermanagement.application.ListUsersController;
-import eapli.base.usermanagement.application.SystemCustomerPrinter;
 import eapli.framework.presentation.console.AbstractListUI;
-import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.visitor.Visitor;
+
+
+
+
 
 import java.util.List;
 
 public class ListCustomersUI extends AbstractListUI<Customer> {
     private ListCustomerController theController = new ListCustomerController();
 
-
-
     @Override
     public String headline() {
         return "List Users";
     }
 
-
+    @Override
+    protected String emptyMessage() {
+        return "No data.";
+    }
 
     @Override
     protected Iterable<Customer> elements() {
@@ -30,30 +32,25 @@ public class ListCustomersUI extends AbstractListUI<Customer> {
     }
 
     @Override
-    protected Visitor elementPrinter() {
-        return null;
+    protected Visitor<Customer> elementPrinter() {
+        return new SystemCustomerPrinter();
     }
 
     @Override
     protected String elementName() {
-        return null;
+        return "User";
     }
 
     @Override
     protected String listHeader() {
-        return null;
-    }
-
-    @Override
-    protected String emptyMessage() {
-        return null;
+        return String.format("#  %-10s%-30s%-30s", "USERNAME", "F. NAME", "L. NAME");
     }
 
     public boolean listEnabledUsers() {
         List<Customer> users = (List<Customer>) theController.enabledUsers();
         if (users.isEmpty()) {
             System.out.println("There are no enabled users in the system.");
-            Sleeper.sleep(1000);
+//            Sleeper.sleep(1000);
             return false;
         }
         printUsers(users);
@@ -64,7 +61,7 @@ public class ListCustomersUI extends AbstractListUI<Customer> {
         List<Customer> users = (List<Customer>) theController.disabledUsers();
         if (users.isEmpty()) {
             System.out.println("There are no disabled users in the system.");
-            Sleeper.sleep(1000);
+//            Sleeper.sleep(1000);
             return false;
         }
         printUsers(users);
@@ -74,6 +71,8 @@ public class ListCustomersUI extends AbstractListUI<Customer> {
     private void printUsers(List<Customer> users) {
         ListPrinter<Customer> printer = new ListPrinter<>("Users:", users);
         printer.showList();
-        Sleeper.sleep(1000);
+//        Sleeper.sleep(1000);
     }
+
 }
+

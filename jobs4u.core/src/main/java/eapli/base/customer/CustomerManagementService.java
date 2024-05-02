@@ -26,6 +26,7 @@ import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.PasswordPolicy;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,6 +34,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
+import java.util.Optional;
 
 /**
  * User Management Service. Provides the typical application use cases for
@@ -62,6 +64,14 @@ public class CustomerManagementService {
         Customer newCustomer = builder.build();
 
         return customerRepository.save(newCustomer);
+    }
+
+    public Iterable<Customer> allCustomer() {
+        return customerRepository.findAll();
+    }
+
+    public Optional<Customer> userOfIdentity(final EmailAddress id) {
+        return customerRepository.ofIdentity(id);
     }
 
 

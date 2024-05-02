@@ -66,6 +66,7 @@ public class Customer  implements AggregateRoot<EmailAddress> {
     @Id
     private EmailAddress emailAddress;
 
+    private boolean active;
 
 
     public Customer(final SystemUser systemUser, final EmailAddress emailAddress){
@@ -93,5 +94,9 @@ public class Customer  implements AggregateRoot<EmailAddress> {
     @Override
     public EmailAddress identity() {
         return this.emailAddress;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }
