@@ -1,0 +1,62 @@
+@startuml
+
+title Register User Sequence Diagram - Starting point
+
+autonumber
+actor Administrator as ADM
+participant "AddUserUI" as UI <<ui>>
+participant "AddUserController" as ARC <<application>>
+participant "OperatorBuilder" as BLD <<builder>>
+participant "SystemUser" as SU <<f_entity>>
+participant "Jobs4UUser" as J4UU <<domain>>
+database "Jobs4UUserRepository" as REPO <<repository>>
+participant "BaseRoles" as J4UR <<domain>>
+participant "Jobs4UBuilderFactory" as FAC <<factory>>
+
+-> UI : onLoad
+activate UI
+UI -> ARC : create
+
+
+UI --> ADM : asks input of\n user details
+ADM -> UI : inputs user engineer details
+UI -> ARC : User(username, pwd,\n firstName, lastName, email)
+activate ARC
+ARC -> FAC : createJObs4UUserBuilder(role)
+activate FAC
+FAC -> BLD : create
+FAC --> ARC : builder
+deactivate FAC
+ARC -> SU : create
+ARC -> BLD : withSystemUser(sysUser)
+ARC -> BLD : build()
+activate BLD
+BLD -> J4UU : create(sysUser)
+BLD --> ARC : user
+deactivate BLD
+ARC -> REPO : save(user)
+ARC --> UI : returns success
+deactivate ARC
+UI --> ADM : displays success
+
+
+UI -> ARC : getRoleTypes()
+activate ARC
+ARC -> J4UR : getRoleTypes()
+activate J4UR
+J4UR --> ARC : roles
+deactivate J4UR
+ARC --> UI : roles
+deactivate ARC
+
+ADM --> UI : chooses role
+
+UI -> ADM : displays success/\nfailure of the operation
+
+deactivate UI
+
+
+
+
+
+@enduml

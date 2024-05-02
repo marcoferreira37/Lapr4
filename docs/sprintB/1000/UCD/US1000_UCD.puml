@@ -9,18 +9,15 @@ skinparam arrowThickness 3
 '**********Manager Use cases*************
 :Administrator: as ADM
 
-Usecase MU01 as "Register an Operator"
-Usecase MU02 as "Register a Costumer Manager"
-Usecase MU03 as "Register a Language Engineer"
-Usecase MU04 as "Enable a User"
-Usecase MU05 as "Disable a User"
-Usecase MU06 as "List all the Users"
+Usecase MU01 as "Register a User"
+Usecase MU02 as "Enable a User"
+Usecase MU03 as "Disable a User"
+Usecase MU04 as "List all the Users"
 
 ADM -d- MU01
 ADM -d- MU02
 ADM -d- MU03
 ADM -d- MU04
-ADM -d- MU05
-ADM -d- MU06
+
 
 @enduml
