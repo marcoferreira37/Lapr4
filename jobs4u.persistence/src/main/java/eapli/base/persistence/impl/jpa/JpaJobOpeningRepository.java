@@ -8,12 +8,12 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import eapli.base.repositories.JobOpeningRepository;
 import jakarta.persistence.EntityManager;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
-public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Long, Long> implements JobOpeningRepository {
+public class JpaJobOpeningRepository
+        extends JpaAutoTxRepository<JobOpening, Long, Long>
+        implements JobOpeningRepository {
     public JpaJobOpeningRepository(String persistenceUnitName, String identityFieldName) {
         super(persistenceUnitName, identityFieldName);
     }
@@ -41,7 +41,6 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Lon
 
     @Override
     public Long getLastIdFromCompany(Long companyId) {
-        EntityManager em = entityManager();
         long max = -1L;
 
         for (JobOpening jobOpening : findAll()) {
@@ -50,6 +49,21 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Lon
             }
         }
         return max;
+    }
+
+    @Override
+    public List<JobOpening> listJobOpenings(LocalDateTime startDate, LocalDateTime endDate, String nameOrReference) {
+        return createQuery("""
+                        SELECT *
+                        FROM JOB_OPENING opening
+                        WHERE opening.iD like :nameOrReference
+                           OR opening.description like :nameOrReference
+                        """,
+// Todo: Adicionar o restante à query quando a clase tiver a infromaçao necessaria
+//                          AND opening.initialDate >= :initialDate
+//                          AND opening.finalDate <= :finalDate
+                JobOpening.class)
+                .getResultList();
     }
 
 }
