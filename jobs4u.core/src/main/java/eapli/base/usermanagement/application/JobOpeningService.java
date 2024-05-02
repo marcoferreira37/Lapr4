@@ -6,6 +6,8 @@ import eapli.base.domain.jobOpening.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobOpeningRepository;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public class JobOpeningService {
@@ -43,4 +45,7 @@ public class JobOpeningService {
     }
 
 
+    public List<JobOpening> listJobOpenings(LocalDateTime startDate, LocalDateTime endDate, String nameOrReference) {
+        return repository.listJobOpenings(startDate, endDate, nameOrReference);
+    }
 }
