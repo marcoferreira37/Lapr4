@@ -17,16 +17,9 @@ Agent -> System : Request to list job openings
 opt If user pretends to filter by date interval
 activate System
 
-    System --> Agent : Asks to input the start date of the filtering
-deactivate System
+    System --> Agent : Asks to input the date interval of the filtering
 
-Agent -> System : Submits the start date
-activate System
-
-System --> Agent: Asks to input the end date of the filtering
-deactivate System
-
-Agent -> System : Submits the end date
+Agent -> System : Submits the interval
 
 activate System
 end

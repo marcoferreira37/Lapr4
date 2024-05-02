@@ -4,6 +4,9 @@ import eapli.base.domain.company.Company;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.commons.lang3.NotImplementedException;
+
+import java.time.LocalDateTime;
 
 @Table(name = "JOB_OPENING")
 @Entity
@@ -60,6 +63,23 @@ public class JobOpening implements AggregateRoot<JobReference> {
         return jobReference;
     }
 
+    /**
+     * Verifies if the job opening is between the initial and final date
+     *
+     * @param initialDate initial date
+     * @param finalDate final date
+     *
+     * @return
+     * true if the job opening is between the initial and final date;
+     * false otherwise.
+     * FIXME: This method is not properly implemented
+     */
+    public boolean isBetween(LocalDateTime initialDate, LocalDateTime finalDate) {
+        return true;
+    }
 
-
+    public boolean hasNameOrReference(String nameOrReference) {
+        return description.description().equals(nameOrReference)
+                || jobReference.toString().equals(nameOrReference);
+    }
 }

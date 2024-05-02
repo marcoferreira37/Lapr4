@@ -6,6 +6,7 @@ import eapli.base.persistence.impl.inmemory.InMemoryInitializer;
 import eapli.base.repositories.JobOpeningRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -30,10 +31,19 @@ public class InMemoryJobOpeningRepository
 
     @Override
     public Long getLastIdFromCompany(Long companyId) {
-
         LinkedList<JobOpening> l = new LinkedList<>((Collection<JobOpening>) findAll());
         l.sort((o1, o2) -> Long.compare(o2.getJobReference().iD(), o1.getJobReference().iD()));
         return l.getFirst().getJobReference().iD();
+    }
+
+    @Override
+    public List<JobOpening> listJobOpenings(LocalDateTime startDate, LocalDateTime endDate, String nameOrReference) {
+        return new LinkedList<>((Collection<JobOpening>)findAll())
+                .stream()
+                .filter(opening ->
+                        opening.isBetween(startDate, endDate) &&
+                                opening.hasNameOrReference(nameOrReference))
+                .toList();
     }
 
 }
