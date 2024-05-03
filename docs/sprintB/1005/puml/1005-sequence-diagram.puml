@@ -5,57 +5,57 @@ title US 1005 - List Job Opening Applications
 
 actor "User - Customer Manager" as User
 
-participant "ListJobOpeningAplicationsUI" as UI <<UI>>
-participant "ListJobOpeningAplicationsController" as Controller <<Application>>
-participant "JobOpeningRepository" as Repository <<Persistence>>
-participant "ApplicationRepository" as ApplicationRepository <<Persistence>>
+participant "ListJobOpeningApplicationsUI" as UI <<UI>>
+participant "ListJobOpeningApplicationsController" as Controller <<Controller>>
+participant "JobOpeningRepository" as Repository <<Repository>>
+participant "ApplicationRepository" as ApplicationRepository <<Repository>>
 
 
 
-loop until user wants to stop
 activate User
 
 User -> UI: asks to list job opening applications
 
 activate UI
 
-UI -> User: request job reference number
+UI -> Controller: new ListJobOpeningAplicationsController()
+    activate Controller
+UI -> Controller:AllJobOpenings()
+Controller -> Repository: AllJobOpenings()
 
+    activate Repository
+
+    Repository --> Controller: Iterable<JobOpening> jobOpenings
+
+    deactivate Repository
+
+    Controller --> UI: jobOpenings
+
+    deactivate Controller
+    UI --> User: lists jobReferences and asks user to choose one
 deactivate UI
 
-User -> UI: provides job reference number
+User -> UI: chooses job reference
 
 activate UI
 
-UI -> Controller: getJobOpeningApplications(jobReferenceNumber)
+    UI -> Controller: AllApplicationsForJobOpening(jobOpening)
 
-activate Controller
+    activate Controller
 
-Controller -> Repository: getJobOpening(jobReferenceNumber)
-activate Repository
 
-Repository --> Controller: jobOpening
-deactivate Repository
-
-Controller -> ApplicationRepository: findApplicationsByJobOpening(jobOpening)
+Controller -> ApplicationRepository: AllApplicationsByJobOpening(jobOpening)
 activate ApplicationRepository
 
-ApplicationRepository --> Controller:  returns Map<JobOpening, List<Application>> applications
+ApplicationRepository --> Controller:   Iterable<JobOpeningApplication> applications
 
 deactivate ApplicationRepository
 Controller --> UI: applications
 deactivate Controller
 
-UI --> User: displayApplications(applications)
+UI --> User: printNumeratedList(applications)
 
-
-UI -> User : asks User if they want to list more applications
-
-User -> UI: provides answer
-
-end loop
-
-UI --> User: goodbye message
+UI --> User : Sens user back to Costumer Manager Menu
 
 deactivate UI
 

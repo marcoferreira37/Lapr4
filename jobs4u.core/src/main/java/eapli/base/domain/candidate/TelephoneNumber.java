@@ -20,4 +20,10 @@ public class TelephoneNumber implements ValueObject {
         return telephoneNumber;
     }
 
+    @Override
+    public String toString() {
+        return "TelephoneNumber{" +
+                "telephoneNumber=" + telephoneNumber +
+                '}';
+    }
 }

@@ -59,4 +59,9 @@ public class JobOpeningApplication implements AggregateRoot<Long>  {
     public JobOpening jobOpening() {
         return jobOpening;
     }
+
+    public Candidate candidate() {
+        return candidate;
+    }
+
 }

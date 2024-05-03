@@ -3,7 +3,6 @@ package CustomerManager;
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.ColorCode;
 import eapli.base.domain.JobApplication.JobOpeningApplication;
-import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.usermanagement.application.ListAllApplicationsForJobOpeningController;
 import eapli.base.usermanagement.application.ListPrinter;
@@ -24,7 +23,7 @@ public class ListAllApplicationsForJobOpeningUI extends AbstractUI {
             System.out.println("There are no applications for this job opening.");
             return false;
         }
-        ListPrinter lp = new ListPrinter<>("Applications for job opening " + jobOpening.identity().fullReference(), applications);
+        ListPrinter<JobOpeningApplication> lp = new ListPrinter<>("Applications for job opening " + jobOpening.identity().fullReference(), applications);
         lp.printNumeratedList();
         return false;
     }

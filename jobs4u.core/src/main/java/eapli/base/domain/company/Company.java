@@ -35,4 +35,11 @@ public class Company implements AggregateRoot<Long> {
         return this.id;
     }
 
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", companyName=" + companyName.companyName() +
+                '}';
+    }
+
 }

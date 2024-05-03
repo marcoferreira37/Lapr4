@@ -49,4 +49,12 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     public EmailAddress identity() {
         return this.emailAddress;
     }
+    @Override
+    public String toString() {
+        return "Candidate{" +
+                "Full Name=" + user().name() +
+                ",Email Address=" + emailAddress +
+                ", Telephone Number=" + telephoneNumber.telephoneNumber() +
+                '}';
+    }
 }

@@ -28,7 +28,7 @@ public class JpaCandidateRepository extends JpaAutoTxRepository<Candidate, Email
 
         @Override
         public Iterable<Candidate> findAllCandidates() {
-            return null;
+            return findAll();
         }
 
     }

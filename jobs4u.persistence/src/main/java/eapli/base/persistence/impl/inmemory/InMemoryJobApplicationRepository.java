@@ -1,6 +1,7 @@
 package eapli.base.persistence.impl.inmemory;
 
 import eapli.base.domain.JobApplication.JobOpeningApplication;
+import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
@@ -26,6 +27,17 @@ public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<J
         // Filter and collect results
         return applicationStream
                 .filter(application -> application.jobOpening().equals(jobOpening))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Iterable<JobOpeningApplication> allApplicationsById(Candidate candidate) {
+        // Convert Iterable to Stream
+        Stream<JobOpeningApplication> applicationStream = StreamSupport.stream(findAll().spliterator(), false);
+
+        // Filter and collect results
+        return applicationStream
+                .filter(application -> application.candidate().equals(candidate))
                 .collect(Collectors.toList());
     }
 }

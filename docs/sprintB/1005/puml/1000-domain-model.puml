@@ -1,0 +1,61 @@
+@startuml
+
+Title  US1005 - List all Applications for a Job Opening
+
+rectangle "Job Opening" #bbccaa {
+
+    class JobOpening<<Aggregate Root>><<Entity>>{}
+
+    class JobReference<<Identity>><<Value Object>>{}
+
+    class TitleOrFunction<<Value Object>>{}
+
+    enum ContractType<<Enumerated>><<Value Object>>{}
+
+    class Mode<<Enumerated>><<Value Object>>{}
+
+
+    class VacanciesNumber<<Value Object>>{}
+
+    class Description<<Value Object>>{}
+
+    ''Maybe go to Interview Model
+
+}
+
+
+rectangle "Job Opening Application" #aaccbb {
+
+    class Application<<Aggregate Root>><<Entity>>{}
+
+    class ApplicationId<<Identity>><<Value Object>>{}
+
+    class AttachedEmail<<Value Object>>{}
+
+    class AttachedFile<<Value Object>>{}
+
+    class ApplicatonData<<Value Object>>{}
+
+    class ApplicationStatus<<Value Object>>{}
+
+
+
+
+}
+
+Application "1" --> "1" ApplicationId
+Application "1" --> "1" AttachedEmail
+Application "1" --> "1" AttachedFile
+Application "1" --> "1" ApplicatorData
+Application "*" -----> "1" JobOpening : submitted for
+Application "*" -> "1" Candidate : submitted by
+Application "1" --> "1" ApplicationStatus
+
+
+JobReference "1" -up-* "1" JobOpening
+TitleOrFunction "1" -up-* "1" JobOpening
+ContractType "1" --* "1" JobOpening
+Mode "1" --* "1" JobOpening
+Description "1" -up-* "1" JobOpening
+VacanciesNumber "1" -up-* "1" JobOpening
+@enduml

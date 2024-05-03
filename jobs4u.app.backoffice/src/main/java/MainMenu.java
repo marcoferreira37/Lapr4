@@ -22,6 +22,7 @@ import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 import authz.listusers.ListUsersAction;
 import authz.enable_disable_users.DisableUserAction;
 import authz.enable_disable_users.EnableUserAction;
+import users.list.ListAllApplicationsOfCandidateUI;
 import users.list.ListAllDataOfCandidateUI;
 import users.register.CostumerManager.AddJobOpeningUI;
 
@@ -128,7 +129,6 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(6, "Regist a candidate", new AddCandidateUI():: show);
         menu.addItem(LIST_USERS_OPTION, "List all candidates", new ListUsersAction());
-        menu.addItem(7, "Generate template file", new GenerateTemplateUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
@@ -141,9 +141,10 @@ public class MainMenu extends AbstractUI {
         menu.addItem(3, "List all customers", new ListCustomerManagerActions());
         menu.addItem(4, "Add a job opening", new AddJobOpeningUI()::show);
         menu.addItem(5,"List all info of a candidate", new ListAllDataOfCandidateUI()::show);
-        menu.addItem(6,"List All Applications for a Job Opening", new ListAllApplicationsForJobOpeningUI()::show);
-        menu.addItem(7, RETURN_LABEL, Actions.SUCCESS);
-        menu.addItem(8, "List Job Openings", new ListJobOpeningUI()::show);
+        menu.addItem(6,"List All Applications of a candidate", new ListAllApplicationsOfCandidateUI()::show);
+        menu.addItem(7,"List All Applications for a Job Opening", new ListAllApplicationsForJobOpeningUI()::show);
+        menu.addItem(8, RETURN_LABEL, Actions.SUCCESS);
+        menu.addItem(9, "List Job Openings", new ListJobOpeningUI()::show);
         return menu;
     }
 

@@ -1,9 +1,11 @@
 package eapli.base.usermanagement.application;
 
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
+import eapli.base.domain.JobApplication.JobOpeningApplication;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.CandidateRepository;
+import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -24,6 +26,11 @@ public class ListAllDataOfCandidateController {
     public Iterable<Candidate> allCandidates() {
         final CandidateRepository candidateRepository = PersistenceContext.repositories().candidateRepository();
         return candidateRepository.findAllCandidates();
+    }
+
+    public Iterable<JobOpeningApplication> allApplicationsById(Candidate candidate) {
+        final JobOpeningApplicationRepository applications = PersistenceContext.repositories().jobApplications();
+        return applications.allApplicationsById(candidate);
     }
 
 }

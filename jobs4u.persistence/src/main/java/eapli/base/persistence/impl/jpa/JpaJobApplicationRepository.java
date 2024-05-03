@@ -2,6 +2,7 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
 import eapli.base.domain.JobApplication.JobOpeningApplication;
+import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -44,6 +45,17 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobOpeningA
                 JobOpeningApplication.class
         );
         query.setParameter("jobOpening", jobOpening);
+        return query.getResultList();
+    }
+
+    @Override
+    public Iterable<JobOpeningApplication> allApplicationsById(Candidate candidate) {
+        EntityManager em = entityManager();
+        TypedQuery<JobOpeningApplication> query = em.createQuery(
+                "SELECT a FROM JobOpeningApplication a WHERE a.candidate = :candidate",
+                JobOpeningApplication.class
+        );
+        query.setParameter("candidate", candidate);
         return query.getResultList();
     }
 }
