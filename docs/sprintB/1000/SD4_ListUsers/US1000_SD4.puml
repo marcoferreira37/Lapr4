@@ -5,16 +5,16 @@ title Enable User Sequence Diagram
 autonumber
 actor Administrator as ADM
 participant "ListUsersUI" as UI <<ui>>
-participant "ListUsersController" as CTRL <<application>>
+participant ":ListUsersController" as CTRL <<application>>
 database "Jobs4UUserRepository" as REPO <<repository>>
 
 
 -> UI : onLoad
 activate UI
 UI -> CTRL : create(userRepo)
-UI -> CTRL : allUsers()
+UI -> CTRL :elements()
 activate CTRL
-CTRL -> REPO : findAllUsers()
+CTRL -> REPO : AllUsers()
 activate REPO
 REPO --> CTRL : users
 deactivate REPO

@@ -1,181 +1,35 @@
-grammar InterviewModel;
-//Note that capitalization validation is necessary because toLowercase the whole file WILL obviouslly lower case user text which is no bueno
+#Coment
+Create interview model "Junior Developer - backend Engineer" for job opening "ntx-001" as follows:
+
+* Requirements
+-> "Years of Experience" as number may be ^2.
+-> "Programming Languages" as group may be one of ["JavaScript","Java", "TypeScript"].
+-> "Years of Experience with Language" as number may be 1+.
+-> "Knoladge of the English Language" as yes/no may be yes.
+-> "Has a previous dismissal for unprofessional behaviour" as yes/no may be no.
+-> "Ask for a description of self in 3 words (or less)" as text.
+
+* Interview
+-> true/false question with id "q1" being "Are Java and C# interpreted languages?" with difficulty
+of 1. Its validation is defined as false awarding 10.
+
+-> Short text question with id "q2" being "Which type iteration focus on iterating over elements by a defined condition?"
+with difficulty of 2. Its validation is defined as "^[wW]hile ([lL]oops?)?$" of type regex awarding 10.
+
+->  single choice question with id "q3" being "Which one of the following options is not a primitive type?"
+with difficulty of 4. Its validation is defined as "string" from "int" "double" "char" awarding 10.
 
 
 
-start: header requirements? interview footer;
+-> Multiple choice question with id "q4" being "Which of the following options are not a primitive type?"
+with difficulty of 10. Its validation is defined as ("string",2) ("date",2) ("array",3) from "int" "double" "char" awarding 10.
 
-footer: BULLET_POINT_T FOOTER score_definition TERMINAL_T interview_conduct TERMINAL_T;
+-> integer number question with id "q5" being "What is the result of the following code when mistery is called with argument 5: \n mystery(x){ if(x==1) return 1; return x*mystery(x-1);}"
+with difficulty of 1. Its validation is defined as 120 awarding 10.
 
-interview_conduct: INTERVIEW SHOULD_BE CONDUCTED IN order ORDER;
+-> real number question with id "q6" being "What is the result of the following code when mistery is called with argument 3: \n mystery(x){ return Math.round(Math.PI,x);}"
+with difficulty of 2. Its validation is defined as 3.14 awarding 10.
 
+* Footer
 
-order: order_atomic COMA_T order
-     | order_atomic
-     ;
-
-
-order_atomic: ORDER_TYPE ORDER_METHOD?;
-
-
-score_definition: PASSING RESULTS MUST_SCORE passingScore=Decimal outstandingClause?;
-
-outstandingClause: COMA_T OUTSTANDING RESULTS MUST_SCORE outstandingResults=Decimal;
-
-
-requirements: BULLET_POINT_T REQUIREMENTS requirements_body;
-
-requirements_body: requirements_atomic requirements_body    //Eventhough left recursion is supported by ANTLR4 let's not do that for compatibility issues with other parsers
-                 | requirements_atomic
-                 ;
-
-//TODO Define
-requirements_atomic: ENTRY_T requirementName=String AS requirementsType TERMINAL_T ;
-
-requirementsType: 'text' (MAY_BE String)?
-                | 'number' MAY_BE AT_LEAST? Decimal
-                | 'number' MAY_BE Decimal AND_MORE
-                | 'group' MAY_BE 'one of' '[' arr ']'
-                | 'yes/no' MAY_BE ('yes'|'no')
-                ;
-
-arr: arr COMA_T String
-   | String
-   ;
-
-interview: BULLET_POINT_T INTERVIEW interview_body;
-
-interview_body: interview_atomic interview_body
-              | interview_atomic
-              ;
-
-//TODO Define
-interview_atomic: ENTRY_T (true_false | short | single_choice | multiple_choice | int_q | real_q | date_q | time_q | scale_q) TERMINAL_T;
-
-true_false: TRUE_FALSE QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-ITS_VALIDATION IS_DEFINED AS (TRUE|FALSE) AWARDING questionPoints=Decimal;
-
-short: SHORT_TEXT QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-ITS_VALIDATION IS_DEFINED AS questionCorrection=String OF TYPE ('literal' | 'regex') AWARDING questionPoints=Decimal;
-
-single_choice: SINGLE_CHOICE QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-ITS_VALIDATION IS_DEFINED AS correctChoice=String FROM choices=String+ AWARDING questionPoints=Decimal;
-
-multiple_choice: MULTIPLE_CHOICE QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-ITS_VALIDATION IS_DEFINED AS correctChoices=c_choices FROM choices=String+ AWARDING questionPoints=Decimal;
-
-c_choices: choice choice+;
-
-choice: '(' String COMA_T Decimal ')';
-
-int_q: INTEGER_NUMBER QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-       ITS_VALIDATION IS_DEFINED AS questionCorrection=Decimal AWARDING questionPoints=Decimal;
-
-real_q: REAL_NUMBER QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-        ITS_VALIDATION IS_DEFINED AS questionCorrection=Real AWARDING questionPoints=Decimal;
-
-date_q: DATE QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-             ITS_VALIDATION IS_DEFINED AS questionCorrection=String OF TYPE format=String AWARDING questionPoints=Decimal;
-
-time_q: TIME QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-             ITS_VALIDATION IS_DEFINED AS questionCorrection=String OF TYPE format=String AWARDING questionPoints=Decimal;
-
-scale_q: SCALE QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-                     ITS_VALIDATION IS_DEFINED AS questionCorrection=Decimal BETWEEN lowerBound=Decimal AND higherBound=Decimal AWARDING questionPoints=Decimal;
-
-header: CREATE INTERVIEW_MODEL interviewName=String FOR_JOB jobOpeningReference=String AS FOLLOWS SPECIFICATION_T;
-
-
-
-//Categories
-
-fragment CreateCapitalized: 'Create';
-fragment CreateUncapitalized: 'create';
-fragment RequirementsCapitalized: 'Requirements';
-fragment RequirementsUncapitalized: 'requirements';
-fragment InterviewCapitalized : 'Interview';
-fragment InterviewUncapitalized : 'interview';
-fragment FooterCapitalized : 'Footer';
-fragment FooterUncapitalized : 'footer';
-fragment PassingCapitalized : 'Passing';
-fragment PassingUncapitalized : 'passing';
-fragment CommentBody: ~[#\n]*;
-fragment QuestionCapitalized: 'Question';
-fragment QuestionUncapitalized : 'question';
-
-FOOTER: FooterCapitalized | FooterUncapitalized;
-INTERVIEW: InterviewCapitalized | InterviewUncapitalized;
-REQUIREMENTS: RequirementsCapitalized | RequirementsUncapitalized;
-CREATE: CreateCapitalized | CreateUncapitalized;
-PASSING: PassingCapitalized | PassingUncapitalized;
-QUESTION: QuestionCapitalized| QuestionUncapitalized;
-
-//
-
-//Semantic tokens, soul of the language and the readability to
-
-AND: 'and';
-AS: 'as';
-AWARDING: 'awarding';
-BEING: 'being';
-BETWEEN: 'between';
-CONDUCTED: 'conducted';
-DIFFICULTY: 'difficulty';
-FALSE: 'false';
-FOLLOWS: 'follows';
-FOR_JOB: 'for job opening';
-FROM: 'from';
-IN: 'in';
-INTERVIEW_MODEL: 'interview model';
-IS_DEFINED: 'is defined';
-ITS_VALIDATION: [Ii]'ts validation'; //Note how more necessary work is needed to understand the parsing vs the fragment approach
-MAY_BE: 'may be';
-MUST_SCORE: 'must score';
-OF:'of';
-OUTSTANDING: 'outstanding';
-ORDER: 'order';
-RESULTS: 'results';
-SHOULD_BE:'should be';
-TRUE: 'true';
-TYPE: 'type';
-WITH: 'with';
-
-//
-
-//Syntax tokens, sugar for the language
-BULLET_POINT_T: '*';
-COMA_T: ',';
-ENTRY_T: '->';
-SPECIFICATION_T: ':';
-TERMINAL_T: '.';
-String: '"' ~'"'+ '"';
-Decimal: '0'|[1-9][0-9]*;
-Real: Decimal (TERMINAL_T|COMA_T) ('0' | [0-9]*[1-9]);
-AND_MORE: '+';
-AT_LEAST: '^';
-
-ORDER_TYPE: ([rR]'andom'|[pP]'riority'|[dD]'ifficulty');
-ORDER_METHOD: ([aA]'scending'|[dD]'escending');
-
-
-
-
-//
-
-
-//Skip comments or structural tokens.
-COMMENT: '#' CommentBody '\r'?'\n' -> skip;
-WS: [ \t\r\n]->skip;
-//
-
-
-TRUE_FALSE: [tT]'rue/false';
-SHORT_TEXT: [sS]'hort text';
-SINGLE_CHOICE: [sS]'ingle choice';
-MULTIPLE_CHOICE: [mM]'ultiple choice';
-INTEGER_NUMBER: [iI]'nteger number';
-REAL_NUMBER: [rR]'eal number';
-DATE: [dD]'ate';
-TIME: [tT]'ime';
-SCALE: [sS]'cale';
-ID: 'id';
+Passing results must score 40, outstanding results must score 60. Interview should be conducted in random order.
