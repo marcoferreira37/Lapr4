@@ -6,50 +6,53 @@ autonumber
 actor Administrator as ADM
 participant "AddUserUI" as UI <<ui>>
 participant "AddUserController" as ARC <<application>>
-participant "OperatorBuilder" as BLD <<builder>>
-participant "SystemUser" as SU <<f_entity>>
-participant "Jobs4UUser" as J4UU <<domain>>
-database "Jobs4UUserRepository" as REPO <<repository>>
+participant "SystemUserRepository" as REPO <<repository>>
 participant "BaseRoles" as J4UR <<domain>>
-participant "Jobs4UBuilderFactory" as FAC <<factory>>
+participant "UserBuilderFactory" as FAC <<factory>>
+participant ":UserBuilder" as BLD <<builder>>
+participant ":SystemUser" as SU <<f_entity>>
+participant "SystemUserRepository" as REPO <<repository>>
+participant ":SystemUser" as SUD <<domain>>
+
 
 -> UI : onLoad
 activate UI
 UI -> ARC : create
-
+activate ARC
 
 UI --> ADM : asks input of\n user details
-ADM -> UI : inputs user engineer details
-UI -> ARC : User(username, pwd,\n firstName, lastName, email)
-activate ARC
-ARC -> FAC : createJObs4UUserBuilder(role)
-activate FAC
-FAC -> BLD : create
-FAC --> ARC : builder
-deactivate FAC
-ARC -> SU : create
-ARC -> BLD : withSystemUser(sysUser)
-ARC -> BLD : build()
-activate BLD
-BLD -> J4UU : create(sysUser)
-BLD --> ARC : user
-deactivate BLD
-ARC -> REPO : save(user)
-ARC --> UI : returns success
-deactivate ARC
+ADM -> UI : inputs user details
+
 UI --> ADM : displays success
 
+ADM --> UI : chooses role
 
 UI -> ARC : getRoleTypes()
-activate ARC
 ARC -> J4UR : getRoleTypes()
 activate J4UR
 J4UR --> ARC : roles
 deactivate J4UR
 ARC --> UI : roles
-deactivate ARC
+UI -> ARC : User(username, pwd,\n firstName, lastName, email)
 
-ADM --> UI : chooses role
+ARC -> FAC : createUserBuilder(role)
+activate FAC
+FAC -> BLD : create
+
+FAC --> ARC : builder
+deactivate FAC
+
+ARC -> SU : create
+ARC -> BLD : build()
+activate BLD
+BLD -> SUD : create(sysUser, birthdate, taxNumber, newNumber, state)
+BLD --> ARC : user
+deactivate BLD
+ARC -> REPO : save(user)
+deactivate BLD
+ARC --> UI : returns success
+
+deactivate ARC
 
 UI -> ADM : displays success/\nfailure of the operation
 
