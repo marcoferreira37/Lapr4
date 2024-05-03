@@ -13,17 +13,18 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     @OneToOne
     @JoinColumn(name = "USERNAME")
     private SystemUser systemUser;
-    @Id
+    @EmbeddedId
     private EmailAddress emailAddress;
+    private TelephoneNumber telephoneNumber;
 
-    private boolean active;
 
-
-    public Candidate(final SystemUser systemUser, final EmailAddress emailAddress){
+    public Candidate(final SystemUser systemUser, final EmailAddress emailAddress, final TelephoneNumber telephoneNumber){
         Preconditions.nonNull(systemUser, "systemUser cannot be null");
-        Preconditions.nonNull(emailAddress, "emailAddress cannot be null");
+        Preconditions.nonNull(telephoneNumber, "telephoneNumber cannot be null");
+
         this.systemUser = systemUser;
         this.emailAddress = emailAddress;
+        this.telephoneNumber = telephoneNumber;
     }
 
     protected Candidate() {
@@ -31,6 +32,9 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     }
     public SystemUser user() {
         return this.systemUser;
+    }
+    public TelephoneNumber telephoneNumber() {
+        return this.telephoneNumber;
     }
 
     @Override
@@ -44,9 +48,5 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     @Override
     public EmailAddress identity() {
         return this.emailAddress;
-    }
-
-    public boolean isActive() {
-        return active;
     }
 }

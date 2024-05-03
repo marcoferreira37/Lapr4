@@ -2,6 +2,7 @@ package eapli.base.usermanagement.application;
 
 import eapli.base.candidate.CandidateManagementService;
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.candidate.TelephoneNumber;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -22,14 +23,14 @@ public class AddCandidateController {
 
     private final UserManagementService userSvc= AuthzRegistry.userService();
 
-    private final CandidateManagementService candidateSvc = new CandidateManagementService(PersistenceContext.repositories().candidate(), new BasePasswordPolicy(), new PlainTextEncoder());
+    private final CandidateManagementService candidateSvc = new CandidateManagementService();
 
-    public Candidate addCandidate(final String username, final String firstname, final String lastname, final String email, final Calendar createdOn){
+    public Candidate addCandidate(final String firstname, final String lastname, final String email, final Calendar createdOn, final long telephoneNumber){
         Set<Role> role = new HashSet<>();
         role.add(BaseRoles.CANDIDATE);
-        final SystemUser newUser = createSystemUser(firstname,lastname, email, role, createdOn);
+        final SystemUser newUser = createSystemUser(firstname, lastname, email, role, createdOn);
 
-        return candidateSvc.registerNewCandidate(newUser, EmailAddress.valueOf(email));
+        return candidateSvc.registerNewCandidate(newUser, EmailAddress.valueOf(email), new TelephoneNumber(telephoneNumber));
     }
     private SystemUser createSystemUser(final String firstName, final String lastName, final String email, final Set<Role> roles, final Calendar createdOn) {
         Preconditions.nonNull(firstName);
@@ -38,7 +39,7 @@ public class AddCandidateController {
 
 
         roles.add(BaseRoles.CANDIDATE);
-        String password = "Password1";
+        String password = BasePasswordPolicy.generatePassword(firstName);
 
         return userSvc.registerNewUser(email, password, firstName, lastName, email, roles, createdOn);
     }

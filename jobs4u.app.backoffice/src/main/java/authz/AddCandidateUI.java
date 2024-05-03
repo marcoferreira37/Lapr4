@@ -24,17 +24,16 @@ public class AddCandidateUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-
-        final String username = Console.readLine("Username");
         final String firstName = Console.readLine("First Name");
         final String lastName = Console.readLine("Last Name");
         final String email = Console.readLine("E-Mail");
+        final long telephoneNumber = Console.readLong("Telephone Number");
 
 
         try {
-            this.theController.addCandidate(username, firstName, lastName, email, Calendar.getInstance());
+            this.theController.addCandidate(firstName, lastName, email, Calendar.getInstance(), telephoneNumber);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
-            System.out.println("That username is already in use.");
+            System.out.println("That email is already in use.");
         }
 
         return false;
@@ -46,24 +45,3 @@ public class AddCandidateUI extends AbstractUI {
         return "Add Candidate";
     }
 }
-
-
-//    public static String generatePassword(int length) {
-//        Random random = new Random();
-//        StringBuilder password = new StringBuilder(length);
-//
-//        for (int i = 0; i < length; i++) {
-//            int type = random.nextInt(3); // 0 for uppercase letter, 1 for special character
-//            switch (type) {
-//                case 0:
-//                    password.append((char) (random.nextInt(26) + 'A')); // Uppercase letters
-//                    break;
-//                case 1:
-//                    password.append((char) (random.nextInt(15) + 33)); // Special characters
-//                    break;
-//            }
-//        }
-//
-//        return password.toString();
-//    }
-//}

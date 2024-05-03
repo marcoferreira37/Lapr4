@@ -28,6 +28,7 @@ import eapli.base.customer.AddJobOpeningController;
 import eapli.base.domain.JobApplication.AddJobApplicationController;
 import eapli.base.domain.JobApplication.JobOpeningApplication;
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.candidate.TelephoneNumber;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.company.CompanyName;
 import eapli.base.domain.jobOpening.*;
@@ -104,7 +105,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         roles.add(BaseRoles.CANDIDATE);
 
         SystemUser u = registerUser(username, password, firstName, lastName, String.valueOf(email), roles);
-        Candidate c = new Candidate(u, email);
+        Candidate c = new Candidate(u, email, new TelephoneNumber(910920930));
         CandidateRepository candidateRepository = PersistenceContext.repositories().candidateRepository();
         candidateRepository.save(c);
         return c;
