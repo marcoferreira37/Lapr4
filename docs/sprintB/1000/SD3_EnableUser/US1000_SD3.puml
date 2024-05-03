@@ -5,10 +5,10 @@ title Enable User Sequence Diagram
 autonumber
 actor Administrator as ADM
 participant "EnableUserUI" as UI <<ui>>
-participant "EnableUserController" as CTRL <<application>>
+participant ":EnableUserController" as CTRL <<application>>
 participant "ListUsersUI" as LUI <<ui>>
-participant "Jobs4UUser" as EU <<domain>>
-database "Jobs4UUserRepository" as REPO <<repository>>
+participant "SystemUserUser" as EU <<domain>>
+database "SystemUserUserRepository" as REPO <<repository>>
 
 
 -> UI : onLoad
