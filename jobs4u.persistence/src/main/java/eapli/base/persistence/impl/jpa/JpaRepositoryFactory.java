@@ -83,7 +83,7 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Override
     public CandidateRepository candidate() {
-        return null;
+        return new JpaCandidateRepository((Application.settings().getPersistenceUnitName()));
     }
 
     @Override

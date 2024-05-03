@@ -3,12 +3,10 @@ import CustomerManager.ListAllApplicationsForJobOpeningUI;
 import CustomerManager.ListJobOpeningUI;
 import authz.*;
 import authz.registerusers.AddUserAction;
-import authz.registerusers.AddUserUI;
 import clientuser.AcceptRefuseSignupRequestAction;
 import eapli.base.Application;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.usermanagement.domain.BaseRoles;
-import eapli.framework.actions.Action;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -128,9 +126,9 @@ public class MainMenu extends AbstractUI {
     private Menu buildOperatorMenu() {
         final Menu menu = new Menu("Operator:");
 
-        menu.addItem(ADD_USER_OPTION, "Register a candidate", new AddUserUI()::show);
         menu.addItem(6, "Regist a candidate", new AddCandidateUI():: show);
         menu.addItem(LIST_USERS_OPTION, "List all candidates", new ListUsersAction());
+        menu.addItem(7, "Generate template file", new GenerateTemplateUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
