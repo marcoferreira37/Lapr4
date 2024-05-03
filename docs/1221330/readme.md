@@ -10,3 +10,7 @@
 | **A**  | [US G004](../sprintA/G004/readme.md) |
 | **A**  | [US G005](../sprintA/G005/readme.md) |
 | **A**  | [US G006](../sprintA/G006/readme.md) |
+| **B**  | [2000a](../sprintB/2000a/readme.md)  |
+| **B**  | [2000c](../sprintB/2000c/readme.md)  |
+| **B**  | [2001](../sprintB/2001/readme.md)    |
+| **B**  | [2003](../sprintB/2003/readme.md)    |
