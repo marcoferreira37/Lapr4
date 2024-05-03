@@ -45,16 +45,19 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     public boolean sameAs(final Object other) {
         return DomainEntities.areEqual(this, other);
     }
+
+
     @Override
     public EmailAddress identity() {
         return this.emailAddress;
     }
     @Override
     public String toString() {
-        return "Candidate{" +
-                "Full Name=" + user().name() +
-                ",Email Address=" + emailAddress +
-                ", Telephone Number=" + telephoneNumber.telephoneNumber() +
-                '}';
+        return "Candidate:" +
+                "\nFull Name=" + user().name() +
+                "\nEmail Address=" + emailAddress +
+                "\nTelephone Number=" + telephoneNumber.telephoneNumber() + "\n";
     }
+
+
 }

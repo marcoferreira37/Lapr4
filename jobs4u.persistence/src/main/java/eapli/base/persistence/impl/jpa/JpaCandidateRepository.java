@@ -10,6 +10,7 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import java.util.Optional;
 
 import eapli.framework.general.domain.model.EmailAddress;
+import jakarta.persistence.TypedQuery;
 
 public class JpaCandidateRepository extends JpaAutoTxRepository<Candidate, EmailAddress, EmailAddress> implements CandidateRepository {
 
@@ -28,7 +29,8 @@ public class JpaCandidateRepository extends JpaAutoTxRepository<Candidate, Email
 
         @Override
         public Iterable<Candidate> findAllCandidates() {
-            return findAll();
+            TypedQuery<Candidate> query = createQuery("SELECT c FROM Candidate c", Candidate.class);
+            return query.getResultList();
         }
 
     }

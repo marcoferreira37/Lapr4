@@ -26,7 +26,7 @@ public class CandidateManagementService {
     }
 
     public Iterable<Candidate> allCandidate() {
-        return candidateRepository.findAll();
+        return candidateRepository.findAllCandidates();
     }
 
     public Optional<Candidate> userOfIdentity(final EmailAddress id) {

@@ -27,12 +27,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import eapli.base.candidate.CandidateManagementService;
+import eapli.base.customer.Customer;
+import eapli.base.domain.candidate.Candidate;
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.CandidateRepository;
+import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
+import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
@@ -46,25 +52,14 @@ public class ListCandidatesController{
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
 
-/*
-    public Iterable<Customer> allCustomers() {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER);
+    private final CandidateManagementService candidateSvc = new CandidateManagementService();
 
-        return customerSvc.allCustomers();
+    public Iterable<Candidate> allCandidates() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.OPERATOR);
+
+        return candidateSvc.allCandidate();
     }
-*/
 
-    public Iterable<SystemUser> allCandidates() {
-
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR);
-        List<SystemUser> candidate = new ArrayList<>();
-            for (SystemUser user : userSvc.allUsers() ){
-                if (user.roleTypes().contains(BaseRoles.CANDIDATE) ){
-                    candidate.add(user);
-                }
-            }
-         return candidate;
-    }
     public Optional<SystemUser> find(final Username u) {
         return userSvc.userOfIdentity(u);
     }
