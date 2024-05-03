@@ -1,0 +1,55 @@
+@startuml
+
+
+
+
+package ui {
+        class ListCandidatesUI {
+        }
+    }
+
+
+
+
+    package application {
+        class ListCandidatesController {
+            +allCandidates()
+        }
+    }
+
+    package repository {
+
+        interface CandidateRepository{
+        +findAllCandidates()
+        }
+    }
+
+    package domain {
+        class Role {}
+
+        class AuthorizationService {
+            +authorizationService() : AuthorizationService
+            +ensureAuthenticatedUserHasAnyOf()
+        }
+
+        class CandidateManagementService {
+            +candidateService() : CandidateManagementService
+               +allCandidate()
+        }
+
+
+        class Candidate {
+        }
+    }
+
+
+
+CandidateManagementService --> CandidateRepository
+ListCandidatesUI --> ListCandidatesController
+ListCandidatesController --> CandidateManagementService
+ListCandidatesController --> CandidateRepository
+CandidateRepository -> Candidate
+ListCandidatesController --> AuthorizationService
+
+
+@enduml
