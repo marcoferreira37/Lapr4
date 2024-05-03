@@ -11,10 +11,6 @@ System --> Operator: Receive request to list all the candidates
 deactivate System
 Operator -> System: Get candidates from database
 activate System
-System --> Operator: Candidates data
-deactivate System
-Operator -> System: Send candidates data
-activate System
 System --> Operator: Displays the candidates list
 deactivate System
 

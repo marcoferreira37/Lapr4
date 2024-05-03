@@ -1,0 +1,52 @@
+@startuml
+title Sequence Diagram (US 2000c - List all candidates
+
+autonumber
+actor Operator as Operator
+participant ListCandidatesUI as UI <<UI>>
+participant ListCandidatesController as CTRL <<Application>>
+participant Role as Role <<Domain>>
+participant AuthorizationService as AS <<Domain>>
+participant CandidateManagementService as UMS <<Domain>>
+database UserRepository as URepo <<Persistence>>
+participant Candidate as C <<Domain>>
+database CandidateRepository as CRepo <<Persistence>>
+database DomainRepository as D <<Persistence>>
+
+
+activate Operator
+activate UI
+Operator -> UI: Request to list all the candidates
+
+UI -> CTRL**:create
+activate CTRL
+CTRL -> AS : authorizationService()
+activate AS
+AS --> CTRL: authz
+deactivate AS
+CTRL-> UMS : candidateService()
+activate UMS
+UMS-->CTRL: candidateSvc
+deactivate UMS
+deactivate CTRL
+UI --> Operator: Receive request to list all the candidates
+deactivate UI
+Operator -> UI: Get candidates from database
+activate UI
+UI-> CTRL: get all candidates from database
+activate CTRL
+CTRL-->CTRL:allCandidates()
+CTRL->AS : ensureAuthenticatedUserHasAnyOf()
+activate AS
+deactivate AS
+CTRL-> UMS : allCandidate()
+activate UMS
+UMS->CRepo: findAllCandidates()
+activate CRepo
+deactivate CRepo
+UMS-->CTRL: all candidates
+deactivate UMS
+UI --> Operator:Displays the candidates list
+deactivate UI
+
+@enduml

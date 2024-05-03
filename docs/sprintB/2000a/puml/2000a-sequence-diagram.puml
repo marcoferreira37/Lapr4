@@ -4,11 +4,11 @@ title Sequence Diagram (US 2000a - Register a candidate and create a correspondi
 autonumber
 actor Operator as Operator
 participant AddCandidateUI as UI <<UI>>
-participant AddUserController as CTRL <<Application>>
+participant AddCandidateController as CTRL <<Application>>
 participant Role as Role <<Domain>>
 participant AuthorizationService as AS <<Domain>>
-participant UserManagementService as UMS <<Domain>>
-participant SystemUserBuilder as SUB <<Domain>>
+participant CandidateManagementService as UMS <<Domain>>
+participant SystemCandidateBuilder as SUB <<Domain>>
 database UserRepository as URepo <<Persistence>>
 participant Candidate as C <<Domain>>
 database CandidateRepository as CRepo <<Persistence>>
