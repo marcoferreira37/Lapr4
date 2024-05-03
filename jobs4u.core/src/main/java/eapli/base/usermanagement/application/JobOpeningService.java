@@ -6,7 +6,10 @@ import eapli.base.domain.jobOpening.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobOpeningRepository;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +34,7 @@ public class JobOpeningService {
 
 
         JobOpening jo = builder
-                .jobReference(new JobReference(lastJR+1,cIndex))
+                .jobReference(new JobReference(lastJR + 1, cIndex))
                 .titleOrFunction(new TitleOrFunction(epitaph))
                 .description(new Description(description))
                 .contractType(contract)
@@ -45,7 +48,15 @@ public class JobOpeningService {
     }
 
 
-    public List<JobOpening> listJobOpenings(LocalDateTime startDate, LocalDateTime endDate, String nameOrReference) {
-        return repository.listJobOpenings(startDate, endDate, nameOrReference);
+    public List<JobOpening> listJobOpenings(Date startDate, Date endDate, String nameOrReference) {
+        ZoneId zoneId = ZoneId.systemDefault();
+
+        LocalDateTime dts = Instant.ofEpochMilli(startDate.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+        LocalDateTime dte = Instant.ofEpochMilli(endDate.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+        return repository.listJobOpenings(dts, dte, nameOrReference);
     }
 }

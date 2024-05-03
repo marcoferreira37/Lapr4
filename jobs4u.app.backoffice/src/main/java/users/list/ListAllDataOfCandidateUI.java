@@ -30,9 +30,10 @@ public class ListAllDataOfCandidateUI extends AbstractUI {
 
         System.out.println();
         System.out.println("Candidate Id: " + candidates.get(option - 1).identity());
-        System.out.println("Full Name: " + candidates.get(option - 1).name());
-        System.out.println("Email: " + candidates.get(option - 1).getUser().email());
-        System.out.println("Username:" + candidates.get(option - 1).getUser().identity() );
+        //FIXME Urgent!
+//        System.out.println("Full Name: " + candidates.get(option - 1).name());
+//        System.out.println("Email: " + candidates.get(option - 1).getUser().email());
+//        System.out.println("Username:" + candidates.get(option - 1).getUser().identity() );
 
         return false;
     }

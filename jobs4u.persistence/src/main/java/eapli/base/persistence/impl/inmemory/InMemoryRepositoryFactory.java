@@ -82,6 +82,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
+    public CandidateRepository candidate() {
+        return null;
+    }
+
+    @Override
     public CompanyRepository customer(TransactionalContext autoTx) {
         return new InMemoryCompanyRepository();
     }

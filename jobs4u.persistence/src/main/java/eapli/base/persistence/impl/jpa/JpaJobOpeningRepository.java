@@ -54,12 +54,9 @@ public class JpaJobOpeningRepository
     @Override
     public List<JobOpening> listJobOpenings(LocalDateTime startDate, LocalDateTime endDate, String nameOrReference) {
         return createQuery("""
-                        SELECT *
-                        FROM JOB_OPENING opening
-                        WHERE opening.iD like :nameOrReference
-                           OR opening.description like :nameOrReference
+                        SELECT opening FROM JobOpening opening
                         """,
-// Todo: Adicionar o restante à query quando a clase tiver a infromaçao necessaria
+// Todo: Adicionar o restante à query quando a clase tiver a infromaçao necessaria Obrigado pela dica, adiciono
 //                          AND opening.initialDate >= :initialDate
 //                          AND opening.finalDate <= :finalDate
                 JobOpening.class)
