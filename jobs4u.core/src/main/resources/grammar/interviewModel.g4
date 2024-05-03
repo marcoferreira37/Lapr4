@@ -1,4 +1,4 @@
-grammar InterviewModel;
+grammar interviewModel;
 //Note that capitalization validation is necessary because toLowercase the whole file WILL obviouslly lower case user text which is no bueno
 
 
@@ -180,4 +180,4 @@ REAL_NUMBER: [rR]'eal number';
 DATE: [dD]'ate';
 TIME: [tT]'ime';
 SCALE: [sS]'cale';
-ID: 'id';
+ID:'id';
