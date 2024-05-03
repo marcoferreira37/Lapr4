@@ -2,19 +2,20 @@ package eapli.base.domain.jobOpening;
 
 import eapli.base.domain.company.Company;
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.time.util.CurrentTimeCalendars;
 import jakarta.persistence.*;
 import lombok.*;
-import org.apache.commons.lang3.NotImplementedException;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 @Table(name = "JOB_OPENING")
 @Entity
 @Getter
+@Setter
+@AllArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
 @Builder // CRIAR UMA CLASS BUILDER ( nao é um builder pattern )
-@AllArgsConstructor
-@NoArgsConstructor
 public class JobOpening implements AggregateRoot<JobReference> {
 
     @ToString.Include
@@ -31,12 +32,12 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private Address address;
 
     @ToString.Include
-    @Column (name = "MODE")
+    @Column(name = "MODE")
     @Enumerated(EnumType.STRING)
     private Mode mode;
 
     @ToString.Include
-    @Column (name = "CONTRACTTYPE")
+    @Column(name = "CONTRACTTYPE")
     @Enumerated(EnumType.STRING)
     private ContractType contractType;
 
@@ -51,6 +52,33 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @ManyToOne
     @JoinColumn(name = "COMPANY")
     private Company company;
+
+    @JoinColumn(name = "Phase")
+    @Embedded
+    private Phase phaseDates;
+
+
+    @Column (name = "CREATION_DATE")
+    private Calendar creationDate;
+
+
+
+    public JobOpening(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, Company company, Phase phaseDates) {
+        this.jobReference = jobReference;
+        this.description = description;
+        this.address = address;
+        this.mode = mode;
+        this.contractType = contractType;
+        this.titleOrFunction = titleOrFunction;
+        this.vacanciesNumber = vacanciesNumber;
+        this.company = company;
+        this.phaseDates = phaseDates;
+        this.creationDate = CurrentTimeCalendars.now();
+    }
+
+    public JobOpening() {
+
+    }
 
 
     @Override
@@ -67,10 +95,8 @@ public class JobOpening implements AggregateRoot<JobReference> {
      * Verifies if the job opening is between the initial and final date
      *
      * @param initialDate initial date
-     * @param finalDate final date
-     *
-     * @return
-     * true if the job opening is between the initial and final date;
+     * @param finalDate   final date
+     * @return true if the job opening is between the initial and final date;
      * false otherwise.
      * FIXME: This method is not properly implemented
      */
@@ -82,9 +108,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
         return description.description().equals(nameOrReference)
                 || jobReference.toString().equals(nameOrReference);
     }
+
     @Override
     public String toString() {
-        return "\n-----------------------------------------------------"+
+        return "\n-----------------------------------------------------" +
                 "\n////// Job Opening //////" +
                 "\n" +
                 "\nJob Reference = " + jobReference +
@@ -94,7 +121,8 @@ public class JobOpening implements AggregateRoot<JobReference> {
                 "\nContractType = " + contractType +
                 "\nTitle Or Function = " + titleOrFunction +
                 "\nVacancies Number = " + vacanciesNumber +
-                "\nCompany = " + company ;
+                "\nPhase Dates = " + phaseDates +
+                "\nCompany = " + company;
 
     }
 }

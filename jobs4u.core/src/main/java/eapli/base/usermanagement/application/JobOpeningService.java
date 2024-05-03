@@ -5,15 +5,21 @@ import eapli.base.domain.company.Company;
 import eapli.base.domain.jobOpening.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobOpeningRepository;
+import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 public class JobOpeningService {
+
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
     private JobOpeningRepository repository = PersistenceContext.repositories().jobOpeningRepository();
     private CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
@@ -43,6 +49,8 @@ public class JobOpeningService {
                 .vacanciesNumber(new VacanciesNumber(vacancies))
                 .company(company.get())
                 .build();
+
+
         jo = repository.save(jo);
         return jo;
     }
@@ -58,5 +66,20 @@ public class JobOpeningService {
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
         return repository.listJobOpenings(dts, dte, nameOrReference);
+    }
+
+    public List<JobOpening> allJobs() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER,
+                BaseRoles.ADMIN);
+        List<JobOpening> listToReturn = new ArrayList<>();
+
+        for(JobOpening job : repository.findAll()){
+            listToReturn.add(job);
+        }
+        return listToReturn;
+    }
+
+    public JobOpening saveJobOpening(JobOpening jo) {
+        return repository.save(jo);
     }
 }
