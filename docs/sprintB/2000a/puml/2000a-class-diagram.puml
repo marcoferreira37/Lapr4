@@ -12,14 +12,13 @@ package ui {
 
 
     package application {
-        class AddUserController {
-            +addUser()
+        class AddCandidateController {
+            +addCandidate()
         }
     }
 
     package repository {
-        interface UserRepository {
-        }
+
         interface CandidateRepository{
         }
     }
@@ -32,13 +31,13 @@ package ui {
             +ensureAuthenticatedUserHasAnyOf()
         }
 
-        class UserManagementService {
-            +userService() : UserManagementService
-            +registerNewUser()
+        class CandidateManagementService {
+            +candidateService() : CandidateManagementService
+            +registerNewCandidate()
         }
 
-        class SystemUserBuilder {
-            +with() : SystemUserBuilder
+        class SystemCandidateBuilder {
+            +with() : SystemCandidateBuilder
             +build(): Candidate
         }
 
@@ -48,13 +47,13 @@ package ui {
 
 
 
-UserManagementService --> UserRepository
-UserManagementService --> SystemUserBuilder
-AddCandidateUI --> AddUserController
-AddUserController --> UserManagementService
-AddUserController --> SystemUserBuilder
-AddUserController --> UserRepository
-AddUserController --> CandidateRepository
+CandidateManagementService --> CandidateRepository
+CandidateManagementService --> SystemCandidateBuilder
+AddCandidateUI --> AddCandidateController
+AddCandidateController --> CandidateManagementService
+AddCandidateController --> SystemCandidateBuilder
+AddCandidateController --> CandidateRepository
+AddCandidateController --> CandidateRepository
 CandidateRepository -> Candidate
 
 @enduml
