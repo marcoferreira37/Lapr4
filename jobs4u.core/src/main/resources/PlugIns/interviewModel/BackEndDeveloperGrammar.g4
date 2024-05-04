@@ -1,9 +1,6 @@
-grammar interviewModel;
-//Note that capitalization validation is necessary because toLowercase the whole file WILL obviouslly lower case user text which is no bueno
+grammar BackEndDeveloperGrammar;
 
-
-
-start: header requirements? interview footer;
+start: header interview footer;
 
 footer: BULLET_POINT_T FOOTER score_definition TERMINAL_T interview_conduct TERMINAL_T;
 
@@ -20,27 +17,6 @@ order_atomic: ORDER_TYPE ORDER_METHOD?;
 score_definition: PASSING RESULTS MUST_SCORE passingScore=Decimal outstandingClause?;
 
 outstandingClause: COMA_T OUTSTANDING RESULTS MUST_SCORE outstandingResults=Decimal;
-
-
-requirements: BULLET_POINT_T REQUIREMENTS requirements_body;
-
-requirements_body: requirements_atomic requirements_body    //Eventhough left recursion is supported by ANTLR4 let's not do that for compatibility issues with other parsers
-                 | requirements_atomic
-                 ;
-
-//TODO Define
-requirements_atomic: ENTRY_T requirementName=String AS requirementsType TERMINAL_T ;
-
-requirementsType: 'text' (MAY_BE String)?
-                | 'number' MAY_BE AT_LEAST? Decimal
-                | 'number' MAY_BE Decimal AND_MORE
-                | 'group' MAY_BE 'one of' '[' arr ']'
-                | 'yes/no' MAY_BE ('yes'|'no')
-                ;
-
-arr: arr COMA_T String
-   | String
-   ;
 
 interview: BULLET_POINT_T INTERVIEW interview_body;
 

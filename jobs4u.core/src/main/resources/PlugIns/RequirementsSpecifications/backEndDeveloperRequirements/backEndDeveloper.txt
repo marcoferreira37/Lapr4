@@ -1,0 +1,7 @@
+* Requirements
+-> "Years of Experience" as number may be ^2.
+-> "Programming Languages" as group may be one of ["JavaScript","Java", "TypeScript"].
+-> "Years of Experience with Language" as number may be 1+.
+-> "Knoladge of the English Language" as yes/no may be yes.
+-> "Has a previous dismissal for unprofessional behaviour" as yes/no may be no.
+-> "Ask for a description of self in 3 words (or less)" as text.
