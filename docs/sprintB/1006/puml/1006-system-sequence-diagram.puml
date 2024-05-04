@@ -1,0 +1,16 @@
+@startuml
+
+actor User
+participant "System" as S
+
+activate User
+User -> S: request to display all the personal data of a candidate
+    activate S
+    S --> User: display list of candidates emails and asks to choose one to display
+    deactivate S
+User -> S: chooses a candidate
+    activate S
+    S --> User: display all the personal data of the chosen candidate
+    deactivate S
+
+@enduml
