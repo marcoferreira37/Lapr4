@@ -17,8 +17,10 @@ package Controller{
 package Domain{
 
 
-    class UserManagementService{
-    +registerNewUser()
+    class CustomerManagementService{
+    +createSystemUser()
+    +registerNewCustomer()
+    +userOfIdentity()
     }
 
 
@@ -33,24 +35,29 @@ package Domain{
     +create()
     }
 
-    class RegisterNewUser<<Event>>{
+    class createSystemUser<<Event>>{
     }
 
 
 }
 
 package Repository{
-    class UserRepository{
+    class CustomerRepository{
     +save()
     }
 }
 
+class SystemCustomerBuilder{
+    +build()
+}
+
 AddCustomerUI ..> AddCustomerController
 
-AddCustomerController ..> UserManagementService
+AddCustomerController ..> CustomerManagementService
 
-RegisterNewUser --> Customer: creates
-UserManagementService --> UserRepository: uses
-AddCustomerController --> RegisterNewUser: creates
+createSystemUser --> Customer: creates
+CustomerManagementService --> CustomerRepository: uses
+AddCustomerController --> createSystemUser: creates
+SystemCustomerBuilder <-- CustomerManagementService
 
 @enduml

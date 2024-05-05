@@ -12,6 +12,9 @@ import eapli.framework.visitor.Visitor;
 
 import java.util.List;
 
+/**
+ * The type List customers ui.
+ */
 public class ListCustomersUI extends AbstractListUI<Customer> {
     private ListCustomerController theController = new ListCustomerController();
 
@@ -45,6 +48,11 @@ public class ListCustomersUI extends AbstractListUI<Customer> {
     }
 
 
+    /**
+     * List enabled users boolean.
+     *
+     * @return the boolean
+     */
     public boolean listEnabledUsers() {
         List<Customer> users = (List<Customer>) theController.enabledUsers();
         if (users.isEmpty()) {
@@ -56,6 +64,11 @@ public class ListCustomersUI extends AbstractListUI<Customer> {
         return true;
     }
 
+    /**
+     * List disabled users boolean.
+     *
+     * @return the boolean
+     */
     public boolean listDisabledUsers() {
         List<Customer> users = (List<Customer>) theController.disabledUsers();
         if (users.isEmpty()) {

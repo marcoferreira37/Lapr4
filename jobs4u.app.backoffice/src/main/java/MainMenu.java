@@ -139,15 +139,14 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Customer Manager:");
 
         menu.addItem(1, "Register a customer", new AddCustomerUI()::show);
-        menu.addItem(2, "List all candidates", new ListUsersAction());
-        menu.addItem(3, "List all customers", new ListCustomerManagerActions());
-        menu.addItem(4, "Add a job opening", new AddJobOpeningUI()::show);
-        menu.addItem(5,"List all info of a candidate", new ListAllDataOfCandidateUI()::show);
-        menu.addItem(6,"List All Applications of a candidate", new ListAllApplicationsOfCandidateUI()::show);
-        menu.addItem(7,"List All Applications for a Job Opening", new ListAllApplicationsForJobOpeningUI()::show);
-        menu.addItem(8, "List Job Openings", new ListJobOpeningUI()::show);
-        menu.addItem(9, "Update a Job Opening", new UpdateJobOpeningUI()::show);
-        menu.addItem(10, RETURN_LABEL, Actions.SUCCESS);
+        menu.addItem(2, "List all customers", new ListCustomerManagerActions());
+        menu.addItem(3, "Add a job opening", new AddJobOpeningUI()::show);
+        menu.addItem(4,"List all info of a candidate", new ListAllDataOfCandidateUI()::show);
+        menu.addItem(5,"List All Applications of a candidate", new ListAllApplicationsOfCandidateUI()::show);
+        menu.addItem(6,"List All Applications for a Job Opening", new ListAllApplicationsForJobOpeningUI()::show);
+        menu.addItem(7, "List Job Openings", new ListJobOpeningUI()::show);
+        menu.addItem(8, "Update a Job Opening", new UpdateJobOpeningUI()::show);
+        menu.addItem(9, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 
