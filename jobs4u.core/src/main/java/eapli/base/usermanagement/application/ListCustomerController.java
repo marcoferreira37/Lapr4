@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 package eapli.base.usermanagement.application;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,28 +42,43 @@ import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
 /**
+ * The type List customer controller.
  *
  * @author losa
  */
 @UseCaseController
-public class ListCustomerController{
+public class ListCustomerController {
 
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final UserManagementService userSvc = AuthzRegistry.userService();
-
     private final CustomerManagementService customerSvc = new CustomerManagementService(PersistenceContext.repositories().customer(), new BasePasswordPolicy(), new PlainTextEncoder());
 
+    /**
+     * All customer iterable.
+     *
+     * @return the iterable
+     */
     public Iterable<Customer> allCustomer() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
 
         return customerSvc.allCustomer();
     }
 
+    /**
+     * Find optional.
+     *
+     * @param u the u
+     * @return the optional
+     */
     public Optional<Customer> find(final EmailAddress u) {
         return customerSvc.userOfIdentity(u);
     }
 
+    /**
+     * Enabled users iterable.
+     *
+     * @return the iterable
+     */
     public Iterable<Customer> enabledUsers() {
         List<Customer> enabledUsers = new ArrayList<>();
         for (Customer user : allCustomer()) {
@@ -73,6 +89,11 @@ public class ListCustomerController{
         return enabledUsers;
     }
 
+    /**
+     * Disabled users iterable.
+     *
+     * @return the iterable
+     */
     public Iterable<Customer> disabledUsers() {
         List<Customer> disabledUsers = new ArrayList<>();
         for (Customer user : allCustomer()) {

@@ -18,6 +18,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Set;
 
+/**
+ * The type Add customer ui.
+ */
 public class AddCustomerUI extends AbstractUI {
 
     private final AddCustomerController theController = new AddCustomerController();
@@ -39,27 +42,6 @@ public class AddCustomerUI extends AbstractUI {
 
         return false;
     }
-
-    /*
-    private boolean showRoles(final Set<Role> roleTypes) {
-        // TODO we could also use the "widget" classes from the framework...
-        final Menu rolesMenu = buildRolesMenu(roleTypes);
-        final MenuRenderer renderer = new VerticalMenuRenderer(rolesMenu, MenuItemRenderer.DEFAULT);
-        return renderer.render();
-    }
-    */
-/*
-    private Menu buildRolesMenu(final Set<Role> roleTypes) {
-        final Menu rolesMenu = new Menu();
-        int counter = 0;
-        rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
-        for (final Role roleType : theController.getRoleTypes()) {
-            rolesMenu.addItem(MenuItem.of(counter++, roleType.toString(), () -> roleTypes.add(roleType)));
-        }
-        return rolesMenu;
-    }
-
- */
 
     @Override
     public String headline() {

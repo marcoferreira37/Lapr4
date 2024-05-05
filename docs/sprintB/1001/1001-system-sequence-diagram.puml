@@ -3,33 +3,54 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Register a customer
+title System Sequence Diagram (SSD) - US1001
 
 autonumber
 
-actor "Customer Manager" as Manager
-participant ":System" as System
+actor "Costumer Manager" as CM
+participant "System" as System
 
-activate Manager
+activate CM
+CM -> System: Requests to log in
 
-    Manager -> System : requests to register a customer
-    activate System
+activate System
 
-    System --> Manager : show information about the customer (username, password, email, firstName, lastName, role).
+System --> CM: Requests to enter username and password
 
-    deactivate System
+deactivate System
 
-    Manager -> System : provides the information
+CM -> System: Enters data to login
 
-    activate System
+activate System
 
+System --> CM: Shows a list of options to choose
 
-        System --> Manager : shows and requests confirmation for the customer registration
-        deactivate System
+deactivate System
 
-        Manager -> System : confirms registration
-        activate System
+CM -> System: Chooses to register a costumer
 
-        System --> Manager : confirms successful registration
+activate System
+
+System --> CM: Requests to enter costumer's data (email, username, firstname,lastname, phone)
+
+deactivate System
+
+CM -> System: Enters costumer's data
+
+activate System
+
+System --> CM: Shows data and requests a validation
+
+deactivate System
+
+CM -> System: Validates the data
+
+activate System
+
+System --> CM: Shows a message that the costumer was registered successfully
+
+deactivate System
+
+deactivate CM
 
 @enduml
