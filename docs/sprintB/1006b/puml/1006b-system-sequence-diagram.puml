@@ -1,0 +1,20 @@
+@startuml
+
+title US1006B: View a list of all job applications of a candidate
+
+actor User as U
+participant ":System:" as S
+
+activate U
+U -> S: Request to view a list of all job applications of a candidate
+activate S
+S --> U: Displays a list of all candidates and asks to select a candidate
+deactivate S
+U -> S: Selects a candidate
+activate S
+S --> U: Displays a list of all job applications of the selected candidate
+deactivate S
+
+
+
+@enduml

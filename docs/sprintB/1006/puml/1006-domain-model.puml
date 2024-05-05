@@ -1,0 +1,16 @@
+@startuml
+
+rectangle candidate #aabbcc{
+    class Candidate<<Aggregate Root>><<Entity>>{}
+    class CandidateId<<Identity>><<Value Object>>{}
+}
+
+
+Candidate "1" *-- "1" CandidateId
+
+
+Candidate "1" --> "1" Username
+PhoneNumber "1" --> "*" Candidate
+Email "1" --> "1" Candidate
+
+@enduml
