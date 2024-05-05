@@ -1,0 +1,34 @@
+@startuml
+rectangle candidate #aabbcc{
+    class Candidate<<Aggregate Root>><<Entity>>{}
+    class CandidateId<<Identity>><<Value Object>>{}
+}
+rectangle "Job Opening Application" #aaccbb {
+
+    class Application<<Aggregate Root>><<Entity>>{}
+
+    class ApplicationId<<Identity>><<Value Object>>{}
+
+    class AttachedEmail<<Value Object>>{}
+
+    class AttachedFile<<Value Object>>{}
+
+    class ApplicatorData<<Value Object>>{}
+
+    class ApplicationStatus<<Value Object>>{}
+}
+
+
+Candidate "1" --> "1" CandidateId
+
+
+Application "1" --> "1" ApplicationId
+Application "1" --> "1" AttachedEmail
+Application "1" --> "1" AttachedFile
+Application "1" --> "1" ApplicatorData
+Application "*" -----> "1" JobOpening : submitted for
+Application "*" -> "1" Candidate : submitted by
+Application "1" --> "1" ApplicationStatus
+
+
+@enduml

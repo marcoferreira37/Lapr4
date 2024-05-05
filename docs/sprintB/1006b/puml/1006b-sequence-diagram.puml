@@ -1,0 +1,78 @@
+@startuml
+
+title US 1006 - List All Data Of Candidate
+
+actor User as U
+participant "ListAllApplicationsOfCandidateUI" as UI <<UI>>
+participant "ListAllDataOfCandidateController" as C <<Controller>>
+participant "AuthorizationService" as A <<Service>>
+participant "PersistenceContext" as P <<Service>>
+participant "RepositoryFactory" as RF <<Factory>>
+participant "CandidateRepository" as CR <<Repository>>
+participant "JobOpeningApplicationRepository" as JAR <<Repository>>
+
+activate U
+U -> UI: Request to list all data of candidate
+activate UI
+UI -> C: new ListAllDataOfCandidateController()
+activate C
+C -> A:authorizationService()
+A --> C: return AuthorizationService instance
+activate A
+C ->A : instance.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.POWER_USER, BaseRoles.ADMIN);
+alt User is not authorized
+A --> C: throw AuthorizationException
+end
+alt User is authorized
+A --> C: return true
+end
+deactivate A
+C --> UI: return ListAllDataOfCandidateController instance
+deactivate C
+UI -> C : allCandidates()
+activate C
+C -> P: repositories()
+activate P
+P --> C: return repositories
+deactivate P
+C -> RF: candidateRepository()
+activate RF
+RF --> C: return candidateRepository
+deactivate RF
+activate CR
+C -> CR: findAllCandidates()
+CR --> C: return Iterable<Candidate>
+deactivate CR
+C --> UI: return Iterable<Candidate>
+deactivate C
+UI --> U: Display Candidates Id's (emails) list and asks to choose one
+deactivate UI
+U->UI: Inputs index of candidate
+activate UI
+UI -> C: allApplicationsById (candidates.get ( index ) )
+activate C
+C -> P: repositories()
+activate P
+P --> C: return repositories
+deactivate P
+C -> RF: jobOpeningApplicationRepository()
+activate RF
+RF --> C: return jobOpeningApplicationRepository
+deactivate RF
+activate JAR
+C -> JAR: findAllApplicationsByCandidateId(candidates.get ( index ).getId())
+JAR --> C: return Iterable<JobOpeningApplication>
+deactivate JAR
+C --> UI: return Iterable<JobOpeningApplication>
+deactivate C
+UI --> U: Display Job Opening Applications of candidate and returns to Customer Manager Menu
+deactivate UI
+
+
+
+
+
+
+
+
+@enduml
