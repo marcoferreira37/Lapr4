@@ -1,77 +1,36 @@
-# US 3004
+# US 2000c - List all candidates
 
-*This is an example template*
+##1.Context
 
-## 1. Context
+*This task involves developing the functionality to list all candidates. It might be the first time this task is being addressed, or it could be a part of ongoing development efforts. There might not be any bug fixes associated with this task.*
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+##2.Requirements
 
-## 2. Requirements
+   *The goal of this task is to enable users to view a list of all candidates. This functionality allows for better management of candidate data and provides insights into the candidate pool.*
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
+Acceptance Criteria:
 
-*Example*
+**AC1** The system should display a list of all candidates.
+**AC2**Each candidate entry should include relevant information such as name, email address, and contact number.
 
-**US G002** As {Ator} I Want...
+Dependencies/References:
+This requirement may relate to other functionalities such as candidate registration and user management.
 
-**Acceptance Criteria:**
+##3. Analysis
+  *The analysis of this requirement involves understanding the user's need to access candidate information easily. This section might also include diagrams illustrating how candidate data is structured and accessed within the system.*
 
-- G002.1. The system should...Blá Blá Blá ...
+##4. Design
+   4.1. Class Diagram
 
-- G002.2. Blá Blá Blá ...
-
-**Dependencies/References:**
-
-*Regarding this requirement we understand that it relates to...*
-
-## 3. Analysis
-
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
-
-## 4. Design
-
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
-
-### 4.1. Realization
-
-### 4.2. Class Diagram
-
-![a class diagram](class-diagram-01.svg "A Class Diagram")
-
-### 4.3. Applied Patterns
-
-### 4.4. Tests
-
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
-
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
+[2000c-class-diagram.svg](svg/2000c-class-diagram.svg)
 
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
+##5. Implementation
+   *This section will detail the actual implementation of the functionality. It may include code snippets, configuration files, or other artifacts necessary for understanding the implementation.*
 
-## 5. Implementation
+##6. Integration/Demonstration
+   *Integration efforts involve ensuring that the candidate list functionality seamlessly integrates with other components of the system, such as user interfaces and data storage. This section may also include instructions for demonstrating the functionality.*
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
+##7. Observations
+   *This section provides additional insights, considerations, or references related to the development work. It may include alternative solutions, related works, or acknowledgments for third-party contributions.*
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
-
-## 6. Integration/Demonstration
-
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
-
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
-
-## 7. Observations
-
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
