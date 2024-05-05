@@ -1,77 +1,48 @@
-# US 3004
+# US 2001
 
-*This is an example template*
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+* This task was included in the team's to-do list during sprint 2
+  and is expected to be finished within the same sprint.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
+**US 2001** As Product Owner, I want the system to, continuously, process the files produced by the Applications Email Bot, so that they can be imported into the system by initiative of the Operator.
 
-*Example*
+– Priority: 1
 
-**US G002** As {Ator} I Want...
+– References: See NFR12(SCOMP).
 
 **Acceptance Criteria:**
+- 2001.1. The system should continuously monitor for files produced by the Applications Email Bot.
 
-- G002.1. The system should...Blá Blá Blá ...
+- 2001.2. Upon detection of a new file, the system should initiate the import process automatically.
 
-- G002.2. Blá Blá Blá ...
-
-**Dependencies/References:**
-
-*Regarding this requirement we understand that it relates to...*
+- 2001.3. The import process should handle the file according to predefined rules and mappings, ensuring accurate data integration into the system.
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+* In this section, the team conducted an analysis to understand the requirements and dependencies of continuously processing files produced by the Applications Email Bot. We examined existing file processing systems and identified key components necessary for seamless integration and efficient data handling.
 
 ## 4. Design
-
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
 
 ### 4.1. Realization
 
 ### 4.2. Class Diagram
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
-
 ### 4.3. Applied Patterns
 
 ### 4.4. Tests
 
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
-
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
-
-
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
-
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+   The implementation of the file processing functionality aligns with the design specifications outlined above. Regular code reviews and automated tests ensure that the implementation adheres to the intended functionality.
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
+Efforts were made to integrate the file processing functionality seamlessly with other components of the system. Detailed instructions for demonstration will be provided upon request, including setting up the file monitoring process, simulating the creation of new files, and observing the import process initiated automatically by the system.
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
 
 ## 7. Observations
-
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
