@@ -6,6 +6,8 @@ import eapli.framework.time.util.CurrentTimeCalendars;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
@@ -61,6 +63,8 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Column (name = "CREATION_DATE")
     private Calendar creationDate;
 
+    @Getter
+    String interviewModel;
 
 
     public JobOpening(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, Company company, Phase phaseDates) {
@@ -125,4 +129,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
                 "\nCompany = " + company;
 
     }
+
 }
+

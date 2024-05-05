@@ -130,6 +130,7 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(1, "Regist a candidate", new AddCandidateUI():: show);
         menu.addItem(2, "List all candidates", new ListCandidatesUI()::show);
+        menu.addItem(3, "Export template for Requirements Specification", new GenerateTemplateUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
