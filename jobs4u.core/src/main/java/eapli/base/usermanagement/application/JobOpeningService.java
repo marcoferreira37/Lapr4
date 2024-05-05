@@ -82,4 +82,8 @@ public class JobOpeningService {
     public JobOpening saveJobOpening(JobOpening jo) {
         return repository.save(jo);
     }
+
+    public Iterable<JobOpening> getJobOpenings(){
+        return repository.findAll();
+    }
 }
