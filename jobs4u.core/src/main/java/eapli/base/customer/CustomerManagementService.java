@@ -1,23 +1,3 @@
-/*
- * Copyright (c) 2013-2023 the original author or authors.
- *
- * MIT License
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or
- * substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
 package eapli.base.customer;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -37,10 +17,7 @@ import java.util.Calendar;
 import java.util.Optional;
 
 /**
- * User Management Service. Provides the typical application use cases for
- * managing {@link SystemUser}, e.g., adding, deactivating, listing, searching.
- *
- * @author Paulo Gandra de Sousa
+ * The type Customer management service.
  */
 @Component
 public class CustomerManagementService {
@@ -49,6 +26,13 @@ public class CustomerManagementService {
     private final PasswordPolicy policy ;
 
 
+    /**
+     * Instantiates a new Customer management service.
+     *
+     * @param customerRepo the customer repo
+     * @param policy       the policy
+     * @param encoder      the encoder
+     */
     @Autowired
     public CustomerManagementService(CustomerRepository customerRepo, final PasswordPolicy policy, PasswordEncoder encoder) {
         this.customerRepository = customerRepo;
@@ -57,6 +41,13 @@ public class CustomerManagementService {
     }
 
 
+    /**
+     * Register new customer customer.
+     *
+     * @param newUser      the new user
+     * @param emailAddress the email address
+     * @return the customer
+     */
     @Transactional
     public Customer registerNewCustomer(final SystemUser newUser, final EmailAddress emailAddress) {
         SystemCustomerBuilder builder = new SystemCustomerBuilder();
@@ -66,10 +57,21 @@ public class CustomerManagementService {
         return customerRepository.save(newCustomer);
     }
 
+    /**
+     * All customer iterable.
+     *
+     * @return the iterable
+     */
     public Iterable<Customer> allCustomer() {
         return customerRepository.findAll();
     }
 
+    /**
+     * User of identity optional.
+     *
+     * @param id the id
+     * @return the optional
+     */
     public Optional<Customer> userOfIdentity(final EmailAddress id) {
         return customerRepository.ofIdentity(id);
     }

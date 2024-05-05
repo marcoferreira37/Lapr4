@@ -1,43 +1,95 @@
 @startuml
+'https://plantuml.com/use-case-diagram
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+autonumber
 
 title Register Customer - Sequence Diagram
 
-autonumber
-actor "Customer Manager" as M
-participant AddCustomerUI as UI <<UI>>
-participant AddCustomerController as Controller <<Application>>
-participant UserManagementService as MN <<Domain>>
-participant JobOpening as JO <<Domain>>
-database UserRepository as UserRepo <<Persistence>>
 
-activate M
-M -> UI : onLoad
-activate UI
-UI -> Controller: addCustomer()
-activate Controller
-Controller -> MN: registerNewUser()
-
-activate MN
-MN -> UserRepo: registerNewUser()
-activate UserRepo
-
-UserRepo --> MN: returns customer
-deactivate UserRepo
-MN -> JO: create
-MN --> Controller: returns customer
-deactivate MN
+actor "Customer Manager" as CM
+participant ":AddCustomerUI" as UI
+participant "AddCustomerController" as Controller
+participant "BaseRoles" as role
+participant ":AuthorizationService" as auth
+participant ":CustomerManagementService" as customerSvc
+participant ":SystemCustomerBuilder" as builder
+participant ":CustomerRepository" as cstmrRepo
+participant ":CustomerService" as service
+participant ":CustomerBuilder" as builder
+participant ":Customer" as cstmr
+participant ":UserRepository" as userRepo
 
 
+activate CM
+    CM -> UI: Requests to add customer
+    activate UI
+        UI -> Controller **: create
+        activate Controller
+        Controller -> auth: authorizationService()
+        activate auth
+            auth --> Controller : authorizationSvc
+        deactivate auth
+        Controller -> customerSvc: userService()
+        activate customerSvc
+            customerSvc --> Controller: userService
+        deactivate customerSvc
+        Controller -> service: customerService()
+        activate service
+            service --> Controller: customerService
+        deactivate service
+        deactivate Controller
+    UI --> CM: Request data(username,\nfirstName,lastName,email)
+    deactivate UI
+    CM -> UI: Types the requirement data(username,\nfirstName,lastName,email)
+    activate UI
+    UI --> UI: save the data
+       UI -> UI: .add(BASEROLES.CUSTOMER)
+         UI -> Controller: addCustomer(this.newUser(username,password,\nfirstName,lastName,email))
+         activate Controller
+            Controller --> Controller: addCustomer(username,password,\nfirstName,lastName,email,roles,CurrentTimeCalendars.now())
 
+            Controller -> customerSvc: registerNewUser(username,password,\nfirstName,lastName,email,roles,createdOn)
+            activate customerSvc
+            customerSvc -> builder: .with(username,password,\nfirstName,lastName,email).createdOn(createdOn).withRoles(roles)
+            activate builder
+            customerSvc -> builder: .build()
+            builder -> cstmr**: Customer(this.user)
+                                      activate cstmr
+                                        cstmr-->builder: customer
+                                        deactivate cstmr
+            builder --> customerSvc: user
+            deactivate builder
+            customerSvc -> cstmrRepo: save(newUser)
+            activate cstmrRepo
+            cstmrRepo-->cstmrRepo: save
+cstmrRepo--> userRepo : save
+deactivate cstmrRepo
+            activate userRepo
+userRepo --> customerSvc
+deactivate userRepo
+            customerSvc--> Controller: user
+             deactivate cstmrRepo
+            deactivate customerSvc
 
-Controller -> UserRepo: save(customer)
-activate UserRepo
+            Controller --> Controller: saves user
+           Controller -> service: registerNewCustomer(email, password, firstName, lastName, email, roles, createdOn)
+                       activate service
+                       service -> builder: .with(username, rawPassword, firstName, lastName, email).createdOn(createdOn).withRoles(roles)
+                       activate builder
 
-UserRepo --> Controller: returns success
-deactivate UserRepo
-Controller --> UI: returns success
-deactivate Controller
+                       builder --> service: customer
+                       deactivate builder
+                       service -> cstmrRepo: save(customer)
+                       activate cstmrRepo
+                       cstmrRepo-->cstmrRepo: save
+                       deactivate cstmrRepo
+                       service--> Controller: customer
+                       deactivate service
+            Controller --> UI: customer added successfully
+            deactivate Controller
+            UI --> CM: customer added successfully
+    deactivate UI
 
-UI --> M: confirms successful registration
-
-@enduml
+     @enduml
