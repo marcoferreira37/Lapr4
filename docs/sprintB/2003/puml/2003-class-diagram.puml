@@ -1,0 +1,51 @@
+@startuml
+
+
+
+
+package ui {
+        class GenerateTemplateUI {
+        }
+    }
+
+
+
+
+    package application {
+        class GenerateTemplateController {
+            +getJobOpenings()
+        }
+    }
+
+    package repository {
+
+        interface JobOpeningRepository{
+        +listJobOpenings()
+        }
+    }
+
+    package domain {
+        class AuthorizationService {
+            +authorizationService() : AuthorizationService
+            +ensureAuthenticatedUserHasAnyOf()
+        }
+
+        class JobOpeningService {
+            +getJobOpenings()
+        }
+
+        class JobOpening{
+        }
+    }
+
+
+
+JobOpeningService --> JobOpeningRepository
+GenerateTemplateUI --> GenerateTemplateController
+GenerateTemplateController --> JobOpeningService
+GenerateTemplateController --> JobOpeningRepository
+JobOpeningRepository -> JobOpening
+GenerateTemplateController --> AuthorizationService
+
+
+@enduml
