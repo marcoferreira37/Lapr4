@@ -1,77 +1,33 @@
-# US 3004
+#User Story 2000a - Register a candidate and create a corresponding user
 
-*This is an example template*
+##1. Context
+   *This task involves the initial development of the functionality to register a candidate and create a corresponding user in the system. It's the first time this task is being developed as part of the project.*
 
-## 1. Context
+##2. Requirements
+   *The goal of this user story is to enable the system to register a candidate and automatically create a user associated with that candidate.*
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+Acceptance Criteria:
 
-## 2. Requirements
+**AC1**The system should allow the registration of a candidate.*
+**AC2**Upon registration, a corresponding user account should be created.*
+**AC3**The created user should have appropriate access privileges as per the role of the candidate.*
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
+##3. Analysis
+   *The team conducted an analysis to understand the requirements and dependencies of this user story. It was determined that the functionality should integrate with the existing user management system to create and manage user accounts.*
 
-*Example*
+##4. Design
+   4.1. Realization
+   *The realization of this functionality involves creating the necessary service layer components to handle candidate registration and user creation.*
 
-**US G002** As {Ator} I Want...
+   4.2. Class Diagram
+[2000a-class-diagram.svg](svg/2000a-class-diagram.svg)
 
-**Acceptance Criteria:**
-
-- G002.1. The system should...Blá Blá Blá ...
-
-- G002.2. Blá Blá Blá ...
-
-**Dependencies/References:**
-
-*Regarding this requirement we understand that it relates to...*
-
-## 3. Analysis
-
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
-
-## 4. Design
-
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
-
-### 4.1. Realization
-
-### 4.2. Class Diagram
-
-![a class diagram](class-diagram-01.svg "A Class Diagram")
-
-### 4.3. Applied Patterns
-
-### 4.4. Tests
-
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
-
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
+##5. Implementation
+   *The implementation adheres to the design decisions and involves the creation of service classes and database entities to support candidate registration and user creation.*
 
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
+##6. Integration/Demonstration
+   *The functionality was integrated with the existing user management system to ensure seamless user registration and account creation. Instructions for testing and demonstrating this functionality can be found in the project documentation.*
 
-## 5. Implementation
-
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
-
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
-
-## 6. Integration/Demonstration
-
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
-
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
-
-## 7. Observations
-
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+##7. Observations
+   *No additional observations at this time.*
