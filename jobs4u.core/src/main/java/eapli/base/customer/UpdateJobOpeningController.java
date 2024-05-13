@@ -7,6 +7,7 @@ import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,58 @@ public class UpdateJobOpeningController {
 
         return service.allJobs();
     }
+
+    public File[] showInterviews(){
+        System.out.println("Interview Models:");
+        File dir = new File("jobs4u.core/src/main/resources/PlugIns/interviewModel");
+        File[] files = dir.listFiles();
+        int index = 1;
+        if(files != null){
+            for(File file : files){
+                if(file.getName().endsWith(".txt")){
+                    System.out.println(index + ". " + file.getName());
+                    index++;
+                }
+            }
+        }
+        else{
+            System.out.println("No files found");
+        }
+        return files;
+    }
+
+    public JobOpening updateInterview(JobOpening jobOpening, String interview){
+        jobOpening.setInterviewModel(interview);
+        jobOpening = service.saveJobOpening(jobOpening);
+        return jobOpening;
+    }
+
+    public File[] showRequirements(){
+        System.out.println("Requirements:");
+        File dir = new File("jobs4u.core/src/main/resources/PlugIns/interviewModel");
+        File[] files = dir.listFiles();
+        int index = 1;
+        if(files != null){
+            for(File file : files){
+                if(file.getName().endsWith(".txt")){
+                    System.out.println(index + ". " + file.getName());
+                    index++;
+                }
+            }
+        }
+        else{
+            System.out.println("No files found");
+        }
+        return files;
+    }
+
+    public JobOpening updateRequirements(JobOpening jobOpening, String requirements){
+        jobOpening.setRequirements(requirements);
+        jobOpening = service.saveJobOpening(jobOpening);
+        return jobOpening;
+    }
+
+
 
 
 

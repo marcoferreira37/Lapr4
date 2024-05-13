@@ -2,12 +2,12 @@ package eapli.base.domain.jobOpening;
 
 import eapli.base.domain.company.Company;
 import eapli.framework.domain.model.AggregateRoot;
-import eapli.framework.time.util.CurrentTimeCalendars;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
@@ -15,7 +15,6 @@ import java.util.Calendar;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
 @Builder // CRIAR UMA CLASS BUILDER ( nao é um builder pattern )
 public class JobOpening implements AggregateRoot<JobReference> {
@@ -60,14 +59,21 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private Phase phaseDates;
 
 
-    @Column (name = "CREATION_DATE")
+    @Column(name = "CREATION_DATE")
     private Calendar creationDate;
 
-    @Getter
+    @Column(name = "Interview")
     String interviewModel;
 
+    @Column(name = "Requirements")
+    String requirements;
 
-    public JobOpening(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, Company company, Phase phaseDates) {
+
+    public JobOpening() {
+
+    }
+
+    public JobOpening(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, Company company, Phase phaseDates, Calendar creationDate, String interviewModel, String requirements){
         this.jobReference = jobReference;
         this.description = description;
         this.address = address;
@@ -77,13 +83,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.vacanciesNumber = vacanciesNumber;
         this.company = company;
         this.phaseDates = phaseDates;
-        this.creationDate = CurrentTimeCalendars.now();
+        this.creationDate = creationDate;
+        this.interviewModel = interviewModel;
+        this.requirements = requirements;
     }
-
-    public JobOpening() {
-
-    }
-
 
     @Override
     public boolean sameAs(Object other) {

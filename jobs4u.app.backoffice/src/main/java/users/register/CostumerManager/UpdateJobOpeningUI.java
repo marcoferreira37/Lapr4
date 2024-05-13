@@ -6,6 +6,7 @@ import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpening.Phase;
 import eapli.framework.io.util.Console;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -38,10 +39,14 @@ public class UpdateJobOpeningUI extends AbstractUI {
                 jobOpening = controller.updateDates(jobOpening,phase);
                 break;
             case "2":
-                System.out.println("Not implemented yet");
+                File[] requirements = controller.showRequirements();
+                int requirementIndex = Console.readInteger("Choose a requirement: ");
+                controller.updateRequirements(jobOpening,requirements[requirementIndex-1].getName());
                 break;
             case "3":
-                System.out.println("Not implemented yet");
+                File[] interviews = controller.showInterviews();
+                int interviewsIndex = Console.readInteger("Choose an interview: ");
+                controller.updateInterview(jobOpening,interviews[interviewsIndex-1].getName());
                 break;
         }
         if (jobOpening == null) return false;
