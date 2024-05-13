@@ -1,24 +1,21 @@
-# US 3004
+# US 1007
 
-*This is an example template*
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
-
+* This task was included in the team's to-do list during sprint 2
+  and is expected to be finished within the same sprint.
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
+**US 1007** As Customer Manager, I want to setup the phases of the process for a job opening.
 
-*Example*
-
-**US G002** As {Ator} I Want...
+– Priority: 1
 
 **Acceptance Criteria:**
 
-- G002.1. The system should...Blá Blá Blá ...
-
-- G002.2. Blá Blá Blá ...
+- 1007.1. The system should provide a user interface for the Customer Manager to create, edit, and delete job opening phases.
+- 1007.2. Each phase should have a name, description, and optional duration.
+- 1007.3. Phases should be customizable in terms of their sequence and visibility to other stakeholders involved in the hiring process.
 
 **Dependencies/References:**
 
@@ -26,7 +23,7 @@
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+* In this section, the team conducted an analysis to understand the requirements and dependencies of setting up phases for a job opening. We examined existing systems for similar functionalities and identified key components necessary for effective phase management.
 
 ## 4. Design
 
@@ -34,44 +31,16 @@
 
 ### 4.1. Realization
 
-### 4.2. Class Diagram
+* The realization of the functionality involves providing a user-friendly interface for the Customer Manager to perform CRUD operations on job opening phases. This interface should allow customization of phase details such as name, description, duration, sequence, and visibility.
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
-
-### 4.3. Applied Patterns
-
-### 4.4. Tests
-
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
-
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
-
-
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
-
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+The implementation of the phase management functionality adheres to the design specifications outlined above. Regular code reviews and automated tests ensure that the implementation aligns with the intended functionality.
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
-
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+Efforts were made to integrate the phase management functionality seamlessly with other components of the system, such as job opening creation and candidate evaluation modules. Instructions for demonstration will be provided upon request, including accessing the user interface for phase management and performing CRUD operations on phases.
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*

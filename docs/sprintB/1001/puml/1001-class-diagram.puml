@@ -1,0 +1,63 @@
+@startuml
+
+package UI{
+    class AddCustomerUI{
+    +doShow()
+    +headLine()
+    }
+}
+
+package Controller{
+    class AddCustomerController{
+    +addCustomer()
+
+    }
+}
+
+package Domain{
+
+
+    class CustomerManagementService{
+    +createSystemUser()
+    +registerNewCustomer()
+    +userOfIdentity()
+    }
+
+
+
+    class Customer{
+    -username
+    -firstName
+    -lastName
+    -email
+    -password
+    -role
+    +create()
+    }
+
+    class createSystemUser<<Event>>{
+    }
+
+
+}
+
+package Repository{
+    class CustomerRepository{
+    +save()
+    }
+}
+
+class SystemCustomerBuilder{
+    +build()
+}
+
+AddCustomerUI ..> AddCustomerController
+
+AddCustomerController ..> CustomerManagementService
+
+createSystemUser --> Customer: creates
+CustomerManagementService --> CustomerRepository: uses
+AddCustomerController --> createSystemUser: creates
+SystemCustomerBuilder <-- CustomerManagementService
+
+@enduml

@@ -1,0 +1,56 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US1001
+
+autonumber
+
+actor "Costumer Manager" as CM
+participant "System" as System
+
+activate CM
+CM -> System: Requests to log in
+
+activate System
+
+System --> CM: Requests to enter username and password
+
+deactivate System
+
+CM -> System: Enters data to login
+
+activate System
+
+System --> CM: Shows a list of options to choose
+
+deactivate System
+
+CM -> System: Chooses to register a costumer
+
+activate System
+
+System --> CM: Requests to enter costumer's data (email, username, firstname,lastname, phone)
+
+deactivate System
+
+CM -> System: Enters costumer's data
+
+activate System
+
+System --> CM: Shows data and requests a validation
+
+deactivate System
+
+CM -> System: Validates the data
+
+activate System
+
+System --> CM: Shows a message that the costumer was registered successfully
+
+deactivate System
+
+deactivate CM
+
+@enduml

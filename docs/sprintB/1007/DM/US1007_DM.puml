@@ -1,0 +1,92 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+hide methods
+skinparam linetype ortho
+
+
+
+
+
+
+
+
+
+
+rectangle "Job Opening" #bbccaa {
+
+    class JobOpening<<Aggregate Root>><<Entity>>{}
+
+    class JobReference<<Identity>><<Value Object>>{}
+
+    class TitleOrFunction<<Value Object>>{}
+
+    enum ContractType<<Enumerated>><<Value Object>>{}
+
+    class Mode<<Enumerated>><<Value Object>>{}
+
+
+    class VacanciesNumber<<Value Object>>{}
+
+    class Description<<Value Object>>{}
+
+    ''Maybe go to Interview Model
+
+}
+
+
+rectangle "Job Opening Process" #ccbbcc{
+    class JobOpeningProcess<<Aggregate Root>><<Entity>>{}
+    class JobOpeningProcessId<<Identity>><<Value Object>>{}
+    class JobOpeningProcessStatus<<Value Object>>{}
+    class JobOpeningProcessStage<<Value Object>>{}
+    class Phase<<Entity>>{
+        }
+    enum PhaseType<<Enumerated>><<Value Object>>{
+        APPLICATION
+        SCREENING
+        INTERVIEWS
+        ANALYSIS
+        RESULT
+    }
+}
+
+
+
+
+
+
+JobReference "1" -up-* "1" JobOpening
+TitleOrFunction "1" -up-* "1" JobOpening
+ContractType "1" --* "1" JobOpening
+Mode "1" --* "1" JobOpening
+Description "1" -up-* "1" JobOpening
+VacanciesNumber "1" -up-* "1" JobOpening
+
+
+
+
+JobOpeningProcess "1" -left-> "1" JobOpeningProcessId
+JobOpening "1" -----> "*" JobOpeningProcess : has
+Phase "1" --> "1" JobOpeningProcessStatus
+Phase "1" --> "1" JobOpeningProcessStage
+JobOpeningProcess "1" --> "1" Phase
+
+PhaseType "1" -down-> "*" Phase
+
+
+''InterviewModel "1" -left-> "1" InterviewModelName : has
+''InterviewModel "1" -down--> "*" Question : contains
+''Question <|-- InterviewModel : belongs to
+
+
+
+
+
+
+
+
+
+
+
+@enduml

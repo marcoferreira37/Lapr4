@@ -1,26 +1,3 @@
-/*
- * Copyright (c) 2013-2023 the original author or authors.
- *
- * MIT License
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package eapli.base.customer;
 
 import java.util.Calendar;
@@ -39,15 +16,9 @@ import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.PasswordPolicy;
 import eapli.framework.validations.Preconditions;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+
 /**
- * A factory for User entities. It helps construct the object and enforces the
- * password policies and encoding.
- *
- * <p>
- * This class demonstrates the use of the factory (DDD) pattern using a fluent
- * interface; it acts as a Builder (GoF). For a class such as {@link SystemUser} there is not really
- * a need for a builder
- * and a simple factory or even the constructor would suffice.
+ * The type System customer builder.
  */
 public class SystemCustomerBuilder implements DomainFactory<Customer> {
 
@@ -66,6 +37,9 @@ public class SystemCustomerBuilder implements DomainFactory<Customer> {
     private final PasswordPolicy policy;
     private final PasswordEncoder encoder;
 
+    /**
+     * Instantiates a new System customer builder.
+     */
     public SystemCustomerBuilder() {
         policy = null;
         encoder = null;
@@ -73,21 +47,16 @@ public class SystemCustomerBuilder implements DomainFactory<Customer> {
     }
 
 
-    public SystemCustomerBuilder(final PasswordPolicy policy, final PasswordEncoder encoder) {
-        this.policy = policy;
-        this.encoder = encoder;
-        roles = new BaseRoles();
-    }
 
     /**
-     * Helper for the most common and mandatory properties of a SystemUser
+     * With system customer builder.
      *
-     * @param userName
-     * @param password
-     * @param firstName
-     * @param lastName
-     * @param email
-     * @return this builder
+     * @param userName  the user name
+     * @param password  the password
+     * @param firstName the first name
+     * @param lastName  the last name
+     * @param email     the email
+     * @return the system customer builder
      */
     public SystemCustomerBuilder with(final String userName, final String password,
                                   final String firstName,
@@ -99,15 +68,15 @@ public class SystemCustomerBuilder implements DomainFactory<Customer> {
         return this;
     }
 
+
     /**
-     * Helper for the most common and mandatory properties of a SystemUser. Note
-     * that {@code password} is assumed to be already validated and encoded.
+     * With system customer builder.
      *
-     * @param username
-     * @param password
-     * @param name
-     * @param email
-     * @return this builder
+     * @param username the username
+     * @param password the password
+     * @param name     the name
+     * @param email    the email
+     * @return the system customer builder
      */
     public SystemCustomerBuilder with(final Username username, final Password password, final Name name,
                                   final EmailAddress email) {
@@ -118,24 +87,34 @@ public class SystemCustomerBuilder implements DomainFactory<Customer> {
         return this;
     }
 
+    /**
+     * With username system customer builder.
+     *
+     * @param username the username
+     * @return the system customer builder
+     */
     public SystemCustomerBuilder withUsername(final String username) {
         this.username = Username.valueOf(username);
         return this;
     }
 
+    /**
+     * With username system customer builder.
+     *
+     * @param username the username
+     * @return the system customer builder
+     */
     public SystemCustomerBuilder withUsername(final Username username) {
         this.username = username;
         return this;
     }
 
+
     /**
-     * Sets the password of the user <strong>performing</strong> policy
-     * enforcement and encoding. If the password does not meet the requirements
-     * of the policy, an {@code IllegalArgumentException} is thrown.
+     * With password system customer builder.
      *
-     * @param rawPassword
-     * @throws IllegalArgumentException
-     * @return this builder
+     * @param rawPassword the raw password
+     * @return the system customer builder
      */
     public SystemCustomerBuilder withPassword(final String rawPassword) {
         password = Password.encodedAndValid(rawPassword, policy, encoder)
@@ -144,12 +123,10 @@ public class SystemCustomerBuilder implements DomainFactory<Customer> {
     }
 
     /**
-     * Sets the password of the user. This method is mostly to be used to
-     * support the registration process where a password has already been
-     * validated and encoded.
+     * With password system customer builder.
      *
-     * @param password
-     * @return this builder
+     * @param password the password
+     * @return the system customer builder
      */
     public SystemCustomerBuilder withPassword(final Password password) {
         Preconditions.nonNull(password);
@@ -157,41 +134,90 @@ public class SystemCustomerBuilder implements DomainFactory<Customer> {
         return this;
     }
 
-   public SystemCustomerBuilder withName(final String firstName, final String lastName) {
+    /**
+     * With name system customer builder.
+     *
+     * @param firstName the first name
+     * @param lastName  the last name
+     * @return the system customer builder
+     */
+    public SystemCustomerBuilder withName(final String firstName, final String lastName) {
         name = Name.valueOf(firstName, lastName);
         return this;
 }
 
+    /**
+     * With name system customer builder.
+     *
+     * @param name the name
+     * @return the system customer builder
+     */
     public SystemCustomerBuilder withName(final Name name) {
         this.name = name;
         return this;
     }
 
+    /**
+     * With email system customer builder.
+     *
+     * @param email the email
+     * @return the system customer builder
+     */
     public SystemCustomerBuilder withEmail(final String email) {
         this.email = EmailAddress.valueOf(email);
         return this;
     }
 
+    /**
+     * With email system customer builder.
+     *
+     * @param email the email
+     * @return the system customer builder
+     */
     public SystemCustomerBuilder withEmail(final EmailAddress email) {
         this.email = email;
         return this;
     }
 
+    /**
+     * With roles system customer builder.
+     *
+     * @param role the role
+     * @return the system customer builder
+     */
     public SystemCustomerBuilder withRoles(Role role) {
             roles.add(new RoleAssignment(role));
         return this;
     }
 
+    /**
+     * With role system customer builder.
+     *
+     * @param role the role
+     * @return the system customer builder
+     */
     public SystemCustomerBuilder withRole(final RoleAssignment role) {
         roles.add(role);
         return this;
     }
 
+    /**
+     * Created on system customer builder.
+     *
+     * @param createdOn the created on
+     * @return the system customer builder
+     */
     public SystemCustomerBuilder createdOn(final Calendar createdOn) {
         this.createdOn = createdOn;
         return this;
     }
 
+    /**
+     * With roles system customer builder.
+     *
+     * @param someRoles the some roles
+     * @return the system customer builder
+     */
     public SystemCustomerBuilder withRoles(final Set<Role> someRoles) {
         List<RoleAssignment> theRoles;
         if (createdOn == null) {
@@ -204,10 +230,23 @@ public class SystemCustomerBuilder implements DomainFactory<Customer> {
         return this;
     }
 
+    /**
+     * With roles system customer builder.
+     *
+     * @param roles the roles
+     * @return the system customer builder
+     */
     public SystemCustomerBuilder withRoles(final BaseRoles roles) {
         this.roles.addAll(roles);
         return this;
     }
+
+    /**
+     * With user system customer builder.
+     *
+     * @param systemUser the system user
+     * @return the system customer builder
+     */
     public SystemCustomerBuilder withUser(final SystemUser systemUser){
         this.systemUser = systemUser;
         return this;
@@ -215,18 +254,6 @@ public class SystemCustomerBuilder implements DomainFactory<Customer> {
 
     @Override
     public Customer build() {
-        // since the factory knows that all the parts are needed it could throw
-        // an exception. however, we will leave that to the constructorustomer;
-//        if (createdOn != null) {
-//            customer = new Customer(username, password, name, email,  roles, createdOn);
-//        } else {
-//            customer = new Customer(username, password, name, email, roles);
-//        }
-//        if (LOGGER.isDebugEnabled()) {
-//            final String roleLog = roles.roleTypes().toString();
-//            LOGGER.debug("Creating new user [{}] {} ({} {}) with roles {}", customer, username, name,
-//                    email, roleLog);
-//        }
         return new Customer(this.systemUser, this.email);
     }
 
