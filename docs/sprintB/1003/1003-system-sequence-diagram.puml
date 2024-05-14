@@ -12,28 +12,41 @@ participant ":System" as System
 
 activate Agent
 
-Agent -> System : Request to list job openings
-
-opt If user pretends to filter by date interval
-activate System
-
-    System --> Agent : Asks to input the date interval of the filtering
-
-Agent -> System : Submits the interval
+Agent -> System : request to list job openings
 
 activate System
-end
-opt If the user chooses to filter by customer name or code
-System --> Agent : Asks to input the customer name or code for filtering (optional)
+
+    System --> Agent : asks to input the name or code of the Job Opening
+
 deactivate System
 
-Agent -> System : Submits the customer name or code (if applicable)
+
+Agent -> System : submits the name or code
 
 activate System
-end
 
- System --> Agent : Displays the list of job openings sorted by the selected algorithm
+System --> Agent : asks to input the start date
 
+deactivate System
+
+Agent -> System : submits the start date
+
+activate System
+
+System --> Agent : asks to input the end date
+
+
+deactivate System
+
+Agent -> System : submits the end date
+
+activate System
+
+
+
+
+
+ System --> Agent : Displays the list of job openings filtered
 deactivate System
 
 deactivate Agent

@@ -1,44 +1,37 @@
 @startuml
+''skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
 
-package "Job Openings" #aabbcc {
-    class JobOpening {
-        - title: String
-        - description: String
-        - contractType: String
-        - mode: String
-        - numberOfVacancies: int
-    }
 
-    class JobReference <<Value Object>> <<Id>> {
-        - reference: String
-    }
+rectangle "Job Opening" #abbacc {
 
-    class JobOpeningDate <<Value Object>> {
-        - startDate: Date
-        - endDate: Date
-    }
+    class JobOpening<<Aggregate Root>><<Entity>>{}
 
-    JobOpening "1" *-up-> "1" JobReference: reference
-    JobOpening "1" *--> "1" JobOpeningDate: startDate
-    JobOpening "1" *--> "1" JobOpeningDate: endDate
+    class JobReference<<Identity>><<Value Object>>{}
+
+    class TitleOrFunction<<Value Object>>{}
+
+    enum ContractType<<Enumerated>><<Value Object>>{}
+
+    class Mode<<Enumerated>><<Value Object>>{}
+
+
+    class VacanciesNumber<<Value Object>>{}
+
+    class Description<<Value Object>>{}
+
+    ''Maybe go to Interview Model
+
 }
 
-package "Customers" #bbaacc {
-    class Customer {
-        - companyName: String
-    }
 
-    class CustomerId <<Value Object>> <<Identifier>> {
-        - id: Long
-    }
 
-    class CustomerName <<Value Object>> {
-        - name: String
-    }
-
-    Customer "1" *--> "1" CustomerId: id
-    Customer "1" *--> "1" CustomerName: name
-    Customer "*" o--> "1" JobOpening: opening
-}
+JobReference "1" -up-* "1" JobOpening
+TitleOrFunction "1" -up-* "1" JobOpening
+ContractType "1" --* "1" JobOpening
+Mode "1" --* "1" JobOpening
+Description "1" -up-* "1" JobOpening
+VacanciesNumber "1" -up-* "1" JobOpening
 
 @enduml

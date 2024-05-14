@@ -1,0 +1,124 @@
+@startuml
+
+actor "Customer Manager" as Agent
+participant ":RankApplicationUI" as ui
+participant ":RankApplicationController" as ctrl
+participant ":JobOpeningService" as jobServ
+participant ":JobOpeningRepository" as jobRepo
+participant ":ApplicationService" as appServ
+participant ":ApplicationRepository" as appRepo
+participant "rank:Ranking" as rank
+participant "opening:JobOpening" as op
+participant "app:Application" as app
+
+
+
+autonumber
+
+note right of Agent
+  Assume manager is authenticated
+  in the application
+end note
+
+activate Agent
+
+Agent -> ui: Request to rank candidates for a job opening
+activate ui
+ui -> ctrl: listApplicableOpenings()
+activate ctrl
+ctrl -> jobServ: allRankableOpenings()
+activate jobServ
+jobServ -> jobRepo: findAllByAnalysisPhase()
+activate jobRepo
+jobRepo --> jobServ: openings
+deactivate
+jobServ --> ctrl: openings
+deactivate
+ctrl --> ui: openings
+deactivate
+ui --> Agent: Show list of applicable job openings
+deactivate
+Agent -> ui : Select a job opening
+activate ui
+ui -> ctrl: listApplicationsForOpening(opening)
+activate ctrl
+ctrl -> appServ: allApplicationsForOpening(opening)
+activate appServ
+appServ -> appRepo: findAllByJobOpening(opening)
+activate appRepo
+appRepo --> appServ: applications
+deactivate
+appServ --> ctrl: applications
+deactivate
+ctrl --> ui: applications
+deactivate
+ui -> ui : filterRankedApplications(applications)
+ui -> ui : filterRankedApplications(applications)
+ui --> Agent : Show list of applications that are already ranked
+ui --> Agent : Show list of applications that are not yet ranked
+ui --> Agent : Requests user to select one
+deactivate
+Agent -> ui : Select an application
+activate ui
+alt User wants to re-rank an application
+ui --> Agent : Requests new ranking
+deactivate
+Agent -> ui : Provides new ranking
+activate ui
+ui -> ctrl : rankApplication(app, ranking)
+activate ctrl
+ctrl -> appServ : rankApplication(app, ranking)
+activate appServ
+appServ -> appRepo : isValidRankingFor(opening, ranking)
+activate appRepo
+appRepo --> appServ : true
+deactivate
+appServ --> rank** : «creates»
+appServ --> app : updateRanking(ranking)
+activate app
+deactivate
+
+appServ -> appRepo : save(app)
+activate appRepo
+appRepo --> appServ : app
+deactivate
+appServ --> ctrl : app
+deactivate
+ctrl --> ui : app
+deactivate
+ui --> Agent  : Confirms new ranking
+
+else User wants to rank a new application
+ui --> Agent : Requests ranking
+deactivate
+Agent -> ui : Provides ranking
+activate ui
+ui -> ctrl : rankApplication(app, ranking)
+activate ctrl
+ctrl -> appServ : rankApplication(app, ranking)
+activate appServ
+appServ -> appRepo : isValidRankingFor(opening, ranking)
+activate appRepo
+appRepo --> appServ : true
+deactivate
+appServ --> rank** : «creates»
+appServ --> app : updateRanking(ranking)
+activate app
+deactivate
+
+appServ -> appRepo : save(app)
+activate appRepo
+appRepo --> appServ : app
+deactivate
+appServ --> ctrl : app
+deactivate
+ctrl --> ui : app
+deactivate
+ui --> Agent  : Confirms ranking
+end alt
+deactivate ui
+deactivate Agent
+
+
+
+@enduml
