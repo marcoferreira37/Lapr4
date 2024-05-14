@@ -29,6 +29,32 @@ public class Customer  implements AggregateRoot<EmailAddress> {
     protected Customer() {
         // for ORM
     }
+
+    public static boolean checkUsername(String username) {
+        return !username.isEmpty();
+    }
+
+    public static boolean checkName(String firstName) {
+        if (firstName.isEmpty()) {
+            return false;
+        }
+
+        // Verifica se o primeiro caractere é maiúsculo
+        if (!Character.isUpperCase(firstName.charAt(0))) {
+            return false;
+        }
+
+        // Verifica se todos os caracteres após o primeiro são minúsculos
+        for (int i = 1; i < firstName.length(); i++) {
+            if (!Character.isLowerCase(firstName.charAt(i))) {
+                return false;
+            }
+        }
+
+        // Se chegou até aqui, o username está válido
+        return true;
+    }
+
     public SystemUser user() {
         return this.systemUser;
     }

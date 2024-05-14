@@ -67,13 +67,16 @@ public class AddCustomerController {
         Preconditions.nonNull(firstName);
         Preconditions.nonNull(lastName);
         Preconditions.nonNull(email);
-//        Password.encodedAndValid(String.valueOf(password),
-//                                 new BasePasswordPolicy(),
-//                                 new PlainTextEncoder()).orElseThrow(IllegalArgumentException::new);
-
 
         roles.add(BaseRoles.CUSTOMER);
-//        String password = "Password1";
         return userSvc.registerNewUser(username, String.valueOf(password), firstName, lastName, email, roles, createdOn);
+    }
+
+    public boolean checkUsername(String username) {
+        return (Customer.checkUsername(username));
+    }
+
+    public boolean checkName(String firstName) {
+        return (Customer.checkName(firstName));
     }
 }
