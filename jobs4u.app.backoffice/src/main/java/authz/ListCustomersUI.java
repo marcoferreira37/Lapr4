@@ -4,10 +4,8 @@ import eapli.base.app.common.console.ui.components.ListPrinter;
 import eapli.base.app.common.console.ui.components.Sleeper;
 import eapli.base.customer.Customer;
 import eapli.base.usermanagement.application.ListCustomerController;
-import eapli.base.usermanagement.application.ListUsersController;
 import eapli.base.usermanagement.application.SystemCustomerPrinter;
 import eapli.framework.presentation.console.AbstractListUI;
-import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.visitor.Visitor;
 
 import java.util.List;

@@ -33,7 +33,7 @@ public class AddCustomerUI extends AbstractUI {
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That username is already in use.");
         }
-
+        System.out.println("##########Customer created successfully!########## \nPassword: " + password);
         return false;
     }
 
