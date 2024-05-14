@@ -1,6 +1,7 @@
 package authz.registerusers;
 
 
+import eapli.base.domain.Password;
 import eapli.base.usermanagement.application.AddUserController;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -26,19 +27,20 @@ public class AddUserUI extends AbstractUI {
         // FIXME avoid duplication with SignUpUI. reuse UserDataWidget from
         // UtenteApp
         final String username = Console.readLine("Username");
-        final String password = Console.readLine("Password");
         final String firstName = Console.readLine("First Name");
         final String lastName = Console.readLine("Last Name");
         final String email = Console.readLine("E-Mail");
-
+        new Password();
+        final Password password = Password.generatePassword();
         final Set<Role> roleTypes = new HashSet<>();
+        final String password1 = password.toString();
         boolean show;
         do {
             show = showRoles(roleTypes);
         } while (!show);
 
         try {
-            this.theController.addUser(username, password, firstName, lastName, email, roleTypes);
+            this.theController.addUser(username, password1, firstName, lastName, email, roleTypes);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That username is already in use.");
         }

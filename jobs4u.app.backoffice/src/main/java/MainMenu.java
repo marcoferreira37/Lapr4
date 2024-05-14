@@ -162,7 +162,7 @@ public class MainMenu extends AbstractUI {
     }
 
     private Menu buildUsersMenu() {
-        final Menu menu = new Menu("Users >");
+        final Menu menu = new Menu("Admin");
 
         menu.addItem(ADD_USER_OPTION, "Register a User", new AddUserAction());
         menu.addItem(LIST_USERS_OPTION, "List all Users", new ListUsersAction());
