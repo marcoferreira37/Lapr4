@@ -9,6 +9,6 @@ public class SystemCustomerPrinter implements Visitor<Customer> {
 
     @Override
     public void visit(final Customer visitee) {
-        System.out.printf("%-10s%-30s%-30s", visitee.user().email());
+        System.out.printf("%-10s", visitee.user().email());
     }
 }

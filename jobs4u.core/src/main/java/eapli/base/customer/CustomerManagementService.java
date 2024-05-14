@@ -1,19 +1,13 @@
 package eapli.base.customer;
 
-import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.PasswordPolicy;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
 import java.util.Optional;
 
 /**
@@ -21,9 +15,9 @@ import java.util.Optional;
  */
 @Component
 public class CustomerManagementService {
-    private final CustomerRepository customerRepository ;
-    private final PasswordEncoder encoder  ;
-    private final PasswordPolicy policy ;
+    private final CustomerRepository customerRepository;
+    private final PasswordEncoder encoder;
+    private final PasswordPolicy policy;
 
 
     /**
@@ -49,7 +43,9 @@ public class CustomerManagementService {
      * @return the customer
      */
     @Transactional
-    public Customer registerNewCustomer(final SystemUser newUser, final EmailAddress emailAddress) {
+    public Customer registerNewCustomer(final SystemUser newUser,
+                                        final EmailAddress emailAddress) {
+
         SystemCustomerBuilder builder = new SystemCustomerBuilder();
         builder.withUser(newUser).withEmail(emailAddress);
         Customer newCustomer = builder.build();

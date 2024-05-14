@@ -2,6 +2,7 @@ package eapli.base.usermanagement.application;
 
 import eapli.base.customer.Customer;
 import eapli.base.customer.CustomerManagementService;
+import eapli.base.domain.Password;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -36,30 +37,43 @@ public class AddCustomerController {
      * @param lastName  the last name
      * @param email     the email
      * @param createdOn the created on
+     * @param password  the password
      * @return the customer
      */
     public Customer addCustomer(final String username,
                                 final String firstName,
                                 final String lastName,
-                                final String email
-            , final Calendar createdOn) {
+                                final String email,
+                                final Calendar createdOn,
+                                final Password password) {
 
         Set<Role> role = new HashSet<>();
         role.add(BaseRoles.CUSTOMER);
-        final SystemUser newUser = createSystemUser(firstName, lastName, email, role, createdOn);
+
+        final SystemUser newUser = createSystemUser(username,firstName, lastName, email, role, createdOn, password);
 
         return customerSvc.registerNewCustomer(newUser, EmailAddress.valueOf(email));
     }
 
-    private SystemUser createSystemUser(final String firstName, final String lastName, final String email, final Set<Role> roles, final Calendar createdOn) {
+    private SystemUser createSystemUser(final String username,
+                                        final String firstName,
+                                        final String lastName,
+                                        final String email,
+                                        final Set<Role> roles,
+                                        final Calendar createdOn,
+                                        final Password password) {
+
+        Preconditions.nonNull(username);
         Preconditions.nonNull(firstName);
         Preconditions.nonNull(lastName);
         Preconditions.nonNull(email);
+//        Password.encodedAndValid(String.valueOf(password),
+//                                 new BasePasswordPolicy(),
+//                                 new PlainTextEncoder()).orElseThrow(IllegalArgumentException::new);
 
 
         roles.add(BaseRoles.CUSTOMER);
-        String password = "Password1";
-
-        return userSvc.registerNewUser(email, password, firstName, lastName, email, roles, createdOn);
+//        String password = "Password1";
+        return userSvc.registerNewUser(username, String.valueOf(password), firstName, lastName, email, roles, createdOn);
     }
 }

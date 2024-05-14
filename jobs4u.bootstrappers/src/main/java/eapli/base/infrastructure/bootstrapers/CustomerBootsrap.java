@@ -23,6 +23,7 @@ package eapli.base.infrastructure.bootstrapers;
 import java.util.Calendar;
 
 import eapli.base.customer.Customer;
+import eapli.base.domain.Password;
 import eapli.base.usermanagement.application.AddCustomerController;
 import eapli.base.usermanagement.application.ListCustomerController;
 import eapli.framework.actions.Action;
@@ -50,10 +51,10 @@ public class CustomerBootsrap implements Action {
      * @param email
      */
     protected Customer registerUser(final String username, final String firstName,
-                                    final String lastName, final String email) {
+                                    final String lastName, final String email, final Password password) {
         Customer u = null;
         try {
-            u = customerController.addCustomer(username, firstName, lastName, email, Calendar.getInstance());
+            u = customerController.addCustomer(username, firstName, lastName, email, Calendar.getInstance(), password);
             LOGGER.debug("»»» %s", username);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             // assuming it is just a primary key violation due to the tentative
@@ -66,7 +67,7 @@ public class CustomerBootsrap implements Action {
 
     @Override
     public boolean execute() {
-        registerUser("customer", "Customer", "Paco", "pacoCustomer@gmail.com");
+        registerUser("customer", "Customer", "Paco", "pacoCustomer@gmail.com", new Password("Password1"));
         return true;
     }
 }

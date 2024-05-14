@@ -43,7 +43,7 @@ public class ListCustomersUI extends AbstractListUI<Customer> {
 
     @Override
     protected String listHeader() {
-        return String.format("#  %-10s%-30s%-30s", "USERNAME", "F. NAME", "L. NAME");
+        return String.format("#  %-10s", "EMAIL");
     }
 
     public boolean listEnabledUsers() {
