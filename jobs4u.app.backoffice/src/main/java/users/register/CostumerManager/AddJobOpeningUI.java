@@ -5,6 +5,8 @@ import eapli.base.app.common.console.ui.components.ListSelector;
 import eapli.base.customer.AddJobOpeningController;
 import eapli.base.domain.jobOpening.ContractType;
 import eapli.base.domain.jobOpening.Mode;
+import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.usermanagement.application.CompanyRepository;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.util.List;
@@ -36,6 +38,8 @@ public class AddJobOpeningUI extends AbstractUI {
 
         final String titleOrFunction = Console.readLine("Title or Function:");
 
+        listComapnies();
+
         final int companyId = Console.readInteger("Company ID: ");
         System.out.println("=====================================================");
         boolean confirmation = false;
@@ -55,8 +59,11 @@ public class AddJobOpeningUI extends AbstractUI {
         return true;
     }
 
-
-
+    private void listComapnies() {
+        System.out.println("Companies:");
+        CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
+        companyRepository.findAll().forEach(company -> System.out.println(company.toString()));
+    }
 
 
     @Override

@@ -22,8 +22,8 @@ public class ListJobOpeningUI extends AbstractUI {
         final Date startDate;
         final Date endDate;
         try {
-            startDate = new SimpleDateFormat(FORMAT).parse(Console.readLine("Start Date:"));
-            endDate = new SimpleDateFormat(FORMAT).parse(Console.readLine("End Date:"));
+            startDate = new SimpleDateFormat(FORMAT).parse(Console.readLine("(Input in this format dd/mm/yyyy)\nStart Date: "));
+            endDate = new SimpleDateFormat(FORMAT).parse(Console.readLine("(Input in this format dd/mm/yyyy)\nEnd Date:"));
             System.out.println("=====================================================");
             System.out.println(theController.listJobOpenings(startDate, endDate, nameOrCode));
         } catch (Exception e) {

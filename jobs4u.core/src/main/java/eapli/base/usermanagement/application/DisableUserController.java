@@ -2,7 +2,11 @@ package eapli.base.usermanagement.application;
 
 import eapli.base.domain.Jobs4UUser;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Calendar;
 
 
 public class DisableUserController {
@@ -28,7 +32,15 @@ public class DisableUserController {
      * @param email the email of the user to disable
      * @throws IllegalArgumentException if the user is not found
      */
-    public void disableUser(String email) {
-
+    @Transactional
+    public boolean disableUser(String email) {
+      for (SystemUser user : userRepository.findAll()){
+          if (user.email().toString().equals(email)) {
+              user.deactivate(Calendar.getInstance());
+              userRepository.save(user);
+              return true;
+          }
+      }
+      return false;
     }
 }

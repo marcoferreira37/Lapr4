@@ -62,7 +62,7 @@ public class UpdateJobOpeningController {
 
     public File[] showRequirements(){
         System.out.println("Requirements:");
-        File dir = new File("jobs4u.core/src/main/resources/PlugIns/interviewModel");
+        File dir = new File("jobs4u.core/src/main/resources/PlugIns/RequirementsSpecifications/backEndDeveloperRequirements");
         File[] files = dir.listFiles();
         int index = 1;
         if(files != null){

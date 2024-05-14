@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
+
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString

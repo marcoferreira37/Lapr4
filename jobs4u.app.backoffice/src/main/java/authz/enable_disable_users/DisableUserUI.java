@@ -19,7 +19,7 @@ public class DisableUserUI extends AbstractUI {
         if (!wereUsersPrinted) {
             return false;
         }
-        var email = Console.readNonEmptyLine("Provide the email of the user to disable: ", "Email cannot be empty.");
+        String email = Console.readNonEmptyLine("Provide the email of the user to disable: ", "Email cannot be empty.");
 
         try {
             controller.disableUser(email);

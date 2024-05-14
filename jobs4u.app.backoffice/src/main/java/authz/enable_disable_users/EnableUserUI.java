@@ -10,7 +10,7 @@ import eapli.base.usermanagement.application.EnableUserController;
 
 public class EnableUserUI extends AbstractUI {
 
-    private final EnableUserController controller = new EnableUserController(PersistenceContext.repositories().jobs4UUsers());
+    private final EnableUserController controller = new EnableUserController(PersistenceContext.repositories().users());
 
     @Override
     protected boolean doShow() {

@@ -67,9 +67,11 @@ public class ListUsersUI extends AbstractListUI<SystemUser> {
     }
 
     private void printUsers(List<SystemUser> users) {
-        ListPrinter<SystemUser> printer = new ListPrinter<>("Users:", users);
-        printer.showList();
-        Sleeper.sleep(1000);
+        int index = 1;
+        for (SystemUser u : users){
+            System.out.println(index + " - " + u.email());
+            index++;
+        }
     }
 
 }
