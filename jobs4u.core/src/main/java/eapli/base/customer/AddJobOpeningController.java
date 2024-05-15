@@ -22,4 +22,25 @@ public class AddJobOpeningController {
     }
 
 
+    public boolean checkDescription(String description) {
+        return description == null || description.trim().isEmpty() || description.matches("\\d+");
+    }
+
+    public boolean checkAddress(String address) {
+        return address == null || address.trim().isEmpty() || address.matches("\\d+");
+    }
+
+    public boolean checkTittleOrFunction(String titleOrFunction) {
+        return titleOrFunction == null || titleOrFunction.trim().isEmpty() || titleOrFunction.matches("\\d+");
+    }
+
+    public boolean checkVacanciesNumber(String vacanciesNumber) {
+        return vacanciesNumber == null || vacanciesNumber.trim().isEmpty() || !vacanciesNumber.matches("\\d+") || Integer.parseInt(vacanciesNumber) < 0;
+
+    }
+
+    public boolean checkCompanyID(String companyIdStr) {
+        return companyIdStr == null || companyIdStr.trim().isEmpty() || !companyIdStr.matches("\\d+") || Integer.parseInt(companyIdStr) < 0;
+
+    }
 }

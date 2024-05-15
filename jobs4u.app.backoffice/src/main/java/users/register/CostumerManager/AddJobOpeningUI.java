@@ -15,14 +15,24 @@ public class AddJobOpeningUI extends AbstractUI {
 
     private final AddJobOpeningController addjobOpeningController = new AddJobOpeningController();
 
-
-
-
     @Override
     protected boolean doShow() {
-        final String description = Console.readLine("Description:");
-        final int vacanciesNumber = Console.readInteger("Vacancies Number:");
-        final String address = Console.readLine("Address:");
+
+        String description = Console.readLine("Description:");
+        while (addjobOpeningController.checkDescription(description) ){
+            description = Console.readLine("Invalid Description!! Try again!\n \nDescription:");
+        }
+
+        String vacanciesNumberStr = Console.readLine("Vacancies Number:");
+        while (addjobOpeningController.checkVacanciesNumber(vacanciesNumberStr)){
+            vacanciesNumberStr = Console.readLine("Invalid Vacancies Number!! Try again!\n( Numbers Only )\n \nVacancies Number:");
+        }
+
+        String address = Console.readLine("Address:");
+        while (addjobOpeningController.checkAddress(address) ){
+            address = Console.readLine("Invalid Address!! Try again!\n \nAddress:");
+        }
+
 
         System.out.println("Select the mode of the job opening");
         List<Mode> modes = List.of(Mode.values());
@@ -36,11 +46,20 @@ public class AddJobOpeningUI extends AbstractUI {
         listContracType.showAndSelectWithExit();
         ContractType ct = listContracType.getSelectedElement();
 
-        final String titleOrFunction = Console.readLine("Title or Function:");
+        String titleOrFunction = Console.readLine("Title or Function:");
+        while (addjobOpeningController.checkTittleOrFunction(titleOrFunction) ){
+            titleOrFunction = Console.readLine("Invalid Title or Function!! Try again!\n \nTitle or Function:");
+        }
 
         listComapnies();
 
-        final int companyId = Console.readInteger("Company ID: ");
+        String companyIdStr = Console.readLine("Company ID: ");
+        while (addjobOpeningController.checkCompanyID(companyIdStr)) {
+            companyIdStr = Console.readLine("Invalid Company ID!! Try again!\n( Numbers Only )\n \nCompany ID:");
+        }
+
+
+
         System.out.println("=====================================================");
         boolean confirmation = false;
         while (!confirmation) {
@@ -49,12 +68,14 @@ public class AddJobOpeningUI extends AbstractUI {
             System.out.println("Mode: " + mode);
             System.out.println("Contract Type: " + ct);
             System.out.println("Title or Function: " + titleOrFunction);
-            System.out.println("Vacancies Number: " + vacanciesNumber);
-            System.out.println("Company ID: " + companyId);
+            System.out.println("Vacancies Number: " + vacanciesNumberStr);
+            System.out.println("Company ID: " + companyIdStr);
 
             confirmation = Console.readBoolean("Are you sure you want to add this job opening? (True/False): ");
         }
 
+        int vacanciesNumber = Integer.parseInt(vacanciesNumberStr);
+        int companyId = Integer.parseInt(companyIdStr);
         addjobOpeningController.addJobopening(description, address, mode, ct, titleOrFunction, vacanciesNumber, companyId);
         return true;
     }
