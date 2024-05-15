@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 #include <string.h>
 
-#define DIRECTORY_PATH "Email-Bot-Output-Example"
+#define DIRECTORY_PATH "Email-Bot-Output"
 
 void deleteFilesInDirectory(const char *dir_path) {
     DIR *dir;
@@ -38,9 +38,4 @@ void deleteFilesInDirectory(const char *dir_path) {
     closedir(dir); // close the directory
 }
 
-int main() {
-    // calling method to delete files in the directory
-    deleteFilesInDirectory(DIRECTORY_PATH);
 
-    return 0;
-}

@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 #include <string.h>
 
-#define DIRECTORY_PATH "SharedFolder"
+#define DIRECTORY_PATH "Shared_Folder"
 
 void deleteFilesInDirectory(const char *dir_path) {
     DIR *dir;
@@ -36,11 +36,4 @@ void deleteFilesInDirectory(const char *dir_path) {
     }
 
     closedir(dir); //close directory
-}
-
-int main() {
-    // calls method to delete files from directory
-    deleteFilesInDirectory(DIRECTORY_PATH);
-
-    return 0;
 }
