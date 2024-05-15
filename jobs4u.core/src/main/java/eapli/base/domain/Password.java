@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
 public final class Password implements ValueObject, Serializable {
 
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
-    private static final int DEFAULT_LENGTH = 12;
+    public static final int DEFAULT_LENGTH = 12;
 
 
     private static final long serialVersionUID = 1L;
