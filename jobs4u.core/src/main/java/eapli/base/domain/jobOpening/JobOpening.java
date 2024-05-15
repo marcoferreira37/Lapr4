@@ -108,7 +108,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
      * FIXME: This method is not properly implemented
      */
     public boolean isBetween(LocalDateTime initialDate, LocalDateTime finalDate) {
-        return true;
+        if (initialDate == null || finalDate == null) {
+            throw new IllegalArgumentException("The dates should not be null");
+        }
+        return finalDate.isAfter(initialDate) && creationDate.after(initialDate) && creationDate.before(finalDate);
     }
 
     public boolean hasNameOrReference(String nameOrReference) {
