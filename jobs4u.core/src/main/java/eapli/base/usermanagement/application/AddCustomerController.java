@@ -79,4 +79,8 @@ public class AddCustomerController {
     public boolean checkName(String firstName) {
         return (Customer.checkName(firstName));
     }
+
+    public boolean checkEmail(String email) {
+        return (Customer.checkEmail(email));
+    }
 }

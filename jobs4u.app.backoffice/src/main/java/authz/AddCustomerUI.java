@@ -1,7 +1,6 @@
 package authz;
 
 
-import eapli.base.app.common.console.ui.components.Utils;
 import eapli.base.usermanagement.application.AddCustomerController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -24,20 +23,24 @@ public class AddCustomerUI extends AbstractUI {
         // UtenteApp
         String username = Console.readLine("Username");
         while (!theController.checkUsername(username)) {
-            username = Utils.readLineFromConsole("Please Provide a valid username, it cannot be empty\nUsername:");
+            username = Console.readLine("Please Provide a valid username, it cannot be empty\nUsername:");
         }
 
         String firstName = Console.readLine("First Name");
         while (!theController.checkName(firstName)) {
-            firstName = Utils.readLineFromConsole("Please Provide a valid First Name, it cannot be empty, the first letter musb be in upper case and can't contain numbers and special caractheres \nFirst Name:");
+            firstName = Console.readLine("Please Provide a valid First Name, it cannot be empty, the first letter musb be in upper case and can't contain numbers and special caractheres \nFirst Name:");
         }
 
         String lastName = Console.readLine("Last Name");
         while (!theController.checkName(lastName)) {
-            lastName = Utils.readLineFromConsole("Please Provide a valid Last Name, it cannot be empty, the first letter musb be in upper case and can't contain numbers and special caractheres \nLast Name:");
+            lastName = Console.readLine("Please Provide a valid Last Name, it cannot be empty, the first letter musb be in upper case and can't contain numbers and special caractheres \nLast Name:");
         }
 
-        final String email = Console.readLine("E-Mail");
+        String email = Console.readLine("E-Mail");
+        while (!theController.checkEmail(email)) {
+            email = Console.readLine("Please Provide a valid email, it cannot be empty, and must have a @ and a . at least \nE-Mail:");
+        }
+
         new Password();
         final Password password = Password.generatePassword();
 

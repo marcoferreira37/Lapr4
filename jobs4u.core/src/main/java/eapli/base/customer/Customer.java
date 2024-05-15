@@ -55,6 +55,13 @@ public class Customer  implements AggregateRoot<EmailAddress> {
         return true;
     }
 
+    public static boolean checkEmail(String email) {
+        if (!(email.contains("@") || email.contains(".")) || email.isEmpty())  {
+            return false;
+        }
+        return true;
+    }
+
     public SystemUser user() {
         return this.systemUser;
     }
