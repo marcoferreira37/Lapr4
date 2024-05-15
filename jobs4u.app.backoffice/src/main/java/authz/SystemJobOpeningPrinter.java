@@ -8,6 +8,6 @@ public class SystemJobOpeningPrinter implements Visitor<JobOpening> {
 
     @Override
     public void visit(JobOpening visitee) {
-        System.out.printf("%-10s%-30s%-30s%-30s%-30s%-30s%-30s%-30s", visitee.getJobReference(), visitee.getDescription(), visitee.getAddress(), visitee.getMode(), visitee.getContractType(), visitee.getTitleOrFunction(), visitee.getVacanciesNumber(), visitee.getCompany());
+        System.out.printf("%-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s", visitee.getJobReference().fullReference() , visitee.getDescription(), visitee.getAddress(), visitee.getMode(), visitee.getContractType(), visitee.getTitleOrFunction().titleOrFunction(), visitee.getVacanciesNumber().getNumber(), visitee.getCompany().getCompanyName().companyName());
     }
 }

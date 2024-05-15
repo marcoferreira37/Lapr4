@@ -30,7 +30,8 @@ public class GenerateTemplateUI extends AbstractUI {
             SystemJobOpeningPrinter printer = new SystemJobOpeningPrinter();
             for(JobOpening jobOpening : openings){
                 listJobOpenings.add(jobOpening);
-                System.out.print(count);
+                System.out.print(count + " ");
+
                 printer.visit(jobOpening);
                 System.out.println();
                 count++;
@@ -40,14 +41,13 @@ public class GenerateTemplateUI extends AbstractUI {
                 System.out.println("No Job Opening selected");
             } else {
                 String interview = listJobOpenings.get(option - 1).getInterviewModel();
-                Path sourcePath = Paths.get("src/main/resources/PlugIns/RequirementsSpecification" + interview);
-                Path destinationPath = Paths.get("src/main/java/authz/GenerateTemplateUI.java"+ interview);
+                Path sourcePath = Paths.get("jobs4u.core/src/main/resources/PlugIns/RequirementsSpecifications/backEndDeveloperRequirements" + interview);
+                Path destinationPath = Paths.get("jobs4u.core/src/main/resources/PlugIns/templateFile"+ interview);
 
                 try{
                     Files.copy(sourcePath,destinationPath, StandardCopyOption.REPLACE_EXISTING);
                     System.out.println("Template exported successfully");
                 }catch (IOException e) {
-                    System.out.println(e);
                     System.out.println("Error exporting template");
                 }
             }
@@ -62,6 +62,6 @@ public class GenerateTemplateUI extends AbstractUI {
     }
 
     private String listHeader() {
-        return String.format("# %-15s%-15s%-15s%-10s%-10s%-10s%-10s", "COSTUMERID", "JOBREFERENCE", "CONTRACTTYPE", "TITLE","DESCIPTION", "MODE", "ADDRESS");
+        return String.format("#%-15s %-15s %-15s %-10s %-10s %-10s %-10s", "CUSTOMER_ID", "JOB_REFERENCE", "CONTRACT_TYPE", "TITLE","DESCRIPTION ", "MODE", "ADDRESS");
     }
 }
