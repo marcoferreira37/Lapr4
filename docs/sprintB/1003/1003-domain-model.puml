@@ -25,6 +25,19 @@ rectangle "Job Opening" #abbacc {
 
 }
 
+rectangle "Filtering Strategy" #bbaacc {
+interface FilterStrategy{
+
+    +filter()
+    +criteria()
+    }
+
+    class Criteria <<Value Object>>{}
+
+    class FilterByDescription extends FilterStrategy{}
+    class FilterByDate extends FilterStrategy{}
+    class FilterByCode extends FilterStrategy {}
+}
 
 
 JobReference "1" -up-* "1" JobOpening
@@ -33,5 +46,10 @@ ContractType "1" --* "1" JobOpening
 Mode "1" --* "1" JobOpening
 Description "1" -up-* "1" JobOpening
 VacanciesNumber "1" -up-* "1" JobOpening
+
+Criteria "1" -up-> "1" FilterByCode
+Criteria "1" -up-> "1" FilterByDate
+Criteria "1" -up-> "1" FilterByDescription
+
 
 @enduml
