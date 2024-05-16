@@ -20,8 +20,13 @@ public class DescriptionFilteringStrategy implements  JobOpeningFilteringStrateg
         }};
     }
 
+    /**
+     * Filters job openings by description
+     * @param criteria criteria to be used in the filtering
+     * @return predicate to be used in the filtering
+     */
     @Override
-    public Predicate<JobOpening> filter(List<Criteria<?>> criteria) {
-        return jobOpening -> jobOpening.hasDescription((String) criteria.get(0).value());
+    public Predicate<JobOpening> filter(List<Criteria<?>> criteria) { // Método que retorna um predicado para filtragem de job openings com base nos critérios fornecidos.
+        return jobOpening -> jobOpening.hasDescription((String) criteria.get(0).value()); // Retorna um predicado que verifica se o job opening possui uma descrição correspondente ao critério fornecido.
     }
 }

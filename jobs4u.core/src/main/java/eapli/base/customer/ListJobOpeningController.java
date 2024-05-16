@@ -23,12 +23,16 @@ public class ListJobOpeningController {
     private AuthorizationService autzService = AuthzRegistry.authorizationService();
 
 
-    //controller valida a informação ( datas )
 
     public List<JobOpeningFilteringStrategy> filteringStrategies(){
         return FILTERING_STRATEGIES;
     }
 
+    /**
+     * Método que retorna uma lista de job openings.
+     * @param index índice da estratégia de filtragem
+     * @return lista de job openings
+     */
     public JobOpeningFilteringStrategy filteringStrategy(int index) {
         if (index < 0 || index >= FILTERING_STRATEGIES.size()) {
             throw new IllegalArgumentException("Invalid index.");
@@ -36,6 +40,12 @@ public class ListJobOpeningController {
         return FILTERING_STRATEGIES.get(index);
     }
 
+    /**
+     * Método que retorna uma lista de job openings filtrados.
+     * @param strategy estratégia de filtragem
+     * @param criteria critérios de filtragem
+     * @return lista de job openings filtrados
+     */
     public List<JobOpening> listFilteredJobOpenings(JobOpeningFilteringStrategy strategy, List<Criteria<?>> criteria) {
         return service.listFilteredJobOpenings(strategy, criteria);
     }
@@ -46,12 +56,22 @@ public class ListJobOpeningController {
         checkEndDateAfterStartDate(startDate, endDate);
     }
 
+    /**
+     * Método que verifica se o objeto é nulo.
+     * @param date objeto a ser verificado
+     * @param errorMessage mensagem de erro
+     */
     private void checkNotNull(Date date, String errorMessage) {
         if (date == null) {
             throw new IllegalArgumentException(errorMessage);
         }
     }
 
+    /**
+     * Método que verifica se a data de fim é posterior à data de início.
+     * @param startDate data de início
+     * @param endDate data de fim
+     */
     private void checkEndDateAfterStartDate(Date startDate, Date endDate) {
         if (endDate.before(startDate)) {
             throw new IllegalArgumentException("End date must be after start date.");
