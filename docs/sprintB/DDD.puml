@@ -98,6 +98,24 @@ rectangle "Job Opening Interview" #ccbbaa {
 
 
 
+rectangle "Filtering Strategy" #bbaacc {
+interface FilterStrategy{
+
+    +filter()
+    +criteria()
+    }
+
+    class Criteria <<Value Object>>{}
+
+    class FilterByDescription extends FilterStrategy{}
+    class FilterByDate extends FilterStrategy{}
+    class FilterByCode extends FilterStrategy {}
+}
+
+
+
+
+
 rectangle "Interview Model" #accbcc {
 
 }
@@ -182,6 +200,11 @@ JobInterview "1" --> "1" InterviewResult
 Requirements  -right-|> Plugin
 "Interview Model" --|> Plugin
 JobOpening "*" --> "1" "Interview Model"
+
+
+Criteria "1" -up-> "1" FilterByCode
+Criteria "1" -up-> "1" FilterByDate
+Criteria "1" -up-> "1" FilterByDescription
 
 
 
