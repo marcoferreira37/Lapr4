@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+autonumber
+
+actor "Customer Manager" as CM
+participant ":ExportTemplateInterviewUI" as UI6
+participant ":GenerateAndExportTemplateFileController" as Controller6
+participant ":SystemJobOpeningsPrinter" as printer
+participant ":JobOpeningService" as jobSvc
+
+activate CM
+
+CM -> UI6: Request interview template text file
+activate UI6
+
+UI6 -> Controller6**: create
+activate Controller6
+
+Controller6 -> jobSvc: JobOpeningService
+activate jobSvc
+
+jobSvc --> Controller6: JobOpeningService
+deactivate jobSvc
+
+UI6 -> Controller6:getJobOpenings()
+Controller6 -> jobSvc: getAllJobOpenings()
+activate jobSvc
+
+jobSvc --> Controller6: jobOpenings
+
+deactivate jobSvc
+Controller6 --> UI6: jobOpenings
+deactivate Controller6
+UI6 -> printer: SystemJobOpeningsPrinter
+activate printer
+
+printer --> UI6: print
+
+deactivate printer
+
+
+
+
+UI6 --> CM: Generates and provides template text file sussessfully
+
+deactivate UI6
+
+deactivate CM
+
+@enduml
