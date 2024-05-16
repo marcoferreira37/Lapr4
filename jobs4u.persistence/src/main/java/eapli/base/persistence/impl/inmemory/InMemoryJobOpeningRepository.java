@@ -9,6 +9,8 @@ import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainR
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class InMemoryJobOpeningRepository
         extends InMemoryDomainRepository<JobOpening, JobReference>
@@ -37,12 +39,10 @@ public class InMemoryJobOpeningRepository
     }
 
     @Override
-    public List<JobOpening> listJobOpenings(LocalDateTime startDate, LocalDateTime endDate, String nameOrReference) {
+    public List<JobOpening> listJobOpenings(Predicate<JobOpening> filter) {
         return new LinkedList<>((Collection<JobOpening>)findAll())
                 .stream()
-                .filter(opening ->
-                        opening.isBetween(startDate, endDate) &&
-                                opening.hasNameOrReference(nameOrReference))
+                .filter(filter)
                 .toList();
     }
 

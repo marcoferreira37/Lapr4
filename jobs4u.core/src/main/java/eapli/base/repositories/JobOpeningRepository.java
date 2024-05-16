@@ -6,11 +6,13 @@ import eapli.framework.domain.repositories.DomainRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public interface JobOpeningRepository extends DomainRepository<JobReference, JobOpening> {
 
     Long getLastIdFromCompany(Long companyId);
 
-    List<JobOpening> listJobOpenings(LocalDateTime startDate, LocalDateTime endDate, String nameOrReference);
+    List<JobOpening> listJobOpenings(Predicate<JobOpening> filter);
 
 }

@@ -1,6 +1,8 @@
 package eapli.base.usermanagement.application;
 
 
+import eapli.base.customer.Criteria;
+import eapli.base.customer.JobOpeningFilteringStrategy;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.jobOpening.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class JobOpeningService {
 
@@ -55,19 +59,6 @@ public class JobOpeningService {
         return jo;
     }
 
-
-    public List<JobOpening> listJobOpenings(Date startDate, Date endDate, String nameOrReference) {
-        ZoneId zoneId = ZoneId.systemDefault();
-
-        LocalDateTime dts = Instant.ofEpochMilli(startDate.getTime())
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
-        LocalDateTime dte = Instant.ofEpochMilli(endDate.getTime())
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
-        return repository.listJobOpenings(dts, dte, nameOrReference);
-    }
-
     public List<JobOpening> allJobs() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER,
                 BaseRoles.ADMIN);
@@ -85,5 +76,10 @@ public class JobOpeningService {
 
     public Iterable<JobOpening> getJobOpenings(){
         return repository.findAll();
+    }
+
+    public List<JobOpening> listFilteredJobOpenings(JobOpeningFilteringStrategy strategy, List<Criteria<?>> criteria) {
+        Predicate<JobOpening> filter = strategy.filter(criteria);
+        return repository.listJobOpenings(filter);
     }
 }

@@ -68,7 +68,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Column(name = "Requirements")
     String requirements;
 
-
     public JobOpening() {
 
     }
@@ -119,6 +118,14 @@ public class JobOpening implements AggregateRoot<JobReference> {
                 || jobReference.toString().equals(nameOrReference);
     }
 
+    public boolean hasReference(String value) {
+        return jobReference.fullReference().equals(value);
+    }
+
+    public boolean hasDescription(String description) {
+        return this.description.description().equals(description);
+    }
+
     @Override
     public String toString() {
         return "\n-----------------------------------------------------" +
@@ -135,6 +142,5 @@ public class JobOpening implements AggregateRoot<JobReference> {
                 "\nCompany = " + company;
 
     }
-
 }
 
