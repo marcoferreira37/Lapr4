@@ -29,10 +29,7 @@ Controller -> JB: withJobOpeningName(name)
 Controller -> JB: withJobOpeningDescription(description)
 Controller -> JB: build()
 
-JB -> JRepo: ofIdentity(code)
-activate JRepo
 
-JRepo --> JB: returns job opening
 deactivate JRepo
 JB -> JO: create
 JB --> Controller: returns job opening
