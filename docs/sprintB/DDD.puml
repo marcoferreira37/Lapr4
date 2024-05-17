@@ -137,12 +137,12 @@ Plugin "1" --> "1" PluginDescription
 Plugin "1" --> "1" JarFile
 
 
-JobReference "1" -up-> "1" JobOpening
-TitleOrFunction "1" -up-> "1" JobOpening
-ContractType "1" --> "1" JobOpening
-Mode "1" --> "1" JobOpening
-Description "1" -up-> "1" JobOpening
-VacanciesNumber "1" -up-> "1" JobOpening
+JobReference "1" <-up- "1" JobOpening
+TitleOrFunction "1" <-up- "1" JobOpening
+ContractType "1" <-- "1" JobOpening
+Mode "1" <-- "1" JobOpening
+Description "1" <-up- "1" JobOpening
+VacanciesNumber "1" <-up- "1" JobOpening
 
 JobOpening "1" ---> "1" Requirements
 JobOpening "*" --> "1" Customer : set by
@@ -186,8 +186,8 @@ Customer "1" --> "1" PhoneNumber
 Candidate "1" --> "1" Email
 
 
-Address "1" --> "1" JobOpening
-Address "1" --> "1" Customer
+Address "1" <-- "1" JobOpening
+Address "1" <-- "1" Customer
 
 
 JobInterview "1" -up-> "1" JobInterviewId
