@@ -1,20 +1,19 @@
 @startuml
 'https://plantuml.com/use-case-diagram
-skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 autonumber
 
-title Register Customer - Sequence Diagram
+title US2002 - Sequence Diagram
 
 
 actor "Operator" as OP
-participant ":AddJobApplicationUI" as UI
-participant "AddJobApplicationController" as Controller
-participant ":JobOpeningRepository" as OPrepo
-participant ":Repositories" as repo
-participant "repositories\n:Repositories" as PLAT
-participant "JobOpeningApplicarion" as JOA
+participant "AddJobApplicationUI" as UI <<ui>>
+participant "AddJobApplicationController" as Controller <<application>>
+participant "JobOpeningRepository" as OPrepo <<repository>>
+participant "Repositories" as repo <<repository>>
+participant "repositories\n:Repositories" as PLAT <<repository>>
+participant "JobOpeningApplicarion" as JOA <<domain>>
 
 
 
@@ -77,6 +76,7 @@ activate OP
         deactivate Controller
 
         activate UI
+
         UI --> OP: displays sucess message
 
         deactivate UI

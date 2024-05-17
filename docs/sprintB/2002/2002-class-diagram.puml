@@ -2,8 +2,6 @@
 
 package UI{
     class AddJobApplicationUI{
-    +doShow()
-    +headLine()
     }
 }
 
@@ -15,14 +13,15 @@ package Controller{
 
     }
 }
-
+package JobOpening{
 package Domain{
+ class JobReference{
+ }
 
 
     class JobOpeningApplication{
     +readFile()
     }
-
 }
 
 package Repository{
@@ -32,10 +31,12 @@ package Repository{
     }
 }
 
-AddJobApplicationUI ..> AddJobApplicationController
+AddJobApplicationUI -> AddJobApplicationController
 
-AddJobApplicationController ..> JobOpeningApplication
+AddJobApplicationController -> JobOpeningApplication
 
-JobOpeningApplication --> JobOpeningRepository: uses
+JobOpeningApplication -> JobOpeningRepository
+
+JobOpeningApplication -> JobReference
 
 @enduml
