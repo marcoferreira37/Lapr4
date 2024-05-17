@@ -1,0 +1,85 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+autonumber
+
+title Register Customer - Sequence Diagram
+
+
+actor "Operator" as OP
+participant ":AddJobApplicationUI" as UI
+participant "AddJobApplicationController" as Controller
+participant ":JobOpeningRepository" as OPrepo
+participant ":Repositories" as repo
+participant "repositories\n:Repositories" as PLAT
+participant "JobOpeningApplicarion" as JOA
+
+
+
+
+activate OP
+
+    OP -> UI:  Register an application of a candidate for a job opening
+    activate UI
+
+        UI -> Controller **: create
+        activate Controller
+        UI -> Controller: findAllApplicationsForJobOpening()
+        Controller -> repo: getInstance()
+        activate repo
+
+            repo --> Controller : repositories
+        deactivate repo
+        Controller -> PLAT: listJobOpenings()
+        activate PLAT
+
+            PLAT --> Controller: JobOpeningRepository
+        deactivate PLAT
+        Controller -> OPrepo: findAllApplicationsForJobOpening()
+        activate OPrepo
+
+            OPrepo --> Controller: jobOpenings
+            deactivate OPrepo
+
+
+        Controller -> UI: jobOpenings
+        deactivate Controller
+        UI --> OP: request to select a job opening
+        deactivate UI
+        OP -> UI: Select a job opening
+        activate UI
+
+        UI --> OP : request a path to select the file
+        OP -> UI: types the path
+
+        UI -> Controller: readFile(file, selectedJob)
+        deactivate UI
+        activate Controller
+
+        Controller ->  JOA : readFile(String file, JobOpening selectedJob)
+        deactivate Controller
+
+        activate JOA
+
+        JOA -> JOA : JobOpeningApplication(attachedEmail, applicationData, applicationStatus, applicationID, jobOpening, jobReference)
+        JOA -> OPrepo : save(jobOpeningApplication)
+        deactivate JOA
+        activate OPrepo
+
+        OPrepo --> Controller : jobOpeningApplication
+        deactivate OPrepo
+
+        activate Controller
+
+        Controller -> UI: jobOpeningApplication
+        deactivate Controller
+
+        activate UI
+        UI --> OP: displays sucess message
+
+        deactivate UI
+
+
+     @enduml

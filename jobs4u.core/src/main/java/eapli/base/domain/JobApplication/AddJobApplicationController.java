@@ -19,18 +19,10 @@ public class AddJobApplicationController {
         return jobOpeningApplication;
     }
 
-    public JobOpeningApplication addJobOpeningApplicationFromFile(JobOpeningApplication jobOpeningApplication) {
-        repo.save(jobOpeningApplication);
-        return jobOpeningApplication;
-    }
-
     public List<JobOpening> listJobOpenings() {
         return (List<JobOpening>) repositoryJobOpening.findAll();
     }
-//    public void buildJobApplication(String applicationId, String attachedEmail, String applicationStatus, String attachedFile, String applicatorData, JobOpening selectedJob) {
-//        JobOpeningApplication jobOpeningApplication = new JobOpeningApplication(selectedJob, null, new AttachedEmail(attachedEmail), new AttachedFile(attachedFile, "path"), new ApplicationId(applicationId), new ApplicationStatus(applicationStatus), null);
-//        repo.save(jobOpeningApplication);
-//    }
+
 
     public void readFile(String file, JobOpening selectedJob) {
         JobOpeningApplication jobOpeningApplication = JobOpeningApplication.readFile(file, selectedJob);

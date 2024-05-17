@@ -1,0 +1,41 @@
+@startuml
+
+package UI{
+    class AddJobApplicationUI{
+    +doShow()
+    +headLine()
+    }
+}
+
+package Controller{
+    class AddJobApplicationController{
+    +addJobOpeningApplication()
+    +listJobOpenings()
+    +readFile()
+
+    }
+}
+
+package Domain{
+
+
+    class JobOpeningApplication{
+    +readFile()
+    }
+
+}
+
+package Repository{
+    class JobOpeningRepository{
+    +getLastIdFromCompany()
+    +listJobOpenings()
+    }
+}
+
+AddJobApplicationUI ..> AddJobApplicationController
+
+AddJobApplicationController ..> JobOpeningApplication
+
+JobOpeningApplication --> JobOpeningRepository: uses
+
+@enduml
