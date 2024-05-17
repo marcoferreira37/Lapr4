@@ -1,0 +1,66 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title UI Sequence Diagram (SSD) - Register User to Back Office
+
+autonumber
+
+actor "Admin" as User
+participant "AddUserUI" as UI
+participant "AddUserController" as Controller
+participant "UserService" as UserService
+participant "UserRepository" as UserRepository
+
+activate User
+
+    User -> UI : Asks to register user
+    activate UI
+
+    UI -> Controller** : create
+
+    UI --> User : requests data (username,password, first name, last name, email, role)
+    deactivate UI
+
+    User -> UI : Provides data
+    activate UI
+
+    UI -> Controller : addUser(username,password, first name, last name, email, role)
+    activate Controller
+
+    Controller -> Controller: addUser(username,password, first name, last name, email, role, current time)
+    activate Controller
+
+    Controller -> UserService : registerNewUser(username,password, first name, last name, email, role, time)
+    activate UserService
+
+    UserService -> UserRepository : save(user)
+    activate UserRepository
+
+    UserRepository --> UserService : user
+    deactivate UserRepository
+
+    UserService --> Controller : user
+    deactivate UserService
+
+    Controller --> Controller : user
+    deactivate Controller
+
+    Controller --> UI : user
+    deactivate Controller
+
+
+
+    UI --> User : Confirms registration
+    deactivate UI
+
+
+
+
+
+
+@enduml

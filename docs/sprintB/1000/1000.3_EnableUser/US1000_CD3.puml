@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package authz
+{
+    class ActivateUserUI {
+        #doShow() : boolean
+        +headLine() : String
+    }
+}
+
+package Appplication {
+    class ActivateUserController {
+        +deactivatedUsers() : Iterable<SystemUser>
+        +activateUser(final SysteUser user) : SystemUser
+    }
+}
+
+package Libraries{
+    class UserManagementService
+    class AuthorizationService
+    class LoggerFactory
+    class AuthzRegistry
+}
+
+ActivateUserUI --.> ActivateUserController
+ActivateUserController --.> UserManagementService
+ActivateUserController --.> AuthorizationService
+ActivateUserController -.-> LoggerFactory
+ActivateUserController -.-> AuthzRegistry
+
+
+
+
+@enduml
