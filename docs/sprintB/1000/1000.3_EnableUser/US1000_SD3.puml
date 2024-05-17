@@ -1,0 +1,79 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title UI Sequence Diagram (SSD) - Enable User from Back Office
+
+autonumber
+
+actor "Admin" as User
+participant "ActivateUser" as UI
+participant "ActivateUserController" as Controller
+participant "UserService" as UserService
+participant "UserRepository" as UserRepository
+
+activate User
+
+    User -> UI : Asks to activate a user
+    activate UI
+
+    UI -> Controller** : create
+
+    UI -> Controller : deactivatedUsers()
+    activate Controller
+
+    Controller -> UserService : deactivateUsers()
+    activate UserService
+
+    UserService -> UserRepository : findByActive(false)
+    activate UserRepository
+
+    UserRepository --> UserService : List of deactivated users
+    deactivate UserRepository
+
+    UserService --> Controller : List of deactivated users
+    deactivate UserService
+
+    Controller --> UI : List of deactivated users
+    deactivate Controller
+
+    UI --> User : Lists disabled users and asks for the user to be activated
+    deactivate UI
+
+    User -> UI : Selects the user to be activated
+    activate UI
+
+    UI -> Controller : activateUser(user)
+    activate Controller
+
+    Controller -> UserService : activateUser(user)
+    activate UserService
+
+    UserService -> SystemUser : activate()
+    activate SystemUser
+
+    SystemUser -> UserService : user
+    deactivate SystemUser
+
+    UserService -> UserRepository : save(user)
+    activate UserRepository
+
+    UserRepository --> UserService : user
+    deactivate UserRepository
+
+    UserService --> Controller : user
+    deactivate UserService
+
+    Controller --> UI : user
+    deactivate Controller
+
+    UI --> User : Confirms the user activation
+    deactivate UI
+
+
+
+
+
+
+@enduml
