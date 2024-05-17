@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+left to right direction
+skinparam usecase {
+BackgroundColor Pink
+BorderColor DarkPink
+
+ArrowColor Orange
+ActorBorderColor lightBlue
+ActorBackgroundColor Pink
+}
+
+title US 2002
+
+actor "Operartor" as OP
+
+OP --> ( register an application of a candidate for a job opening)
+@enduml

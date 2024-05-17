@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManager;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class JpaJobOpeningRepository
         extends JpaAutoTxRepository<JobOpening, Long, Long>
@@ -52,15 +53,12 @@ public class JpaJobOpeningRepository
     }
 
     @Override
-    public List<JobOpening> listJobOpenings(LocalDateTime startDate, LocalDateTime endDate, String nameOrReference) {
-        return createQuery("""
-                        SELECT opening FROM JobOpening opening
-                        """,
-// Todo: Adicionar o restante à query quando a clase tiver a infromaçao necessaria Obrigado pela dica, adiciono
-//                          AND opening.initialDate >= :initialDate
-//                          AND opening.finalDate <= :finalDate
-                JobOpening.class)
-                .getResultList();
+    public List<JobOpening> listJobOpenings(Predicate<JobOpening> filter){
+        return createQuery("SELECT opening FROM JobOpening opening", JobOpening.class)
+                .getResultList()
+                .stream()
+                .filter(filter)
+                .toList();
     }
 
 }

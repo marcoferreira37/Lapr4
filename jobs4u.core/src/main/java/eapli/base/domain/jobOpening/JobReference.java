@@ -42,7 +42,7 @@ public class JobReference implements ValueObject, Comparable<JobReference> {
 
     @Override
     public String toString() {
-        return "JobReference{" + fullReference + '\'' + '}';
+        return "JobReference{" + fullReference + '}';
     }
 }
 

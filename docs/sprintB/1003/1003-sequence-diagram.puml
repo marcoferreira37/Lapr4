@@ -1,0 +1,79 @@
+@startuml
+
+title Register Job Opening - Sequence Diagram
+
+autonumber
+actor "Customer Manager" as M
+participant AddJobOpeningUI  as UI <<UI>>
+participant AddJobOpeningController as Controller <<Application>>
+participant FilteringStrategy as FS <<Strategy>>
+database JobOpeningRepository as JRepo <<Persistence>>
+
+activate M
+activate UI
+
+M -> UI : requests to list job openings
+
+UI -> Controller : filteringStrategies()
+
+activate Controller
+
+Controller --> UI : returns filtering strategies
+
+deactivate Controller
+
+
+UI --> M :  asks to select the filtering strategy (No filter, by Description, by Date and by Code)
+
+M -> UI : selects strategy
+
+UI -> Controller : filteringStrategy(strategyIndex)
+
+activate Controller
+
+Controller --> UI : strategy
+
+deactivate Controller
+
+UI -> Controller : filteringCriteria(strategy)
+
+activate Controller
+
+Controller --> UI : returns filtering criteria
+
+deactivate Controller
+
+UI --> M : asks to input the filtering criteria
+
+M -> UI : submits the criteria
+
+UI -> Controller : listFilteredJobOpenings(strategy, criteria)
+
+activate Controller
+
+Controller -> JRepo : listFilteredJobOpenings(strategy, criteria)
+
+activate JRepo
+
+JRepo --> Controller : list of job openings
+
+deactivate JRepo
+
+Controller --> UI : list of job openings
+
+deactivate Controller
+
+UI --> M : Displays the list of job openings filtered
+
+
+
+
+@enduml
+
+
+
+
+
+
+
+

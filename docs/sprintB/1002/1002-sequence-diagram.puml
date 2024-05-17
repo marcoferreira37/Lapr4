@@ -19,10 +19,6 @@ UI --> M : prompts for job details (Description, Vacancies Number and Address)
 
 M -> UI : provides job details requested
 
-UI --> M :  shows available job openings modes ( Remote, Hybrid and Onsite)
-
-M -> UI : provides job details requested
-
 UI --> M : shows available job openings modes ( Remote, Hybrid and Onsite)
 
 M -> UI : selects job opening mode
@@ -39,22 +35,33 @@ UI --> M : shows and requests confirmation for job registration
 
 M -> UI : confirms job registration
 
-UI -> Controller: addJobopening(description, address, mode, ct, titleOrFunction, vacanciesNumber, companyId)
+UI -> Controller: addJobopening(description, address, mode, contractType, titleOrFunction, vacanciesNumber, companyId)
 
 activate Controller
 
-Controller -> JB: withJobOpeningCode(code)
-activate JB
-Controller -> JB: withJobOpeningName(name)
-Controller -> JB: withJobOpeningDescription(description)
-Controller -> JB: build()
+Controller -> JB**: create
 
-JB -> JRepo: ofIdentity(code)
+Controller -> JRepo : nextCode()
 activate JRepo
 
-JRepo --> JB: returns job opening
+JRepo --> Controller: returns next code
 deactivate JRepo
-JB -> JO: create
+
+Controller -> JB: withCode(code)
+activate JB
+
+Controller -> JB: withDescription(description)
+Controller -> JB: withAddress(address)
+Controller -> JB: withMode(mode)
+Controller -> JB: withContractType(contractType)
+Controller -> JB: withTitleOrFunction(titleOrFunction)
+Controller -> JB: withVacanciesNumber(vacanciesNumber)
+Controller -> JB: withCompanyId(companyId)
+
+Controller -> JB: build()
+
+deactivate JRepo
+JB -> JO**: create
 JB --> Controller: returns job opening
 deactivate JB
 

@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US2002
+
+autonumber
+
+actor "Operator" as OP
+participant "System" as System
+
+activate OP
+OP -> System:  Register an application of a candidate for a job opening
+
+activate System
+
+System --> OP: Requests to select the job opening
+
+deactivate System
+
+OP -> System: Selects the job opening
+
+activate System
+
+System --> OP: Request to type the path of the file
+
+deactivate System
+
+OP -> System: Types the path of the file
+
+activate System
+
+System --> OP: Display sucess message
+deactivate System
+
+deactivate OP
+
+@enduml

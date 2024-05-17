@@ -16,29 +16,21 @@ Agent -> System : request to list job openings
 
 activate System
 
-    System --> Agent : asks to input the name or code of the Job Opening
+    System --> Agent : asks to select the filtering strategy (No filter, by Description, by Date and by Code)
 
 deactivate System
 
 
-Agent -> System : submits the name or code
+Agent -> System : selects strategy
 
 activate System
 
-System --> Agent : asks to input the start date
+    System --> Agent : asks to input the filtering criteria
 
 deactivate System
 
-Agent -> System : submits the start date
+Agent -> System : submits the criteria
 
-activate System
-
-System --> Agent : asks to input the end date
-
-
-deactivate System
-
-Agent -> System : submits the end date
 
 activate System
 

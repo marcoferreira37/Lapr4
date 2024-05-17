@@ -49,7 +49,6 @@ This task is assigned for development in this sprint.
 * 1002.1. The system should allow the Customer Manager to create a new job opening.
 * 1002.2. The job opening should include fields for job title, description, requirements, and deadline.
 * 1002.3. Once created, the job opening should be visible to applicants.
-* 1002.4. The Customer Manager should be able to edit or delete a job opening.
 
 
 **Dependencies/References:**
@@ -59,53 +58,50 @@ This task is assigned for development in this sprint.
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. 
-This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+During the analysis phase, we delved into the intricacies of the job opening registration requirement, 
+aiming to align the system's capabilities with the expectations of the Customer Manager. 
+Stakeholder interviews provided valuable insights, 
+guiding us to prioritize features and define acceptance criteria. 
+We scrutinized existing processes in analogous systems, 
+seeking inspiration and identifying potential enhancements. 
 
 ## 4. Design
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
+Sequence diagram and Domain Model for the job opening registration process:
+[Sequence Diagram](svg/1002-sequence-diagram-Register_Job_Opening___Sequence_Diagram)
+[Domain Model](svg/US1002-DomainModel.svg)
 
-### 4.1. Realization
-
-### 4.2. Class Diagram
-
-![a class diagram](class-diagram-01.svg "A Class Diagram")
-
-### 4.3. Applied Patterns
-
-### 4.4. Tests
-
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
-
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
-
-
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
+Job opening registration functionality is implemented within the system, 
+allowing Customer Managers to register new job openings. 
+The system validates the input details and adds the job opening to the 
+database upon successful registration. 
+A bootstrap process is developed as an alternative method for achieving job 
+opening registration during system initialization.
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
+To integrate this functionality with other parts of the system, ensure that:
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+The UI components are properly integrated with the overall user interface of the system.
+The controller interacts seamlessly with other controllers and services.
+The repository integrates with the database or storage system used by the system.
+You can demonstrate this functionality by following these steps:
+
+- Log in as a Customer Manager.
+- Navigate to the job opening registration section.
+- Fill in the required job details.
+- Submit the form to create a new job opening.
+- Verify that the job opening is visible to applicants.
+
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+Ensure that the job opening registration process aligns with the requirements specified by the client and complies with 
+any legal or organizational policies.
+Consider implementing additional features, such as validation for job opening fields and support for 
+multiple job opening types and modes, based on future requirements or feedback.
