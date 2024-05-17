@@ -20,9 +20,6 @@
  */
 package eapli.base.infrastructure.bootstrapers;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import eapli.base.Domain.Company.AddCompanyController;
 import eapli.base.customer.AddJobOpeningController;
 import eapli.base.domain.JobApplication.AddJobApplicationController;
@@ -30,22 +27,20 @@ import eapli.base.domain.JobApplication.JobOpeningApplication;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.candidate.TelephoneNumber;
 import eapli.base.domain.company.Company;
-import eapli.base.domain.company.CompanyName;
-import eapli.base.domain.jobOpening.*;
+import eapli.base.domain.jobOpening.ContractType;
+import eapli.base.domain.jobOpening.JobOpening;
+import eapli.base.domain.jobOpening.Mode;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.CandidateRepository;
-import eapli.base.repositories.JobOpeningApplicationRepository;
-import eapli.base.repositories.JobOpeningRepository;
-import eapli.base.usermanagement.application.CompanyRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
-/**
- * @author Paulo Gandra Sousa
- */
+import java.util.HashSet;
+import java.util.Set;
+
 public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Action {
 
     @Override
