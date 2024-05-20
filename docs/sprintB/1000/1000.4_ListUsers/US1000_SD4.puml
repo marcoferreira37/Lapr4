@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title UI Sequence Diagram (SSD) - List Users from Back Office
+
+autonumber
+
+actor "Admin" as User
+participant "ListUsersUI" as UI
+participant "ListUsersController" as Controller
+participant "UserService" as UserService
+participant "UserRepository" as UserRepository
+
+activate User
+
+    User -> UI : Asks to list all back office users
+    activate UI
+
+    UI -> Controller**: create
+
+    UI -> Controller: allBackOfficeUsers()
+    activate Controller
+
+    Controller -> UserService: allUsers()
+    activate UserService
+
+    UserService -> UserRepository: findAll()
+    activate UserRepository
+
+    UserRepository --> UserService: List of all users
+    deactivate UserRepository
+
+    UserService --> Controller: List of all users
+    deactivate UserService
+
+    Controller --> UI: List of all Back Office users
+    deactivate Controller
+
+
+    UI --> User : Lists all enabled back office users
+    deactivate UI
+
+
+
+
+
+
+@enduml

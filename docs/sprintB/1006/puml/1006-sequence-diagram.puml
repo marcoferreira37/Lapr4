@@ -37,8 +37,8 @@ C -> RF: candidateRepository()
 activate RF
 RF --> C: return candidateRepository
 deactivate RF
-activate CR
 C -> CR: findAllCandidates()
+activate CR
 CR --> C: return Iterable<Candidate>
 deactivate CR
 C --> UI: return Iterable<Candidate>

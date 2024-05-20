@@ -2,7 +2,6 @@
 'https://plantuml.com/class-diagram
 
 hide methods
-skinparam linetype ortho
 
 
 
@@ -97,20 +96,20 @@ rectangle "Job Opening Interview" #ccbbaa {
 }
 
 
-
-rectangle "Filtering Strategy" #bbaacc {
-interface FilterStrategy{
-
-    +filter()
-    +criteria()
-    }
-
-    class Criteria <<Value Object>>{}
-
-    class FilterByDescription extends FilterStrategy{}
-    class FilterByDate extends FilterStrategy{}
-    class FilterByCode extends FilterStrategy {}
-}
+'
+'rectangle "Filtering Strategy" #bbaacc {
+'interface FilterStrategy{
+'
+'    +filter()
+'    +criteria()
+'    }
+'
+'    class Criteria <<Value Object>>{}
+'
+'    class FilterByDescription extends FilterStrategy{}
+'    class FilterByDate extends FilterStrategy{}
+'    class FilterByCode extends FilterStrategy {}
+'}
 
 
 
@@ -138,12 +137,12 @@ Plugin "1" --> "1" PluginDescription
 Plugin "1" --> "1" JarFile
 
 
-JobReference "1" -up-* "1" JobOpening
-TitleOrFunction "1" -up-* "1" JobOpening
-ContractType "1" --* "1" JobOpening
-Mode "1" --* "1" JobOpening
-Description "1" -up-* "1" JobOpening
-VacanciesNumber "1" -up-* "1" JobOpening
+JobReference "1" <-up- "1" JobOpening
+TitleOrFunction "1" <-up- "1" JobOpening
+ContractType "1" <-- "1" JobOpening
+Mode "1" <-- "1" JobOpening
+Description "1" <-up- "1" JobOpening
+VacanciesNumber "1" <-up- "1" JobOpening
 
 JobOpening "1" ---> "1" Requirements
 JobOpening "*" --> "1" Customer : set by
@@ -157,7 +156,7 @@ Application "1" --> "1" AttachedEmail
 Application "1" --> "1" AttachedFile
 Application "1" --> "1" ApplicatorData
 Application "*" -----> "1" JobOpening : submitted for
-Application "*" -> "1" Candidate : submitted by
+Application "1" -> "1" Candidate : submitted by
 Application "1" --> "1" ApplicationStatus
 
 Customer "1" --> "1" CustomerId
@@ -169,7 +168,7 @@ Phase "1" --> "1" JobOpeningProcessStatus
 Phase "1" --> "1" JobOpeningProcessStage
 JobOpeningProcess "1" --> "1" Phase
 
-PhaseType "1" -down-> "*" Phase
+Phase "1" --> "1" PhaseType
 
 
 ''InterviewModel "1" -left-> "1" InterviewModelName : has
@@ -187,8 +186,8 @@ Customer "1" --> "1" PhoneNumber
 Candidate "1" --> "1" Email
 
 
-Address "1" --* "1" JobOpening
-Address "1" --* "1" Customer
+Address "1" <-- "1" JobOpening
+Address "1" <-- "1" Customer
 
 
 JobInterview "1" -up-> "1" JobInterviewId
@@ -201,10 +200,10 @@ Requirements  -right-|> Plugin
 "Interview Model" --|> Plugin
 JobOpening "*" --> "1" "Interview Model"
 
-
-Criteria "1" -up-> "1" FilterByCode
-Criteria "1" -up-> "1" FilterByDate
-Criteria "1" -up-> "1" FilterByDescription
+'
+'Criteria "1" -up-> "1" FilterByCode
+'Criteria "1" -up-> "1" FilterByDate
+'Criteria "1" -up-> "1" FilterByDescription
 
 
 

@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package authz{
+    class AddUserUI{
+    #doShow() : boolean
+    +headLine() : String
+    -showRoles(final Set<Role> roleTypes) : boolean
+    -buildRolesMenu(final Set<Role> roleTypes) : Menu
+    }
+}
+
+package Application{
+    class AddUserController{
+    +addUser(final String username, final String password, final String firstName,
+                         final String lastName,
+                         final String email, final Set<Role> roles) : SystemUser
+    +addUser(final String username, final String password, final String firstName,
+                         final String lastName,
+                         final String email, final Set<Role> roles, final Calendar createdOn) : SystemUser
+    }
+}
+
+package Libraries{
+    class UserManagementService
+    class AuthorizationService
+    class LoggerFactory
+    class AuthzRegistry
+}
+
+AddUserUI --.> AddUserController
+AddUserController --.> UserManagementService
+AddUserController --.> AuthorizationService
+AddUserController -.-> LoggerFactory
+AddUserController -.-> AuthzRegistry
+
+@enduml

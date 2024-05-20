@@ -1,0 +1,156 @@
+@startuml
+
+left to right direction
+
+
+package ui {
+        class UpdateJobOpeningUI {
+          #doShow() : boolean
+        }
+    }
+
+package jobOpening {
+
+
+    package application {
+        class UpdateJobOpeningController {
+            -allJobs() : Iterable<JobOpeningDto>
+            +showClients(): void
+            +chooseClient(int clientUserIndex) : JobOpening
+            -allClients() : Iterable<JobOpening>
+            +showJobOpenings(): void
+            +chooseJobOpening(int jobOpeningIndex, ClientUser clientUser) : JobOpeningDto
+            -getLoggedInUser() : ContractType
+            +showInterviewModels() : File[]
+            +interviewModel(JobOpeningDto jobOpening, String interviewModel) : JobOpeningDto
+            +showRequirements() : File[]
+            +requirements(JobOpeningDto jobOpening, String requirements) : JobOpeningDto
+        }
+
+        class JobOpeningService{
+            +registerJobOpening(CreateJobOpeningDto dto): JobOpeningDto
+            +allJobs() : List<JobOpeningDto>
+            +allJobsIterable() : Iterable<JobOpening>
+            +findByReference(final String jobReference) : Optional<JobOpening>
+            +updateInterviewModel(JobOpeningDto jobOpeningDto, String interviewModel) : JobOpeningDto
+            +updateRequirements(JobOpeningDto jobOpeningDto, String requirements) : JobOpeningDto
+
+        }
+    }
+
+    package repository {
+        interface JobOpeningRepository {
+            findAll() : Iterable<JobOpening>
+            findByReference(JobReference reference) : Optional<JobOpening>
+        }
+    }
+
+    package domain {
+        class JobOpening {}
+
+        class Title {}
+
+        class Description{}
+
+        class Address{}
+
+        enum ContractType {}
+
+        class JobReference {}
+
+        enum Mode {}
+
+        class PhaseDate {}
+
+        class Requirements{}
+
+        class Vacancies{}
+
+        class InterviewModel{}
+
+        class ClientID{}
+
+        class JobOpeningBuilder {
+            +title(Title title): JobOpeningBuilder
+            +description(Description description): JobOpeningBuilder
+            +address(Address address): JobOpeningBuilder
+            +contractType(ContractType contractType): JobOpeningBuilder
+            +jobReference(JobReference jobReference): JobOpeningBuilder
+            +mode(Mode mode): JobOpeningBuilder
+            +phaseDate(PhaseDate phaseDate): JobOpeningBuilder
+            +requirements(Requirements requirements): JobOpeningBuilder
+            +vacancies(Vacancies vacancies): JobOpeningBuilder
+            +interviewModel(InterviewModel interviewModel): JobOpeningBuilder
+            +clientID(ClientID clientID): JobOpeningBuilder
+            +build(): JobOpening
+        }
+    }
+
+    package dto {
+        class CreateJobOpeningDto {
+            +title: String
+            +description: String
+            +address: String
+            +contractType: String
+            +jobReference: String
+            +mode: String
+            +phaseDate: String
+            +requirements: String
+            +vacancies: String
+            +interviewModel: String
+            +clientID: String
+        }
+
+        class JobOpeningDto {
+            +title: String
+            +description: String
+            +address: String
+            +contractType: String
+            +jobReference: String
+            +mode: String
+            +phaseDate: String
+            +requirements: String
+            +vacancies: String
+            +interviewModel: String
+            +clientID: String
+        }
+
+        class JobOpeningMapper {
+            +toDto(JobOpening domain) : JobOpeningDto
+            +toDomain(CreateJobOpeningDto dto) : JobOpening
+            +toDomain(JobOpeningDto dto) : JobOpening
+        }
+    }
+
+
+}
+
+JobOpening --> Title
+JobOpening --> Description
+JobOpening --> Address
+JobOpening --> ContractType
+JobOpening --> JobReference
+JobOpening --> Mode
+JobOpening --> PhaseDate
+JobOpening --> Requirements
+JobOpening --> Vacancies
+JobOpening --> InterviewModel
+JobOpening --> ClientID
+
+JobOpeningBuilder --> JobOpening
+JobOpeningBuilder <-- JobOpeningMapper
+
+UpdateJobOpeningUI --> UpdateJobOpeningController
+UpdateJobOpeningController --> JobOpeningService
+JobOpeningService --> JobOpeningRepository
+JobOpeningRepository -> JobOpening
+
+JobOpeningDto <-- JobOpeningMapper
+CreateJobOpeningDto <-- JobOpeningMapper
+
+JobOpeningService --> JobOpeningMapper
+
+JobOpeningMapper --> JobOpening
+
+
+@enduml

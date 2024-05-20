@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package authz {
+    class ListUsersUI {
+    }
+}
+
+package Applicatioin {
+    class ListUsersController {
+        +allBackOfficeUsers(): List<User>
+    }
+}
+
+package Libraries{
+    class UserManagementService
+    class AuthorizationService
+    class LoggerFactory
+    class AuthzRegistry
+}
+
+ListUsersUI --.> ListUsersController
+ListUsersController --.> UserManagementService
+ListUsersController --.> AuthorizationService
+ListUsersController -.-> LoggerFactory
+ListUsersController -.-> AuthzRegistry
+
+
+@enduml
