@@ -1,0 +1,21 @@
+@startuml
+
+left to right direction
+title US2000b - Jobs4UUser Management Use Cases
+skinparam titleBorderRoundCorner 20
+skinparam titleBorderThickness 2
+skinparam arrowThickness 3
+
+'**********Manager Use cases*************
+:Operator: as ADM
+
+
+Usecase MU02 as "Enable a Candidate"
+Usecase MU03 as "Disable a Candidate"
+
+
+
+ADM -d- MU02
+ADM -d- MU03
+
+@enduml
