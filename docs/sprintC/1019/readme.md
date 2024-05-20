@@ -1,18 +1,16 @@
-# US 3004
-
-*This is an example template*
+# US 1019
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+This task involves developing a new feature to generate an ordered list of job candidates based on their interview points,
+as requested by the Customer Manager for the first time in this sprint. 
+The feature aims to assist the Customer Manager in analyzing and comparing candidates' performance efficiently, 
+helping to make informed selection decisions by providing a clear, ranked list based on interview grades.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
-
-*Example*
-
-**US G002** As {Ator} I Want...
+**US 1019**  As Customer Manager, I want to get an ordered list of candidates, using the job
+interview points (grades), to help me analyze the candidates.
 
 **Acceptance Criteria:**
 

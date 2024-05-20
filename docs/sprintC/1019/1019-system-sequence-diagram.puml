@@ -1,0 +1,50 @@
+@startuml
+'skinparam monochrome true
+'skinparam packageStyle rectangle
+'skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Rank Candidates for a Job Opening
+
+actor "Customer Manager" as Agent
+participant ":System" as System
+
+activate Agent
+
+Agent -> System : Request to rank candidates for a job opening
+activate System
+System --> Agent: Show list of applicable job openings
+deactivate
+
+Agent -> System : Select a job opening
+activate System
+System --> Agent : Show list of applications that are already ranked
+System --> Agent : Show list of applications that are not yet ranked
+System --> Agent : Requests user to select one
+deactivate
+
+Agent -> System : Select an application
+activate System
+
+alt User wants to re-rank an application
+System --> Agent : Requests new ranking
+deactivate
+Agent -> System : Provides new ranking
+activate System
+System -> System : Validates if ranking is valid
+System --> Agent  : Confirms new ranking
+
+
+else User wants to rank a new application
+
+System --> Agent : Requests ranking
+deactivate
+Agent -> System : Provides ranking
+activate System
+System -> System : Validates if ranking is valid
+System --> Agent  : Confirms new ranking
+deactivate
+end alt
+
+deactivate Agent
+
+@enduml
