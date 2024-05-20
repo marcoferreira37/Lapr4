@@ -1,36 +1,41 @@
-# US 3004
-
-*This is an example template*
+# US 1019
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+This task involves developing a new feature to generate an ordered list of job candidates based on their interview points,
+as requested by the Customer Manager for the first time in this sprint. 
+The feature aims to assist the Customer Manager in analyzing and comparing candidates' performance efficiently, 
+helping to make informed selection decisions by providing a clear, ranked list based on interview grades.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
-
-*Example*
-
-**US G002** As {Ator} I Want...
+**US 1019**  As Customer Manager, I want to get an ordered list of candidates, using the job
+interview points (grades), to help me analyze the candidates.
 
 **Acceptance Criteria:**
 
-- G002.1. The system should...Blá Blá Blá ...
-
-- G002.2. Blá Blá Blá ...
+- 1019.1: The system should allow the Customer Manager to input or upload a list of candidates along with their interview points.
+- 1019.2: The system should sort the candidates in descending order based on their interview points.
+- 1019.3: The sorted list should be displayed clearly, showing each candidate's name and their respective interview points.
+- 1019.4: The system should ensure data accuracy by validating the inputted interview points to be numerical and within a defined range (e.g., 0-100).
+- 1019.5: The system should be able to handle a large number of candidates efficiently, ensuring quick sorting and display.
 
 **Dependencies/References:**
 
-*Regarding this requirement we understand that it relates to...*
+- There is a dependency on the interview phase of the job opening, as the interview points are collected during this phase.
+
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+The Customer Manager requested a feature to generate an ordered list of candidates based on their interview points.
+
 
 ## 4. Design
 
 *In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
+
+
+
 
 ### 4.1. Realization
 

@@ -61,4 +61,14 @@ public class JpaJobOpeningRepository
                 .toList();
     }
 
+    @Override
+    public JobOpening findJobOpeningByFullReference(String jobReference) {
+        return createQuery("SELECT opening FROM JobOpening opening", JobOpening.class)
+                .getResultList()
+                .stream()
+                .filter(jobOpening -> jobOpening.getJobReference().fullReference().equals(jobReference))
+                .findFirst()
+                .orElse(null);
+    }
+
 }

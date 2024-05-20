@@ -30,6 +30,7 @@ import java.util.Optional;
 import eapli.base.candidate.CandidateManagementService;
 import eapli.base.customer.Customer;
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.company.CompanyName;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.CandidateRepository;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
@@ -63,4 +64,26 @@ public class ListCandidatesController{
     public Optional<SystemUser> find(final Username u) {
         return userSvc.userOfIdentity(u);
     }
+
+
+    public Iterable<Candidate> enabledCandidates() {
+        List<Candidate> enabledCandidates = new ArrayList<>();
+        for (Candidate user : allCandidates()) {
+            if (user.user().isActive()) {
+                enabledCandidates.add(user);
+            }
+        }
+        return enabledCandidates;
+    }
+
+    public Iterable<Candidate> disabledCandidates() {
+        List<Candidate> disabledCandidates = new ArrayList<>();
+        for (Candidate user : allCandidates()) {
+            if (!user.user().isActive()) {
+                disabledCandidates.add(user);
+            }
+        }
+        return disabledCandidates;
+    }
+
 }

@@ -46,4 +46,16 @@ public class InMemoryJobOpeningRepository
                 .toList();
     }
 
+    @Override
+    public JobOpening findJobOpeningByFullReference(String jobReference) {
+
+        for (JobOpening jobOpening : findAll()) {
+            if (jobOpening.getJobReference().fullReference().equals(jobReference)){
+                return jobOpening;
+            }
+        }
+        return null;
+
+    }
+
 }

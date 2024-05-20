@@ -1,0 +1,74 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+hide methods
+
+rectangle "Job Opening" #bbccaa {
+
+    class JobOpening<<Aggregate Root>><<Entity>>{}
+
+    class JobReference<<Identity>><<Value Object>>{}
+
+    class TitleOrFunction<<Value Object>>{}
+
+    enum ContractType<<Enumerated>><<Value Object>>{}
+
+    class Mode<<Enumerated>><<Value Object>>{}
+
+
+    class VacanciesNumber<<Value Object>>{}
+
+    class Description<<Value Object>>{}
+
+    ''Maybe go to Interview Model
+
+}
+
+rectangle "Job Opening Application" #aaccbb {
+
+    class Application<<Aggregate Root>><<Entity>>{}
+
+    class ApplicationId<<Identity>><<Value Object>>{}
+
+    class AttachedEmail<<Value Object>>{}
+
+    class AttachedFile<<Value Object>>{}
+
+    class ApplicatorData<<Value Object>>{}
+
+    class ApplicationStatus<<Value Object>>{}
+
+    class ApplicationGrade<<Value Object>>{}
+}
+
+
+rectangle candidate #aabbcc{
+    class Candidate<<Aggregate Root>><<Entity>>{}
+    class CandidateId<<Identity>><<Value Object>>{}
+    class CurriculumVitae<<Value Object>>{}
+}
+
+
+JobReference "1" <-up- "1" JobOpening
+TitleOrFunction "1" <-up- "1" JobOpening
+ContractType "1" <-- "1" JobOpening
+Mode "1" <-- "1" JobOpening
+Description "1" <-up- "1" JobOpening
+VacanciesNumber "1" <-up- "1" JobOpening
+
+Candidate "1"--> "1" CandidateId
+Candidate "1"--> "1" CurriculumVitae
+
+
+Application "1" --> "1" ApplicationId
+Application "1" --> "1" AttachedEmail
+Application "1" --> "1" AttachedFile
+Application "1" --> "1" ApplicatorData
+Application "*" -----> "1" JobOpening : submitted for
+Application "1" -> "1" Candidate : submitted by
+Application "1" --> "1" ApplicationStatus
+Application "1" --> "1" ApplicationGrade
+
+
+
+@enduml

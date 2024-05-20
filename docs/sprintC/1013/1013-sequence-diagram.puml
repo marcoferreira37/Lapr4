@@ -1,24 +1,18 @@
 @startuml
 
 actor "Customer Manager" as Agent
-participant ":RankApplicationUI" as ui
-participant ":RankApplicationController" as ctrl
-participant ":JobOpeningService" as jobServ
-participant ":JobOpeningRepository" as jobRepo
-participant ":ApplicationService" as appServ
-participant ":ApplicationRepository" as appRepo
-participant "rank:Ranking" as rank
-participant "opening:JobOpening" as op
-participant "app:Application" as app
-
-
+participant ":RankApplicationUI" as ui <<UI>>
+participant ":RankApplicationController" as ctrl <<Application>>
+participant ":JobOpeningService" as jobServ <<Service>>
+database ":JobOpeningRepository" as jobRepo <<Persistence>>
+participant ":ApplicationService" as appServ <<Service>>
+database ":ApplicationRepository" as appRepo <<Persistence>>
+participant "rank:Ranking" as rank <<Domain>>
+participant "app:Application" as app <<Domain>>
+participant "PhasesService" as PhasesService <<Service>>
+database  "PhasesRepository" as PhasesRepository <<Persistence>>
 
 autonumber
-
-note right of Agent
-  Assume manager is authenticated
-  in the application
-end note
 
 activate Agent
 
@@ -40,20 +34,50 @@ ui --> Agent: Show list of applicable job openings
 deactivate
 Agent -> ui : Select a job opening
 activate ui
-ui -> ctrl: listApplicationsForOpening(opening)
+
+ui -> ctrl : checkPhase(jobOpening)
+
 activate ctrl
+
+
+ctrl -> PhasesService : checkPhaseAnalysis(jobOpening)
+
+
+
+activate PhasesService
+
+PhasesService -> PhasesRepository : checkPhaseAnalysis(jobOpening)
+
+activate PhasesRepository
+
+PhasesRepository --> PhasesService : phase
+
+deactivate
+
+PhasesService --> ctrl : phase
+
+deactivate
+
+ctrl --> ui : phase
+ui -> ctrl: listApplicationsForOpening(opening)
 ctrl -> appServ: allApplicationsForOpening(opening)
+
+
+
+
 activate appServ
 appServ -> appRepo: findAllByJobOpening(opening)
 activate appRepo
+appRepo -> appRepo : filterRankedApplications(applications)
+appRepo -> appRepo : filterRankedApplications(applications)
+
 appRepo --> appServ: applications
 deactivate
 appServ --> ctrl: applications
 deactivate
 ctrl --> ui: applications
 deactivate
-ui -> ui : filterRankedApplications(applications)
-ui -> ui : filterRankedApplications(applications)
+
 ui --> Agent : Show list of applications that are already ranked
 ui --> Agent : Show list of applications that are not yet ranked
 ui --> Agent : Requests user to select one
