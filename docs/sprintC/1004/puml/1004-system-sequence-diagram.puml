@@ -5,7 +5,7 @@ Participant "System" as S
 
 activate U
 
-U -> S: chooses to edit a job opening
+U -> S: selects option to edit a job opening
 activate S
 S -> U : list all Job References and asks user to choose a job opening
 U -> S : chooses a job opening

@@ -1,0 +1,127 @@
+@startuml
+Actor "Customer Manager" as User
+participant ":UpdateJobOpeningUI" as UI <<UI>>
+participant ":UpdateJobOpeningController" as Controller <<Application>>
+participant ":AuthorizationService" as Auth <<Service>>
+participant ":JobOpeningService" as JobOpeningService <<Service>>
+database "JobOpeningRepository" as jobrepo <<Repository>>
+participant ":JobOpening" as JobOpening <<Domain>>
+database ":CompanyRepository" as companyrepo <<Repository>>
+
+
+activate User
+
+User -> UI: selects option to edit a Job Opening
+activate UI
+UI -> Controller: allJobs()
+activate Controller
+Controller -> Auth: ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN, BaseRoles.POWER_USER)
+activate Auth
+deactivate Auth
+Controller -> JobOpeningService: allJobs()
+activate JobOpeningService
+JobOpeningService -> jobrepo: findAll()
+activate jobrepo
+jobrepo --> JobOpeningService: Iterable<JobOpening>
+deactivate jobrepo
+JobOpeningService --> Controller: List<JobOpening> jobOpenings
+deactivate JobOpeningService
+Controller --> UI: List<JobOpening> jobOpenings
+deactivate Controller
+UI --> User: Display list of Job Openings with an index
+deactivate UI
+User -> UI: selects a Job Opening to edit
+activate UI
+
+UI -> UI : editJobOpening(jobOpening)
+activate UI
+UI -> User : isToUpdate("Description")
+alt isToUpdate("Description") == true
+User --> UI : enters new description
+UI -> JobOpening: setDescription(newDescription)
+activate JobOpening
+deactivate JobOpening
+end
+UI -> User: isToUpdate("Address")
+alt isToUpdate("Address") == true
+User --> UI : enters new address
+UI -> JobOpening: setAddress(newAddress)
+activate JobOpening
+deactivate JobOpening
+end
+UI -> User: isToUpdate("Mode")
+alt isToUpdate("Mode") == true
+User --> UI : selects new mode
+UI -> JobOpening: setMode(newMode)
+activate JobOpening
+deactivate JobOpening
+end
+
+UI -> User: isToUpdate("Contract Type")
+alt isToUpdate("Contract Type") == true
+User --> UI : selects new contract type
+UI -> JobOpening: setContractType(newContractType)
+activate JobOpening
+deactivate JobOpening
+end
+UI -> User: isToUpdate("Job Title")
+alt isToUpdate("Job Title") == true
+User --> UI : enters new job title
+UI -> JobOpening: setJobTitle(newJobTitle)
+activate JobOpening
+deactivate JobOpening
+end
+UI -> User: isToUpdate("Vacancies Number")
+alt isToUpdate("Vacancies Number") == true
+User --> UI : enters new vacancies number
+UI -> JobOpening: setVacanciesNumber(newVacanciesNumber)
+activate JobOpening
+deactivate JobOpening
+end
+UI -> User: isToUpdate("Company Name")
+alt isToUpdate("Company Name") == true
+UI -> UI: selectCompany()
+activate UI
+UI -> Controller: allCompanies()
+activate Controller
+Controller -> JobOpeningService: allCompanies()
+activate JobOpeningService
+JobOpeningService -> companyrepo: findAll()
+activate companyrepo
+companyrepo --> JobOpeningService: Iterable<Company>
+deactivate companyrepo
+JobOpeningService --> Controller: List<Company> companies
+deactivate JobOpeningService
+Controller --> UI: List<Company> companies
+deactivate Controller
+UI --> User: Display list of Companies with an index
+deactivate UI
+User -> UI: selects a Company
+
+UI -> JobOpening: setCompany(company)
+activate JobOpening
+deactivate JobOpening
+
+end
+deactivate UI
+UI -> Controller: editJobOpening(jobOpening)
+activate Controller
+Controller -> JobOpeningService: editJobOpening(jobOpening)
+activate JobOpeningService
+JobOpeningService -> jobrepo: save(jobOpening)
+activate jobrepo
+jobrepo --> JobOpeningService: JobOpening
+deactivate jobrepo
+JobOpeningService --> Controller: JobOpening
+deactivate JobOpeningService
+Controller --> UI: JobOpening
+deactivate Controller
+UI --> User: displays new updated JobOpening and success message
+deactivate UI
+
+
+
+
+
+
+@enduml
