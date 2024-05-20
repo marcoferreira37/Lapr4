@@ -15,4 +15,5 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
 
     List<JobOpening> listJobOpenings(Predicate<JobOpening> filter);
 
+   JobOpening findJobOpeningByFullReference(String jobReference);
 }
