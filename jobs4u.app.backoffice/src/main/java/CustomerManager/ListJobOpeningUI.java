@@ -84,7 +84,7 @@ public class ListJobOpeningUI extends AbstractUI {
 
             return true;
         }
-        return this.doShow();  // Wants to exit
+        return false;  // Wants to exit
     }
 
     @Override

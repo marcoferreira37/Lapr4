@@ -50,7 +50,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Embedded
     private VacanciesNumber vacanciesNumber;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "COMPANY")
     private Company company;
 
@@ -128,19 +128,27 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     @Override
     public String toString() {
-        return "\n-----------------------------------------------------" +
+        String result = "\n-----------------------------------------------------" +
                 "\n////// Job Opening //////" +
                 "\n" +
-                "\nJob Reference = " + jobReference +
+                "\nJob Reference = " + jobReference.fullReference() +
                 "\nDescription = " + description +
                 "\nAddress = " + address +
                 "\nMode = " + mode +
                 "\nContractType = " + contractType +
-                "\nTitle Or Function = " + titleOrFunction +
-                "\nVacancies Number = " + vacanciesNumber +
-                "\nPhase Dates = " + phaseDates +
-                "\nCompany = " + company;
+                "\nTitle Or Function = " + titleOrFunction.titleOrFunction() +
+                "\nVacancies Number = " + vacanciesNumber.getNumber() +
+                "\nCompany Name: " + company.getCompanyName().toString();
+                if (creationDate != null) {
+                    result += "\nCreation Date = " + creationDate.getTime();
+                }
+                if (phaseDates != null) {
+                   result += "\nPhase Dates = " + phaseDates ;
+                }
 
+
+
+                return result;
     }
 }
 

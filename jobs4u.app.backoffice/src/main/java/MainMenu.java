@@ -101,7 +101,10 @@ public class MainMenu extends AbstractUI {
             final Menu usersMenu = buildUsersMenu();
             mainMenu.addSubMenu(USERS_OPTION, usersMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
+            final Menu customerManagerMenu = buildCustomerManagerMenu();
+            mainMenu.addSubMenu(3, customerManagerMenu);
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+
         }
         if(authz.isAuthenticatedUserAuthorizedTo(BaseRoles.OPERATOR)){
             final Menu operatorMenu = buildOperatorMenu();
@@ -125,7 +128,8 @@ public class MainMenu extends AbstractUI {
         return mainMenu;
     }
 
-    private Menu buildOperatorMenu() {
+    private Menu buildOperatorMenu()
+    {
         final Menu menu = new Menu("Operator:");
 
         menu.addItem(1, "Regist a candidate", new AddCandidateUI():: show);
@@ -137,7 +141,7 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
     private Menu buildCustomerManagerMenu() {
-        final Menu menu = new Menu("Customer Manager:");
+        final Menu menu = new Menu("Customer Manager >>:");
 
         menu.addItem(1, "Register a customer", new AddCustomerUI()::show);
         menu.addItem(2, "List all customers", new ListCustomerManagerActions());
