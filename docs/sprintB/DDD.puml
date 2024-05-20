@@ -214,7 +214,7 @@ JobOpening "*" --> "1" "Interview Model"
 Candidate -right-> "1" CurriculumVitae
 
 Application "1" -up-> "1" JobInterview
-Application "1" -up-> "1" ApplicationGrade
+Application "1" -up-> "0..1" ApplicationGrade
 
 
 @enduml
