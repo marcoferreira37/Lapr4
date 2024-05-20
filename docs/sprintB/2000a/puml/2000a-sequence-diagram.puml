@@ -24,9 +24,9 @@ CTRL -> AS : authorizationService()
 activate AS
 AS --> CTRL: authz
 deactivate AS
-CTRL-> UMS : userService()
+CTRL-> UMS : candidateSvc()
 activate UMS
-UMS-->CTRL: userSvc
+UMS-->CTRL: candidateSvc
 deactivate UMS
 deactivate CTRL
 UI --> Operator: Request the username, password, \nfirstName, lastName, email, roleTypes
@@ -35,15 +35,15 @@ Operator -> UI: Types in the data (username, password, \nfirstName, lastName, em
 activate UI
 UI-->UI : saves the data
 UI-> UI : .add(ROLE.CANDIDATE)
-UI-> CTRL: addCandidate(this.theController.addUser(username, password, \nfirstName, lastName, email, roleTypes))
+UI-> CTRL: addCandidate(username, password, \nfirstName, lastName, email, roleTypes)
 activate CTRL
-CTRL-->CTRL: addUser(username,password, \nfirstName,lastName, email, roles, createdOn)
+CTRL-->CTRL: addCandidate(username,password, \nfirstName,lastName, email, roles)
 CTRL->AS : ensureAuthenticatedUserHasAnyOf()
 activate AS
 deactivate AS
-CTRL-> UMS : registerNewUser(username, password, \nfirstName, lastName, email, roles, createdOn)
+CTRL-> UMS : registerNewCandidate(newUser, emailAddress, telephoneNumber)
 activate UMS
-UMS->SUB: .with(username, rawPassword, \nfirstName, lastName, email).createdOn(createdOn).withRoles(roles)
+UMS->SUB: .with(user, emailAddress, telephoneNumber)
 activate SUB
 UMS-> SUB: .build()
 SUB--> UMS: user
@@ -54,7 +54,7 @@ deactivate URepo
 UMS-->CTRL: user
 deactivate UMS
 CTRL-->CTRL: saves the user
-CTRL-> C: Candidate (user, curriculum)
+CTRL-> C: Candidate (user)
 activate C
 C--> CTRL: candidate
 deactivate C

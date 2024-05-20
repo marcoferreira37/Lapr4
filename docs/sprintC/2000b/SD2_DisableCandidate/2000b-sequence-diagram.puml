@@ -1,0 +1,32 @@
+@startuml
+
+title Disable Candidate - Sequence Diagram
+
+autonumber
+actor Operator as ADM
+participant "DisableCandidateUI" as UI <<ui>>
+participant ":DisableCandidateController" as CTRL <<application>>
+participant ":ListCandidatesUI" as LUI <<ui>>
+participant "Candidate" as User <<domain>>
+participant "CandidateRepository" as REPO <<repository>>
+
+activate ADM
+ADM-> UI : Request to disable a candidate
+activate UI
+UI -> CTRL : create(userRepo)
+UI -> LUI: listEnabledUsers()
+activate LUI
+LUI --> ADM : displays the \nlist of users
+deactivate LUI
+ADM -> UI : selects a user
+UI -> CTRL : disableUser(user)
+activate CTRL
+CTRL -> User : disable()
+CTRL -> REPO : save(user)
+CTRL --> UI : returns success
+deactivate CTRL
+UI --> ADM : displays success
+deactivate UI
+
+
+@enduml
