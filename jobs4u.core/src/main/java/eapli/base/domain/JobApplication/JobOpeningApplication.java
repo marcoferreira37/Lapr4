@@ -16,7 +16,7 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "APPLICATIONID")
-    private Long id;
+    private long id;
 
     @ManyToOne
     @JoinColumns({

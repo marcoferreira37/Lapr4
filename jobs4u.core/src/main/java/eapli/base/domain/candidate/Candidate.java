@@ -60,4 +60,5 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     }
 
 
+
 }

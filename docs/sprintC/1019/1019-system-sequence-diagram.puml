@@ -1,0 +1,28 @@
+@startuml
+'skinparam monochrome true
+'skinparam packageStyle rectangle
+'skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Get an ordered list of candidates
+
+actor "Customer Manager" as Agent
+participant ":System" as System
+
+activate Agent
+
+Agent -> System : Request to see an ordered list of candidates, using the job interview points (grades)
+
+activate System
+
+System --> Agent: Show list of job openings
+deactivate
+
+Agent -> System : Select a job opening
+
+activate System
+
+System --> Agent : Show list of candidates related to the selected job opening with their grades
+deactivate
+
+
+@enduml

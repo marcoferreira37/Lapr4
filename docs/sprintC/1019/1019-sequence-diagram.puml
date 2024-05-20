@@ -1,0 +1,57 @@
+@startuml
+
+actor "Customer Manager" as Agent
+participant ":OrderedCandidatesUI" as ui
+participant ":OrderedCandidatesController" as ctrl
+participant ":JobOpeningService" as jobServ
+participant ":JobOpeningRepository" as jobRepo
+participant ":JobOpeningApplicationRepository" as candRepo
+
+autonumber
+
+note right of Agent
+  Assume manager is authenticated
+  in the application
+end note
+
+activate Agent
+
+Agent -> ui: Request to see an ordered list of candidates, using the job interview points (grades)
+
+activate ui
+ui -> ctrl: listJobOpenings()
+activate ctrl
+ctrl -> jobServ: getJobOpenings()
+activate jobServ
+jobServ -> jobRepo: getJobOpenings()
+activate jobRepo
+jobRepo --> jobServ: openings
+deactivate
+jobServ --> ctrl: openings
+deactivate
+ctrl --> ui: openings
+deactivate
+ui --> Agent: Show list of job openings
+deactivate
+Agent -> ui : Select a job opening
+activate ui
+ui -> ctrl: listCandidatesForOpening(opening)
+activate ctrl
+ctrl -> candRepo: allCandidatesForOpening(opening)
+
+activate candRepo
+
+candRepo -> candRepo : filterGradesOfCandidates(candidates)
+candRepo --> ctrl: candidates
+deactivate
+ctrl --> ui: candidates
+
+deactivate
+
+ui --> Agent : Show list of candidates related to the selected job opening with their grades
+
+deactivate
+
+
+
+@enduml

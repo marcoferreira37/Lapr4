@@ -14,7 +14,6 @@ public class AddCompanyController {
         CompanyBuilder builder = new CompanyBuilder();
         builder.withCompanyName(new CompanyName(comapnyName));
         Company c = builder.build();
-        repository.save(c);
-        return c;
+        return repository.save(c);
     }
 }

@@ -5,7 +5,6 @@ import eapli.base.app.common.console.ui.components.ColorCode;
 import eapli.base.domain.JobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.usermanagement.application.ListAllApplicationsForJobOpeningController;
-import eapli.base.usermanagement.application.ListPrinter;
 
 import java.util.List;
 
@@ -23,8 +22,7 @@ public class ListAllApplicationsForJobOpeningUI extends AbstractUI {
             System.out.println("There are no applications for this job opening.");
             return false;
         }
-        ListPrinter<JobOpeningApplication> lp = new ListPrinter<>("Applications for job opening " + jobOpening.identity().fullReference(), applications);
-        lp.printNumeratedList();
+        printApplications(applications);
         return false;
     }
     public void printNumeratedList(String message, List<JobOpening> collection) {
@@ -36,6 +34,16 @@ public class ListAllApplicationsForJobOpeningUI extends AbstractUI {
             index++;
         }
         System.out.println();
+    }
+
+    public void printApplications(List<JobOpeningApplication> applications){
+        for (JobOpeningApplication application : applications) {
+            System.out.println("///////////Application///////////");
+            System.out.println("Application ID: " + application.identity());
+            System.out.println("Candidate: " + application.candidate().identity());
+            System.out.println("Job Opening Reference: " + application.jobOpening().identity().fullReference());
+            System.out.println("/////////////////////////////////");
+        }
     }
 
 

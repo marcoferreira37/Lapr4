@@ -8,14 +8,13 @@ import lombok.Getter;
 @Getter
 public class Company implements AggregateRoot<Long> {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(unique = true)
+    @Column
     private CompanyName companyName;
 
     public Company(CompanyName companyName) {
         this.companyName = companyName;
-        this.id++;
     }
 
     protected Company() {
@@ -36,10 +35,10 @@ public class Company implements AggregateRoot<Long> {
     }
 
     public String toString() {
-        return "Company{" +
-                "id=" + id +
-                ", companyName=" + companyName.companyName() +
-                '}';
+        return    "================= Company =================" +
+                "\nCompany Id: " + id +
+                "\nCompany Name:" + companyName.companyName() +
+                "\n============================================";
     }
 
 }

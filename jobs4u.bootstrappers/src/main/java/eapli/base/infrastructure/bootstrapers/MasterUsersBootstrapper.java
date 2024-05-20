@@ -51,12 +51,9 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerCustomerManager("customerManager", TestDataConstants.PASSWORD1, "Francisco", "Silveira", "franciscosilveira@gmail.com");
 
-        Company fiscos = registerCompany("FISQUINHO LDA");
-
         Candidate candida = registerCandidate("candida", TestDataConstants.PASSWORD1, "Candida", "Candidata", EmailAddress.valueOf("candida@primaDaCunhada.pt"));
 
-        //ISTO CRIA UMA JOBREFERENCE NOVA E UMA COMPANY NOVA NÃO JAVARDAR MUITO CUIDADO PARA NÃO HAVER REPETIDOS!!!!!!
-        JobOpening jo = registerJobOpening("bailarino","casa do ah",Mode.ONSITE,ContractType.FULL_TIME,"baila baila",1,fiscos);
+        JobOpening jo = registerJobOpening("bailarino","casa do ah",Mode.ONSITE,ContractType.FULL_TIME,"baila baila",1,1);
         JobOpeningApplication application = registerApplication(jo, candida);
 
         System.out.println(candida);
@@ -105,16 +102,9 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         candidateRepository.save(c);
         return c;
     }
-
-    private Company registerCompany(final String name){
-        AddCompanyController controller = new AddCompanyController();
-        Company c = controller.addCompany(name);
-        return c;
-    }
-
-    private JobOpening registerJobOpening( String description, String address, Mode mode,ContractType contractType, String title,int vacancies ,Company c){
+    private JobOpening registerJobOpening( String description, String address, Mode mode,ContractType contractType, String title,int vacancies ,int c){
         AddJobOpeningController controller = new AddJobOpeningController();
-       return controller.addJobopening(description,address,mode,contractType,title,vacancies, Math.toIntExact( c.identity() ));
+       return controller.addJobopening(description,address,mode,contractType,title,vacancies, c);
     }
 
     private JobOpeningApplication registerApplication(JobOpening jo, Candidate c) {

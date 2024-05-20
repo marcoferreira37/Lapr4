@@ -1,32 +1,36 @@
-# US 3004
-
-*This is an example template*
+# US 1013 - Rank Candidates for Job Opening
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+This task is being assigned as part of the ongoing development efforts to automate the main activities of the company. 
+The goal is to provide the Customer Manager with the ability to rank all the applicants/candidates for a certain job 
+opening to assist in assigning the vacant position according to merits. 
+This task is not related to fixing a bug but rather adding a new feature to the system.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
-
-*Example*
-
-**US G002** As {Ator} I Want...
+**US 1013** As Customer Manager, I want to rank the candidates for a job opening.
 
 **Acceptance Criteria:**
 
-- G002.1. The system should...Blá Blá Blá ...
-
-- G002.2. Blá Blá Blá ...
+- G1013.1. The system should allow the manager to rank candidates
+- G1013.2. The system should persist the rankings of the candidates
+- G1013.3. The system should allow the manager to change the ranking of the candidates
+- G1013.4. The system should allow the manager to view the rankings of the candidates
+- G1013.5. The system should have validations to ensure that the data is valid
 
 **Dependencies/References:**
 
-*Regarding this requirement we understand that it relates to...*
+Regarding this feature, there is a necessity to have the interviews conducted during the interview phase of the job opening.
+Furthermore, it is necessary to view all the candidates that have applied for the job opening.
 
 ## 3. Analysis
 
 *In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+
+The Customer Manager requested a feature to rank the candidates for a job opening. 
+This feature will allow the manager to rank the candidates, persist the rankings, change the rankings, and view the rankings. 
+The system should have validations to ensure that the data is valid.
 
 ## 4. Design
 
@@ -36,11 +40,15 @@
 
 ### 4.2. Class Diagram
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
+![a class diagram](1013-class-diagram-0.svg "A Class Diagram")
 
 ### 4.3. Applied Patterns
 
+> N/A
+
 ### 4.4. Tests
+
+[//]: # (TODO Make this)
 
 Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
 

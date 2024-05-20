@@ -18,4 +18,9 @@ public class CompanyName implements ValueObject {
     public String companyName() {
         return companyName;
     }
+
+    @Override
+    public String toString() {
+        return companyName;
+    }
 }

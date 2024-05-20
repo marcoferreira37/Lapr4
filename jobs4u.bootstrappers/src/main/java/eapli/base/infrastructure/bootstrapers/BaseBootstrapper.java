@@ -61,7 +61,7 @@ public class BaseBootstrapper implements Action {
     @Override
     public boolean execute() {
         // declare bootstrap actions
-        final Action[] actions = { new MasterUsersBootstrapper(), new CustomerBootsrap()};
+        final Action[] actions = {new CompanyBootstrapper(), new MasterUsersBootstrapper(), new CustomerBootsrap()};
 
         registerPowerUser();
         authenticateForBootstrapping();

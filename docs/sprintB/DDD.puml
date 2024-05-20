@@ -8,6 +8,7 @@ hide methods
 rectangle candidate #aabbcc{
     class Candidate<<Aggregate Root>><<Entity>>{}
     class CandidateId<<Identity>><<Value Object>>{}
+    class CurriculumVitae<<Value Object>>{}
 }
 
 
@@ -25,6 +26,8 @@ rectangle "Shared Objects" {
     class Address <<Value Object>>
 
 }
+
+
 
 
 
@@ -63,6 +66,8 @@ rectangle "Job Opening Application" #aaccbb {
     class ApplicatorData<<Value Object>>{}
 
     class ApplicationStatus<<Value Object>>{}
+
+    class ApplicationGrade<<Value Object>>{}
 
 
 
@@ -206,9 +211,10 @@ JobOpening "*" --> "1" "Interview Model"
 'Criteria "1" -up-> "1" FilterByDescription
 
 
-
+Candidate -right-> "1" CurriculumVitae
 
 Application "1" -up-> "1" JobInterview
+Application "1" -up-> "1" ApplicationGrade
 
 
 @enduml
