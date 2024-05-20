@@ -2,6 +2,8 @@
 import CustomerManager.ListAllApplicationsForJobOpeningUI;
 import CustomerManager.ListJobOpeningUI;
 import authz.*;
+import authz.enable_disable_users.DisableCandidateUI;
+import authz.enable_disable_users.EnableCandidateUI;
 import authz.registerusers.AddUserAction;
 import clientuser.AcceptRefuseSignupRequestAction;
 import eapli.base.Application;
@@ -136,6 +138,8 @@ public class MainMenu extends AbstractUI {
         menu.addItem(2, "List all candidates", new ListCandidatesUI()::show);
         menu.addItem(3, "Export template for Requirements Specification", new GenerateTemplateUI()::show);
         menu.addItem(4, "Register a an application", new AddJobApplicationUI()::show);
+        menu.addItem(5, "Enable a candidate", new EnableCandidateUI()::show);
+        menu.addItem(6, "Disable a candidate", new DisableCandidateUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
