@@ -67,6 +67,8 @@ rectangle "Job Opening Application" #aaccbb {
 
     class ApplicationStatus<<Value Object>>{}
 
+    class ApplicationGrade<<Value Object>>{}
+
 
 
 
@@ -212,6 +214,7 @@ JobOpening "*" --> "1" "Interview Model"
 Candidate -right-> "1" CurriculumVitae
 
 Application "1" -up-> "1" JobInterview
+Application "1" -up-> "1" ApplicationGrade
 
 
 @enduml

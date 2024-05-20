@@ -46,14 +46,16 @@ ctrl -> appServ: allApplicationsForOpening(opening)
 activate appServ
 appServ -> appRepo: findAllByJobOpening(opening)
 activate appRepo
+appRepo -> appRepo : filterRankedApplications(applications)
+appRepo -> appRepo : filterRankedApplications(applications)
+
 appRepo --> appServ: applications
 deactivate
 appServ --> ctrl: applications
 deactivate
 ctrl --> ui: applications
 deactivate
-ui -> ui : filterRankedApplications(applications)
-ui -> ui : filterRankedApplications(applications)
+
 ui --> Agent : Show list of applications that are already ranked
 ui --> Agent : Show list of applications that are not yet ranked
 ui --> Agent : Requests user to select one

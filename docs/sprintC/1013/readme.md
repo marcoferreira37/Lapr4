@@ -3,13 +3,11 @@
 ## 1. Context
 
 This task is being assigned as part of the ongoing development efforts to automate the main activities of the company. 
-The goal is to provide the Customer Manager with the ability to rank all the applicants/candidates for a certain job opening to assist in assigning the vacant position according to merits. 
+The goal is to provide the Customer Manager with the ability to rank all the applicants/candidates for a certain job 
+opening to assist in assigning the vacant position according to merits. 
 This task is not related to fixing a bug but rather adding a new feature to the system.
 
 ## 2. Requirements
-
-
-*Example*
 
 **US 1013** As Customer Manager, I want to rank the candidates for a job opening.
 
@@ -18,7 +16,8 @@ This task is not related to fixing a bug but rather adding a new feature to the 
 - G1013.1. The system should allow the manager to rank candidates
 - G1013.2. The system should persist the rankings of the candidates
 - G1013.3. The system should allow the manager to change the ranking of the candidates
-
+- G1013.4. The system should allow the manager to view the rankings of the candidates
+- G1013.5. The system should have validations to ensure that the data is valid
 
 **Dependencies/References:**
 
@@ -28,6 +27,10 @@ Furthermore, it is necessary to view all the candidates that have applied for th
 ## 3. Analysis
 
 *In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+
+The Customer Manager requested a feature to rank the candidates for a job opening. 
+This feature will allow the manager to rank the candidates, persist the rankings, change the rankings, and view the rankings. 
+The system should have validations to ensure that the data is valid.
 
 ## 4. Design
 
