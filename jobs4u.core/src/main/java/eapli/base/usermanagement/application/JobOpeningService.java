@@ -11,14 +11,9 @@ import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class JobOpeningService {
@@ -74,7 +69,7 @@ public class JobOpeningService {
         return repository.save(jo);
     }
 
-    public Iterable<JobOpening> getJobOpenings(){
+    public Iterable<JobOpening> findJobOpenings(){
         return repository.findAll();
     }
 
@@ -82,4 +77,6 @@ public class JobOpeningService {
         Predicate<JobOpening> filter = strategy.filter(criteria);
         return repository.listJobOpenings(filter);
     }
+
+
 }

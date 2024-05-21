@@ -9,8 +9,6 @@ participant ":ApplicationService" as appServ <<Service>>
 database ":ApplicationRepository" as appRepo <<Persistence>>
 participant "rank:Ranking" as rank <<Domain>>
 participant "app:Application" as app <<Domain>>
-participant "PhasesService" as PhasesService <<Service>>
-database  "PhasesRepository" as PhasesRepository <<Persistence>>
 
 autonumber
 
@@ -35,31 +33,12 @@ deactivate
 Agent -> ui : Select a job opening
 activate ui
 
-ui -> ctrl : checkPhase(jobOpening)
+
+
+ui -> ctrl: listApplicationsForOpening(opening)
 
 activate ctrl
 
-
-ctrl -> PhasesService : checkPhaseAnalysis(jobOpening)
-
-
-
-activate PhasesService
-
-PhasesService -> PhasesRepository : checkPhaseAnalysis(jobOpening)
-
-activate PhasesRepository
-
-PhasesRepository --> PhasesService : phase
-
-deactivate
-
-PhasesService --> ctrl : phase
-
-deactivate
-
-ctrl --> ui : phase
-ui -> ctrl: listApplicationsForOpening(opening)
 ctrl -> appServ: allApplicationsForOpening(opening)
 
 
@@ -70,11 +49,12 @@ appServ -> appRepo: findAllByJobOpening(opening)
 activate appRepo
 appRepo -> appRepo : filterRankedApplications(applications)
 appRepo -> appRepo : filterRankedApplications(applications)
-
 appRepo --> appServ: applications
 deactivate
+
 appServ --> ctrl: applications
 deactivate
+
 ctrl --> ui: applications
 deactivate
 
@@ -97,8 +77,8 @@ appServ -> appRepo : isValidRankingFor(opening, ranking)
 activate appRepo
 appRepo --> appServ : true
 deactivate
-appServ --> rank** : «creates»
-appServ --> app : updateRanking(ranking)
+appServ -> rank** : «creates»
+appServ -> app : updateRanking(ranking)
 activate app
 deactivate
 
@@ -125,8 +105,8 @@ appServ -> appRepo : isValidRankingFor(opening, ranking)
 activate appRepo
 appRepo --> appServ : true
 deactivate
-appServ --> rank** : «creates»
-appServ --> app : updateRanking(ranking)
+appServ -> rank** : «creates»
+appServ -> app : updateRanking(ranking)
 activate app
 deactivate
 
@@ -139,8 +119,9 @@ deactivate
 ctrl --> ui : app
 deactivate
 ui --> Agent  : Confirms ranking
-end alt
 deactivate ui
+
+end alt
 deactivate Agent
 
 

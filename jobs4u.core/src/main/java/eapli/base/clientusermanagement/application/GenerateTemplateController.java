@@ -8,6 +8,6 @@ public class GenerateTemplateController {
     JobOpeningService jobOpeningService = new JobOpeningService();
 
     public Iterable<JobOpening> getJobOpenings(){
-        return jobOpeningService.getJobOpenings();
+        return jobOpeningService.findJobOpenings();
     }
 }
