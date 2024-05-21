@@ -21,6 +21,8 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
 
     @ManyToOne
     @JoinColumns({
+            @JoinColumn(name = "JOBREFERENCE_COMPANYINDEX", referencedColumnName = "companyIndex"),
+            @JoinColumn(name = "JOBREFERENCE_ID", referencedColumnName = "iD"),
             @JoinColumn(name = "JOBREFERENCE_FULLREFERENCE", referencedColumnName = "fullReference"),
     })
     public JobOpening jobOpening;
