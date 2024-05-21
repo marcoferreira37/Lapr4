@@ -49,6 +49,25 @@ rectangle candidate #aabbcc{
 }
 
 
+
+rectangle "Job Opening Process" #ccbbcc{
+    class JobOpeningProcess<<Aggregate Root>><<Entity>>{}
+    class JobOpeningProcessId<<Identity>><<Value Object>>{}
+    class JobOpeningProcessStatus<<Value Object>>{}
+    class JobOpeningProcessStage<<Value Object>>{}
+    class Phase<<Entity>>{
+        }
+    enum PhaseType<<Enumerated>><<Value Object>>{
+        APPLICATION
+        SCREENING
+        INTERVIEWS
+        ANALYSIS
+        RESULT
+    }
+}
+
+
+
 JobReference "1" <-up- "1" JobOpening
 TitleOrFunction "1" <-up- "1" JobOpening
 ContractType "1" <-- "1" JobOpening
@@ -69,6 +88,11 @@ Application "1" -> "1" Candidate : submitted by
 Application "1" --> "1" ApplicationStatus
 Application "1" --> "1" ApplicationGrade
 
-
+JobOpeningProcess "1" -left-> "1" JobOpeningProcessId
+JobOpening "1" -----> "*" JobOpeningProcess : has
+Phase "1" --> "1" JobOpeningProcessStatus
+Phase "1" --> "1" JobOpeningProcessStage
+JobOpeningProcess "1" --> "1" Phase
+Phase "1" --> "1" PhaseType
 
 @enduml

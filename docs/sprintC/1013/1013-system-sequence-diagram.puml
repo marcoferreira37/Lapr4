@@ -17,33 +17,21 @@ deactivate
 
 Agent -> System : Select a job opening
 activate System
-System --> Agent : Show list of applications that are already ranked
-System --> Agent : Show list of applications that are not yet ranked
+System --> Agent : Show list of applications for the selected job opening
 System --> Agent : Requests user to select one
-deactivate
 
-Agent -> System : Select an application
-activate System
 
-alt User wants to re-rank an application
+
+loop while ranking all applications
+
 System --> Agent : Requests new ranking
 deactivate
 Agent -> System : Provides new ranking
 activate System
-System -> System : Validates if ranking is valid
 System --> Agent  : Confirms new ranking
+deactivate System
 
-
-else User wants to rank a new application
-
-System --> Agent : Requests ranking
-deactivate
-Agent -> System : Provides ranking
-activate System
-System -> System : Validates if ranking is valid
-System --> Agent  : Confirms new ranking
-deactivate
-end alt
+end loop
 
 deactivate Agent
 
