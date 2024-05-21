@@ -6,6 +6,7 @@ import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 
+
 import java.util.Calendar;
 
 @Entity
@@ -20,8 +21,6 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "JOBREFERENCE_COMPANYINDEX", referencedColumnName = "companyIndex"),
-            @JoinColumn(name = "JOBREFERENCE_ID", referencedColumnName = "iD"),
             @JoinColumn(name = "JOBREFERENCE_FULLREFERENCE", referencedColumnName = "fullReference"),
     })
     public JobOpening jobOpening;
@@ -42,10 +41,6 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
 
     @Column(name = "JOBREFERENCE", insertable = false, updatable = false)
     private String jobReference;
-
-    @Column(name = "APPLICATION_ID")  // Renomeado para evitar duplicação
-    private int applicationId;
-
     public JobOpeningApplication() {
         // Construtor vazio necessário para JPA
     }
@@ -55,13 +50,12 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
         this.candidate = c;
     }
 
-
     @Override
     public boolean sameAs(Object other) {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         JobOpeningApplication that = (JobOpeningApplication) other;
-        return applicationId == that.applicationId;
+        return id == ((JobOpeningApplication) other).id;
     }
 
     @Override
@@ -79,10 +73,10 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
 
     @Override
     public String toString() {
-        return "JobOpeningApplication{" +
-                "  Id =" + id +
-                ", Candidate :" + candidate +
-                ", Job Reference :" + jobOpening.getJobReference().fullReference() +
+        return "JobOpeningApplication - {" +
+                "\n Id =" + id +
+                "\n Candidate Email:" + candidate.identity() +
+                "\n Job Reference :" + jobOpening.getJobReference().fullReference() +
                 '}';
     }
 }
