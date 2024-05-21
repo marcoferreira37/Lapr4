@@ -48,9 +48,31 @@ public class RankApplicationUI extends AbstractUI {
         System.out.println("Candidate: " + application.candidate().identity());
         System.out.println("Job Opening Reference: " + application.jobOpening().identity().fullReference());
         System.out.println();
-        int rank = Console.readInteger("Rank the application: ");
-        theController.rankApplication(application, rank);
+
+        // Ask for a new rank until it's unique among all applications for the job opening
+        int newRank;
+        boolean isUnique;
+        do {
+            newRank = Console.readInteger("Rank the application: ");
+            isUnique = isRankUnique(newRank, controllerApplication.allApplicationsForJobOpening(application.jobOpening()));
+            if (!isUnique) {
+                System.out.println("Error: The rank must be unique among all applications for this job opening. Please enter a different rank.");
+            }
+        } while (!isUnique);
+
+        // Update the rank in the database with the new rank
+        theController.rankApplication(application, newRank);
     }
+
+    private boolean isRankUnique(int rank, List<JobOpeningApplication> allApplications) {
+        for (JobOpeningApplication app : allApplications) {
+            if (app.showRanking() == rank) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     private void printNumeratedList(String message, List<JobOpening> openingList) {
         System.out.printf("%s\n\n", message);
