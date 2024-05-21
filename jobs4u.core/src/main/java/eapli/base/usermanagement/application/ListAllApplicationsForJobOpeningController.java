@@ -18,12 +18,12 @@ public class ListAllApplicationsForJobOpeningController {
     }
 
 
-    public Iterable<JobOpening> AllJobOpenings() {
+    public Iterable<JobOpening> allJobOpenings() {
         final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpeningRepository();
         return jobOpeningRepository.findAll();
     }
 
-    public List<JobOpeningApplication> AllApplicationsForJobOpening(JobOpening jobOpening) {
+    public List<JobOpeningApplication> allApplicationsForJobOpening(JobOpening jobOpening) {
         return(List<JobOpeningApplication>) PersistenceContext.repositories().jobApplications().findAllApplicationsForJobOpening(jobOpening);
     }
 }

@@ -13,11 +13,11 @@ public class ListAllApplicationsForJobOpeningUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        List<JobOpening> openingList = (List<JobOpening>) controller.AllJobOpenings();
+        List<JobOpening> openingList = (List<JobOpening>) controller.allJobOpenings();
         printNumeratedList("Choose a job opening", openingList);
         int option = Integer.parseInt(eapli.base.app.common.console.ui.components.Console.readLine("Select a job opening: "));
         JobOpening jobOpening = openingList.get(option - 1);
-        List<JobOpeningApplication> applications = controller.AllApplicationsForJobOpening(jobOpening);
+        List<JobOpeningApplication> applications = controller.allApplicationsForJobOpening(jobOpening);
         if (applications.isEmpty()) {
             System.out.println("There are no applications for this job opening.");
             return false;
@@ -49,6 +49,6 @@ public class ListAllApplicationsForJobOpeningUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return "List All Applications For Job Opening";
+        return "List All Ranked Applications For Job Opening";
     }
 }

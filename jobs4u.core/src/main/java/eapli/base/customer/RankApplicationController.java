@@ -1,6 +1,8 @@
 package eapli.base.customer;
 
 import eapli.base.domain.jobOpening.JobOpening;
+import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.repositories.JobOpeningRepository;
 import eapli.base.usermanagement.application.JobOpeningService;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -14,9 +16,7 @@ public class RankApplicationController {
 
     private AuthorizationService autzService = AuthzRegistry.authorizationService();
 
-
-    public List<JobOpening> allRankableOpenings() {
-        autzService.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
-        return (List<JobOpening>) service.findJobOpenings();
+    public Iterable<JobOpening> allJobOpenings() {
+        return service.allJobs();
     }
 }

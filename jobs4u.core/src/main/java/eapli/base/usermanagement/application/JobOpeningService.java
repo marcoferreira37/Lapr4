@@ -55,13 +55,12 @@ public class JobOpeningService {
     }
 
     public List<JobOpening> allJobs() {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER,
-                BaseRoles.ADMIN);
         List<JobOpening> listToReturn = new ArrayList<>();
 
-        for(JobOpening job : repository.findAll()){
+        for (JobOpening job : repository.findAll()) {
             listToReturn.add(job);
         }
+
         return listToReturn;
     }
 
@@ -69,7 +68,7 @@ public class JobOpeningService {
         return repository.save(jo);
     }
 
-    public Iterable<JobOpening> findJobOpenings(){
+    public Iterable<JobOpening> findJobOpenings() {
         return repository.findAll();
     }
 
@@ -78,8 +77,15 @@ public class JobOpeningService {
         return repository.listJobOpenings(filter);
     }
 
-    public List<JobOpening> findAllByAnalysisPhase(){
+    public List<JobOpening> findAllByAnalysisPhase() {
+        List<JobOpening> listToReturn = (List<JobOpening>) repository.findAll();
+        List<JobOpening> listToReturnFiltered = new ArrayList<>();
 
-
+        for (JobOpening job : listToReturn) {
+            //if (job.currentPhase == ANALYSIS) {
+            listToReturnFiltered.add(job);
+            //}
+        }
+        return listToReturnFiltered;
     }
 }

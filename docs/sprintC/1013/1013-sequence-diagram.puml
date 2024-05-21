@@ -18,7 +18,7 @@ Agent -> ui: Request to rank candidates for a job opening
 activate ui
 ui -> ctrl: listAllJobOpenings()
 activate ctrl
-ctrl -> jobServ: allRankableOpenings()
+ctrl -> jobServ: allJobs()
 activate jobServ
 jobServ -> jobRepo: findAllByAnalysisPhase()
 activate jobRepo
