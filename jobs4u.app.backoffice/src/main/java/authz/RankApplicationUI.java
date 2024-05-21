@@ -2,11 +2,14 @@ package authz;
 
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.ColorCode;
+import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.customer.RankApplicationController;
 import eapli.base.domain.JobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.usermanagement.application.ListAllApplicationsForJobOpeningController;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class RankApplicationUI extends AbstractUI {
@@ -31,10 +34,22 @@ public class RankApplicationUI extends AbstractUI {
             System.out.println("There are no applications for this job opening.");
             return false;
         }
-        printApplications(applications);
+        for (JobOpeningApplication application : applications) {
+            rankApplication(application);
+        }
+        printApplications(getSortedApplicationsByRank(applications));
 
 
         return false;
+    }
+
+    private void rankApplication(JobOpeningApplication application) {
+        System.out.println("Application ID: " + application.identity());
+        System.out.println("Candidate: " + application.candidate().identity());
+        System.out.println("Job Opening Reference: " + application.jobOpening().identity().fullReference());
+        System.out.println();
+        int rank = Console.readInteger("Rank the application: ");
+        theController.rankApplication(application, rank);
     }
 
     private void printNumeratedList(String message, List<JobOpening> openingList) {
@@ -57,12 +72,19 @@ public class RankApplicationUI extends AbstractUI {
     public void printApplications(List<JobOpeningApplication> applications) {
         for (JobOpeningApplication application : applications) {
             System.out.println("///////////Application///////////");
+            System.out.println();
             System.out.println("Application ID: " + application.identity());
             System.out.println("Candidate: " + application.candidate().identity());
             System.out.println("Job Opening Reference: " + application.jobOpening().identity().fullReference());
+            System.out.println("Rank: " + application.showRank());
+            System.out.println();
             System.out.println("/////////////////////////////////");
         }
     }
 
-
+    // New method to get applications sorted by rank
+    private List<JobOpeningApplication> getSortedApplicationsByRank(List<JobOpeningApplication> applications) {
+        applications.sort((a1, a2) -> Integer.compare(a2.showRanking(), a1.showRanking())); // Descending order
+        return applications;
+    }
 }

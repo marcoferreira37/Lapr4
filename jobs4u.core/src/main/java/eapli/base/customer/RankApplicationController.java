@@ -1,5 +1,6 @@
 package eapli.base.customer;
 
+import eapli.base.domain.JobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobOpeningRepository;
@@ -14,9 +15,15 @@ public class RankApplicationController {
 
     private JobOpeningService service = new JobOpeningService();
 
+    private ApplicationService applicationService = new ApplicationService();
+
     private AuthorizationService autzService = AuthzRegistry.authorizationService();
 
     public Iterable<JobOpening> allJobOpenings() {
         return service.allJobs();
+    }
+
+    public void rankApplication(JobOpeningApplication application, int rank) {
+        applicationService.rankApplication(application, rank);
     }
 }
