@@ -1,28 +1,15 @@
 package eapli.base.customer;
 
 import eapli.base.domain.JobApplication.JobOpeningApplication;
-import eapli.base.domain.jobOpening.JobOpening;
-import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.repositories.JobOpeningRepository;
-import eapli.base.usermanagement.application.JobOpeningService;
-import eapli.base.usermanagement.domain.BaseRoles;
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-
-import java.util.List;
-
 public class RankApplicationController {
 
-    private JobOpeningService service = new JobOpeningService();
+    private final ApplicationService applicationService = new ApplicationService();
 
-    private ApplicationService applicationService = new ApplicationService();
-
-    private AuthorizationService autzService = AuthzRegistry.authorizationService();
-
-    public Iterable<JobOpening> allJobOpenings() {
-        return service.allJobs();
-    }
-
+    /**
+     * Rank an application for a job opening
+     * @param application the application to rank
+     * @param rank the rank to assign to the application
+     */
     public void rankApplication(JobOpeningApplication application, int rank) {
         applicationService.rankApplication(application, rank);
     }

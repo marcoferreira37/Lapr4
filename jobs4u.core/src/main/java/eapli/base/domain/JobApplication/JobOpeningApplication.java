@@ -88,14 +88,27 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
                '}';
     }
 
-    public void rankApplication( int rank) {
+    /**
+     * Rank an application for a job opening
+     *
+     * @param rank the rank to assign to the application
+     */
+    public void rankApplication(int rank) {
         this.rank = rank;
     }
 
+    /**
+     * Show the rank of the application as a string
+     * @return the rank of the application
+     */
     public String showRank() {
         return String.valueOf(rank);
     }
 
+    /**
+     * Show the rank of the application as an integer
+     * @return the rank of the application
+     */
     public int showRanking() {
         return rank;
     }
