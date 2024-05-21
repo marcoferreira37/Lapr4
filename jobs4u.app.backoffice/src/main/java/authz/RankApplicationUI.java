@@ -21,7 +21,7 @@ public class RankApplicationUI extends AbstractUI {
         return "Rank Application";
     }
 
-    public List<JobOpening> listApplicableOpenings() {
+    public List<JobOpening> listAllJobOpenings() {
         return theController.allRankableOpenings();
     }
 }

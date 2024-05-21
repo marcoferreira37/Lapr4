@@ -78,5 +78,8 @@ public class JobOpeningService {
         return repository.listJobOpenings(filter);
     }
 
+    public List<JobOpening> findAllByAnalysisPhase(){
 
+
+    }
 }

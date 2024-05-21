@@ -16,7 +16,7 @@ activate Agent
 
 Agent -> ui: Request to rank candidates for a job opening
 activate ui
-ui -> ctrl: listApplicableOpenings()
+ui -> ctrl: listAllJobOpenings()
 activate ctrl
 ctrl -> jobServ: allRankableOpenings()
 activate jobServ
@@ -48,30 +48,27 @@ activate appServ
 appServ -> appRepo: findAllByJobOpening(opening)
 activate appRepo
 appRepo -> appRepo : filterRankedApplications(applications)
-appRepo -> appRepo : filterRankedApplications(applications)
-appRepo --> appServ: applications
+appRepo --> appServ: applicationsFiltered
 deactivate
 
-appServ --> ctrl: applications
+appServ --> ctrl: applicationsFiltered
 deactivate
 
-ctrl --> ui: applications
+ctrl --> ui: applicationsFiltered
 deactivate
 
-ui --> Agent : Show list of applications that are already ranked
-ui --> Agent : Show list of applications that are not yet ranked
-ui --> Agent : Requests user to select one
-deactivate
-Agent -> ui : Select an application
-activate ui
+ui --> Agent : Show list of applications for the selected job opening
 alt User wants to re-rank an application
+loop while ranking all applications
+
 ui --> Agent : Requests new ranking
-deactivate
+
 Agent -> ui : Provides new ranking
-activate ui
 ui -> ctrl : rankApplication(app, ranking)
+
 activate ctrl
 ctrl -> appServ : rankApplication(app, ranking)
+
 activate appServ
 appServ -> appRepo : isValidRankingFor(opening, ranking)
 activate appRepo
@@ -92,36 +89,9 @@ ctrl --> ui : app
 deactivate
 ui --> Agent  : Confirms new ranking
 
-else User wants to rank a new application
-ui --> Agent : Requests ranking
-deactivate
-Agent -> ui : Provides ranking
-activate ui
-ui -> ctrl : rankApplication(app, ranking)
-activate ctrl
-ctrl -> appServ : rankApplication(app, ranking)
-activate appServ
-appServ -> appRepo : isValidRankingFor(opening, ranking)
-activate appRepo
-appRepo --> appServ : true
-deactivate
-appServ -> rank** : «creates»
-appServ -> app : updateRanking(ranking)
-activate app
-deactivate
 
-appServ -> appRepo : save(app)
-activate appRepo
-appRepo --> appServ : app
-deactivate
-appServ --> ctrl : app
-deactivate
-ctrl --> ui : app
-deactivate
-ui --> Agent  : Confirms ranking
-deactivate ui
+end loop
 
-end alt
 deactivate Agent
 
 
