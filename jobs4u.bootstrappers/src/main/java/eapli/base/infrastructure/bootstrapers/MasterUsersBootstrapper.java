@@ -52,13 +52,40 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerCustomerManager("customerManager", TestDataConstants.PASSWORD1, "Francisco", "Silveira", "franciscosilveira@gmail.com");
 
         Candidate candida = registerCandidate("candida", TestDataConstants.PASSWORD1, "Candida", "Candidata", EmailAddress.valueOf("candida@primaDaCunhada.pt"));
+        Candidate candida2 = registerCandidate("fatima", TestDataConstants.PASSWORD1, "Fatima", "Couves", EmailAddress.valueOf("fatimaBadGirl@hotmail.com"));
+        Candidate candida3 = registerCandidate("maria", TestDataConstants.PASSWORD1, "Maria", "Pereira", EmailAddress.valueOf("vozinha@gmail.com"));
+        Candidate candida4 = registerCandidate("fisco", TestDataConstants.PASSWORD1, "Fisco", "Fiasco", EmailAddress.valueOf("fiascos@somosnos.com"));
 
         JobOpening jo = registerJobOpening("bailarino","casa do ah",Mode.ONSITE,ContractType.FULL_TIME,"baila baila",1,1);
+        JobOpening jo2 = registerJobOpening("monstro","o grande lago de penafiel",Mode.ONSITE,ContractType.FULL_TIME,"ARRRGHHHHHH",1,1);
+        JobOpening jo3 = registerJobOpening("Programador com capacidades de completar o projeto de lapr4","ISEP",Mode.ONSITE,ContractType.FULL_TIME,"Programador",1,1);
+
+
+
         JobOpeningApplication application = registerApplication(jo, candida);
+        JobOpeningApplication application2 = registerApplication(jo, candida2);
+        JobOpeningApplication application3 = registerApplication(jo, candida3);
+        JobOpeningApplication application4 = registerApplication(jo, candida4);
+
+        JobOpeningApplication application5 = registerApplication(jo2, candida);
+        JobOpeningApplication application6 = registerApplication(jo3, candida);
+        JobOpeningApplication application7 = registerApplication(jo3, candida2);
+        JobOpeningApplication application8 = registerApplication(jo3, candida3);
+
 
         System.out.println(candida);
+        System.out.println(candida2);
+        System.out.println(candida3);
+        System.out.println(candida4);
+
         System.out.println(jo);
+        System.out.println(jo2);
+        System.out.println(jo3);
+
         System.out.println(application);
+        System.out.println(application2);
+        System.out.println(application3);
+        System.out.println(application4);
 
         return true;
     }
