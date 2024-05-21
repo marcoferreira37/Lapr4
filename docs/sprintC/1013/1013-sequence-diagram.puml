@@ -47,14 +47,13 @@ ctrl -> appServ: allApplicationsForOpening(opening)
 activate appServ
 appServ -> appRepo: findAllByJobOpening(opening)
 activate appRepo
-appRepo -> appRepo : filterRankedApplications(applications)
-appRepo --> appServ: applicationsFiltered
+appRepo --> appServ: applications
 deactivate
 
-appServ --> ctrl: applicationsFiltered
+appServ --> ctrl: applications
 deactivate
 
-ctrl --> ui: applicationsFiltered
+ctrl --> ui: applications
 deactivate
 
 ui --> Agent : Show list of applications for the selected job opening

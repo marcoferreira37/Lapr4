@@ -2,7 +2,7 @@
 import CustomerManager.ListAllApplicationsForJobOpeningUI;
 import CustomerManager.ListJobOpeningUI;
 import authz.*;
-import authz.enable_disable_users.DisableCandidateUI;
+//import authz.enable_disable_users.DisableCandidateUI;
 import authz.enable_disable_users.EnableCandidateUI;
 import authz.registerusers.AddUserAction;
 import clientuser.AcceptRefuseSignupRequestAction;
@@ -139,7 +139,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(3, "Export template for Requirements Specification", new GenerateTemplateUI()::show);
         menu.addItem(4, "Register a an application", new AddJobApplicationUI()::show);
         menu.addItem(5, "Enable a candidate", new EnableCandidateUI()::show);
-        menu.addItem(6, "Disable a candidate", new DisableCandidateUI()::show);
+       // menu.addItem(6, "Disable a candidate", new DisableCandidateUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
@@ -155,7 +155,8 @@ public class MainMenu extends AbstractUI {
         menu.addItem(6,"List All Applications for a Job Opening", new ListAllApplicationsForJobOpeningUI()::show);
         menu.addItem(7, "List Job Openings", new ListJobOpeningUI()::show);
         menu.addItem(8, "Update a Job Opening", new UpdateJobOpeningUI()::show);
-        menu.addItem(9, RETURN_LABEL, Actions.SUCCESS);
+        menu.addItem(9, "Rank application of a Job Opening", new RankApplicationUI()::show);
+        menu.addItem(10, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 

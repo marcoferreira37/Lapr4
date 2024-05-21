@@ -21,9 +21,9 @@ public class RankApplicationUI extends AbstractUI {
 
 
         System.out.println("=====================================================");
-        System.out.println("List of Job Openings");
+        System.out.println("|| List of Job Openings ||");
         List<JobOpening> openingList = (List<JobOpening>) controllerApplication.allJobOpenings();
-        printNumeratedList("Choose a job opening", openingList);
+        printNumeratedList("\nChoose a job opening: ", openingList);
         int option = Integer.parseInt(eapli.base.app.common.console.ui.components.Console.readLine("Select a job opening: "));
         JobOpening jobOpening = openingList.get(option - 1);
         List<JobOpeningApplication> applications = controllerApplication.allApplicationsForJobOpening(jobOpening);
@@ -54,7 +54,7 @@ public class RankApplicationUI extends AbstractUI {
         return "Rank Application";
     }
 
-    public void printApplications(List<JobOpeningApplication> applications){
+    public void printApplications(List<JobOpeningApplication> applications) {
         for (JobOpeningApplication application : applications) {
             System.out.println("///////////Application///////////");
             System.out.println("Application ID: " + application.identity());

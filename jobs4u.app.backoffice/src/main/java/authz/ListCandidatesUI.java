@@ -44,7 +44,7 @@ public class ListCandidatesUI extends AbstractUI {
     private void printCandidates(List<Candidate> candidate) {
         int index = 1;
         for (Candidate c : candidate){
-            System.out.println(index + " - " + c.emailAddress());
+           // System.out.println(index + " - " + c.emailAddress());
             index++;
         }
     }

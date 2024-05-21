@@ -32,15 +32,15 @@ public class EnableCandidateController {
      * @throws IllegalArgumentException if the user is not found
      */
 
-    @Transactional
-    public void enableCandidate(String email) {
-        for (Candidate candidate : candidateRepository.findAll()){
-            if (candidate.emailAddress().toString().equals(email)) {
-                candidate.user().activate(); //atenção aqui, pode não dar enable ao candidato mas sim ao system user, ver depois
-                candidateRepository.save(candidate);
-                return;
-            }
-        }
-        throw new IllegalArgumentException("Candidate not found.");
-    }
+//    @Transactional
+//    public void enableCandidate(String email) {
+//        for (Candidate candidate : candidateRepository.findAll()){
+//            if (candidate.emailAddress().toString().equals(email)) {
+//                candidate.user().activate(); //atenção aqui, pode não dar enable ao candidato mas sim ao system user, ver depois
+//                candidateRepository.save(candidate);
+//                return;
+//            }
+//        }
+//        throw new IllegalArgumentException("Candidate not found.");
+//    }
 }
