@@ -6,6 +6,8 @@ import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
+import lombok.Getter;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table  (name = "CANDIDATE")
@@ -17,14 +19,17 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     private EmailAddress emailAddress;
     private TelephoneNumber telephoneNumber;
 
+@Transient
+    private String curriculum;
 
-    public Candidate(final SystemUser systemUser, final EmailAddress emailAddress, final TelephoneNumber telephoneNumber){
+    public Candidate(final SystemUser systemUser, final EmailAddress emailAddress, final TelephoneNumber telephoneNumber, final String curriculum){
         Preconditions.nonNull(systemUser, "systemUser cannot be null");
         Preconditions.nonNull(telephoneNumber, "telephoneNumber cannot be null");
 
         this.systemUser = systemUser;
         this.emailAddress = emailAddress;
         this.telephoneNumber = telephoneNumber;
+        this.curriculum=curriculum;
     }
 
     protected Candidate() {
@@ -45,20 +50,15 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     public boolean sameAs(final Object other) {
         return DomainEntities.areEqual(this, other);
     }
-
-
     @Override
     public EmailAddress identity() {
         return this.emailAddress;
     }
-    @Override
-    public String toString() {
-        return "Candidate:" +
-                "\nFull Name=" + user().name() +
-                "\nEmail Address=" + emailAddress +
-                "\nTelephone Number=" + telephoneNumber.telephoneNumber() + "\n";
+    public EmailAddress emailAddress() {
+        return emailAddress;
     }
 
-
-
+    public String curriculum() {
+        return curriculum;
+    }
 }

@@ -17,9 +17,9 @@ public class CandidateManagementService {
     private final CandidateRepository candidateRepository = PersistenceContext.repositories().candidateRepository();
 
     @Transactional
-    public Candidate registerNewCandidate(final SystemUser newUser, final EmailAddress emailAddress, final TelephoneNumber telephoneNumber) {
+    public Candidate registerNewCandidate(final SystemUser newUser, final EmailAddress emailAddress, final TelephoneNumber telephoneNumber, final String curriculum) {
         SystemCandidateBuilder builder = new SystemCandidateBuilder();
-        builder.withUser(newUser).withEmail(emailAddress).withTelephoneNumber(telephoneNumber);
+        builder.withUser(newUser).withEmail(emailAddress).withTelephoneNumber(telephoneNumber).withCurriculum(curriculum);
         Candidate newCandidate = builder.build();
 
         return this.candidateRepository.save(newCandidate);

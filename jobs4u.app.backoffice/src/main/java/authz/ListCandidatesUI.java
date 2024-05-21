@@ -17,9 +17,11 @@ public class ListCandidatesUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         Iterable<Candidate> candidates = theController.allCandidates();
-
+        int ct=0;
         for (Candidate candidate: candidates) {
-            System.out.println(candidate.toString());
+            ct++;
+            System.out.print(ct + ": ");
+            System.out.println(candidate.identity());
         }
         System.out.println("\n");
         return true;
@@ -44,7 +46,7 @@ public class ListCandidatesUI extends AbstractUI {
     private void printCandidates(List<Candidate> candidate) {
         int index = 1;
         for (Candidate c : candidate){
-           // System.out.println(index + " - " + c.emailAddress());
+            System.out.println(index + " - " + c.emailAddress());
             index++;
         }
     }

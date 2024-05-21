@@ -124,7 +124,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         roles.add(BaseRoles.CANDIDATE);
 
         SystemUser u = registerUser(username, password, firstName, lastName, String.valueOf(email), roles);
-        Candidate c = new Candidate(u, email, new TelephoneNumber(910920930));
+        Candidate c = new Candidate(u, email, new TelephoneNumber(910920930),"curriculum");
         CandidateRepository candidateRepository = PersistenceContext.repositories().candidateRepository();
         candidateRepository.save(c);
         return c;
