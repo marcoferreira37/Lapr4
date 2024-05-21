@@ -30,7 +30,7 @@ public class AddCandidateController {
         role.add(BaseRoles.CANDIDATE);
         final SystemUser newUser = createSystemUser(firstname, lastname, email, role, createdOn);
 
-        return candidateSvc.registerNewCandidate(newUser, EmailAddress.valueOf(email), new TelephoneNumber(telephoneNumber));
+        return candidateSvc.registerNewCandidate(newUser, EmailAddress.valueOf(email), new TelephoneNumber(telephoneNumber), null);
     }
     private SystemUser createSystemUser(final String firstName, final String lastName, final String email, final Set<Role> roles, final Calendar createdOn) {
         Preconditions.nonNull(firstName);
