@@ -68,14 +68,18 @@ public class JobOpening implements AggregateRoot<JobReference> {
     String requirements;
 
     @Column(name = "Current Job Phase")
-    @Enumerated(value = EnumType.STRING )
+    @Enumerated(value = EnumType.STRING)
     PhaseType currentJobPhase;
 
     public JobOpening() {
 
     }
 
-    public JobOpening(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, Company company, Phase phaseDates, Calendar creationDate, String interviewModel, String requirements){
+    public JobOpening(JobReference jobReference) {
+        this.jobReference = jobReference;
+    }
+
+    public JobOpening(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, Company company, Phase phaseDates, Calendar creationDate, String interviewModel, String requirements) {
         this.jobReference = jobReference;
         this.description = description;
         this.address = address;
@@ -119,7 +123,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     public boolean hasNameOrReference(String nameOrReference) {
         return description.description().equals(nameOrReference)
-                || jobReference.toString().equals(nameOrReference);
+               || jobReference.toString().equals(nameOrReference);
     }
 
     public boolean hasReference(String value) {
@@ -131,36 +135,36 @@ public class JobOpening implements AggregateRoot<JobReference> {
     }
 
 
-    public void advanceToNextPhase(boolean interviewPhase){
+    public void advanceToNextPhase(boolean interviewPhase) {
         currentJobPhase = currentJobPhase.nextPhase(interviewPhase);
     }
 
     public void goBackToPreviousPhase(boolean interviewPhase) {
         currentJobPhase = currentJobPhase.previousPhase(interviewPhase);
     }
+
     @Override
     public String toString() {
         String result = "\n-----------------------------------------------------" +
-                "\n////// Job Opening //////" +
-                "\n" +
-                "\nJob Reference = " + jobReference.fullReference() +
-                "\nDescription = " + description +
-                "\nAddress = " + address +
-                "\nMode = " + mode +
-                "\nContractType = " + contractType +
-                "\nTitle Or Function = " + titleOrFunction.titleOrFunction() +
-                "\nVacancies Number = " + vacanciesNumber.getNumber() +
-                "\nCompany Name: " + company.getCompanyName().toString();
-                if (creationDate != null) {
-                    result += "\nCreation Date = " + creationDate.getTime();
-                }
-                if (phaseDates != null) {
-                   result += "\nPhase Dates = " + phaseDates ;
-                }
+                        "\n////// Job Opening //////" +
+                        "\n" +
+                        "\nJob Reference = " + jobReference.fullReference() +
+                        "\nDescription = " + description +
+                        "\nAddress = " + address +
+                        "\nMode = " + mode +
+                        "\nContractType = " + contractType +
+                        "\nTitle Or Function = " + titleOrFunction.titleOrFunction() +
+                        "\nVacancies Number = " + vacanciesNumber.getNumber() +
+                        "\nCompany Name: " + company.getCompanyName().toString();
+        if (creationDate != null) {
+            result += "\nCreation Date = " + creationDate.getTime();
+        }
+        if (phaseDates != null) {
+            result += "\nPhase Dates = " + phaseDates;
+        }
 
 
-
-                return result;
+        return result;
     }
 }
 

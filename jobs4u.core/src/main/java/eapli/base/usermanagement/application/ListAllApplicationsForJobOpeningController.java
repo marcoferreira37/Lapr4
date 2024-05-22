@@ -12,10 +12,10 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import java.util.List;
 
 public class ListAllApplicationsForJobOpeningController {
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    public ListAllApplicationsForJobOpeningController(){
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER, BaseRoles.POWER_USER);
-    }
+//    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+//    public ListAllApplicationsForJobOpeningController(){
+//        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER, BaseRoles.POWER_USER);
+//    }
 
 
     public Iterable<JobOpening> allJobOpenings() {

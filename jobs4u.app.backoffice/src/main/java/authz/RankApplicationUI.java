@@ -57,7 +57,8 @@ public class RankApplicationUI extends AbstractUI {
         int newRank;
         boolean isUnique;
         do {
-            newRank = readValidInteger();
+            String input = Console.readLine("Rank the application: ");
+            newRank = validInteger(input);
             isUnique = isRankUnique(newRank, controllerApplication.allApplicationsForJobOpening(application.jobOpening()));
             if (!isUnique) {
                 System.out.println("Error: The rank must be unique among all applications for this job opening. Please enter a different rank.");
@@ -90,7 +91,7 @@ public class RankApplicationUI extends AbstractUI {
      *
      * @param openingList the list of job openings
      */
-    private void printNumeratedList(List<JobOpening> openingList) {
+    public void printNumeratedList(List<JobOpening> openingList) {
         System.out.printf("%s\n\n", "\nChoose a job opening: ");
 
         int index = 1;
@@ -136,16 +137,24 @@ public class RankApplicationUI extends AbstractUI {
         return applications;
     }
 
-    private int readValidInteger() {
+    public int validInteger(String input) {
         int result;
-        while (true) {
-            try {
-                result = Integer.parseInt(Console.readLine("Rank the application: "));
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
+        try {
+            // Remove espaços em branco antes e depois da entrada
+            String trimmedInput = input.trim();
+
+            // Verifica se a entrada é vazia ou apenas contém "-"
+            if (trimmedInput.isEmpty() || trimmedInput.equals("-")) {
+                throw new NumberFormatException(); // Força uma exceção para indicar entrada inválida
             }
+            result = Integer.parseInt(trimmedInput);
+            if (result < 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            result = -1; // ou outro valor que indique uma entrada inválida
         }
         return result;
     }
 }
+
