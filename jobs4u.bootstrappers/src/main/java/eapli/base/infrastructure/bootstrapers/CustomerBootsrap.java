@@ -24,8 +24,8 @@ import java.util.Calendar;
 
 import eapli.base.customer.Customer;
 import eapli.base.domain.Password;
-import eapli.base.usermanagement.application.AddCustomerController;
-import eapli.base.usermanagement.application.ListCustomerController;
+import eapli.base.usermanagement.application.controllers.AddCustomerController;
+import eapli.base.usermanagement.application.controllers.ListCustomerController;
 import eapli.framework.actions.Action;
 import eapli.framework.general.domain.model.EmailAddress;
 import org.slf4j.Logger;

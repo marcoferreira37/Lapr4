@@ -1,4 +1,4 @@
-package eapli.base.usermanagement.application;
+package eapli.base.usermanagement.application.services;
 
 
 import eapli.base.customer.Criteria;
@@ -7,6 +7,7 @@ import eapli.base.domain.company.Company;
 import eapli.base.domain.jobOpening.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobOpeningRepository;
+import eapli.base.repositories.CompanyRepository;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 

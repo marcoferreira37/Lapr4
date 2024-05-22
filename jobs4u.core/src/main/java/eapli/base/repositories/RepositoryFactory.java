@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eapli.base.infrastructure.persistence;
+package eapli.base.repositories;
 
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
@@ -27,7 +27,7 @@ import eapli.base.customer.CustomerRepository;
 import eapli.base.repositories.CandidateRepository;
 import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.base.repositories.JobOpeningRepository;
-import eapli.base.usermanagement.application.CompanyRepository;
+import eapli.base.repositories.CompanyRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 

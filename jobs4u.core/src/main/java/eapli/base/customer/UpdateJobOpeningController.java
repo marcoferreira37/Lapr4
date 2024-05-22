@@ -3,7 +3,7 @@ package eapli.base.customer;
 import eapli.base.domain.jobOpeningProcess.PhaseType;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpening.Phase;
-import eapli.base.usermanagement.application.JobOpeningService;
+import eapli.base.usermanagement.application.services.JobOpeningService;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;

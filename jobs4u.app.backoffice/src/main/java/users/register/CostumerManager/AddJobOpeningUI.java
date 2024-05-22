@@ -6,7 +6,7 @@ import eapli.base.customer.AddJobOpeningController;
 import eapli.base.domain.jobOpening.ContractType;
 import eapli.base.domain.jobOpening.Mode;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.usermanagement.application.CompanyRepository;
+import eapli.base.repositories.CompanyRepository;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.util.List;

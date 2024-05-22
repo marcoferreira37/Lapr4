@@ -21,7 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.usermanagement.application;
+package eapli.base.usermanagement.application.controllers;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
@@ -29,26 +32,47 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 
 /**
  *
- * @author Fernando
+ * @author losa
  */
 @UseCaseController
-public class DeactivateUserController {
+public class ListUsersController{
+
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
 
-    public Iterable<SystemUser> activeUsers() {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+    public Iterable<SystemUser> allUsers() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
 
-        return userSvc.activeUsers();
+        return userSvc.allUsers();
     }
 
-    public SystemUser deactivateUser(final SystemUser user) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
-
-        return userSvc.deactivateUser(user);
+    public Optional<SystemUser> find(final Username u) {
+        return userSvc.userOfIdentity(u);
     }
+
+    public Iterable<SystemUser> enabledUsers() {
+        List<SystemUser> enabledUsers = new ArrayList<>();
+        for (SystemUser user : allUsers()) {
+            if (user.isActive()) {
+                enabledUsers.add(user);
+            }
+        }
+        return enabledUsers;
+    }
+
+    public Iterable<SystemUser> disabledUsers() {
+        List<SystemUser> disabledUsers = new ArrayList<>();
+        for (SystemUser user : allUsers()) {
+            if (!user.isActive()) {
+                disabledUsers.add(user);
+            }
+        }
+        return disabledUsers;
+    }
+
 }

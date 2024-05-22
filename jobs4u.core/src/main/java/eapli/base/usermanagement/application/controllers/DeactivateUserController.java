@@ -21,69 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.usermanagement.application;
+package eapli.base.usermanagement.application.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import eapli.base.candidate.CandidateManagementService;
-import eapli.base.customer.Customer;
-import eapli.base.domain.candidate.Candidate;
-import eapli.base.domain.company.CompanyName;
-import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.repositories.CandidateRepository;
-import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
-import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 
 /**
  *
- * @author losa
+ * @author Fernando
  */
 @UseCaseController
-public class ListCandidatesController{
+public class DeactivateUserController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
 
-    private final CandidateManagementService candidateSvc = new CandidateManagementService();
+    public Iterable<SystemUser> activeUsers() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
-    public Iterable<Candidate> allCandidates() {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.OPERATOR);
-
-        return candidateSvc.allCandidate();
+        return userSvc.activeUsers();
     }
 
-    public Optional<SystemUser> find(final Username u) {
-        return userSvc.userOfIdentity(u);
+    public SystemUser deactivateUser(final SystemUser user) {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+
+        return userSvc.deactivateUser(user);
     }
-
-
-    public Iterable<Candidate> enabledCandidates() {
-        List<Candidate> enabledCandidates = new ArrayList<>();
-        for (Candidate user : allCandidates()) {
-            if (user.user().isActive()) {
-                enabledCandidates.add(user);
-            }
-        }
-        return enabledCandidates;
-    }
-
-    public Iterable<Candidate> disabledCandidates() {
-        List<Candidate> disabledCandidates = new ArrayList<>();
-        for (Candidate user : allCandidates()) {
-            if (!user.user().isActive()) {
-                disabledCandidates.add(user);
-            }
-        }
-        return disabledCandidates;
-    }
-
 }

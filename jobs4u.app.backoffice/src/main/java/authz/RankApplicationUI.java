@@ -6,7 +6,7 @@ import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.customer.RankApplicationController;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
-import eapli.base.usermanagement.application.ListAllApplicationsForJobOpeningController;
+import eapli.base.usermanagement.application.controllers.ListAllApplicationsForJobOpeningController;
 
 import java.util.Comparator;
 import java.util.List;

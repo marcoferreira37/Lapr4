@@ -1,7 +1,7 @@
 package authz;
 
 
-import eapli.base.usermanagement.application.DeactivateUserController;
+import eapli.base.usermanagement.application.controllers.DeactivateUserController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;

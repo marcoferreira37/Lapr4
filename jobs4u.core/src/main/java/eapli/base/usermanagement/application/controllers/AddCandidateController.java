@@ -1,4 +1,4 @@
-package eapli.base.usermanagement.application;
+package eapli.base.usermanagement.application.controllers;
 
 import eapli.base.candidate.CandidateManagementService;
 import eapli.base.domain.candidate.Candidate;

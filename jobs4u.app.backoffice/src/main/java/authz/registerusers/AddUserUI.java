@@ -2,7 +2,7 @@ package authz.registerusers;
 
 
 import eapli.base.domain.Password;
-import eapli.base.usermanagement.application.AddUserController;
+import eapli.base.usermanagement.application.controllers.AddUserController;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;

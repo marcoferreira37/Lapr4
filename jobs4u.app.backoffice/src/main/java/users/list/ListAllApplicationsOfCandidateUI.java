@@ -5,7 +5,7 @@ import eapli.base.app.common.console.ui.components.ColorCode;
 import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.candidate.Candidate;
-import eapli.base.usermanagement.application.ListAllDataOfCandidateController;
+import eapli.base.usermanagement.application.controllers.ListAllDataOfCandidateController;
 
 import java.util.List;
 

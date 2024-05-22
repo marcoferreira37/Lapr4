@@ -1,6 +1,6 @@
 package authz;
 
-import eapli.base.usermanagement.application.AddCandidateController;
+import eapli.base.usermanagement.application.controllers.AddCandidateController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;

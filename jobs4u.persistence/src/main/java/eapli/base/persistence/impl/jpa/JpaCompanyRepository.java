@@ -3,12 +3,11 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
 import eapli.base.domain.company.Company;
-import eapli.base.usermanagement.application.CompanyRepository;
+import eapli.base.repositories.CompanyRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.util.Map;
-import java.util.Optional;
 
 class JpaCompanyRepository extends JpaAutoTxRepository<Company, Long, Long> implements CompanyRepository{
 

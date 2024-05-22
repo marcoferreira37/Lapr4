@@ -1,11 +1,12 @@
-package eapli.base.domain.jobApplication;
+package eapli.base.usermanagement.application.controllers;
 
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.base.repositories.JobOpeningRepository;
-import eapli.base.usermanagement.application.AddCandidateController;
+import eapli.base.usermanagement.application.controllers.AddCandidateController;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
 import java.io.BufferedReader;

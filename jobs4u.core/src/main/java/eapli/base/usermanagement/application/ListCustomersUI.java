@@ -4,6 +4,7 @@ package eapli.base.usermanagement.application;
 
 
 import eapli.base.customer.Customer;
+import eapli.base.usermanagement.application.controllers.ListCustomerController;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;
 

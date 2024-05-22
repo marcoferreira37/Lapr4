@@ -1,7 +1,7 @@
 package eapli.base.clientusermanagement.application;
 
 import eapli.base.domain.jobOpening.JobOpening;
-import eapli.base.usermanagement.application.JobOpeningService;
+import eapli.base.usermanagement.application.services.JobOpeningService;
 
 public class GenerateTemplateController {
 

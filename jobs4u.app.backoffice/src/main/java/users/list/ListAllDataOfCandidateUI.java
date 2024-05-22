@@ -4,11 +4,8 @@ package users.list;
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.ColorCode;
 import eapli.base.app.common.console.ui.components.Console;
-import eapli.base.app.common.console.ui.components.ListSelector;
 import eapli.base.domain.candidate.Candidate;
-import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.usermanagement.application.ListAllDataOfCandidateController;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.base.usermanagement.application.controllers.ListAllDataOfCandidateController;
 
 
 import java.util.List;

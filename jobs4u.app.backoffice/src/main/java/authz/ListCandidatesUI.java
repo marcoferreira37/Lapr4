@@ -3,7 +3,7 @@ package authz;
 
 import eapli.base.app.common.console.ui.components.Sleeper;
 import eapli.base.domain.candidate.Candidate;
-import eapli.base.usermanagement.application.ListCandidatesController;
+import eapli.base.usermanagement.application.controllers.ListCandidatesController;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.util.List;

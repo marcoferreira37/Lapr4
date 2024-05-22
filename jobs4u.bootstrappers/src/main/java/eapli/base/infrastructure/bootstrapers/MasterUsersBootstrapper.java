@@ -21,7 +21,7 @@
 package eapli.base.infrastructure.bootstrapers;
 
 import eapli.base.customer.AddJobOpeningController;
-import eapli.base.domain.jobApplication.AddJobApplicationController;
+import eapli.base.usermanagement.application.controllers.AddJobApplicationController;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.candidate.TelephoneNumber;
 import eapli.base.domain.jobApplication.JobOpeningApplication;

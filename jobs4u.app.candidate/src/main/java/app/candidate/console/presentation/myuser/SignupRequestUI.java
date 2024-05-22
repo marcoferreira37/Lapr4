@@ -23,7 +23,7 @@ package app.candidate.console.presentation.myuser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eapli.base.myclientuser.application.SignupController;
+import eapli.base.usermanagement.application.controllers.SignupController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;

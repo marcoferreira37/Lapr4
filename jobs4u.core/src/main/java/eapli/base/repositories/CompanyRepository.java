@@ -1,4 +1,4 @@
-package eapli.base.usermanagement.application;
+package eapli.base.repositories;
 
 import eapli.base.domain.company.Company;
 import eapli.framework.domain.repositories.DomainRepository;

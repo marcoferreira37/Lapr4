@@ -1,4 +1,4 @@
-package eapli.base.usermanagement.application;
+package eapli.base.usermanagement.application.controllers;
 
 import eapli.base.customer.Customer;
 import eapli.base.customer.CustomerManagementService;

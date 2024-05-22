@@ -27,7 +27,7 @@ import eapli.base.clientusermanagement.application.AcceptRefuseSignupFactory;
 import eapli.base.clientusermanagement.application.AcceptRefuseSignupRequestController;
 import eapli.base.domain.SignupRequest;
 import eapli.base.infrastructure.bootstrapers.TestDataConstants;
-import eapli.base.myclientuser.application.SignupController;
+import eapli.base.usermanagement.application.controllers.SignupController;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;

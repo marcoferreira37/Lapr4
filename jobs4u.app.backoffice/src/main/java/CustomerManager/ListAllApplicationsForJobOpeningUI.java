@@ -4,7 +4,7 @@ import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.ColorCode;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
-import eapli.base.usermanagement.application.ListAllApplicationsForJobOpeningController;
+import eapli.base.usermanagement.application.controllers.ListAllApplicationsForJobOpeningController;
 
 import java.util.List;
 

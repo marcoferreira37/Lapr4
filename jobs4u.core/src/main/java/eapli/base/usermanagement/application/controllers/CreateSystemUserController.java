@@ -1,4 +1,4 @@
-package eapli.base.usermanagement.application;
+package eapli.base.usermanagement.application.controllers;
 
 import eapli.base.domain.Jobs4URoles;
 import eapli.framework.application.UseCaseController;

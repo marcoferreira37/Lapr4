@@ -2,12 +2,11 @@ package authz.enable_disable_users;
 
 
 import authz.ListCustomersUI;
-import authz.listusers.ListUsersUI;
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.app.common.console.ui.components.Sleeper;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.usermanagement.application.DisableCustomerController;
+import eapli.base.usermanagement.application.controllers.DisableCustomerController;
 
 public class DisableCustomerUI extends AbstractUI {
 

@@ -2,9 +2,8 @@ package authz.listusers;
 
 
 import authz.SystemUserPrinter;
-import eapli.base.app.common.console.ui.components.ListPrinter;
 import eapli.base.app.common.console.ui.components.Sleeper;
-import eapli.base.usermanagement.application.ListUsersController;
+import eapli.base.usermanagement.application.controllers.ListUsersController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;

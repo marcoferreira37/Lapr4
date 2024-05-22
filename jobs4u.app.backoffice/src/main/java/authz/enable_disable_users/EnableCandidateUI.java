@@ -2,13 +2,11 @@ package authz.enable_disable_users;
 
 
 import authz.ListCandidatesUI;
-import authz.listusers.ListUsersUI;
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.app.common.console.ui.components.Sleeper;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.usermanagement.application.EnableCandidateController;
-import eapli.base.usermanagement.application.EnableUserController;
+import eapli.base.usermanagement.application.controllers.EnableCandidateController;
 
 public class EnableCandidateUI extends AbstractUI {
 

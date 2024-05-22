@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.myclientuser.application;
+package eapli.base.usermanagement.application.controllers;
 
 import java.util.Calendar;
 
