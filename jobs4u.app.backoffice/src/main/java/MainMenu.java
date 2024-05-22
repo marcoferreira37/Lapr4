@@ -108,13 +108,13 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
 
         }
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.OPERATOR)) {
+        if(authz.isAuthenticatedUserAuthorizedTo(BaseRoles.OPERATOR)){
             final Menu operatorMenu = buildOperatorMenu();
             mainMenu.addSubMenu(USERS_OPTION, operatorMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CUSTOMER_MANAGER)) {
+        if(authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CUSTOMER_MANAGER)){
             final Menu CustomerManagerMenu = buildCustomerManagerMenu();
             mainMenu.addSubMenu(USERS_OPTION, CustomerManagerMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
@@ -143,7 +143,6 @@ public class MainMenu extends AbstractUI {
 
         return menu;
     }
-
     private Menu buildCustomerManagerMenu() {
         final Menu menu = new Menu("Customer Manager >>:");
 
@@ -156,7 +155,8 @@ public class MainMenu extends AbstractUI {
         menu.addItem(7, "List Job Openings", new ListJobOpeningUI()::show);
         menu.addItem(8, "Update a Job Opening", new UpdateJobOpeningUI()::show);
         menu.addItem(9, "Rank Applications ", new RankApplicationUI()::show);
-        menu.addItem(10, RETURN_LABEL, Actions.SUCCESS);
+        menu.addItem(10,"Record the time and the date for an interview", new RecordInterviewUI()::show);
+        menu.addItem(11, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 
