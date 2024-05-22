@@ -76,7 +76,7 @@ public class RankApplicationUI extends AbstractUI {
      * @param allApplications all applications for the job opening
      * @return true if the rank is unique, false otherwise
      */
-    private boolean isRankUnique(int rank, List<JobOpeningApplication> allApplications) {
+    public boolean isRankUnique(int rank, List<JobOpeningApplication> allApplications) {
         for (JobOpeningApplication app : allApplications) {
             if (app.showRanking() == rank) {
                 return false;

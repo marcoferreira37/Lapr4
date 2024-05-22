@@ -32,7 +32,7 @@ public class Candidate implements AggregateRoot<EmailAddress> {
         this.curriculum=curriculum;
     }
 
-    protected Candidate() {
+    public Candidate() {
         // for ORM
     }
     public SystemUser user() {
