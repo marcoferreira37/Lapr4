@@ -1,0 +1,16 @@
+@startuml
+
+Actor "Customer Manager" as U
+Participant "System" as S
+
+activate U
+U -> S: Requests to update current phase of job opening
+activate S
+S -> U: Asks User if he wants to advance to the next phase or go back to the previous phase
+deactivate S
+U -> S: inputs option
+activate S
+S -> U: Shows job openings with updated phase
+deactivate S
+
+@enduml

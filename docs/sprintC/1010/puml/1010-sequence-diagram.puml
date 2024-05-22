@@ -1,0 +1,145 @@
+@startuml
+
+title US 1010 - Open or close a phase
+
+actor "CustomerManager" as CM
+participant ":UpdateJobOpeningUI" as UI <<UI>>
+participant ":UpdateJobOpeningController" as Controller <<Application>>
+participant ":AuthenticationService" as AuthzService <<Service>>
+participant ":JobOpeningService" as JOService <<Service>>
+database ":JobOpeningRepository" as JORepo <<Persistence>>
+participant ":JobOpening" as JobOpening <<Domain>>
+participant ":PhaseType" as PhaseType <<Domain>>
+
+
+
+activate CM
+CM -> UI : updateJobOpening()
+activate UI
+UI -> Controller : allJobs()
+activate Controller
+Controller -> AuthzService : ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN);
+activate AuthzService
+AuthzService --> Controller : true
+deactivate AuthzService
+Controller -> JOService : allJobs
+activate JOService
+JOService -> JORepo : findAll()
+activate JORepo
+JORepo --> JOService : Iterable<JobOpening>
+deactivate JORepo
+JOService --> Controller : List<JobOpening>
+deactivate JOService
+Controller --> UI : List<JobOpening>
+deactivate Controller
+UI --> CM : displays List<JobOpening> jobOpenings and request to input an index referring to a job opening
+deactivate UI
+CM -> UI : inputs index
+activate UI
+
+UI -> Controller : getJobOpeningByIndex(index)
+activate Controller
+create JobOpening
+Controller -> JobOpening: Job opening jobOpening = jobOpenings.get(index -1)
+Controller --> UI : jobOpening
+deactivate Controller
+UI --> CM : displays jobOpening and lists options to update
+deactivate UI
+CM -> UI : inputs option (update Job Opening phase)
+activate UI
+UI -> Controller : showJobPhases(jobOpening)
+activate Controller
+loop for each phase in PhaseType.values()
+Controller -> PhaseType: PhaseType.values()
+activate PhaseType
+
+PhaseType --> Controller : PhaseType[]
+deactivate PhaseType
+loop for each phase in PhaseType.values()
+Controller -> JobOpening : jobOpening.currentPhase()
+activate JobOpening
+
+JobOpening --> Controller : PhaseType currentPhase
+deactivate JobOpening
+alt if PhaseType != currentPhase
+Controller --> UI : displayPhase(PhaseType phaseType,false)
+UI --> CM : displays PhaseType is closed
+else if PhaseType == currentPhase
+Controller --> UI : displayPhase(PhaseType phaseType,true)
+deactivate Controller
+UI --> CM : displays PhaseType is open
+end
+
+end
+UI -> CM : Requests option (Advance to next phase, Go back to previous phase)
+CM --> UI : inputs option
+UI -> Controller: checkForInterviewPhase(option)
+activate Controller
+
+Controller -> JobOpening: jobOpening.currentPhase()
+activate JobOpening
+
+JobOpening --> Controller: currentPhase
+deactivate JobOpening
+alt Chooses to advance
+Controller --> UI : return currentPhase == PhaseType.SCREENING
+else Chooses to go back
+Controller --> UI : return currentPhase == PhaseType.ANALYSIS
+end
+deactivate Controller
+UI -> CM: Asks if User wants to skip Interview phase
+alt User wants to skip
+CM --> UI: types "yes", interviewPhase = false
+else User doesn't want to skip
+CM --> UI: types "no", interviewPhase = true
+end
+UI -> Controller: updatePhase(change, interviewPhase)
+activate Controller
+alt change == advance to next
+Controller -> JOService: advanceToNextPhase(JobOpening jobOpening, boolean interviewPhase)
+activate JOService
+
+JOService -> JobOpening: advanceToNextPhase(interviewPhase)
+activate JobOpening
+
+JobOpening -> PhaseType: currentJobPhase = currentJobPhase.nextPhase(interviewPhase);
+activate PhaseType
+deactivate PhaseType
+
+deactivate JobOpening
+
+JOService -> JORepo:  jobOpening = repository.save(jobOpening);
+activate JORepo
+JORepo --> JOService: returns jobOpening
+deactivate JORepo
+JOService --> Controller: returns jobOpening
+deactivate JOService
+else change == go to previous phase
+
+Controller -> JOService: backToPreviousPhase(JobOpening jobOpening, boolean interviewPhase)
+activate JOService
+
+JOService -> JobOpening: backToPreviousPhase(interviewPhase)
+activate JobOpening
+
+JobOpening -> PhaseType: currentJobPhase = currentJobPhase.previousPhase(interviewPhase);
+activate PhaseType
+deactivate PhaseType
+
+deactivate JobOpening
+
+JOService -> JORepo:  jobOpening = repository.save(jobOpening);
+activate JORepo
+JORepo --> JOService: returns jobOpening
+deactivate JORepo
+JOService --> Controller: returns jobOpening
+end
+Controller --> UI: displayJobOpening(JobOpening)
+deactivate Controller
+UI --> CM: Displays updated jobOpening
+deactivate UI
+
+
+
+
+@enduml
