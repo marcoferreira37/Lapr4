@@ -1,0 +1,39 @@
+@startuml
+class UpdateJobOpeningUI {
+    - controller: UpdateJobOpeningController
+    + doShow(): boolean
+}
+
+class UpdateJobOpeningController {
+    - service: JobOpeningService
+    - autzService: AuthorizationService
+    + updatePhase(jobOpening: JobOpening, choice: int, interviewPhase: boolean): JobOpening
+    + checkForInterviewPhase(choice: int, jobOpening: JobOpening): boolean
+    + showJobPhases(jobOpening: JobOpening): void
+}
+
+class JobOpeningService {
+    + advanceToNextPhase(jobOpening: JobOpening, interviewPhase: boolean): JobOpening
+    + goBackToPreviousPhase(jobOpening: JobOpening, interviewPhase: boolean): JobOpening
+}
+
+class JobOpening {
+    - currentJobPhase: PhaseType
+    + getCurrentJobPhase(): PhaseType
+}
+
+enum PhaseType {
+    APPLICATION,
+    SCREENING,
+    INTERVIEWS,
+    ANALYSIS,
+    RESULT
+}
+
+UpdateJobOpeningUI --> UpdateJobOpeningController
+UpdateJobOpeningController --> JobOpeningService
+UpdateJobOpeningController --> JobOpening
+JobOpeningService --> JobOpening
+JobOpening --> PhaseType
+
+@enduml
