@@ -88,4 +88,16 @@ public class JobOpeningService {
         }
         return listToReturnFiltered;
     }
+    public JobOpening advanceToNextPhase(JobOpening jobOpening, boolean interviewPhase){
+        jobOpening.advanceToNextPhase(interviewPhase);
+        jobOpening = repository.save(jobOpening);
+        return jobOpening;
+    }
+
+    public JobOpening goBackToPreviousPhase(JobOpening jobOpening, boolean interviewPhase){
+        jobOpening.goBackToPreviousPhase(interviewPhase);
+        jobOpening = repository.save(jobOpening);
+        return jobOpening;
+    }
+
 }
