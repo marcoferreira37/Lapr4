@@ -111,14 +111,14 @@ public class RankApplicationUI extends AbstractUI {
      */
     public void printApplications(List<JobOpeningApplication> applications) {
         for (JobOpeningApplication application : applications) {
-            System.out.println("///////////Application///////////");
+            System.out.println("\n///////////Application///////////");
             System.out.println();
             System.out.println("Application ID: " + application.identity());
             System.out.println("Candidate: " + application.candidate().identity());
             System.out.println("Job Opening Reference: " + application.jobOpening().identity().fullReference());
             System.out.println("Rank: " + application.showRank());
             System.out.println();
-            System.out.println("/////////////////////////////////");
+            System.out.println("/////////////////////////////////\n");
         }
     }
 
@@ -127,9 +127,8 @@ public class RankApplicationUI extends AbstractUI {
      * @param applications the list of applications
      * @return the list of applications sorted by rank
      */
-    // New method to get applications sorted by rank
     private List<JobOpeningApplication> getSortedApplicationsByRank(List<JobOpeningApplication> applications) {
-        applications.sort((a1, a2) -> Integer.compare(a2.showRanking(), a1.showRanking())); // Descending order
+        applications.sort(Comparator.comparingInt(JobOpeningApplication::showRanking)); // Descending order
         return applications;
     }
 }
