@@ -22,8 +22,14 @@ public class SystemCandidateBuilder implements DomainFactory<Candidate> {
     private TelephoneNumber telephoneNumber;
     private SystemUser systemUser;
 
+    private String curriculum;
     public SystemCandidateBuilder withTelephoneNumber(final TelephoneNumber telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
+        return this;
+    }
+
+    public SystemCandidateBuilder withCurriculum(final String curriculum){
+        this.curriculum=curriculum;
         return this;
     }
 
@@ -56,7 +62,7 @@ public class SystemCandidateBuilder implements DomainFactory<Candidate> {
 //            LOGGER.debug("Creating new user [{}] {} ({} {}) with roles {}", customer, username, name,
 //                    email, roleLog);
 //        }
-        return new Candidate(this.systemUser, this.email, this.telephoneNumber);
+        return new Candidate(this.systemUser, this.email, this.telephoneNumber, this.curriculum);
     }
 
 }

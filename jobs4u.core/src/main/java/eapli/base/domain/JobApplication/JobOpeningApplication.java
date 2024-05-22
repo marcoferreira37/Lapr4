@@ -43,6 +43,11 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
 
     @Column(name = "JOBREFERENCE", insertable = false, updatable = false)
     private String jobReference;
+
+    @Column(name = "RANK")
+    private int rank;
+
+
     public JobOpeningApplication() {
         // Construtor vazio necessário para JPA
     }
@@ -50,6 +55,7 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
     public JobOpeningApplication(JobOpening j, Candidate c) {
         this.jobOpening = j;
         this.candidate = c;
+        this.rank = -1;
     }
 
     @Override
@@ -76,10 +82,35 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
     @Override
     public String toString() {
         return "JobOpeningApplication - {" +
-                "\n Id =" + id +
-                "\n Candidate Email:" + candidate.identity() +
-                "\n Job Reference :" + jobOpening.getJobReference().fullReference() +
-                '}';
+               "\n Id =" + id +
+               "\n Candidate Email:" + candidate.identity() +
+               "\n Job Reference :" + jobOpening.getJobReference().fullReference() +
+               '}';
+    }
+
+    /**
+     * Rank an application for a job opening
+     *
+     * @param rank the rank to assign to the application
+     */
+    public void rankApplication(int rank) {
+        this.rank = rank;
+    }
+
+    /**
+     * Show the rank of the application as a string
+     * @return the rank of the application
+     */
+    public String showRank() {
+        return String.valueOf(rank);
+    }
+
+    /**
+     * Show the rank of the application as an integer
+     * @return the rank of the application
+     */
+    public int showRanking() {
+        return rank;
     }
 }
 

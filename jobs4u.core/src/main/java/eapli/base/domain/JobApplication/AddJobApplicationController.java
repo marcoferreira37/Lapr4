@@ -19,7 +19,12 @@ public class AddJobApplicationController {
     private final JobOpeningRepository repositoryJobOpening = PersistenceContext.repositories().jobOpeningRepository();
     private final UserRepository usersRepo = PersistenceContext.repositories().users();
 
-
+    /**
+     * Add a new job application
+     * @param j JobOpening
+     * @param c Candidate
+     * @return JobOpeningApplication
+     */
     public JobOpeningApplication addJobOpeningApplication(JobOpening j, Candidate c) {
         JobOpeningApplication jobOpeningApplication = new JobOpeningApplication(j, c);
         repo.save(jobOpeningApplication);
@@ -31,8 +36,11 @@ public class AddJobApplicationController {
     }
 
 
-
-
+    /**
+     * Read a file with the job application information
+     * @param nomeFicheiro nome do ficheiro
+     * @return JobOpeningApplication
+     */
     public JobOpeningApplication readFile(String nomeFicheiro) {
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeFicheiro))) {
             String jobReference = reader.readLine();
