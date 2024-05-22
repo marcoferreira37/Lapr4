@@ -1,46 +1,83 @@
-# US 3004
-
-*This is an example template*
+# US 1014 - Record the time and date for an interview with a candidate
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+This task is being assigned as part of the ongoing development efforts to automate the main activities of the company.
+The task is to record the time and date for an interview with a candidate, ensuring that the Customer Manager can efficiently schedule and manage interview appointments.
+
+This task is not related to fixing a bug but rather adding a new feature to the system.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
-
-*Example*
-
-**US G002** As {Ator} I Want...
+**US 1014** As Customer Manager, I want to record the time and date for an interview with a candidate.
 
 **Acceptance Criteria:**
 
-- G002.1. The system should...Blá Blá Blá ...
+- G1014.1. The system should allow the manager to record the time and date for an interview with a candidate.
+- G1014.2. The system should persist the time and date for the interview.
+- G1014.3. The system should allow the manager to change the time and date for the interview.
 
-- G002.2. Blá Blá Blá ...
+[//]: # (- G1014.4. The application should be in the phase Interview. )
+- G1014.5.
 
 **Dependencies/References:**
 
-*Regarding this requirement we understand that it relates to...*
+Furthermore, it is necessary to view all the candidates that have applied for the job opening application.
+Has dependency in the user stories:
+- G007 -> As a Project Manager, I want the system to support and apply authentication and
+  authorization for all its users and functionalities.
+- 1002 -> As Customer Manager, I want to register a job opening.
+- 2002 -> As Operator, I want to register an application of a candidate for a job opening and
+  import all files received.
+- 
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+### 3.1. Domain Model
+Explain the domain model and its entities.
+
+The domain model is composed of the following entities:
+
+- **Candidate**: Represents a candidate that has applied for a job opening.
+- **Application**: Represents the application of a candidate for a job opening.
+- **Interview**: Represents an interview with a candidate for a job opening.
+
+[Domain Model](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintC\1014\svg\1014-domain-model.svg)
+
+## 3.2 System Sequence Diagram
+
+[System Sequence Diagram - Full](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintC\1014\svg\1014-system-sequence-diagram-System_Sequence_Diagram__SSD.svg)
+
+
+The Customer Manager requested a feature to record the time and date for an interview with a candidate.
+This feature will allow the manager to schedule interviews, send confirmation notifications, adjust interview times, and view scheduled interviews.
+The system should have validations to ensure that the data is accurate and conflicts are avoided.
 
 ## 4. Design
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
-
 ### 4.1. Realization
+
+The realization of the functionality involves defining how the Customer Manager can record the time and date for an interview with
+a candidate and how this information is stored and modified in the system. This requires interactions between various system components 
+including the UI, business logic, and data persistence layers.
+## 4.2 Sequence Diagram
+
+![Sequence Diagram - Full](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintC\1014\svg\1014-sequence-diagram.svg)
+
+A sequence diagram shows the interactions between the Customer Manager and the system to record an interview with an candidates.
+This includes actions like viewing a list of job opening applications, the candidate associated, saving the interview, and modifying it later.
 
 ### 4.2. Class Diagram
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
+![a class diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintC\1014\svg\1014-class-diagram.svg)
 
 ### 4.3. Applied Patterns
 
+> N/A
+
 ### 4.4. Tests
+
+[//]: # (TODO Make this)
 
 Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
 
