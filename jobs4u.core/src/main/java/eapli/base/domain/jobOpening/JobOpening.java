@@ -69,6 +69,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     @Column(name = "Current Job Phase")
     @Enumerated(value = EnumType.STRING)
+
     PhaseType currentJobPhase;
 
     public JobOpening() {
