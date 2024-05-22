@@ -1,7 +1,7 @@
 package authz.enable_disable_users;
 
 
-import authz.ListCustomersUI;
+import authz.ui.ListCustomersUI;
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.app.common.console.ui.components.Sleeper;

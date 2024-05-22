@@ -1,7 +1,7 @@
 package eapli.base.usermanagement.application.registry;
 
-import eapli.base.customer.CustomerManagementService;
-import eapli.base.customer.CustomerRepository;
+import eapli.base.usermanagement.application.services.CustomerManagementService;
+import eapli.base.repositories.CustomerRepository;
 import eapli.framework.infrastructure.authz.application.PasswordPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

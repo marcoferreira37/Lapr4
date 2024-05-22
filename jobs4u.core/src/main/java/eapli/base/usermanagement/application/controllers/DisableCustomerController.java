@@ -1,7 +1,6 @@
 package eapli.base.usermanagement.application.controllers;
 
-import eapli.base.customer.CustomerRepository;
-import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
+import eapli.base.repositories.CustomerRepository;
 
 
 public class DisableCustomerController {

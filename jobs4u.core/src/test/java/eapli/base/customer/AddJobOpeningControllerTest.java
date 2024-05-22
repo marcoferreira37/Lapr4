@@ -1,6 +1,7 @@
 package eapli.base.customer;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.usermanagement.application.controllers.AddJobOpeningController;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;

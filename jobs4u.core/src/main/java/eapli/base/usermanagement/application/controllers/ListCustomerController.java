@@ -1,7 +1,7 @@
 package eapli.base.usermanagement.application.controllers;
 
 import eapli.base.customer.Customer;
-import eapli.base.customer.CustomerManagementService;
+import eapli.base.usermanagement.application.services.CustomerManagementService;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;

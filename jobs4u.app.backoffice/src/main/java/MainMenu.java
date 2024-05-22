@@ -1,11 +1,12 @@
 
-import CustomerManager.ListAllApplicationsForJobOpeningUI;
-import CustomerManager.ListJobOpeningUI;
-import authz.*;
+import authz.ui.ListAllApplicationsForJobOpeningUI;
+import authz.ui.ListJobOpeningUI;
 import authz.enable_disable_users.DisableCandidateUI;
 import authz.enable_disable_users.EnableCandidateUI;
 import authz.registerusers.AddUserAction;
+import authz.ui.*;
 import clientuser.AcceptRefuseSignupRequestAction;
+import clientuser.ListCustomerManagerActions;
 import eapli.base.Application;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -24,10 +25,10 @@ import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 import authz.listusers.ListUsersAction;
 import authz.enable_disable_users.DisableUserAction;
 import authz.enable_disable_users.EnableUserAction;
-import users.list.ListAllApplicationsOfCandidateUI;
-import users.list.ListAllDataOfCandidateUI;
-import users.register.CostumerManager.AddJobOpeningUI;
-import users.register.CostumerManager.UpdateJobOpeningUI;
+import authz.ui.ListAllApplicationsOfCandidateUI;
+import authz.ui.ListAllDataOfCandidateUI;
+import authz.ui.AddJobOpeningUI;
+import authz.ui.UpdateJobOpeningUI;
 
 /**
  * TODO split this class in more specialized classes for each menu

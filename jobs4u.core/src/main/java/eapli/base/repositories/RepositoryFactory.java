@@ -23,11 +23,6 @@ package eapli.base.repositories;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
-import eapli.base.customer.CustomerRepository;
-import eapli.base.repositories.CandidateRepository;
-import eapli.base.repositories.JobOpeningApplicationRepository;
-import eapli.base.repositories.JobOpeningRepository;
-import eapli.base.repositories.CompanyRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 

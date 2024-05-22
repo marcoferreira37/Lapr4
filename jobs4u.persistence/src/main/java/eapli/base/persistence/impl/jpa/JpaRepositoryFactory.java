@@ -23,7 +23,7 @@ package eapli.base.persistence.impl.jpa;
 import eapli.base.Application;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
-import eapli.base.customer.CustomerRepository;
+import eapli.base.repositories.CustomerRepository;
 import eapli.base.repositories.RepositoryFactory;
 import eapli.base.repositories.CandidateRepository;
 import eapli.base.repositories.JobOpeningApplicationRepository;
