@@ -1,4 +1,4 @@
-package eapli.base.domain.JobOpeningProcess;
+package eapli.base.domain.jobOpeningProcess;
 
 public enum PhaseType {
     APPLICATION,

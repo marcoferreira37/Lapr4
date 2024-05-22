@@ -4,15 +4,12 @@ package authz;
 import eapli.base.app.common.console.ui.components.Sleeper;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.usermanagement.application.ListCandidatesController;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.presentation.console.AbstractUI;
-import eapli.framework.visitor.Visitor;
 
 import java.util.List;
 
 public class ListCandidatesUI extends AbstractUI {
-    private ListCandidatesController theController = new ListCandidatesController();
+    private final ListCandidatesController theController = new ListCandidatesController();
 
     @Override
     protected boolean doShow() {

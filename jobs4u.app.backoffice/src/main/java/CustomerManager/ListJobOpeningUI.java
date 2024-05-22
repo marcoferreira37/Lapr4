@@ -3,14 +3,11 @@ package CustomerManager;
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.customer.Criteria;
-import eapli.base.customer.JobOpeningFilteringStrategy;
+import eapli.base.filter.jobOpening.JobOpeningFilteringStrategy;
 import eapli.base.customer.ListJobOpeningController;
 import eapli.base.domain.jobOpening.JobOpening;
 
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,7 +37,7 @@ public class ListJobOpeningUI extends AbstractUI {
 
             final JobOpeningFilteringStrategy strategy = theController.filteringStrategy(strategyIndex);
 
-            List<Criteria<?>> strategyCriteria = strategy.criteria();
+            List<Criteria<?>> strategyCriteria = strategy.newCriteria();
 
             for (Criteria<?> criteria : strategyCriteria) {
                 String value = Console.readLine("Insert " + criteria.description().toLowerCase() + ": ");

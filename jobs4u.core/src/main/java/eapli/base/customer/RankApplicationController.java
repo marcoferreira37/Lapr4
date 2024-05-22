@@ -1,6 +1,6 @@
 package eapli.base.customer;
 
-import eapli.base.domain.JobApplication.JobOpeningApplication;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 public class RankApplicationController {
 
     private final ApplicationService applicationService = new ApplicationService();

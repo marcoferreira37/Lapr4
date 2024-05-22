@@ -2,14 +2,14 @@ package CustomerManager;
 
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.ColorCode;
-import eapli.base.domain.JobApplication.JobOpeningApplication;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.usermanagement.application.ListAllApplicationsForJobOpeningController;
 
 import java.util.List;
 
 public class ListAllApplicationsForJobOpeningUI extends AbstractUI {
-    private ListAllApplicationsForJobOpeningController controller = new ListAllApplicationsForJobOpeningController();
+    private final ListAllApplicationsForJobOpeningController controller = new ListAllApplicationsForJobOpeningController();
 
     @Override
     protected boolean doShow() {

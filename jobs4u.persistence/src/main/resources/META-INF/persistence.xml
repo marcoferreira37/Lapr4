@@ -16,7 +16,7 @@
     <class>eapli.base.domain.company.Company</class>
     <class>eapli.base.domain.jobOpening.JobOpening</class>
     <class>eapli.base.domain.candidate.Candidate</class>
-    <class>eapli.base.domain.JobApplication.JobOpeningApplication</class>
+    <class>eapli.base.domain.jobApplication.JobOpeningApplication</class>
     <class>eapli.base.domain.jobOpening.Phase</class>
 
     <properties>

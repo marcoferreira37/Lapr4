@@ -1,10 +1,5 @@
-package eapli.base.domain.JobApplication;
+package eapli.base.domain.jobApplication;
 
-import lombok.Getter;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Calendar;
 
 public class AttachedFile {

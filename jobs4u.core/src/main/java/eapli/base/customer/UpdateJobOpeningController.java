@@ -1,6 +1,6 @@
 package eapli.base.customer;
 
-import eapli.base.domain.JobOpeningProcess.PhaseType;
+import eapli.base.domain.jobOpeningProcess.PhaseType;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpening.Phase;
 import eapli.base.usermanagement.application.JobOpeningService;
@@ -9,8 +9,6 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UpdateJobOpeningController {

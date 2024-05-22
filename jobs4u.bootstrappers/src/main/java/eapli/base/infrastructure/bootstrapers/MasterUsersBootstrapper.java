@@ -20,13 +20,11 @@
  */
 package eapli.base.infrastructure.bootstrapers;
 
-import eapli.base.Domain.Company.AddCompanyController;
 import eapli.base.customer.AddJobOpeningController;
-import eapli.base.domain.JobApplication.AddJobApplicationController;
-import eapli.base.domain.JobApplication.JobOpeningApplication;
+import eapli.base.domain.jobApplication.AddJobApplicationController;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.candidate.TelephoneNumber;
-import eapli.base.domain.company.Company;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.ContractType;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpening.Mode;

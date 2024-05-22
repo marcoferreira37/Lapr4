@@ -1,8 +1,7 @@
 package authz;
 
 import eapli.base.app.common.console.ui.components.ColorCode;
-import eapli.base.customer.RankApplicationController;
-import eapli.base.domain.JobApplication.JobOpeningApplication;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpening.JobReference;
@@ -135,6 +134,25 @@ class RankApplicationUITest {
         assertTrue(result);
     }
 
+    @Test
+    public void testIsRankUnique_NoDuplicates() {
+        // Arrange
+        List<JobOpeningApplication> applications = new ArrayList<>();
+        RankApplicationUI rankApplicationUI = new RankApplicationUI();
 
+        JobReference jobReference1 = new JobReference(111L, "FIS");
+        JobReference jobReference2 = new JobReference(222L, "FIS");
+        JobReference jobReference3 = new JobReference(333L, "FIS");
+
+        applications.add(new JobOpeningApplication(new JobOpening(jobReference1), new Candidate()));
+        applications.add(new JobOpeningApplication(new JobOpening(jobReference2), new Candidate()));
+        applications.add(new JobOpeningApplication(new JobOpening(jobReference3), new Candidate()));
+
+        // Act
+        boolean result = rankApplicationUI.isRankUnique(5, applications);
+
+        // Assert
+        assertTrue(result);
+    }
 
 }

@@ -1,7 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
-import eapli.base.domain.JobApplication.JobOpeningApplication;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.repositories.JobOpeningApplicationRepository;
@@ -9,8 +9,6 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-
-import java.util.Optional;
 
 public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobOpeningApplication, Long, Long> implements JobOpeningApplicationRepository {
     public JpaJobApplicationRepository(String persistenceUnitName, String identityFieldName) {

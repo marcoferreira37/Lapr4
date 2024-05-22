@@ -1,7 +1,7 @@
 package authz;
 
 import eapli.base.app.common.console.ui.components.AbstractUI;
-import eapli.base.domain.JobApplication.JobOpeningApplication;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.usermanagement.application.RecordInterviewController;
 import eapli.framework.io.util.Console;

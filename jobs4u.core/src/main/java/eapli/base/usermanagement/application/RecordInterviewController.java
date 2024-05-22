@@ -1,6 +1,6 @@
 package eapli.base.usermanagement.application;
 
-import eapli.base.domain.JobApplication.JobOpeningApplication;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobOpeningApplicationRepository;

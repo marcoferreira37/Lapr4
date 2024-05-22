@@ -1,4 +1,4 @@
-package eapli.base.domain.JobApplication;
+package eapli.base.domain.jobApplication;
 
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobOpening.JobOpening;

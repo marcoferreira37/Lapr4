@@ -1,4 +1,4 @@
-package eapli.base.domain.JobApplication;
+package eapli.base.domain.jobApplication;
 
 public class AttachedEmail {
     private String attachedEmail;

@@ -1,16 +1,9 @@
 package authz;
 
 import eapli.base.app.common.console.ui.components.Console;
-import eapli.base.domain.JobApplication.AddJobApplicationController;
-import eapli.base.domain.JobApplication.ApplicationID;
-import eapli.base.domain.JobApplication.JobOpeningApplication;
-import eapli.base.domain.jobOpening.JobOpening;
-import eapli.framework.domain.repositories.ConcurrencyException;
-import eapli.framework.domain.repositories.IntegrityViolationException;
+import eapli.base.domain.jobApplication.AddJobApplicationController;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.framework.presentation.console.AbstractUI;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
-
-import java.util.List;
 
 public class AddJobApplicationUI extends AbstractUI {
     private final AddJobApplicationController theController = new AddJobApplicationController();

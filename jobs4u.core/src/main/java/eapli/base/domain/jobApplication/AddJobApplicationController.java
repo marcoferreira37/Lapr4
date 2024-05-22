@@ -1,4 +1,4 @@
-package eapli.base.domain.JobApplication;
+package eapli.base.domain.jobApplication;
 
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobOpening.JobOpening;
@@ -41,7 +41,7 @@ public class AddJobApplicationController {
      * @param nomeFicheiro nome do ficheiro
      * @return JobOpeningApplication
      */
-    public JobOpeningApplication readFile(String nomeFicheiro) {
+    public eapli.base.domain.jobApplication.JobOpeningApplication readFile(String nomeFicheiro) {
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeFicheiro))) {
             String jobReference = reader.readLine();
             String attachedEmail = reader.readLine();

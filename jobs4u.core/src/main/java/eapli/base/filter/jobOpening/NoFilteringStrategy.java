@@ -1,11 +1,10 @@
-package eapli.base.customer;
+package eapli.base.filter.jobOpening;
 
+import eapli.base.customer.Criteria;
 import eapli.base.domain.jobOpening.JobOpening;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class NoFilteringStrategy implements JobOpeningFilteringStrategy{
 
@@ -19,7 +18,7 @@ public class NoFilteringStrategy implements JobOpeningFilteringStrategy{
      * @return lista de critérios de filtragem
      */
     @Override
-    public List<Criteria<?>> criteria() {
+    public List<Criteria<?>> newCriteria() {
         return new ArrayList<>();
     }
 
@@ -29,7 +28,7 @@ public class NoFilteringStrategy implements JobOpeningFilteringStrategy{
      * @return predicado para filtragem de job openings
      */
     @Override
-    public Predicate<JobOpening> filter(List<Criteria<?>> criteria) {
-        return jobOpening -> true;
+    public List<JobOpening> filter(List<Criteria<?>> criteria, List<JobOpening> toFilter) {
+        return new ArrayList<>(toFilter);
     }
 }

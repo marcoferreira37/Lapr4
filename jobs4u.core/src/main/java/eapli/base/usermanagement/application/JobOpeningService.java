@@ -2,19 +2,17 @@ package eapli.base.usermanagement.application;
 
 
 import eapli.base.customer.Criteria;
-import eapli.base.customer.JobOpeningFilteringStrategy;
+import eapli.base.filter.jobOpening.JobOpeningFilteringStrategy;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.jobOpening.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobOpeningRepository;
-import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 public class JobOpeningService {
 
@@ -73,8 +71,8 @@ public class JobOpeningService {
     }
 
     public List<JobOpening> listFilteredJobOpenings(JobOpeningFilteringStrategy strategy, List<Criteria<?>> criteria) {
-        Predicate<JobOpening> filter = strategy.filter(criteria);
-        return repository.listJobOpenings(filter);
+        List<JobOpening> openings = (List<JobOpening>) repository.findAll();
+        return strategy.filter(criteria, openings);
     }
 
     public List<JobOpening> findAllByAnalysisPhase() {

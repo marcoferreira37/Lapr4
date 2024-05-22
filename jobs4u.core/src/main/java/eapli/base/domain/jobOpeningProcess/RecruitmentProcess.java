@@ -1,4 +1,4 @@
-package eapli.base.domain.JobOpeningProcess;
+package eapli.base.domain.jobOpeningProcess;
 
 import eapli.base.domain.jobOpening.Phase;
 import jakarta.persistence.Entity;

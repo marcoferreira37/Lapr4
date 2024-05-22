@@ -38,13 +38,6 @@ public class InMemoryJobOpeningRepository
         return l.getFirst().getJobReference().iD();
     }
 
-    @Override
-    public List<JobOpening> listJobOpenings(Predicate<JobOpening> filter) {
-        return new LinkedList<>((Collection<JobOpening>)findAll())
-                .stream()
-                .filter(filter)
-                .toList();
-    }
 
     @Override
     public JobOpening findJobOpeningByFullReference(String jobReference) {

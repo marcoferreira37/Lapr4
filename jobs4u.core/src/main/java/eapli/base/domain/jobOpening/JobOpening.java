@@ -1,6 +1,6 @@
 package eapli.base.domain.jobOpening;
 
-import eapli.base.domain.JobOpeningProcess.PhaseType;
+import eapli.base.domain.jobOpeningProcess.PhaseType;
 import eapli.base.domain.company.Company;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;

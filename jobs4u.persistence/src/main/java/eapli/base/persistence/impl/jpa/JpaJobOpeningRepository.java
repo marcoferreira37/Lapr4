@@ -26,6 +26,7 @@ public class JpaJobOpeningRepository
     public JpaJobOpeningRepository(final TransactionalContext autoTx) {
         super(autoTx, "JOB_REFERENCE");
     }
+
     @Override
     public Optional<JobOpening> ofIdentity(JobReference jobReference) {
         final Map<String, Object> params = new HashMap<>();
@@ -45,21 +46,13 @@ public class JpaJobOpeningRepository
         long max = -1L;
 
         for (JobOpening jobOpening : findAll()) {
-            if (jobOpening.getJobReference().iD()>max && Objects.equals(jobOpening.getCompany().getId(), companyId)){
-                max= jobOpening.getJobReference().iD();
+            if (jobOpening.getJobReference().iD() > max && Objects.equals(jobOpening.getCompany().getId(), companyId)) {
+                max = jobOpening.getJobReference().iD();
             }
         }
         return max;
     }
 
-    @Override
-    public List<JobOpening> listJobOpenings(Predicate<JobOpening> filter){
-        return createQuery("SELECT opening FROM JobOpening opening", JobOpening.class)
-                .getResultList()
-                .stream()
-                .filter(filter)
-                .toList();
-    }
 
     @Override
     public JobOpening findJobOpeningByFullReference(String jobReference) {

@@ -1,11 +1,10 @@
-package eapli.base.customer;
+package eapli.base.filter.jobOpening;
 
+import eapli.base.customer.Criteria;
 import eapli.base.domain.jobOpening.JobOpening;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class DescriptionFilteringStrategy implements  JobOpeningFilteringStrategy{
     @Override
@@ -14,7 +13,7 @@ public class DescriptionFilteringStrategy implements  JobOpeningFilteringStrateg
     }
 
     @Override
-    public List<Criteria<?>> criteria() {
+    public List<Criteria<?>> newCriteria() {
         return new ArrayList<>() {{
             add(new Criteria<>("Description", String.class));
         }};
@@ -26,7 +25,9 @@ public class DescriptionFilteringStrategy implements  JobOpeningFilteringStrateg
      * @return predicate to be used in the filtering
      */
     @Override
-    public Predicate<JobOpening> filter(List<Criteria<?>> criteria) { // Método que retorna um predicado para filtragem de job openings com base nos critérios fornecidos.
-        return jobOpening -> jobOpening.hasDescription((String) criteria.get(0).value()); // Retorna um predicado que verifica se o job opening possui uma descrição correspondente ao critério fornecido.
+    public List<JobOpening> filter(List<Criteria<?>> criteria, List<JobOpening> toFilter) {
+       return toFilter.stream()
+                .filter(jobOpening -> jobOpening.hasDescription((String) criteria.get(0).value()))
+                .toList();
     }
 }
