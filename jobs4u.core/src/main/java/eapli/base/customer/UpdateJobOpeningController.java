@@ -1,5 +1,6 @@
 package eapli.base.customer;
 
+import eapli.base.domain.JobOpeningProcess.PhaseType;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpening.Phase;
 import eapli.base.usermanagement.application.JobOpeningService;
@@ -82,6 +83,35 @@ public class UpdateJobOpeningController {
     public JobOpening updateRequirements(JobOpening jobOpening, String requirements){
         jobOpening.setRequirements(requirements);
         jobOpening = service.saveJobOpening(jobOpening);
+        return jobOpening;
+    }
+
+
+    public void showJobPhases(JobOpening jobOpening) {
+        System.out.println("Job Phase Process:");
+
+        for (PhaseType phase : PhaseType.values()) {
+            if (phase == jobOpening.getCurrentJobPhase()) {
+                System.out.println(phase + ": Open");
+            } else {
+                System.out.println(phase + ": Closed");
+            }
+        }
+    }
+
+    public boolean checkForInterviewPhase(int choice, JobOpening jobOpening) {
+        if (choice == 1 && jobOpening.getCurrentJobPhase() == PhaseType.SCREENING)
+            return true;
+        return choice == 2 && jobOpening.getCurrentJobPhase() == PhaseType.ANALYSIS;
+    }
+
+    public JobOpening updatePhase(JobOpening jobOpening, int choice, boolean interviewPhase){
+        if(choice == 1){
+            jobOpening = service.advanceToNextPhase(jobOpening,interviewPhase);
+        }
+        else{
+            jobOpening = service.goBackToPreviousPhase(jobOpening,interviewPhase);
+        }
         return jobOpening;
     }
 

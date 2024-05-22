@@ -1,12 +1,10 @@
 package eapli.base.domain.jobOpening;
 
+import eapli.base.domain.JobOpeningProcess.PhaseType;
 import eapli.base.domain.company.Company;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -15,6 +13,7 @@ import java.util.Calendar;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
 @Builder // CRIAR UMA CLASS BUILDER ( nao é um builder pattern )
 public class JobOpening implements AggregateRoot<JobReference> {
@@ -68,6 +67,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Column(name = "Requirements")
     String requirements;
 
+    @Column(name = "Current Job Phase")
+    @Enumerated(value = EnumType.STRING )
+    PhaseType currentJobPhase;
+
     public JobOpening() {
 
     }
@@ -85,6 +88,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.creationDate = creationDate;
         this.interviewModel = interviewModel;
         this.requirements = requirements;
+        this.currentJobPhase = PhaseType.APPLICATION;
     }
 
     @Override
@@ -126,6 +130,14 @@ public class JobOpening implements AggregateRoot<JobReference> {
         return this.description.description().equals(description);
     }
 
+
+    public void advanceToNextPhase(boolean interviewPhase){
+        currentJobPhase = currentJobPhase.nextPhase(interviewPhase);
+    }
+
+    public void goBackToPreviousPhase(boolean interviewPhase) {
+        currentJobPhase = currentJobPhase.previousPhase(interviewPhase);
+    }
     @Override
     public String toString() {
         String result = "\n-----------------------------------------------------" +

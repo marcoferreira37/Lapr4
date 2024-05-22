@@ -3,6 +3,7 @@ package eapli.base.usermanagement.application;
 
 import eapli.base.customer.Criteria;
 import eapli.base.customer.JobOpeningFilteringStrategy;
+import eapli.base.domain.JobOpeningProcess.PhaseType;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.jobOpening.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -47,6 +48,7 @@ public class JobOpeningService {
                 .address(new Address(address))
                 .vacanciesNumber(new VacanciesNumber(vacancies))
                 .company(company.get())
+                .currentJobPhase(PhaseType.APPLICATION)
                 .build();
 
 
@@ -88,4 +90,18 @@ public class JobOpeningService {
         }
         return listToReturnFiltered;
     }
+
+    public JobOpening advanceToNextPhase(JobOpening jobOpening, boolean interviewPhase){
+        jobOpening.advanceToNextPhase(interviewPhase);
+        jobOpening = repository.save(jobOpening);
+        return jobOpening;
+    }
+
+    public JobOpening goBackToPreviousPhase(JobOpening jobOpening, boolean interviewPhase){
+        jobOpening.goBackToPreviousPhase(interviewPhase);
+        jobOpening = repository.save(jobOpening);
+        return jobOpening;
+    }
+
+
 }
