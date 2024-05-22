@@ -24,7 +24,7 @@ public class EnableCandidateUI extends AbstractUI {
         var email = Console.readNonEmptyLine("Provide the email of the candidate to enable: ", "Email cannot be empty.");
 
         try {
-           // controller.enableCandidate(email);
+            controller.enableCandidate(email);
             successMessage("Candidate with email: " + email + " enabled successfully.");
             Sleeper.sleep(1000);
         } catch (IllegalArgumentException e) {

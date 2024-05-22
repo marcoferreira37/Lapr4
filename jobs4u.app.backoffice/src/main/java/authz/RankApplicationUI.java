@@ -8,7 +8,6 @@ import eapli.base.domain.JobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.usermanagement.application.ListAllApplicationsForJobOpeningController;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class RankApplicationUI extends AbstractUI {
         System.out.println("=====================================================");
         System.out.println("|| List of Job Openings ||");
         List<JobOpening> openingList = (List<JobOpening>) controllerApplication.allJobOpenings();
-        printNumeratedList("\nChoose a job opening: ", openingList);
+        printNumeratedList(openingList);
         int option = Integer.parseInt(eapli.base.app.common.console.ui.components.Console.readLine("Select a job opening: "));
         JobOpening jobOpening = openingList.get(option - 1);
         List<JobOpeningApplication> applications = controllerApplication.allApplicationsForJobOpening(jobOpening);
@@ -45,6 +44,7 @@ public class RankApplicationUI extends AbstractUI {
 
     /**
      * Rank an application for a job opening
+     *
      * @param application the application to rank
      */
     private void rankApplication(JobOpeningApplication application) {
@@ -57,7 +57,8 @@ public class RankApplicationUI extends AbstractUI {
         int newRank;
         boolean isUnique;
         do {
-            newRank = Console.readInteger("Rank the application: ");
+            String input = Console.readLine("Rank the application: ");
+            newRank = validInteger(input);
             isUnique = isRankUnique(newRank, controllerApplication.allApplicationsForJobOpening(application.jobOpening()));
             if (!isUnique) {
                 System.out.println("Error: The rank must be unique among all applications for this job opening. Please enter a different rank.");
@@ -70,7 +71,8 @@ public class RankApplicationUI extends AbstractUI {
 
     /**
      * Check if a rank is unique among all applications for a job opening
-     * @param rank the rank to check
+     *
+     * @param rank            the rank to check
      * @param allApplications all applications for the job opening
      * @return true if the rank is unique, false otherwise
      */
@@ -83,13 +85,14 @@ public class RankApplicationUI extends AbstractUI {
         return true;
     }
 
+
     /**
      * Print a list of job openings with a number for each one
-     * @param message the message to print before the list
+     *
      * @param openingList the list of job openings
      */
-    private void printNumeratedList(String message, List<JobOpening> openingList) {
-        System.out.printf("%s\n\n", message);
+    public void printNumeratedList(List<JobOpening> openingList) {
+        System.out.printf("%s\n\n", "\nChoose a job opening: ");
 
         int index = 1;
         for (JobOpening item : openingList) {
@@ -107,29 +110,51 @@ public class RankApplicationUI extends AbstractUI {
 
     /**
      * Print a list of applications
+     *
      * @param applications the list of applications to print
      */
     public void printApplications(List<JobOpeningApplication> applications) {
         for (JobOpeningApplication application : applications) {
-            System.out.println("///////////Application///////////");
+            System.out.println("\n///////////Application///////////");
             System.out.println();
             System.out.println("Application ID: " + application.identity());
             System.out.println("Candidate: " + application.candidate().identity());
             System.out.println("Job Opening Reference: " + application.jobOpening().identity().fullReference());
             System.out.println("Rank: " + application.showRank());
             System.out.println();
-            System.out.println("/////////////////////////////////");
+            System.out.println("/////////////////////////////////\n");
         }
     }
 
     /**
      * Get applications sorted by rank
+     *
      * @param applications the list of applications
      * @return the list of applications sorted by rank
      */
-    // New method to get applications sorted by rank
     private List<JobOpeningApplication> getSortedApplicationsByRank(List<JobOpeningApplication> applications) {
-        applications.sort((a1, a2) -> Integer.compare(a2.showRanking(), a1.showRanking())); // Descending order
+        applications.sort(Comparator.comparingInt(JobOpeningApplication::showRanking)); // Descending order
         return applications;
     }
+
+    public int validInteger(String input) {
+        int result;
+        try {
+            // Remove espaços em branco antes e depois da entrada
+            String trimmedInput = input.trim();
+
+            // Verifica se a entrada é vazia ou apenas contém "-"
+            if (trimmedInput.isEmpty() || trimmedInput.equals("-")) {
+                throw new NumberFormatException(); // Força uma exceção para indicar entrada inválida
+            }
+            result = Integer.parseInt(trimmedInput);
+            if (result < 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            result = -1; // ou outro valor que indique uma entrada inválida
+        }
+        return result;
+    }
 }
+

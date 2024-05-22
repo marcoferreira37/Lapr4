@@ -35,14 +35,13 @@ public class DisableCandidateController {
      * @throws IllegalArgumentException if the candidate is not found
      */
     @Transactional
-    public boolean disableCandidate(String email) {
+    public Candidate disableCandidate(String email) {
         for (Candidate user : candidateRepository.findAll()){
             if (user.emailAddress().toString().equals(email)) {
                 user.user().deactivate(Calendar.getInstance());
-                candidateRepository.save(user);
-                return true;
+                return candidateRepository.save(user);
             }
         }
-        return false;
+        return null;
     }
 }

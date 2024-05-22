@@ -3,6 +3,7 @@ package eapli.base.usermanagement.application;
 import eapli.base.domain.Jobs4UUser;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.CandidateRepository;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -32,15 +33,15 @@ public class EnableCandidateController {
      * @throws IllegalArgumentException if the user is not found
      */
 
-//    @Transactional
-//    public void enableCandidate(String email) {
-//        for (Candidate candidate : candidateRepository.findAll()){
-//            if (candidate.emailAddress().toString().equals(email)) {
-//                candidate.user().activate(); //atenção aqui, pode não dar enable ao candidato mas sim ao system user, ver depois
-//                candidateRepository.save(candidate);
-//                return;
-//            }
-//        }
-//        throw new IllegalArgumentException("Candidate not found.");
-//    }
+
+    public void enableCandidate(String email) {
+        for (Candidate candidate : candidateRepository.findAll()){
+            if (candidate.emailAddress().toString().equals(email)) {
+                candidate.user().activate(); 
+                candidateRepository.save(candidate);
+                return;
+           }
+        }
+        throw new IllegalArgumentException("Candidate not found.");
+   }
 }

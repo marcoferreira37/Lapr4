@@ -4,9 +4,9 @@ actor "Customer Manager" as Agent
 participant ":RankApplicationUI" as ui <<UI>>
 participant ":RankApplicationController" as ctrl <<Application>>
 participant ":JobOpeningService" as jobServ <<Service>>
-database ":JobOpeningRepository" as jobRepo <<Persistence>>
+participant ":JobOpeningRepository" as jobRepo <<Persistence>>
 participant ":ApplicationService" as appServ <<Service>>
-database ":ApplicationRepository" as appRepo <<Persistence>>
+participant ":ApplicationRepository" as appRepo <<Persistence>>
 participant "rank:Ranking" as rank <<Domain>>
 participant "app:Application" as app <<Domain>>
 
@@ -16,9 +16,9 @@ activate Agent
 
 Agent -> ui: Request to rank candidates for a job opening
 activate ui
-ui -> ctrl: listAllJobOpenings()
+ui -> ctrl: allJobOpenings()
 activate ctrl
-ctrl -> jobServ: allJobs()
+ctrl -> jobServ: allJobOpenings()
 activate jobServ
 jobServ -> jobRepo: findAllByAnalysisPhase()
 activate jobRepo
@@ -35,11 +35,11 @@ activate ui
 
 
 
-ui -> ctrl: listApplicationsForOpening(opening)
+ui -> ctrl: allApplicationsForJobOpening(opening)
 
 activate ctrl
 
-ctrl -> appServ: allApplicationsForOpening(opening)
+ctrl -> appServ: allApplicationsForJobOpening(opening)
 
 
 
