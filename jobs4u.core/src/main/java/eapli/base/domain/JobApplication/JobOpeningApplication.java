@@ -58,6 +58,7 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
         this.rank = -1;
     }
 
+
     @Override
     public boolean sameAs(Object other) {
         if (this == other) return true;

@@ -1,6 +1,9 @@
 package authz;
 
 import eapli.base.app.common.console.ui.components.ColorCode;
+import eapli.base.customer.RankApplicationController;
+import eapli.base.domain.JobApplication.JobOpeningApplication;
+import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpening.JobReference;
 import org.junit.jupiter.api.Test;
@@ -86,8 +89,8 @@ class RankApplicationUITest {
         System.setOut(new PrintStream(outputStream));
 
         List<JobOpening> openingList = new ArrayList<>();
-        JobReference jobReference1 = new JobReference(111L,"FIS");
-        JobReference jobReference2 = new JobReference(222L,"FIS");
+        JobReference jobReference1 = new JobReference(111L, "FIS");
+        JobReference jobReference2 = new JobReference(222L, "FIS");
         JobReference jobReference3 = new JobReference(333L, "FIS");
 
         openingList.add(new JobOpening(jobReference1));
@@ -122,34 +125,16 @@ class RankApplicationUITest {
         assertThat(relevantOutput.toString(), equalTo(expectedOutput));
     }
 
-
-
     @Test
-    public void testPrintNumeratedList_CorrectNumbering() {
-        // Arrange
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-
-        List<JobOpening> openingList = new ArrayList<>();
-        JobReference jobReference1 = new JobReference(111L,"FIS");
-        JobReference jobReference2 = new JobReference(222L,"FIS");
-        JobReference jobReference3 = new JobReference(333L, "FIS");
-
-        openingList.add(new JobOpening(jobReference1));
-        openingList.add(new JobOpening(jobReference2));
-        openingList.add(new JobOpening(jobReference3));
-
-
+    public void testIsRankUnique_EmptyApplicationList() {
+        List<JobOpeningApplication> emptyList = new ArrayList<>();
         RankApplicationUI rankApplicationUI = new RankApplicationUI();
 
-        // Act
-        rankApplicationUI.printNumeratedList(openingList);
+        boolean result = rankApplicationUI.isRankUnique(5, emptyList);
 
-        // Assert
-        String[] lines = outputStream.toString().split(System.lineSeparator());
-        for (int i = 0; i < openingList.size(); i++) {
-            String expectedNumber = ColorCode.BLUE.getValue() + (i + 1) + ColorCode.RESET.getValue();
-            assertTrue(lines[i + 1].contains(expectedNumber));
-        }
+        assertTrue(result);
     }
+
+
+
 }
