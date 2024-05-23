@@ -24,7 +24,7 @@ public class Server implements Runnable {
             try {
                 Socket serverSocketConnection = serverSocket.accept();
                 if (!exectuing) return; //Force exit new connections TODO: Add exit handler to communicate server shutdown
-                Semaphore.instance().activateCriticalSection();
+                SemaphoreServer.instance().activateCriticalSection();
                 Thread thread = new Thread(serverThreadGroup, new SimpleHandler(serverSocketConnection));
                 thread.start();
             } catch (IOException e) {

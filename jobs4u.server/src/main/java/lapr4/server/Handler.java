@@ -34,7 +34,7 @@ public abstract class Handler implements Runnable {
     public void run() {
         try{
             handle();
-            Semaphore.instance().deactivateCriticalSection();
+            SemaphoreServer.instance().deactivateCriticalSection();
         }catch (Exception e){
             DATABASE_LOGGER.error("Error while executing handler. Closing connection...");
             try {

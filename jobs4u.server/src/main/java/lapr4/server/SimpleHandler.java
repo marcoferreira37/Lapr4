@@ -10,7 +10,7 @@ public class SimpleHandler extends Handler{
 
     @Override
     public void handle() {
-        System.out.println("Hello World! I am Alive!");
+        System.out.println("Connection Established!");
         try {
             System.out.println(this.serverInput.readObject().toString());
         } catch (IOException | ClassNotFoundException e) {

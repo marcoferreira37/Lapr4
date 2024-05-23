@@ -13,6 +13,10 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
 
 /**
  *
@@ -31,7 +35,7 @@ public final class BaseBackoffice extends BaseApplication {
      * @param args
      *            the command line arguments
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws IOException {
 
         AuthzRegistry.configure(PersistenceContext.repositories().users(),
                 new BasePasswordPolicy(), new PlainTextEncoder());
