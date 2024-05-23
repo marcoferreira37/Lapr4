@@ -7,10 +7,10 @@ actor "Customer Manager" as M
 participant AddJobOpeningUI  as UI <<UI>>
 participant AddJobOpeningController as Controller <<Application>>
 participant JobOpeningService as JS <<Application>>
+participant CompanyRepository as CRepo <<Persistence>>
 participant JobOpeningBuilder as JB <<Domain>>
 participant JobOpening as JO <<Domain>>
 participant JobOpeningRepository as JRepo <<Persistence>>
-
 
 activate M
 activate UI
@@ -18,6 +18,12 @@ activate UI
 M -> UI : requests to register a job opening
 
 UI --> M : prompts for job details (Description, Vacancies Number and Address)
+
+UI --> UI : checkDescription(description)
+
+UI --> UI : checkVacanciesNumber(vacanciesNumber)
+
+UI --> UI : checkAddress(address)
 
 M -> UI : provides job details requested
 
@@ -30,6 +36,10 @@ UI --> M : shows available job openings types (Full Time and Part Time)
 M -> UI : selects job opening type
 
 UI --> M :  prompts for job opening requirements (Title or function and Company ID)
+
+UI --> UI: checkTittleOrFunction(titleOrFunction)
+
+UI --> UI: checkCompanyId(companyId)
 
 M -> UI : provides job opening requirements
 
@@ -47,17 +57,21 @@ activate JS
 
 JS -> JB**: create
 
+JS -> CRepo: ofIdentity(companyId)
 
-deactivate JS
+activate CRepo
 
-Controller -> JRepo : nextCode()
+CRepo --> JS: returns company
+
+deactivate CRepo
+
+JS -> JRepo: getLastIdFromCompany(companyId)
+
 activate JRepo
 
-JRepo --> Controller: returns next code
-deactivate JRepo
+JRepo --> JS: returns lastId
 
-Controller -> JB: withCode(code)
-activate JB
+deactivate JRepo
 
 'Controller -> JB: withDescription(description)
 'Controller -> JB: withAddress(address)
@@ -67,19 +81,36 @@ activate JB
 'Controller -> JB: withVacanciesNumber(vacanciesNumber)
 'Controller -> JB: withCompanyId(companyId)
 
-Controller -> JB: build()
 
 deactivate JRepo
-JB -> JO**: create
-JB --> Controller: returns job opening
+JS -> JB: create
+
+activate JB
+
+JB -> JO**: build()
+
 deactivate JB
 
 
 
-Controller -> JRepo: save(job opening)
+
+
+JS -> JRepo: save(jobOpening)
+
+
 activate JRepo
 
-JRepo --> Controller: returns success
+JRepo --> JS: returns job opening
+
+deactivate JRepo
+
+JS --> Controller: returns job opening
+
+deactivate JS
+
+deactivate JB
+
+
 deactivate JRepo
 Controller --> UI: returns success
 deactivate Controller
