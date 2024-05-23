@@ -99,4 +99,8 @@ public class JobOpeningService {
         return jobOpening;
     }
 
+
+    public List<Company> companyList() {
+        return  (List<Company>) companyRepository.findAll();
+    }
 }

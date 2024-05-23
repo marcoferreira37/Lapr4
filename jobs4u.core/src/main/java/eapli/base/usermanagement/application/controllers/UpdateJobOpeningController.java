@@ -1,5 +1,6 @@
 package eapli.base.usermanagement.application.controllers;
 
+import eapli.base.domain.company.Company;
 import eapli.base.domain.jobOpeningProcess.PhaseType;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpening.Phase;
@@ -7,11 +8,18 @@ import eapli.base.usermanagement.application.services.JobOpeningService;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.io.util.Console;
 
 import java.io.File;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 public class UpdateJobOpeningController {
+
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
 
     private JobOpeningService service = new JobOpeningService();
     private AuthorizationService autzService = AuthzRegistry.authorizationService();
@@ -21,6 +29,23 @@ public class UpdateJobOpeningController {
         jobOpening.setPhaseDates(phase);
         JobOpening jo = service.saveJobOpening(jobOpening);
         return jo;
+    }
+
+    public Date verifyDate (Date date, String dateName){
+        boolean verify = false;
+        do {
+            if (date.before(Date.from(Instant.now()))){
+                System.out.println(ANSI_RED + "Invalid Date!" + ANSI_RESET);
+                date = requestDate(dateName);
+            }else {
+                verify = true;
+            }
+        }while (!verify);
+        return date;
+    }
+
+    private Date requestDate(String dateName) {
+        return Console.readDate( dateName + "'s end date: ");
     }
 
     public List<JobOpening> allJobs() {
@@ -112,8 +137,26 @@ public class UpdateJobOpeningController {
         }
         return jobOpening;
     }
+    public Phase buildPhase(Date application, Date screening, Date interview, Date analysis, Date results) {
+        return Phase.from(application, screening,interview,analysis,results);
+    }
 
+    public JobOpening editJobOpening(JobOpening jobOpening) {
+        jobOpening = service.saveJobOpening(jobOpening);
+        return jobOpening;
+    }
 
+    public JobOpening updateCompany(JobOpening jobOpening) {
+        List<Company> companies = service.companyList();
+        int index = 1;
+        for(Company company : companies){
+            System.out.println(index + ". " + company.toString());
+            index++;
+        }
+        int companyIndex = Console.readInteger("Choose a company: ");
+        jobOpening.setCompany(companies.get(companyIndex-1));
+        return jobOpening;
+    }
 
 
 
