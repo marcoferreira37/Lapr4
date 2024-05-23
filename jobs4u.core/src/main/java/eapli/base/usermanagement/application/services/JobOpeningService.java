@@ -12,6 +12,7 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,11 +20,11 @@ public class JobOpeningService {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    private JobOpeningRepository repository = PersistenceContext.repositories().jobOpeningRepository();
-    private CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
+    private final JobOpeningRepository repository = PersistenceContext.repositories().jobOpeningRepository();
+    private final CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
 
-    public JobOpening create(String description, String address, Mode mode, ContractType contract,
-                             String epitaph, int vacancies, long companyId) {
+    public JobOpening create(String description, String address, Mode mode, ContractType contractType,
+                             String titleOrFunction, int vacanciesNumber, long companyId) {
 
         JobOpening.JobOpeningBuilder builder = JobOpening.builder();
         Optional<Company> company = companyRepository.ofIdentity(companyId);
@@ -39,12 +40,12 @@ public class JobOpeningService {
 
         JobOpening jo = builder
                 .jobReference(new JobReference(lastJR + 1, cIndex))
-                .titleOrFunction(new TitleOrFunction(epitaph))
+                .titleOrFunction(new TitleOrFunction(titleOrFunction))
                 .description(new Description(description))
-                .contractType(contract)
+                .contractType(contractType)
                 .mode(mode)
                 .address(new Address(address))
-                .vacanciesNumber(new VacanciesNumber(vacancies))
+                .vacanciesNumber(new VacanciesNumber(vacanciesNumber))
                 .company(company.get())
                 .build();
 
@@ -72,7 +73,7 @@ public class JobOpeningService {
     }
 
     public List<JobOpening> listFilteredJobOpenings(JobOpeningFilteringStrategy strategy, List<Criteria<?>> criteria) {
-        List<JobOpening> openings = (List<JobOpening>) repository.findAll();
+        List<JobOpening> openings = new ArrayList<>(((Collection<JobOpening>) repository.findAll()));
         return strategy.filter(criteria, openings);
     }
 

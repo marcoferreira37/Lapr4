@@ -6,9 +6,11 @@ autonumber
 actor "Customer Manager" as M
 participant AddJobOpeningUI  as UI <<UI>>
 participant AddJobOpeningController as Controller <<Application>>
+participant JobOpeningService as JS <<Application>>
 participant JobOpeningBuilder as JB <<Domain>>
 participant JobOpening as JO <<Domain>>
-database JobOpeningRepository as JRepo <<Persistence>>
+participant JobOpeningRepository as JRepo <<Persistence>>
+
 
 activate M
 activate UI
@@ -35,11 +37,18 @@ UI --> M : shows and requests confirmation for job registration
 
 M -> UI : confirms job registration
 
-UI -> Controller: addJobopening(description, address, mode, contractType, titleOrFunction, vacanciesNumber, companyId)
+UI -> Controller: addJobOpening(description, address, mode, contractType, titleOrFunction, vacanciesNumber, companyId)
 
 activate Controller
 
-Controller -> JB**: create
+Controller -> JS : create(description, address, mode, contractType, titleOrFunction, vacanciesNumber, companyId)
+
+activate JS
+
+JS -> JB**: create
+
+
+deactivate JS
 
 Controller -> JRepo : nextCode()
 activate JRepo
@@ -50,13 +59,13 @@ deactivate JRepo
 Controller -> JB: withCode(code)
 activate JB
 
-Controller -> JB: withDescription(description)
-Controller -> JB: withAddress(address)
-Controller -> JB: withMode(mode)
-Controller -> JB: withContractType(contractType)
-Controller -> JB: withTitleOrFunction(titleOrFunction)
-Controller -> JB: withVacanciesNumber(vacanciesNumber)
-Controller -> JB: withCompanyId(companyId)
+'Controller -> JB: withDescription(description)
+'Controller -> JB: withAddress(address)
+'Controller -> JB: withMode(mode)
+'Controller -> JB: withContractType(contractType)
+'Controller -> JB: withTitleOrFunction(titleOrFunction)
+'Controller -> JB: withVacanciesNumber(vacanciesNumber)
+'Controller -> JB: withCompanyId(companyId)
 
 Controller -> JB: build()
 

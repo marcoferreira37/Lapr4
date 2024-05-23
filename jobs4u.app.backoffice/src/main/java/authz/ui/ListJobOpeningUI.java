@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ListJobOpeningUI extends AbstractUI {
 
-    private ListJobOpeningController theController = new ListJobOpeningController();
+    private final ListJobOpeningController theController = new ListJobOpeningController();
     private final String FORMAT = "dd/MM/yyyy";
 
     @Override
@@ -37,7 +37,7 @@ public class ListJobOpeningUI extends AbstractUI {
 
             final JobOpeningFilteringStrategy strategy = theController.filteringStrategy(strategyIndex);
 
-            List<Criteria<?>> strategyCriteria = strategy.newCriteria();
+            List<Criteria<?>> strategyCriteria = theController.newCriteria(strategy);
 
             for (Criteria<?> criteria : strategyCriteria) {
                 String value = Console.readLine("Insert " + criteria.description().toLowerCase() + ": ");

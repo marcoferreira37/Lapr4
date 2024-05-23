@@ -20,17 +20,17 @@ public class ListJobOpeningController {
         add(new NoFilteringStrategy());
     }};
 
-    private JobOpeningService service = new JobOpeningService();
-    private AuthorizationService autzService = AuthzRegistry.authorizationService();
+    private final JobOpeningService service = new JobOpeningService();
+    private final AuthorizationService autzService = AuthzRegistry.authorizationService();
 
 
-
-    public List<JobOpeningFilteringStrategy> filteringStrategies(){
+    public List<JobOpeningFilteringStrategy> filteringStrategies() {
         return FILTERING_STRATEGIES;
     }
 
     /**
      * Método que retorna uma lista de job openings.
+     *
      * @param index índice da estratégia de filtragem
      * @return lista de job openings
      */
@@ -43,6 +43,7 @@ public class ListJobOpeningController {
 
     /**
      * Método que retorna uma lista de job openings filtrados.
+     *
      * @param strategy estratégia de filtragem
      * @param criteria critérios de filtragem
      * @return lista de job openings filtrados
@@ -59,7 +60,8 @@ public class ListJobOpeningController {
 
     /**
      * Método que verifica se o objeto é nulo.
-     * @param date objeto a ser verificado
+     *
+     * @param date         objeto a ser verificado
      * @param errorMessage mensagem de erro
      */
     private void checkNotNull(Date date, String errorMessage) {
@@ -70,12 +72,18 @@ public class ListJobOpeningController {
 
     /**
      * Método que verifica se a data de fim é posterior à data de início.
+     *
      * @param startDate data de início
-     * @param endDate data de fim
+     * @param endDate   data de fim
      */
     private void checkEndDateAfterStartDate(Date startDate, Date endDate) {
         if (endDate.before(startDate)) {
             throw new IllegalArgumentException("End date must be after start date.");
         }
+    }
+
+    public List<Criteria<?>> newCriteria(JobOpeningFilteringStrategy jobOpeningFilteringStrategy) {
+        return jobOpeningFilteringStrategy.newCriteria();
+
     }
 }
