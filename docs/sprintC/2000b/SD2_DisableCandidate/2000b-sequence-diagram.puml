@@ -16,7 +16,12 @@ activate UI
 UI -> CTRL : create(userRepo)
 UI -> LUI: listEnabledUsers()
 activate LUI
-LUI --> ADM : displays the \nlist of users
+LUI-->CTRL: list
+deactivate LUI
+activate CTRL
+CTRL-->UI:list
+deactivate CTRL
+UI --> ADM : displays the \nlist of users
 deactivate LUI
 ADM -> UI : selects a user
 UI -> CTRL : disableUser(user)
