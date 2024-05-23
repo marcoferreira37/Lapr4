@@ -21,8 +21,6 @@ public class ListJobOpeningController {
     }};
 
     private final JobOpeningService service = new JobOpeningService();
-    private final AuthorizationService autzService = AuthzRegistry.authorizationService();
-
 
     public List<JobOpeningFilteringStrategy> filteringStrategies() {
         return FILTERING_STRATEGIES;
@@ -82,6 +80,11 @@ public class ListJobOpeningController {
         }
     }
 
+    /**
+     * Método que cria uma lista de critérios.
+     * @param jobOpeningFilteringStrategy estratégia de filtragem
+     * @return lista de critérios
+     */
     public List<Criteria<?>> newCriteria(JobOpeningFilteringStrategy jobOpeningFilteringStrategy) {
         return jobOpeningFilteringStrategy.newCriteria();
 

@@ -18,8 +18,6 @@ import java.util.Optional;
 
 public class JobOpeningService {
 
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
-
     private final JobOpeningRepository repository = PersistenceContext.repositories().jobOpeningRepository();
     private final CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
 
