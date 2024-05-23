@@ -45,12 +45,13 @@ activate FS
 
 FS --> Controller : returns filtering criteria
 
-
-
 deactivate FS
 
 Controller --> UI : returns filtering criteria
 
+deactivate Controller
+
+UI --> UI : isValidInput(criteria, value)
 
 deactivate Controller
 
