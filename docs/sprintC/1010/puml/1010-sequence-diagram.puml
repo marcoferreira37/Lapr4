@@ -39,8 +39,7 @@ activate UI
 
 UI -> Controller : getJobOpeningByIndex(index)
 activate Controller
-create JobOpening
-Controller -> JobOpening: Job opening jobOpening = jobOpenings.get(index -1)
+Controller -> Controller: Job opening jobOpening = jobOpenings.get(index -1)
 Controller --> UI : jobOpening
 deactivate Controller
 UI --> CM : displays jobOpening and lists options to update
