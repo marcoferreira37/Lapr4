@@ -1,24 +1,25 @@
 package lapr4.server;
 
-import eapli.core.misc.PropertiesLoader;
+
 
 import java.util.Properties;
+import java.util.concurrent.Semaphore;
 
-public class Semaphore {
+public class SemaphoreServer {
 
-    private static Semaphore instance;
-    private java.util.concurrent.Semaphore semaphore;
+    private static SemaphoreServer instance;
+    private Semaphore semaphore;
 
-    private Semaphore(java.util.concurrent.Semaphore semaphore) {
+    private SemaphoreServer(Semaphore semaphore) {
         this.semaphore = semaphore;
     }
 
-    public static Semaphore instance() {
+    public static SemaphoreServer instance() {
         if (instance == null) {
-            synchronized (Semaphore.class) {
+            synchronized (SemaphoreServer.class) {
                 if (instance != null) return instance;
                 Properties props = System.getProperties();
-                return new Semaphore(new java.util.concurrent.Semaphore( Integer.parseInt(props.getOrDefault("server.connections.max", 10).toString())));
+                return new SemaphoreServer(new Semaphore( Integer.parseInt(props.getOrDefault("server.connections.max", 10).toString())));
             }
         }
         return instance;
