@@ -1,6 +1,6 @@
 @startuml
 
-title Register Job Opening - Sequence Diagram
+title List Job Openings - Sequence Diagram
 
 autonumber
 actor "Customer Manager" as M

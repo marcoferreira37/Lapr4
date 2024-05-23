@@ -31,12 +31,7 @@ deactivate System
 
 Agent -> System : submits the criteria
 
-
 activate System
-
-
-
-
 
  System --> Agent : Displays the list of job openings filtered
 deactivate System

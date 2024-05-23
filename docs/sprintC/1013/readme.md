@@ -33,7 +33,6 @@ Has dependency in the user stories:
 ## 3. Analysis
 
 ### 3.1. Domain Model 
-Explain the domain model and its entities.
 
 The domain model is composed of the following entities:
 
@@ -65,34 +64,8 @@ and data persistence layers.
 
 ![Sequence Diagram - Full](svg/us017-sequence-diagram-full.svg)
 
-A sequence diagram shows the interactions between the Customer Manager and the system to rank candidates. 
+The sequence diagram shows the interactions between the Customer Manager and the system to rank candidates. 
 This includes actions like viewing a list of candidates, assigning a rank, saving the rank, and modifying it later.
-
-### 4.2. Class Diagram
-
-![a class diagram](1013-class-diagram-0.svg "A Class Diagram")
-
-### 4.3. Applied Patterns
-
-> N/A
-
-### 4.4. Tests
-
-[//]: # (TODO Make this)
-
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
-
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
-
-
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
 
 ## 5. Implementation
 
