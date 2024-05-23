@@ -12,7 +12,7 @@ public class SimpleHandler extends Handler{
     public void handle() {
         System.out.println("Hello World! I am Alive!");
         try {
-            System.out.println(this.input.readObject().toString());
+            System.out.println(this.serverInput.readObject().toString());
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
