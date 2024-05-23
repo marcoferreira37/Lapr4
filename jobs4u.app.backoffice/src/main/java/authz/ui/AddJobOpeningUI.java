@@ -76,7 +76,7 @@ public class AddJobOpeningUI extends AbstractUI {
 
         int vacanciesNumber = Integer.parseInt(vacanciesNumberStr);
         int companyId = Integer.parseInt(companyIdStr);
-        addjobOpeningController.addJobopening(description, address, mode, ct, titleOrFunction, vacanciesNumber, companyId);
+        addjobOpeningController.addJobOpening(description, address, mode, ct, titleOrFunction, vacanciesNumber, companyId);
         return true;
     }
 

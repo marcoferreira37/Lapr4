@@ -12,11 +12,11 @@ public class AddJobOpeningController {
     /**
      * The service to be used to add a job opening
      */
-    private JobOpeningService service = new JobOpeningService();
+    private final JobOpeningService service = new JobOpeningService();
     /**
      * The service to be used to check if the user has permission to add a job opening
      */
-    private AuthorizationService autzService = AuthzRegistry.authorizationService();
+    private final AuthorizationService autzService = AuthzRegistry.authorizationService();
 
     /**
      * Method to add a job opening
@@ -29,12 +29,11 @@ public class AddJobOpeningController {
      * @param companyId id of the company that is offering the job opening
      * @return the job opening that was added
      */
-    public JobOpening addJobopening(String description, String address, Mode mode, ContractType contract,
+    public JobOpening addJobOpening(String description, String address, Mode mode, ContractType contract,
                                     String epitaph, int vacancies, int companyId) {
         autzService.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN, BaseRoles.POWER_USER);
-        JobOpening jo = service.create(description, address, mode, contract,
+        return service.create(description, address, mode, contract,
                 epitaph, vacancies, companyId);
-        return jo;
     }
 
     /**

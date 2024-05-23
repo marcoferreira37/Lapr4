@@ -4,10 +4,11 @@ title Register Job Opening - Sequence Diagram
 
 autonumber
 actor "Customer Manager" as M
-participant AddJobOpeningUI  as UI <<UI>>
-participant AddJobOpeningController as Controller <<Application>>
+participant ListJobOpeningUI  as UI <<UI>>
+participant ListJobOpeningController as Controller <<Application>>
+participant JobOpeningService as JService <<Service>>
 participant FilteringStrategy as FS <<Strategy>>
-database JobOpeningRepository as JRepo <<Persistence>>
+participant JobOpeningRepository as JRepo <<Persistence>>
 
 activate M
 activate UI
@@ -22,7 +23,6 @@ Controller --> UI : returns filtering strategies
 
 deactivate Controller
 
-
 UI --> M :  asks to select the filtering strategy (No filter, by Description, by Date and by Code)
 
 M -> UI : selects strategy
@@ -35,11 +35,22 @@ Controller --> UI : strategy
 
 deactivate Controller
 
-UI -> Controller : filteringCriteria(strategy)
+UI -> Controller : newCriteria(strategy)
 
 activate Controller
 
+Controller -> FS : newCriteria()
+
+activate FS
+
+FS --> Controller : returns filtering criteria
+
+
+
+deactivate FS
+
 Controller --> UI : returns filtering criteria
+
 
 deactivate Controller
 
@@ -51,15 +62,36 @@ UI -> Controller : listFilteredJobOpenings(strategy, criteria)
 
 activate Controller
 
-Controller -> JRepo : listFilteredJobOpenings(strategy, criteria)
+Controller -> JService : listFilteredJobOpenings(strategy, criteria)
+
+activate JService
+
+JService -> JRepo : findAll()
 
 activate JRepo
 
-JRepo --> Controller : list of job openings
+JRepo --> JService : list of job openings
 
 deactivate JRepo
 
-Controller --> UI : list of job openings
+JService --> FS : filter(criteria, toFilter)
+
+activate FS
+
+FS --> JService : list of job openings filtered
+
+deactivate FS
+
+
+JService --> Controller : list of job openings filtered
+
+deactivate JService
+
+
+
+deactivate JRepo
+
+Controller --> UI : list of job openings filtered
 
 deactivate Controller
 

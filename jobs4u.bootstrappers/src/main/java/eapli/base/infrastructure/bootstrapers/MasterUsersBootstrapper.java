@@ -129,7 +129,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
     private JobOpening registerJobOpening( String description, String address, Mode mode,ContractType contractType, String title,int vacancies ,int c){
         AddJobOpeningController controller = new AddJobOpeningController();
-       return controller.addJobopening(description,address,mode,contractType,title,vacancies, c);
+       return controller.addJobOpening(description,address,mode,contractType,title,vacancies, c);
     }
 
     private JobOpeningApplication registerApplication(JobOpening jo, Candidate c) {
