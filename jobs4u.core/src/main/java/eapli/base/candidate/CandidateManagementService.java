@@ -2,6 +2,7 @@ package eapli.base.candidate;
 
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.candidate.TelephoneNumber;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.CandidateRepository;
 import eapli.framework.general.domain.model.EmailAddress;
@@ -34,5 +35,8 @@ public class CandidateManagementService {
     }
 
 
+    public Iterable<Candidate> getCandidate(JobOpeningApplication jobOpeningApplication) {
+        return candidateRepository.getCandidate(jobOpeningApplication);
+    }
 }
 

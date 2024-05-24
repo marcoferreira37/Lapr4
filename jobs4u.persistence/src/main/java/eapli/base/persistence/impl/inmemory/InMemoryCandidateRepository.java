@@ -2,6 +2,7 @@ package eapli.base.persistence.impl.inmemory;
 
 import eapli.base.customer.Customer;
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.repositories.CandidateRepository;
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
@@ -16,6 +17,11 @@ public class InMemoryCandidateRepository extends InMemoryDomainRepository<Candid
         public Iterable<Candidate> findAllCandidates() {
             return findAll();
         }
+
+    @Override
+    public Iterable<Candidate> getCandidate(JobOpeningApplication jobOpeningApplication) {
+        return null;
+    }
 
     @Override
     public Iterable<Candidate> findByActive(boolean active) {
