@@ -64,7 +64,7 @@ The domain model is composed of the following entities:
 - **Customer**: Represents a customer in the system.
 
 
-![Domain Model]()
+[Domain Model](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintB\1001\puml\1001-domain-model.puml)
 
 
 ## 3. Requirements
