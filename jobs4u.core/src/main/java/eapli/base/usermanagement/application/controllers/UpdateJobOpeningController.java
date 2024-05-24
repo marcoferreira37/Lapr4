@@ -52,7 +52,7 @@ public class UpdateJobOpeningController {
         autzService.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN);
         int index = 1;
         for(JobOpening job : service.allJobs()){
-            System.out.println(index + ". " + job.toString());
+            System.out.println(index + ". " + job.getJobReference().fullReference() + "\n" + job.getCurrentJobPhase() + "\n" + job.getPhaseDates() );
             index++;
         }
 

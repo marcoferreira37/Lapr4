@@ -16,6 +16,27 @@ import static org.junit.jupiter.api.Assertions.*;
 class AddJobOpeningControllerTest {
 
     public static final String INVALID_DESCRIPTION_BLANK = " \t ";
+
+    public static final String INVALID_DESCRIPTION_NUMBERS = "123";
+
+    private final String VALID_ADDRESS = "Aveiro";
+
+    private final String INVALID_ADDRESS = "123";
+
+    private static final String INVALID_ADDRESS_BLANK = " \t ";
+
+    private static final String INVALID_ADDRESS_NUMBERS = "100";
+
+
+    private final String VALID_TITLEORFUNCTION = "Pedreiro";
+
+    private final String INVALID_TITLEORFUNCTION = "834";
+
+    private static final String INVALID_TITLEORFUNCTION_BLANK = " \t ";
+
+    private static final String INVALID_TITLEORFUNCTION_NUMBERS = "100";
+
+
     private AddJobOpeningController testingTarget;
     private JobOpeningService mockService;
 
@@ -24,10 +45,6 @@ class AddJobOpeningControllerTest {
     private final String VALID_DESCRIPTION = "O balão do João,\n Sobe sobe sem parar! \uD83C\uDFB5";
 
     private final String INVALID_DESCRIPTION = "123";
-
-    private final String VALID_ADDRESS = "Aveiro";
-
-    private final String INVALID_ADDRESS = "123";
 
     private final Mode VALID_MODE = Mode.REMOTE;
 
@@ -77,8 +94,57 @@ class AddJobOpeningControllerTest {
                 "Invalid description should produce true: " + INVALID_DESCRIPTION_BLANK);
     }
 
+    @Test
+    void checkDescriptionInvalidNumbers() {
+        assertTrue(testingTarget.checkDescription(INVALID_DESCRIPTION_NUMBERS),
+                "Invalid description should produce true: " + INVALID_DESCRIPTION_NUMBERS);
+    }
 
 
+    @Test
+    void checkAddressValid() {
+        assertFalse(testingTarget.checkAddress(VALID_ADDRESS), "Valid address should produce false: " + VALID_ADDRESS);
+    }
+
+    @Test
+    void checkAddressInvalidNull() {
+        assertTrue(testingTarget.checkAddress(null), "Invalid address should produce true: null");
+    }
+
+    @Test
+    void checkAddressInvalidIsBlank() {
+        assertTrue(testingTarget.checkAddress(INVALID_ADDRESS_BLANK),
+                "Invalid address should produce true: " + INVALID_ADDRESS_BLANK);
+    }
+
+    @Test
+    void checkAddressInvalidNumbers() {
+        assertTrue(testingTarget.checkAddress(INVALID_ADDRESS_NUMBERS),
+                "Invalid address should produce true: " + INVALID_ADDRESS_NUMBERS);
+    }
+
+
+    @Test
+    void checkTitleOrFunctionValid() {
+        assertFalse(testingTarget.checkTittleOrFunction(VALID_TITLEORFUNCTION), "Valid title or function should produce false: " + VALID_TITLEORFUNCTION);
+    }
+
+    @Test
+    void checkTitleOrFunctionInvalidNull() {
+        assertTrue(testingTarget.checkTittleOrFunction(null), "Invalid title or function should produce true: null");
+    }
+
+    @Test
+    void checkTitleOrFunctionInvalidIsBlank() {
+        assertTrue(testingTarget.checkTittleOrFunction(INVALID_TITLEORFUNCTION),
+                "Invalid title or function should produce true: " + INVALID_TITLEORFUNCTION);
+    }
+
+    @Test
+    void checkTitleOrFunctionInvalidNumbers() {
+        assertTrue(testingTarget.checkTittleOrFunction(INVALID_TITLEORFUNCTION),
+                "Invalid title or function should produce true: " + INVALID_TITLEORFUNCTION);
+    }
 
 
     @Test
