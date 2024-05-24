@@ -14,12 +14,8 @@
 **Acceptance Criteria:**
 
 - 1007.1. The system should provide a user interface for the Customer Manager to create, edit, and delete job opening phases.
-- 1007.2. Each phase should have a name, description, and optional duration.
-- 1007.3. Phases should be customizable in terms of their sequence and visibility to other stakeholders involved in the hiring process.
+- 1007.2. Phases should be customizable in terms of their sequence and visibility to other stakeholders involved in the hiring process.
 
-**Dependencies/References:**
-
-*Regarding this requirement we understand that it relates to...*
 
 ## 3. Analysis
 

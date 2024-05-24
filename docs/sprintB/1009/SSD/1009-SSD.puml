@@ -1,0 +1,35 @@
+@startuml
+
+title US 1005 - List Job Opening Applications
+
+actor User as U
+participant "System" as S
+
+activate U
+
+    U -> S: Asks to update a job opening
+    activate S
+
+    S --> U : Requests to select customer assigned to logged in customer manager
+
+    deactivate S
+    U -> S: chooses desired customer
+    activate S
+
+    S --> U : requests to select job opening to update for selected customer
+
+    deactivate S
+    U -> S: chooses desired job opening
+    activate S
+
+    S --> U : Requests to select customer assigned to logged in customer manager
+
+    deactivate S
+    U -> S: chooses desired customer
+    activate S
+
+    S --> U : requests to select job opening to update for selected customer
+
+    deactivate S
+
+@enduml
