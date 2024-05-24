@@ -48,8 +48,16 @@ rectangle "Job Opening" #bbccaa {
 
     class Description<<Value Object>>{}
 
-    ''Maybe go to Interview Model
-
+    class PhaseDates<<Entity>>{}
+    enum PhaseType<<Enumerated>><<Value Object>>{
+                APPLICATION
+                SCREENING
+                INTERVIEWS
+                ANALYSIS
+                RESULT
+            }
+     JobOpening "1" --> "1" PhaseDates
+     PhaseDates "1" --> "1" PhaseType
 }
 
 
@@ -67,29 +75,9 @@ rectangle "Job Opening Application" #aaccbb {
 
     class ApplicationStatus<<Value Object>>{}
 
-    class ApplicationGrade<<Value Object>>{}
-
-
-
+    class ApplicationRank<<Value Object>>{}
 
 }
-
-rectangle "Job Opening Process" #ccbbcc{
-    class JobOpeningProcess<<Aggregate Root>><<Entity>>{}
-    class JobOpeningProcessId<<Identity>><<Value Object>>{}
-    class JobOpeningProcessStatus<<Value Object>>{}
-    class JobOpeningProcessStage<<Value Object>>{}
-    class Phase<<Entity>>{
-        }
-    enum PhaseType<<Enumerated>><<Value Object>>{
-        APPLICATION
-        SCREENING
-        INTERVIEWS
-        ANALYSIS
-        RESULT
-    }
-}
-
 
 rectangle "Job Opening Interview" #ccbbaa {
     class JobInterview <<Aggregate Root>><<Entity>>{}
@@ -120,13 +108,7 @@ rectangle "Job Opening Interview" #ccbbaa {
 
 
 
-rectangle "Interview Model" #accbcc {
 
-}
-
-rectangle "Requirements" #cbcbac {
-
-}
 
 rectangle "PlugIn" #bababa {
     class Plugin <<Aggregate Root>><<Entity>>{}
@@ -134,6 +116,8 @@ rectangle "PlugIn" #bababa {
     class PluginId<<Identity>><<Value Object>>{}
     class PluginDescription<<Value Object>>{}
     class JarFile<<Value Object>>{}
+    class Requirement<<Resource>>{}
+    class InterviewModel<<Resource>>{}
 }
 
 Plugin "1" --> "1" PluginType
@@ -149,7 +133,6 @@ Mode "1" <-- "1" JobOpening
 Description "1" <-up- "1" JobOpening
 VacanciesNumber "1" <-up- "1" JobOpening
 
-JobOpening "1" ---> "1" Requirements
 JobOpening "*" --> "1" Customer : set by
 
 
@@ -165,16 +148,6 @@ Application "1" -> "1" Candidate : submitted by
 Application "1" --> "1" ApplicationStatus
 
 Customer "1" --> "1" CustomerId
-
-
-JobOpeningProcess "1" -left-> "1" JobOpeningProcessId
-JobOpening "1" -----> "*" JobOpeningProcess : has
-Phase "1" --> "1" JobOpeningProcessStatus
-Phase "1" --> "1" JobOpeningProcessStage
-JobOpeningProcess "1" --> "1" Phase
-
-Phase "1" --> "1" PhaseType
-
 
 ''InterviewModel "1" -left-> "1" InterviewModelName : has
 ''InterviewModel "1" -down--> "*" Question : contains
@@ -201,9 +174,7 @@ JobInterview "1" --> "1" InterviewTime
 JobInterview "1" -> "1" Score
 JobInterview "1" --> "1" InterviewResult
 
-Requirements  -right-|> Plugin
-"Interview Model" --|> Plugin
-JobOpening "*" --> "1" "Interview Model"
+JobOpening "1" --> "1..*" "Plugin"
 
 '
 'Criteria "1" -up-> "1" FilterByCode
@@ -214,7 +185,10 @@ JobOpening "*" --> "1" "Interview Model"
 Candidate -right-> "1" CurriculumVitae
 
 Application "1" -up-> "1" JobInterview
-Application "1" -up-> "0..1" ApplicationGrade
+Application "1" -up-> "0..1" ApplicationRank
+
+JarFile "1" +..> "*" InterviewModel : interviewModels
+JarFile "1" +..> "*" Requirement : requirements
 
 
 @enduml
