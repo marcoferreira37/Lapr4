@@ -18,6 +18,9 @@ class AddJobOpeningControllerTest {
     public static final String INVALID_DESCRIPTION_BLANK = " \t ";
 
     public static final String INVALID_DESCRIPTION_NUMBERS = "123";
+    private static final String INVALID_VACANCIESNUMBER = "SSSS";
+    private static final String INVALID_VACANCIESNUMBER_BLANK = " \t ";
+    private static final String VALID_VACANCIESNUMBER = "12";
 
     private final String VALID_ADDRESS = "Aveiro";
 
@@ -148,6 +151,39 @@ class AddJobOpeningControllerTest {
 
 
     @Test
+    void checkVacanciesNumberValid() {
+        assertFalse(testingTarget.checkVacanciesNumber(VALID_VACANCIESNUMBER), "Valid title or function should produce false: " + VALID_TITLEORFUNCTION);
+    }
+
+    @Test
+    void checkVacanciesNumberInvalidNull() {
+        assertTrue(testingTarget.checkVacanciesNumber(null), "Invalid title or function should produce true: null");
+    }
+
+    @Test
+    void checkVacanciesNumberInvalidIsBlank() {
+        assertTrue(testingTarget.checkVacanciesNumber(INVALID_VACANCIESNUMBER_BLANK),
+                "Invalid title or function should produce true: " + INVALID_VACANCIESNUMBER_BLANK);
+    }
+
+    @Test
+    void checkVacanciesNumberInvalidString() {
+        assertTrue(testingTarget.checkVacanciesNumber(INVALID_VACANCIESNUMBER),
+                "Invalid title or function should produce true: " + INVALID_VACANCIESNUMBER);
+    }
+
+    @Test
+
+    void checkVacanciesNumberInvalidNegative() {
+        assertTrue(testingTarget.checkVacanciesNumber("-1"),
+                "Invalid title or function should produce true: " + "-1");
+    }
+
+
+
+
+
+    @Test
     void addValidJobOpeningTest() {
         Mockito.doNothing().when(autzService).ensureAuthenticatedUserHasAnyOf(VALID_ROLES);
         Mockito.when(mockService.create(VALID_DESCRIPTION, VALID_ADDRESS, VALID_MODE, VALID_CONTRACTTYPE, VALID_EPITAPH, 13, 2)).thenReturn(DUMMY_VALID_JOB_OPENING);
@@ -167,5 +203,6 @@ class AddJobOpeningControllerTest {
                 testingTarget.addJobOpening(VALID_DESCRIPTION, VALID_ADDRESS, VALID_MODE, VALID_CONTRACTTYPE, VALID_EPITAPH, 13, 2),
                 "AddJobOpeningController.addJobOpening should fail when passed with invalid parameters");
     }
+
 
 }
