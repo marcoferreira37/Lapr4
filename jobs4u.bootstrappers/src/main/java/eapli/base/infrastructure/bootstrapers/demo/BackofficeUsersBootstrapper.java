@@ -40,7 +40,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     public boolean execute() {
         registerCashier("cashier", PASSWORD1, "Johny", "Cash", "johny.doe@emai.l.com");
         registerKitchenManager("kitchen", PASSWORD1, "Oven", "Stove", "Oven.and.stove@emai.l.com");
-        registerMenuManager("chef", PASSWORD1, "Master", "Chef", "master.chef@emai.l.com");
+        registerMenuManager("chef", PASSWORD1, "", "Chef", ".chef@emai.l.com");
         return true;
     }
 

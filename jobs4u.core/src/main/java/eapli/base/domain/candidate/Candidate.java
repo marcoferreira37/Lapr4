@@ -61,4 +61,11 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     public String curriculum() {
         return curriculum;
     }
+
+    @Override
+    public String toString() {
+        return "Candidate{" +
+                ", emailAddress=" + emailAddress +
+                ", telephoneNumber=" + telephoneNumber;
+    }
 }
