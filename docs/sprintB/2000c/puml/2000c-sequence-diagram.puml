@@ -36,9 +36,6 @@ activate UI
 UI-> CTRL: get all candidates from database
 activate CTRL
 CTRL-->CTRL:allCandidates()
-CTRL->AS : ensureAuthenticatedUserHasAnyOf()
-activate AS
-deactivate AS
 CTRL-> UMS : allCandidate()
 activate UMS
 UMS->CRepo: findAllCandidates()
