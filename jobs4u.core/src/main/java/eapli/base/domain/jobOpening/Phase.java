@@ -11,7 +11,6 @@ import java.util.Date;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
 public class Phase implements ValueObject {
 
     @Temporal(TemporalType.DATE)
@@ -37,5 +36,16 @@ public class Phase implements ValueObject {
     public static Phase from(Date applicationDate, Date screeningDate, Date interviewDate, Date analysisDate, Date resultsDate) {
         //TODO Validate business rules
         return new Phase(applicationDate, screeningDate, interviewDate, analysisDate, resultsDate);
+    }
+
+    @Override
+    public String toString() {
+        return
+                " Application Date=" + applicationDate +
+                "| Screening Date=" + screeningDate +
+                "| Interview Date=" + interviewDate +
+                "| Analysis Date=" + analysisDate +
+                "| Results Date=" + resultsDate
+                ;
     }
 }

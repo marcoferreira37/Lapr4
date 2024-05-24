@@ -152,6 +152,6 @@ public class UpdateJobOpeningUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return "update job opening";
+        return "Update Job Opening";
     }
 }

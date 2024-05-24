@@ -145,7 +145,7 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
     private Menu buildCustomerManagerMenu() {
-        final Menu menu = new Menu("Customer Manager >>:");
+        final Menu menu = new Menu("Customer Manager >");
 
         menu.addItem(1, "Register a customer", new AddCustomerUI()::show);
         menu.addItem(2, "List all customers", new ListCustomerManagerActions());
