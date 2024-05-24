@@ -55,7 +55,6 @@ Controller -> JS : create(description, address, mode, contractType, titleOrFunct
 
 activate JS
 
-JS -> JB**: create
 
 JS -> CRepo: ofIdentity(companyId)
 
@@ -71,6 +70,9 @@ activate JRepo
 
 JRepo --> JS: returns lastId
 
+JS -> JB**: create
+
+
 deactivate JRepo
 
 'Controller -> JB: withDescription(description)
@@ -83,11 +85,16 @@ deactivate JRepo
 
 
 deactivate JRepo
-JS -> JB: create
 
 activate JB
 
-JB -> JO**: build()
+JS -> JB: build()
+
+note right of JS
+  Passes the job opening attributes to the builder
+end note
+
+JB -> JO**: create(...)
 
 deactivate JB
 
