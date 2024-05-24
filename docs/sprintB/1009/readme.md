@@ -1,77 +1,45 @@
-# US 3004
-
-*This is an example template*
+# US 1009
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+* This task was included in the team's to-do list during sprint 2
+  and is expected to be finished within the same sprint.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
+**US 1009** As Customer Manager, I want to select the requirements specification to be used for a job opening.
 
-*Example*
+– Priority: 1
 
-**US G002** As {Ator} I Want...
-
-**Acceptance Criteria:**
-
-- G002.1. The system should...Blá Blá Blá ...
-
-- G002.2. Blá Blá Blá ...
-
-**Dependencies/References:**
-
-*Regarding this requirement we understand that it relates to...*
+– References: See NFR09(LPROG).
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+* To determine the best design for this requirement, the team conducted a thorough analysis of current job opening management systems. Key considerations included ease of use for the Customer Manager, integration with existing HR systems, and compliance with relevant legal and organizational standards. The team reviewed various domain models and use case diagrams to ensure a comprehensive understanding of the requirements. The analysis included the following:
+
+* Comparison of different requirements management tools.
+Interviews with Customer Managers to gather user insights.
+Review of industry standards and best practices.
 
 ## 4. Design
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
-
 ### 4.1. Realization
+
+* The realization phase focused on creating a sequence diagram to illustrate the workflow for selecting a requirements specification for a job opening. This diagram includes interactions between the Customer Manager, the system, and the requirements database.
 
 ### 4.2. Class Diagram
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
-
 ### 4.3. Applied Patterns
 
-### 4.4. Tests
+* MVC (Model-View-Controller) Pattern: Separation of concerns between UI, controller, and model components.
 
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
+* Repository Pattern: ClientUserRepository and JobOpeningRepository are used to manage data persistence and retrieval, abstracting the underlying data access implementation.
 
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
-
-
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
-
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+* The implementation of the requirements attribution functionality adheres to the design specifications outlined above. Regular code reviews and automated tests ensure that the implementation aligns with the intended functionality.
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
-
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
-
-## 7. Observations
-
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+* We can see all the integration and we can have a demonstration of the success of this User Story opening the project and register as Customer Manager and selecting the option "Update a Job Opening"
