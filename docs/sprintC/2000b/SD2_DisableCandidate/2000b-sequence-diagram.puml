@@ -9,25 +9,33 @@ participant ":DisableCandidateController" as CTRL <<application>>
 participant ":ListCandidatesUI" as LUI <<ui>>
 participant "Candidate" as User <<domain>>
 participant "CandidateRepository" as REPO <<repository>>
+participant "SystemUser" as SYS <<domain>>
 
 activate ADM
 ADM-> UI : Request to disable a candidate
 activate UI
-UI -> CTRL : create(userRepo)
-UI -> LUI: listEnabledUsers()
+UI -> CTRL : create(candidateRepo)
+activate CTRL
+UI -> LUI: listEnabledCandidates()
+deactivate CTRL
 activate LUI
 LUI-->CTRL: list
 deactivate LUI
 activate CTRL
 CTRL-->UI:list
 deactivate CTRL
-UI --> ADM : displays the \nlist of users
+UI --> ADM : displays the \nlist of candidates
 deactivate LUI
-ADM -> UI : selects a user
-UI -> CTRL : disableUser(user)
+ADM -> UI : selects a candidate
+UI -> CTRL : disableCandidate(email)
 activate CTRL
-CTRL -> User : disable()
-CTRL -> REPO : save(user)
+CTRL->SYS :.user()
+activate SYS
+SYS-->SYS:.deactivate(deactivatedOn)
+CTRL->REPO : save(candidate)
+activate REPO
+deactivate SYS
+deactivate REPO
 CTRL --> UI : returns success
 deactivate CTRL
 UI --> ADM : displays success
