@@ -52,7 +52,6 @@ class AddCustomerControllerTest {
         role.add(BaseRoles.CUSTOMER);
 
 
-
         Customer result = addCustomerController.addCustomer(username, firstName, lastName, email, createdOn, password);
         assertNotNull(result);
     }
