@@ -1,0 +1,141 @@
+@startuml
+
+autonumber
+
+actor "Customer Manager" as User
+participant "UpdateJobOpeningUI" as UI <<UI>>
+participant "UpdateJobOpeningController" as Controller <<Application>>
+participant "ClientUserService" as ClientUserService <<Service>>
+participant "AuthorizationService" as AuthorizationService <<Service>>
+participant "JobOpeningService" as J2obOpeningService <<Service>>
+participant "JobOpeningMapper" as JobOpeningMapper <<Domain>>
+participant "ClientUserRepository" as ClientUserRepository <<Persistence>>
+participant "JobOpeningRepository" as JobOpeningRepository <<Persistence>>
+
+
+activate User
+
+    User -> UI : Asks to update a job opening
+    activate UI
+
+    UI -> Controller** : create
+
+    UI -> Controller: showClients()
+    activate Controller
+
+    Controller -> Controller : allClients()
+        activate Controller
+            Controller -> ClientUserService: allUsers()
+            activate ClientUserService
+                ClientUserService -> ClientUserRepository: findAllActive()
+                activate ClientUserRepository
+                ClientUserRepository --> ClientUserService: all clients
+                deactivate ClientUserRepository
+                ClientUserService --> Controller: all clients
+            deactivate ClientUserService
+            Controller --> Controller: all clients
+        deactivate Controller
+
+        Controller -> Controller: getLoggedInUser()
+            activate Controller
+            Controller -> AuthorizationService: session()
+            activate AuthorizationService
+            AuthorizationService -> UserSession: authenticatedUser()
+            activate UserSession
+            UserSession --> AuthorizationService: returns logged in user
+            deactivate UserSession
+            AuthorizationService --> Controller: returns logged in user
+            deactivate AuthorizationService
+                Controller --> Controller: logged in user
+        deactivate Controller
+
+        Controller --> UI: customers assigned to customer manager
+        deactivate Controller
+
+
+
+    UI --> User : Requests to select customer assigned to logged in customer manager
+    deactivate UI
+
+
+    User -> UI: chooses desired customer
+    activate UI
+
+
+    UI -> Controller: showJobOpenings(clientUser)
+    activate Controller
+        Controller -> Controller : allJobs()
+        activate Controller
+            Controller -> JobOpeningService: allJobs()
+            activate JobOpeningService
+
+            loop through all jobs
+                JobOpeningService -> JobOpeningMapper: toDto(job)
+                activate JobOpeningMapper
+                JobOpeningMapper --> JobOpeningService: job dto
+                deactivate JobOpeningMapper
+                JobOpeningService --> Controller: all jobs
+                deactivate JobOpeningService
+            end
+
+            Controller --> Controller : all jobs
+        deactivate Controller
+
+            Controller --> UI: all jobs
+            deactivate Controller
+
+
+
+    deactivate Controller
+
+
+    UI --> User : requests to select job opening to update for selected customer
+    deactivate UI
+
+    User -> UI: chooses desired job opening
+    activate UI
+
+    UI --> User: requests to select what to update for selected job opening
+    deactivate UI
+
+    User -> UI: chooses parameter to be updated
+    activate UI
+
+    UI --> User: requests to select new value for chosen parameter
+    deactivate UI
+
+    User -> UI: chooses new value
+    activate UI
+
+                UI -> Controller: interviewModel(jobOpeningDto)
+                activate Controller
+
+                Controller -> JobOpeningService: updateinterviewModel(jobOpeningDto, interviewModel)
+                activate JobOpeningService
+                JobOpeningService -> JobOpeningMapper: toDomain(jobOpeningDto)
+                activate JobOpeningMapper
+                JobOpeningMapper --> JobOpeningService: jobOpening
+                deactivate JobOpeningMapper
+
+                JobOpeningService -> JobOpeningRepository: save(jobOpening)
+                activate JobOpeningRepository
+                JobOpeningRepository --> JobOpeningService: saved jobOpening
+                deactivate JobOpeningRepository
+
+                JobOpeningService -> JobOpeningMapper: toDto(jobOpening)
+                activate JobOpeningMapper
+                JobOpeningMapper --> JobOpeningService: jobOpeningDto
+                deactivate JobOpeningMapper
+
+                JobOpeningService --> Controller: updated jobOpeningDto
+                deactivate JobOpeningService
+                Controller --> UI: updated jobOpeningDto
+                deactivate Controller
+
+
+
+    UI --> User: operation success
+    deactivate UI
+
+deactivate User
+@enduml
