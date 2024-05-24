@@ -1,16 +1,17 @@
 @startuml
+'https://plantuml.com/sequence-diagram
 
 autonumber
 
 actor "Customer Manager" as User
-participant "UpdateJobOpeningUI" as UI <<UI>>
-participant "UpdateJobOpeningController" as Controller <<Application>>
-participant "ClientUserService" as ClientUserService <<Service>>
-participant "AuthorizationService" as AuthorizationService <<Service>>
-participant "JobOpeningService" as J2obOpeningService <<Service>>
-participant "JobOpeningMapper" as JobOpeningMapper <<Domain>>
-participant "ClientUserRepository" as ClientUserRepository <<Persistence>>
-participant "JobOpeningRepository" as JobOpeningRepository <<Persistence>>
+participant "UpdateJobOpeningUI" as UI
+participant "UpdateJobOpeningController" as Controller
+participant "ClientUserService" as ClientUserService
+participant "AuthorizationService" as AuthorizationService
+participant "JobOpeningService" as J2obOpeningService
+participant "JobOpeningMapper" as JobOpeningMapper
+participant "ClientUserRepository" as ClientUserRepository
+participant "JobOpeningRepository" as JobOpeningRepository
 
 
 activate User
@@ -107,31 +108,32 @@ activate User
     User -> UI: chooses new value
     activate UI
 
-                UI -> Controller: requirements(jobOpeningDto)
-                activate Controller
-                Controller -> JobOpeningService: updateRequirements(jobOpeningDto, requirements)
-                activate JobOpeningService
-                JobOpeningService -> JobOpeningMapper: toDomain(jobOpeningDto)
-                activate JobOpeningMapper
-                JobOpeningMapper --> JobOpeningService: jobOpening
-                deactivate JobOpeningMapper
+            UI -> Controller: phaseDates(jobOpeningDto)
+            activate Controller
+            Controller -> JobOpeningService: updatePhaseDates(jobOpeningDto, phaseDates)
+            activate JobOpeningService
+            JobOpeningService -> JobOpeningMapper: toDomain(jobOpeningDto)
+            activate JobOpeningMapper
+            JobOpeningMapper --> JobOpeningService: jobOpening
+            deactivate JobOpeningMapper
 
-                JobOpeningService -> JobOpeningRepository: save(jobOpening)
-                activate JobOpeningRepository
-                JobOpeningRepository --> JobOpeningService: saved jobOpening
-                deactivate JobOpeningRepository
+            JobOpeningService -> JobOpeningRepository: save(jobOpening)
+            activate JobOpeningRepository
+            JobOpeningRepository --> JobOpeningService: saved jobOpening
+            deactivate JobOpeningRepository
 
-                JobOpeningService -> JobOpeningMapper: toDto(jobOpening)
-                activate JobOpeningMapper
-                JobOpeningMapper --> JobOpeningService: jobOpeningDto
-                deactivate JobOpeningMapper
+            JobOpeningService -> JobOpeningMapper: toDto(jobOpening)
+            activate JobOpeningMapper
+            JobOpeningMapper --> JobOpeningService: jobOpeningDto
+            deactivate JobOpeningMapper
 
-                JobOpeningService --> Controller: updated jobOpeningDto
-                deactivate JobOpeningService
-                Controller --> UI: updated jobOpeningDto
-                deactivate Controller
+            JobOpeningService --> Controller: updated jobOpeningDto
+            deactivate JobOpeningService
+            Controller --> UI: updated jobOpeningDto
+            deactivate Controller
 
 
+        deactivate Controller
 
     UI --> User: operation success
     deactivate UI
