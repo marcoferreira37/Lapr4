@@ -22,11 +22,9 @@ CTRL -> AS : authorizationService()
 activate AS
 AS --> CTRL: authz
 deactivate AS
-CTRL-> UMS : candidateSvc()
-activate UMS
-UMS-->CTRL: candidateSvc
-deactivate UMS
-deactivate CTRL
+CTRL->AS : ensureAuthenticatedUserHasAnyOf()
+activate AS
+deactivate AS
 UI --> Operator: Request the username, password, \nfirstName, lastName, email, roleTypes
 deactivate UI
 Operator -> UI: Types in the data (username, password, \nfirstName, lastName, email, roleTypes)
@@ -34,11 +32,10 @@ activate UI
 UI-->UI : saves the data
 UI-> UI : .add(ROLE.CANDIDATE)
 UI-> CTRL: addCandidate(username, password, \nfirstName, lastName, email, roleTypes)
-activate CTRL
-CTRL-->CTRL: addCandidate(username,password, \nfirstName,lastName, email, roles)
-CTRL->AS : ensureAuthenticatedUserHasAnyOf()
-activate AS
-deactivate AS
+CTRL-> UMS : candidateSvc()
+activate UMS
+UMS-->CTRL: candidateSvc
+deactivate UMS
 CTRL-> UMS : registerNewCandidate(newUser, emailAddress, telephoneNumber)
 activate UMS
 UMS->SUB: .with(user, emailAddress, telephoneNumber)
@@ -46,7 +43,7 @@ activate SUB
 UMS-> SUB: .build()
 SUB--> UMS: user
 deactivate SUB
-UMS->CRepo: save the user
+UMS->CRepo: save the candidate
 activate CRepo
 deactivate CRepo
 UMS-->CTRL: candidate
