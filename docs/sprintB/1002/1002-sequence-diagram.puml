@@ -19,11 +19,22 @@ M -> UI : requests to register a job opening
 
 UI --> M : prompts for job details (Description, Vacancies Number and Address)
 
-UI --> UI : checkDescription(description)
+UI -> Controller : checkDescription(description)
 
-UI --> UI : checkVacanciesNumber(vacanciesNumber)
+activate Controller
+deactivate Controller
 
-UI --> UI : checkAddress(address)
+UI -> Controller : checkVacanciesNumber(vacanciesNumber)
+
+activate Controller
+deactivate Controller
+
+UI -> Controller : checkAddress(address)
+
+activate Controller
+deactivate Controller
+
+deactivate Controller
 
 M -> UI : provides job details requested
 
@@ -37,9 +48,15 @@ M -> UI : selects job opening type
 
 UI --> M :  prompts for job opening requirements (Title or function and Company ID)
 
-UI --> UI: checkTittleOrFunction(titleOrFunction)
+UI -> Controller: checkTittleOrFunction(titleOrFunction)
 
-UI --> UI: checkCompanyId(companyId)
+activate Controller
+deactivate Controller
+
+UI -> Controller: checkCompanyId(companyId)
+activate Controller
+
+deactivate Controller
 
 M -> UI : provides job opening requirements
 

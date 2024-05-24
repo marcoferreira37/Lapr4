@@ -92,7 +92,7 @@ and data persistence layers.
 
 ## 4.2 Sequence Diagram
 
-![Sequence Diagram - Full](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintB\1003\svg\1003-sequence-diagram-List_Job_Openings___Sequence_Diagram.png)
+![Sequence Diagram - Full](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintB\1002\svg\1002-sequence-diagram-Register_Job_Opening___Sequence_Diagram.png)
 
 - The sequence diagram shows the process of listing job openings with filters.
   The Customer Manager requests to list job openings via the UI.
