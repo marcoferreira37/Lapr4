@@ -6,10 +6,10 @@ skinparam shadowing false
 autonumber
 
 actor "Customer Manager" as CM
-participant ":ExportTemplateInterviewUI" as UI6
-participant ":GenerateAndExportTemplateFileController" as Controller6
-participant ":SystemJobOpeningsPrinter" as printer
-participant ":JobOpeningService" as jobSvc
+participant ":ExportTemplateInterviewUI" as UI6 <<UI>>
+participant ":GenerateAndExportTemplateFileController" as Controller6 <<Application>>
+participant ":SystemJobOpeningsPrinter" as printer <<Domain>>
+participant ":JobOpeningService" as jobSvc <<Service>>
 
 activate CM
 

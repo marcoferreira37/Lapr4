@@ -6,7 +6,7 @@ rectangle candidate #aabbcc{
 }
 
 
-Candidate "1" *-- "1" CandidateId
+Candidate "1" --> "1" CandidateId
 
 
 Candidate "1" --> "1" Username

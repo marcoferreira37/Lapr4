@@ -6,12 +6,12 @@ actor Operator as Operator
 participant ListCandidatesUI as UI <<UI>>
 participant ListCandidatesController as CTRL <<Application>>
 participant Role as Role <<Domain>>
-participant AuthorizationService as AS <<Domain>>
-participant CandidateManagementService as UMS <<Domain>>
-database UserRepository as URepo <<Persistence>>
+participant AuthorizationService as AS <<Service>>
+participant CandidateManagementService as UMS <<Service>>
+participant UserRepository as URepo <<Persistence>>
 participant Candidate as C <<Domain>>
-database CandidateRepository as CRepo <<Persistence>>
-database DomainRepository as D <<Persistence>>
+participant CandidateRepository as CRepo <<Persistence>>
+participant DomainRepository as D <<Persistence>>
 
 
 activate Operator

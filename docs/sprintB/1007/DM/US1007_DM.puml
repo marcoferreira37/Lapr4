@@ -56,12 +56,12 @@ rectangle "Job Opening Process" #ccbbcc{
 
 
 
-JobReference "1" -up-* "1" JobOpening
-TitleOrFunction "1" -up-* "1" JobOpening
-ContractType "1" --* "1" JobOpening
-Mode "1" --* "1" JobOpening
-Description "1" -up-* "1" JobOpening
-VacanciesNumber "1" -up-* "1" JobOpening
+JobReference "1" <-up- "1" JobOpening
+TitleOrFunction "1" <-up- "1" JobOpening
+ContractType "1" <-- "1" JobOpening
+Mode "1" <-- "1" JobOpening
+Description "1" <-up- "1" JobOpening
+VacanciesNumber "1" <-up- "1" JobOpening
 
 
 
@@ -72,7 +72,7 @@ Phase "1" --> "1" JobOpeningProcessStatus
 Phase "1" --> "1" JobOpeningProcessStage
 JobOpeningProcess "1" --> "1" Phase
 
-PhaseType "1" -down-> "*" Phase
+PhaseType "1" -down-> "1" Phase
 
 
 ''InterviewModel "1" -left-> "1" InterviewModelName : has

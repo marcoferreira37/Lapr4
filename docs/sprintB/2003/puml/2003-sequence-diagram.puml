@@ -5,9 +5,9 @@ autonumber
 actor Operator as Operator
 participant GenerateTemplateUI as UI <<UI>>
 participant GenerateTemplateController as CTRL <<Application>>
-participant AuthorizationService as AS <<Domain>>
-participant JobOpeningService as UMS <<Domain>>
-database JobOpeningRepository as URepo <<Persistence>>
+participant AuthorizationService as AS <<Service>>
+participant JobOpeningService as UMS <<Service>>
+participant JobOpeningRepository as URepo <<Persistence>>
 
 
 

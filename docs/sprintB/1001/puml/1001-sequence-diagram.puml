@@ -9,17 +9,17 @@ title Register Customer - Sequence Diagram
 
 
 actor "Customer Manager" as CM
-participant ":AddCustomerUI" as UI
-participant "AddCustomerController" as Controller
-participant "BaseRoles" as role
-participant ":AuthorizationService" as auth
-participant ":CustomerManagementService" as customerSvc
-participant ":SystemCustomerBuilder" as builder
-participant ":CustomerRepository" as cstmrRepo
-participant ":CustomerService" as service
-participant ":CustomerBuilder" as builder
-participant ":Customer" as cstmr
-participant ":UserRepository" as userRepo
+participant ":AddCustomerUI" as UI <<UI>>
+participant "AddCustomerController" as Controller <<Application>>
+participant "BaseRoles" as role <<Domain>>
+participant ":AuthorizationService" as auth <<Service>>
+participant ":CustomerManagementService" as customerSvc <<Service>>
+participant ":SystemCustomerBuilder" as builder <<Domain>>
+participant ":CustomerRepository" as cstmrRepo <<Persistence>>
+participant ":CustomerService" as service <<Service>>
+participant ":CustomerBuilder" as builder <<Domain>>
+participant ":Customer" as cstmr <<Domain>>
+participant ":UserRepository" as userRepo <<Persistence>>
 
 
 activate CM

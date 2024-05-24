@@ -11,10 +11,10 @@ title UI Sequence Diagram (SSD) - Register User to Back Office
 autonumber
 
 actor "Admin" as User
-participant "AddUserUI" as UI
-participant "AddUserController" as Controller
-participant "UserService" as UserService
-participant "UserRepository" as UserRepository
+participant "AddUserUI" as UI <<UI>>
+participant "AddUserController" as Controller <<Application>>
+participant "UserService" as UserService <<Service>>
+participant "UserRepository" as UserRepository <<Persistence>>
 
 activate User
 
@@ -32,10 +32,10 @@ activate User
     UI -> Controller : addUser(username,password, first name, last name, email, role)
     activate Controller
 
-    Controller -> Controller: addUser(username,password, first name, last name, email, role, current time)
+    Controller -> Controller: addUser(username,password, firstName, lastName, email, role, currentTime)
     activate Controller
 
-    Controller -> UserService : registerNewUser(username,password, first name, last name, email, role, time)
+    Controller -> UserService : registerNewUser(username,password, firstName, lastName, email, role, currentTime)
     activate UserService
 
     UserService -> UserRepository : save(user)

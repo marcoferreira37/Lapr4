@@ -50,13 +50,14 @@ Application "1" --> "1" AttachedFile
 Application "*" -----> "1" JobOpening : submitted for
 Application "*" -> "1" Candidate : submitted by
 Application "1" --> "1" ApplicationStatus
+Application "1" --> "1" ApplicatonData
 
 
-JobReference "1" -up-* "1" JobOpening
-TitleOrFunction "1" -up-* "1" JobOpening
-ContractType "1" --* "1" JobOpening
-Mode "1" --* "1" JobOpening
-Description "1" -up-* "1" JobOpening
-VacanciesNumber "1" -up-* "1" JobOpening
-Phase "1" -down-* "1" JobOpening
+JobReference "1" <-up- "1" JobOpening
+TitleOrFunction "1" <-up- "1" JobOpening
+ContractType "1" <-- "1" JobOpening
+Mode "1" <-- "1" JobOpening
+Description "1" <-up- "1" JobOpening
+VacanciesNumber "1" <-up- "1" JobOpening
+Phase "1" <-down- "1" JobOpening
 @enduml

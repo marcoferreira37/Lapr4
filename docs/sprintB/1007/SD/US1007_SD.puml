@@ -3,14 +3,14 @@
 autonumber
 
 actor "Customer Manager" as User
-participant "UpdateJobOpeningUI" as UI
-participant "UpdateJobOpeningController" as Controller
-participant "ClientUserService" as ClientUserService
-participant "AuthorizationService" as AuthorizationService
-participant "JobOpeningService" as J2obOpeningService
-participant "JobOpeningMapper" as JobOpeningMapper
-participant "ClientUserRepository" as ClientUserRepository
-participant "JobOpeningRepository" as JobOpeningRepository
+participant "UpdateJobOpeningUI" as UI <<UI>>
+participant "UpdateJobOpeningController" as Controller <<Application>>
+participant "ClientUserService" as ClientUserService <<Service>>
+participant "AuthorizationService" as AuthorizationService <<Service>>
+participant "JobOpeningService" as J2obOpeningService <<Service>>
+participant "JobOpeningMapper" as JobOpeningMapper <<Domain>>
+participant "ClientUserRepository" as ClientUserRepository <<Persistence>>
+participant "JobOpeningRepository" as JobOpeningRepository <<Persistence>>
 
 
 activate User

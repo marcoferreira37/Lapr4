@@ -11,10 +11,10 @@ title UI Sequence Diagram (SSD) - List Users from Back Office
 autonumber
 
 actor "Admin" as User
-participant "ListUsersUI" as UI
-participant "ListUsersController" as Controller
-participant "UserService" as UserService
-participant "UserRepository" as UserRepository
+participant "ListUsersUI" as UI <<UI>>
+participant "ListUsersController" as Controller <<Application>>
+participant "UserService" as UserService <<Service>>
+participant "UserRepository" as UserRepository <<Persistence>>
 
 activate User
 

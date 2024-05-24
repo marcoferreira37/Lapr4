@@ -8,10 +8,10 @@ title UI Sequence Diagram (SSD) - Disable User from Back Office
 autonumber
 
 actor "Admin" as User
-participant "ActivateUserUI" as UI
-participant "ActivateUserController" as Controller
-participant "UserService" as UserService
-participant "UserRepository" as UserRepository
+participant "ActivateUserUI" as UI <<UI>>
+participant "ActivateUserController" as Controller <<Application>>
+participant "UserService" as UserService <<Service>>
+participant "UserRepository" as UserRepository <<Persistence>>
 
 activate User
 

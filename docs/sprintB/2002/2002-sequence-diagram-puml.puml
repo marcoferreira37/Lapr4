@@ -8,12 +8,12 @@ title US2002 - Sequence Diagram
 
 
 actor "Operator" as OP
-participant "AddJobApplicationUI" as UI <<ui>>
-participant "AddJobApplicationController" as Controller <<application>>
-participant "JobOpeningRepository" as OPrepo <<repository>>
-participant "Repositories" as repo <<repository>>
-participant "repositories\n:Repositories" as PLAT <<repository>>
-participant "JobOpeningApplicarion" as JOA <<domain>>
+participant "AddJobApplicationUI" as UI <<UI>>
+participant "AddJobApplicationController" as Controller <<Application>>
+participant "JobOpeningRepository" as OPrepo <<Persistence>>
+participant "Repositories" as repo <<Persistence>>
+participant "repositories\n:Repositories" as PLAT <<Persistence>>
+participant "JobOpeningApplication" as JOA <<Domain>>
 
 
 

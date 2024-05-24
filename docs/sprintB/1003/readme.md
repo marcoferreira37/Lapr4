@@ -70,11 +70,11 @@ There is a dependencie related to US1002, there is a need to have job openings t
 
 ## 3. Analysis
 
-During the analysis phase, various factors were considered to ensure the efficient implementation of the job openings
+- During the analysis phase, various factors were considered to ensure the efficient implementation of the job openings
 listing functionality.
 This involved understanding the needs of the Customer Manager, defining filtering criteria, and determining the status
 of job openings.
-Additionally, insights from stakeholder interviews and clarification sessions were crucial in refining the requirements
+- Additionally, insights from stakeholder interviews and clarification sessions were crucial in refining the requirements
 and acceptance criteria.
 
 
@@ -85,8 +85,6 @@ The domain model is composed of the following entities:
 - **JobOpening**: Represents a job opening in the company.
 
 ![Domain Model](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintB\1003\svg\1003-domain-model.png)
-
-
 
 ## 3.2 System Sequence Diagram
 

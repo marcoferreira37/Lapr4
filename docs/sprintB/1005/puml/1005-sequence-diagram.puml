@@ -7,8 +7,8 @@ actor "User - Customer Manager" as User
 
 participant "ListJobOpeningApplicationsUI" as UI <<UI>>
 participant "ListJobOpeningApplicationsController" as Controller <<Controller>>
-participant "JobOpeningRepository" as Repository <<Repository>>
-participant "ApplicationRepository" as ApplicationRepository <<Repository>>
+participant "JobOpeningRepository" as Repository <<Persistence>>
+participant "ApplicationRepository" as ApplicationRepository <<Persistence>>
 
 
 

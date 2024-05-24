@@ -4,11 +4,11 @@ title US 1006 - List All Data Of Candidate
 
 actor User as U
 participant "ListAllDataOfCandidateUI" as UI <<UI>>
-participant "ListAllDataOfCandidateController" as C <<Controller>>
+participant "ListAllDataOfCandidateController" as C <<Application>>
 participant "AuthorizationService" as A <<Service>>
 participant "PersistenceContext" as P <<Service>>
-participant "RepositoryFactory" as RF <<Factory>>
-participant "CandidateRepository" as CR <<Repository>>
+participant "RepositoryFactory" as RF <<Persistence>>
+participant "CandidateRepository" as CR <<Persistence>>
 activate U
 U -> UI: Request to list all data of candidate
 activate UI
