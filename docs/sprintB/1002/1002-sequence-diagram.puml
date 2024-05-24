@@ -9,7 +9,6 @@ participant AddJobOpeningController as Controller <<Application>>
 participant JobOpeningService as JS <<Service>>
 participant CompanyRepository as CRepo <<Persistence>>
 participant JobOpeningBuilder as JB <<Domain>>
-participant JobOpening as JO <<Domain>>
 participant JobOpeningRepository as JRepo <<Persistence>>
 
 activate M
@@ -89,7 +88,6 @@ JRepo --> JS: returns lastId
 
 deactivate JRepo
 
-JS -> JB**: create
 
 
 
@@ -104,21 +102,14 @@ JS -> JB**: create
 
 deactivate JRepo
 
+
+JS -> JB:   builder\n.jobReference(reference)\n.titleOrFunction(title).\ndescription(description).\ncontractType(contractType).\nmode(mode).\naddress(address).\nvacanciesNumber(vacanciesNumber).\ncompany(company).\ncurrentJobPhase(PhaseType).\nbuild();
+
 activate JB
 
-JS -> JB: build()
-
-note right of JS
-  Passes the job opening attributes to the builder
-end note
-
-JB -> JO**: create(...)
+JB --> JS: returns job opening
 
 deactivate JB
-
-
-
-
 
 JS -> JRepo: save(jobOpening)
 
