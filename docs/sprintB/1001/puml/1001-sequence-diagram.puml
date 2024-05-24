@@ -45,6 +45,7 @@ activate CM
     CM -> UI: Types the requirement data(username,\nfirstName,lastName,email)
     activate UI
     UI --> UI: save the data
+
        UI -> UI: .add(BASEROLES.CUSTOMER)
          UI -> Controller: addCustomer(this.newUser(username,password,\nfirstName,lastName,email))
          activate Controller
@@ -84,8 +85,8 @@ deactivate userRepo
                        service -> cstmrRepo: save(customer)
                        activate cstmrRepo
                        cstmrRepo-->cstmrRepo: save
-                       deactivate cstmrRepo
                        service--> Controller: customer
+                       deactivate cstmrRepo
                        deactivate service
             Controller --> UI: customer added successfully
             deactivate Controller
