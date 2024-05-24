@@ -45,11 +45,19 @@ An Application refers to the materials submitted by a candidate to apply for a s
 ## 2. Analysis
 
 
+### 2.1. Domain Model
+
+The domain model is composed of the following entities:
+
+- **User**: Represents a user with a role in the system.
+- **Shared Object**: Represents an object shared between different entities in the system.
+- **Job Opening Application**: Represents the application submitted by a candidate for a job opening.
+- **Job Opening**: Represents a job opening in the system.
+[Domain Model](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintB\2002\2002-domain-model.puml)
+
+
 This use case is relatively straightforward, as it primarily involves the creation of an application.
 For this, an operator needs to log into the system, and then provide the necessary information to register an application.
-
-
-
 
 ## 3. Design
 
