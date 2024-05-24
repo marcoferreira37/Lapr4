@@ -1,7 +1,4 @@
 @startuml
-
-title Enable Candidate - Sequence Diagram
-
 autonumber
 actor Operator as ADM
 participant "EnableCandidateUI" as UI <<ui>>
