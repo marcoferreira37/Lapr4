@@ -62,9 +62,10 @@ are captured accurately.
 The domain model is composed of the following entities:
 
 - **Customer**: Represents a customer in the system.
+- **User**: Represents a user with a role in the system.
+- **Shared Object**: Represents an object shared between different entities in the system.
 
-
-![Domain Model]()
+[Domain Model](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintB\1001\puml\1001-domain-model.puml)
 
 
 ## 3. Requirements

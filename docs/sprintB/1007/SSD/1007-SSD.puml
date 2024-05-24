@@ -1,0 +1,24 @@
+@startuml
+
+title US 1005 - List Job Opening Applications
+
+actor User as U
+participant "System" as S
+
+activate U
+
+    U -> S: Request to list job applications for a job opening
+    activate S
+
+    S --> U : Lists all job references for active job openings
+
+    deactivate S
+    U -> S: Chooses job reference number
+    activate S
+
+    S --> U : returns list of job applications for the job opening
+
+    deactivate S
+
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+hide methods
+
+rectangle customer #bbaacc{
+    class Customer <<Aggregate Root>><<Entity>>{}
+    class CustomerId<<Identity>><<Value Object>>{}
+}
+
+rectangle "Shared Objects" {
+
+    class Email <<Value Object>>
+    class Username <<Value Object>>
+    class Address <<Value Object>>
+    class Name<<Value Object>>{}
+
+}
+
+
+rectangle "User" #ccbbcc {
+    class SystemUser <<Aggregate Root>><<Entity>>{}
+    class Password<<Value Object>>{}
+    class BaseRole<<Value Object>>{}
+}
+
+Address "1" <---- "1" Customer
+Name "1" <-- "1" Customer
+
+Customer "1" --> "1" CustomerId
+
+ SystemUser "1" --> "1" Email: has
+    SystemUser "1" --> "1" Username: has
+    SystemUser "1" -up> "1" Password
+    SystemUser "1" --> "1" Name
+    SystemUser "1" -> "1" BaseRole
+
+@enduml

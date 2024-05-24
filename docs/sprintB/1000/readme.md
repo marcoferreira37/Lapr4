@@ -8,7 +8,7 @@
 
 ## 2. Requirements
 
-**US G003** As Administrator, I want to be able to register, disable/enable, and list users of the backoffice.
+**US 1000** As Administrator, I want to be able to register, disable/enable, and list users of the backoffice.
 
 – Priority: 1
 
@@ -18,27 +18,35 @@
 
 - 1000.1. The password must contain at least one number and one capital letter
 
-- 1000.1. The email should contain an @
+- 1000.2. The email should contain an "@" and a "."
 
 ## 3. Analysis
 
-* For the analysis of the requirement to register, disable/enable, and list users in the back office, our team conducted a thorough study to ensure that the design decisions were optimal and aligned with the system's goals. We began by examining similar functionalities in existing systems to understand common patterns and potential pitfalls. Additionally, we analyzed the specific needs and constraints of our system to tailor the solution accordingly.
+* For the analysis of the requirement to register, disable/enable, and list users in the back office,
+  our team conducted a thorough study to ensure that the design decisions were optimal and aligned with 
+  the system's goals. We began by examining similar functionalities in existing systems to understand common patterns and potential pitfalls. Additionally, we analyzed the specific needs and constraints of our system to tailor the solution accordingly.
 
 ## 4. Design
 
+### 4.1. Realization
+
 * In this section, we present the design solution adopted to fulfill the requirement of user management in the back office.
+
+### 4.3. Applied Patterns
+
+* MVC (Model-View-Controller) Pattern: Separation of concerns between UI, controller, and model components.
+
+* Repository Pattern: ClientUserRepository and JobOpeningRepository are used to manage data persistence and retrieval, abstracting the underlying data access implementation.
+
 
 ## 5. Implementation
 
 In this section, we provide insights into the implementation of the user management functionality, ensuring alignment with the previously presented design. We include evidence of adherence to the design and discuss relevant artifacts such as configuration files.
 
-Implementation Evidences
 To ensure that the implementation accurately reflects the design, we conducted regular code reviews and employed automated testing to validate the functionality. Additionally, we utilized version control system logs to track major commits related to this requirement.
 
-Configuration Files
 While the user management functionality primarily relies on application logic and database interactions, certain configuration files play a crucial role in setting up the environment. These files include database configuration files (database.yml) and authentication configuration files (devise.rb), which specify parameters such as database credentials and authentication strategies.
 
-Major Commits
 Initial Implementation of User Registration: This commit introduces the basic structure and functionality for registering new users in the system.
 Implementation of User Disable/Enable Feature: This commit adds the logic for administrators to disable or enable existing users as per the requirement.
 Integration of User Listing Functionality: This commit integrates the functionality to retrieve and display a list of all registered users in the back office.
@@ -61,4 +69,3 @@ Disable/Enable Existing Users: Utilize the provided controls to disable or enabl
 View User Listing: Access the user listing page to view a comprehensive list of all registered users, including their details.
 By following these instructions, users can effectively explore and interact with the implemented user management functionality within the back office application.
 
-## 7. Observations

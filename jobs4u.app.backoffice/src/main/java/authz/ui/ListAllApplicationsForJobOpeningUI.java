@@ -22,7 +22,10 @@ public class ListAllApplicationsForJobOpeningUI extends AbstractUI {
             System.out.println("There are no applications for this job opening.");
             return false;
         }
-        printApplications(applications);
+        printApplicationsId(applications);
+
+        showApplicationData("You want to display all the data of an application?", applications);
+
         return false;
     }
     public void printNumeratedList(String message, List<JobOpening> collection) {
@@ -36,16 +39,36 @@ public class ListAllApplicationsForJobOpeningUI extends AbstractUI {
         System.out.println();
     }
 
-    public void printApplications(List<JobOpeningApplication> applications){
+    public void printApplicationsId(List<JobOpeningApplication> applications) {
+        int index = 1;
         for (JobOpeningApplication application : applications) {
-            System.out.println("///////////Application///////////");
-            System.out.println("Application ID: " + application.identity());
-            System.out.println("Candidate: " + application.candidate().identity());
-            System.out.println("Job Opening Reference: " + application.jobOpening().identity().fullReference());
+            System.out.println(ColorCode.BLUE.getValue() + index + ColorCode.RESET.getValue() + " - " + "Application ID: " + application.identity());
             System.out.println("/////////////////////////////////");
+            index++;
         }
     }
 
+
+    public void showApplicationData(String message, List<JobOpeningApplication> applications) {
+        System.out.println(message + " (yes/no)");
+        String response = eapli.base.app.common.console.ui.components.Console.readLine("Your choice: ");
+        if (response.equalsIgnoreCase("yes")) {
+            int applicationIndex = Integer.parseInt(eapli.base.app.common.console.ui.components.Console.readLine("Enter the index of the application: "));
+            if (applicationIndex > 0 && applicationIndex <= applications.size()) {
+                JobOpeningApplication application = applications.get(applicationIndex - 1);
+                System.out.println("///////////Full Application Data///////////");
+                System.out.println("Application ID: " + application.identity());
+                System.out.println("Candidate: " + application.candidate().identity());
+                System.out.println("Job Opening Reference: " + application.jobOpening().identity().fullReference());
+                System.out.println("Rank: " + application.showRanking());
+                System.out.println("/////////////////////////////////");
+            } else {
+                System.out.println("Invalid application number.");
+            }
+        } else {
+            System.out.println("Returning to customer manager menu.");
+        }
+    }
 
     @Override
     public String headline() {

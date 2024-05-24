@@ -4,7 +4,8 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 
-rectangle "Job Opening" #abbacc {
+
+rectangle "Job Opening" #bbccaa {
 
     class JobOpening<<Aggregate Root>><<Entity>>{}
 
@@ -12,17 +13,33 @@ rectangle "Job Opening" #abbacc {
 
     class TitleOrFunction<<Value Object>>{}
 
-    enum ContractType<<Enumerated>><<Value Object>>{}
+    enum ContractType<<Enumerated>><<Value Object>>{
+        FULL_TIME
+        PART_TIME
+    }
 
-    class Mode<<Enumerated>><<Value Object>>{}
+    enum Mode<<Enumerated>><<Value Object>>{
+        REMOTE
+        ON-SITE
+        HYBRID
+        }
 
 
     class VacanciesNumber<<Value Object>>{}
 
     class Description<<Value Object>>{}
 
-    ''Maybe go to Interview Model
+    class PhaseDates<<Entity>>{}
+    enum PhaseType<<Enumerated>><<Value Object>>{
+                APPLICATION
+                SCREENING
+                INTERVIEWS
+                ANALYSIS
+                RESULT
+            }
+     JobOpening "1" --> "1" PhaseDates
 
+     PhaseDates "1" --> "1" PhaseType
 }
 
 

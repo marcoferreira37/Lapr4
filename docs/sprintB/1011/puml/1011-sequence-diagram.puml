@@ -107,9 +107,10 @@ activate User
     User -> UI: chooses new value
     activate UI
 
-                UI -> Controller: requirements(jobOpeningDto)
+                UI -> Controller: interviewModel(jobOpeningDto)
                 activate Controller
-                Controller -> JobOpeningService: updateRequirements(jobOpeningDto, requirements)
+
+                Controller -> JobOpeningService: updateinterviewModel(jobOpeningDto, interviewModel)
                 activate JobOpeningService
                 JobOpeningService -> JobOpeningMapper: toDomain(jobOpeningDto)
                 activate JobOpeningMapper

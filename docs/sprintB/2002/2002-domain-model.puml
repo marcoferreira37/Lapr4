@@ -1,0 +1,107 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+hide methods
+
+
+rectangle "Job Opening" #bbccaa {
+
+    class JobOpening<<Aggregate Root>><<Entity>>{}
+
+    class JobReference<<Identity>><<Value Object>>{}
+
+    class TitleOrFunction<<Value Object>>{}
+
+    enum ContractType<<Enumerated>><<Value Object>>{
+        FULL_TIME
+        PART_TIME
+    }
+
+    enum Mode<<Enumerated>><<Value Object>>{
+        REMOTE
+        ON-SITE
+        HYBRID
+        }
+
+
+    class VacanciesNumber<<Value Object>>{}
+
+    class Description<<Value Object>>{}
+
+    class PhaseDates<<Entity>>{}
+    enum PhaseType<<Enumerated>><<Value Object>>{
+                APPLICATION
+                SCREENING
+                INTERVIEWS
+                ANALYSIS
+                RESULT
+            }
+     JobOpening "1" --> "1" PhaseDates
+     PhaseDates "1" --> "1" PhaseType
+}
+
+
+
+
+rectangle "User" #ccbbcc {
+    class SystemUser <<Aggregate Root>><<Entity>>{}
+    class Password<<Value Object>>{}
+    class BaseRole<<Value Object>>{}
+
+
+
+}
+
+rectangle "Shared Objects" {
+
+    class Email <<Value Object>>
+    class Username <<Value Object>>
+    class Address <<Value Object>>
+    class Name<<Value Object>>{}
+
+}
+
+rectangle "Job Opening Application" #aaccbb {
+
+    class Application<<Aggregate Root>><<Entity>>{}
+
+    class ApplicationId<<Identity>><<Value Object>>{}
+
+    class AttachedEmail<<Value Object>>{}
+
+    class AttachedFile<<Value Object>>{}
+
+    class ApplicatorData<<Value Object>>{}
+
+    class ApplicationStatus<<Value Object>>{}
+
+    class ApplicationRank<<Value Object>>{}
+
+}
+
+
+   SystemUser "1" --> "1" Email: has
+    SystemUser "1" --> "1" Username: has
+    SystemUser "1" -up> "1" Password
+    SystemUser "1" --> "1" Name
+    SystemUser "1" -> "1" BaseRole
+
+
+JobReference "1" <-up- "1" JobOpening
+TitleOrFunction "1" <-up- "1" JobOpening
+ContractType "1" <-- "1" JobOpening
+Mode "1" <-- "1" JobOpening
+Description "1" <-up- "1" JobOpening
+VacanciesNumber "1" <-up- "1" JobOpening
+
+
+Application "1" --> "1" ApplicationId
+Application "1" --> "1" AttachedEmail
+Application "1" --> "1" AttachedFile
+Application "1" --> "1" ApplicatorData
+Application "*" ---> "1" JobOpening : submitted for
+Application "1" --> "1" ApplicationStatus
+
+SystemUser "1" --> "*" Application : register
+
+@enduml

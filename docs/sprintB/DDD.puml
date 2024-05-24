@@ -7,10 +7,13 @@ hide methods
 
 rectangle candidate #aabbcc{
     class Candidate<<Aggregate Root>><<Entity>>{}
-    class CandidateId<<Identity>><<Value Object>>{}
     class CurriculumVitae<<Value Object>>{}
+    class PhoneNumber <<Value Object>>
+
+
 }
 
+Candidate "1" --> "1" User
 
 rectangle customer #bbaacc{
     class Customer <<Aggregate Root>><<Entity>>{}
@@ -18,12 +21,15 @@ rectangle customer #bbaacc{
 }
 
 
+
+
+
 rectangle "Shared Objects" {
 
     class Email <<Value Object>>
-    class PhoneNumber <<Value Object>>
     class Username <<Value Object>>
     class Address <<Value Object>>
+    class Name<<Value Object>>{}
 
 }
 
@@ -39,9 +45,16 @@ rectangle "Job Opening" #bbccaa {
 
     class TitleOrFunction<<Value Object>>{}
 
-    enum ContractType<<Enumerated>><<Value Object>>{}
+    enum ContractType<<Enumerated>><<Value Object>>{
+        FULL_TIME
+        PART_TIME
+    }
 
-    class Mode<<Enumerated>><<Value Object>>{}
+    enum Mode<<Enumerated>><<Value Object>>{
+        REMOTE
+        ON-SITE
+        HYBRID
+        }
 
 
     class VacanciesNumber<<Value Object>>{}
@@ -86,6 +99,19 @@ rectangle "Job Opening Interview" #ccbbaa {
     class InterviewTime<<Value Object>>{}
     class Score<<Value Object>>{}
     class InterviewResult<<Value Object>>{}
+}
+
+rectangle "User" #ccbbcc {
+    class SystemUser <<Aggregate Root>><<Entity>>{}
+    class Password<<Value Object>>{}
+    class BaseRole<<Value Object>>{}
+
+    SystemUser "1" --> "1" Email: has
+    SystemUser "1" --> "1" Username: has
+    SystemUser "1" -up> "1" Password
+    SystemUser "1" --> "1" Name
+    SystemUser "1" -> "1" BaseRole
+
 }
 
 
@@ -133,18 +159,15 @@ Mode "1" <-- "1" JobOpening
 Description "1" <-up- "1" JobOpening
 VacanciesNumber "1" <-up- "1" JobOpening
 
-JobOpening "*" --> "1" Customer : set by
-
-
-Candidate "1" --> "1" CandidateId
+JobOpening "*" -> "1" Customer : set by
 
 
 Application "1" --> "1" ApplicationId
 Application "1" --> "1" AttachedEmail
 Application "1" --> "1" AttachedFile
 Application "1" --> "1" ApplicatorData
-Application "*" -----> "1" JobOpening : submitted for
-Application "1" -> "1" Candidate : submitted by
+Application "*" ---> "1" JobOpening : submitted for
+Application "1" -down-> "1" Candidate : submitted by
 Application "1" --> "1" ApplicationStatus
 
 Customer "1" --> "1" CustomerId
@@ -154,18 +177,11 @@ Customer "1" --> "1" CustomerId
 ''Question <|-- InterviewModel : belongs to
 
 
-Candidate "1" --> "1" Username
-PhoneNumber "1" --> "*" Candidate
-Email "1" --> "1" Candidate
-
-
-Customer "1" --> "1" Username
-Customer "1" --> "1" PhoneNumber
-Candidate "1" --> "1" Email
-
+Candidate "1" --> "1" PhoneNumber
 
 Address "1" <-- "1" JobOpening
-Address "1" <-- "1" Customer
+Address "1" <---- "1" Customer
+Name "1" <-- "1" Customer
 
 
 JobInterview "1" -up-> "1" JobInterviewId

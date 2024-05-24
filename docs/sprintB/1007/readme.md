@@ -14,12 +14,8 @@
 **Acceptance Criteria:**
 
 - 1007.1. The system should provide a user interface for the Customer Manager to create, edit, and delete job opening phases.
-- 1007.2. Each phase should have a name, description, and optional duration.
-- 1007.3. Phases should be customizable in terms of their sequence and visibility to other stakeholders involved in the hiring process.
+- 1007.2. Phases should be customizable in terms of their sequence and visibility to other stakeholders involved in the hiring process.
 
-**Dependencies/References:**
-
-*Regarding this requirement we understand that it relates to...*
 
 ## 3. Analysis
 
@@ -33,6 +29,12 @@
 
 * The realization of the functionality involves providing a user-friendly interface for the Customer Manager to perform CRUD operations on job opening phases. This interface should allow customization of phase details such as name, description, duration, sequence, and visibility.
 
+### 4.3. Applied Patterns
+
+* MVC (Model-View-Controller) Pattern: Separation of concerns between UI, controller, and model components.
+
+* Repository Pattern: ClientUserRepository and JobOpeningRepository are used to manage data persistence and retrieval, abstracting the underlying data access implementation.
+
 
 ## 5. Implementation
 
@@ -40,7 +42,6 @@ The implementation of the phase management functionality adheres to the design s
 
 ## 6. Integration/Demonstration
 
-Efforts were made to integrate the phase management functionality seamlessly with other components of the system, such as job opening creation and candidate evaluation modules. Instructions for demonstration will be provided upon request, including accessing the user interface for phase management and performing CRUD operations on phases.
+* We can see all the integration and we can have a demonstration of the success of this User Story opening the project and register as Customer Manager and selecting the option "Update a Job Opening"
 
-## 7. Observations
 
