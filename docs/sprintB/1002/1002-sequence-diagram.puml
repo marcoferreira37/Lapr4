@@ -70,10 +70,11 @@ activate JRepo
 
 JRepo --> JS: returns lastId
 
+deactivate JRepo
+
 JS -> JB**: create
 
 
-deactivate JRepo
 
 'Controller -> JB: withDescription(description)
 'Controller -> JB: withAddress(address)
