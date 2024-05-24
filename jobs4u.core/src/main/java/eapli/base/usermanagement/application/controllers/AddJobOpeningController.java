@@ -23,7 +23,7 @@ public class AddJobOpeningController {
         autzService=AuthzRegistry.authorizationService();
     }
 
-    //For testing purpose but should be how it normally is defined ;)
+    //For testing purpose
     public AddJobOpeningController(JobOpeningService service, AuthorizationService autzService) {
         this.service = service;
         this.autzService = autzService;
