@@ -7,8 +7,7 @@ participant GenerateTemplateUI as UI <<UI>>
 participant GenerateTemplateController as CTRL <<Application>>
 participant AuthorizationService as AS <<Service>>
 participant JobOpeningService as UMS <<Service>>
-participant JobOpeningRepository as URepo <<Persistence>>
-
+participant DomainRepository as URepo <<Persistence>>
 
 
 activate Operator
@@ -21,14 +20,15 @@ CTRL -> AS : authorizationService()
 activate AS
 AS --> CTRL: authz
 deactivate AS
-CTRL-> UMS : jobOpeningService()
+CTRL-> UMS : getJobOpenings()
 activate UMS
-UMS-->CTRL: jobOpeningService
-deactivate CTRL
-UMS-->UMS: getJobOpenings()
-UMS-->CTRL : jobOpenings
+UMS-->UMS: findJobOpenings()
+UMS->URepo :findAll()
+activate URepo
+URepo-->UMS: jobOpenings
+deactivate URepo
+UMS-->CTRL: jobOpenings
 deactivate UMS
-activate CTRL
 CTRL--> UI: jobOpenings
 deactivate CTRL
 UI --> Operator: Generating the template file
