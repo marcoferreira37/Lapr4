@@ -1,29 +1,46 @@
-# US 2000c - List all candidates
+# US 2000c
 
-##1.Context
+## 1. Context
 
-*This task involves developing the functionality to list all candidates. It might be the first time this task is being addressed, or it could be a part of ongoing development efforts. There might not be any bug fixes associated with this task.*
+This task involves enabling the Operator to list all the candidates that were created in the system.
+## 2. Requirements
 
-##2.Requirements
+**2000c** As Operator, I want to list all candidates
 
-   *The goal of this task is to enable users to view a list of all candidates. This functionality allows for better management of candidate data and provides insights into the candidate pool.*
+**Acceptance Criteria:**
 
-Acceptance Criteria:
+- 2000c.1. The system provides a functionality for Operators to list all the candidates in the system.
 
-**AC1** The system should display a list of all candidates.
-**AC2**Each candidate entry should include relevant information such as name, email address, and contact number.
+- 2000c.2. The list should include the candidate email.
 
-Dependencies/References:
-This requirement relates to other functionalities such as candidate registration.
+- 2000c.3. Only authorized users (operator and admin) should have access to the candidate listing feature.
 
-##3. Analysis
-  *The analysis of this requirement involves understanding the user's need to access candidate information easily.*
+- 2000c.4. 
+**Dependencies/References:**
 
-##4. Design
-   4.1. Class Diagram
+- ...
+## 3. Analysis
 
-[2000c-class-diagram.svg](svg/2000c-class-diagram.svg)
+The primary objective of this user story is to provide operators with an efficient and user-friendly interface to view and manage a list of all candidates in the system. This functionality is critical for maintaining an organized and accessible database of candidates, facilitating tasks such as tracking candidates and managing candidate information.
+### Client Clarifications
 
-##5. Observations
-   *This section provides additional insights, considerations, or references related to the development work. It may include alternative solutions, related works, or acknowledgments for third-party contributions.*
+## 4. Design
 
+### 4.1. Realization
+
+A functionality is implemented within the system to allow Operators to list all the candidates registered in the system.
+
+### 4.2. Tests
+
+N/A
+
+## 5. Implementation
+
+The system features functionality for listing candidates enabling Operators to listing candidates for the operator to be able to see who is registered as a candidate in the system.
+## 6. Integration/Demonstration
+
+There was no demonstration for this task.
+
+## 7. Observations
+
+There was no observation for this task.
