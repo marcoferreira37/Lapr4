@@ -8,7 +8,7 @@
 
 ## 2. Requirements
 
-**US G003** As Administrator, I want to be able to register, disable/enable, and list users of the backoffice.
+**US 1000** As Administrator, I want to be able to register, disable/enable, and list users of the backoffice.
 
 – Priority: 1
 
@@ -26,7 +26,16 @@
 
 ## 4. Design
 
+### 4.1. Realization
+
 * In this section, we present the design solution adopted to fulfill the requirement of user management in the back office.
+
+### 4.3. Applied Patterns
+
+* MVC (Model-View-Controller) Pattern: Separation of concerns between UI, controller, and model components.
+
+* Repository Pattern: ClientUserRepository and JobOpeningRepository are used to manage data persistence and retrieval, abstracting the underlying data access implementation.
+
 
 ## 5. Implementation
 
