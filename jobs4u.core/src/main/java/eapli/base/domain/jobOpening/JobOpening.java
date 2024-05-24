@@ -15,7 +15,7 @@ import java.util.Calendar;
 @Setter
 @AllArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
-@Builder // CRIAR UMA CLASS BUILDER ( nao é um builder pattern )
+@Builder
 public class JobOpening implements AggregateRoot<JobReference> {
 
     @ToString.Include
