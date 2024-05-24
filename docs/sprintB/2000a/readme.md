@@ -1,33 +1,69 @@
-#User Story 2000a - Register a candidate and create a corresponding user
+# US 2000a
 
-##1. Context
-   *This task involves the initial development of the functionality to register a candidate and create a corresponding user in the system. It's the first time this task is being developed as part of the project.*
+## 1. Context
 
-##2. Requirements
-   *The goal of this user story is to enable the system to register a candidate and automatically create a user associated with that candidate.*
+This task involves enabling the Operator to register a candidate and create a corresponding user. This task is prioritized as essential to streamline candidate creation and assessment.
 
-Acceptance Criteria:
+## 2. Requirements
 
-**AC1**The system should allow the registration of a candidate.*
-**AC2**Upon registration, a corresponding user account should be created.*
-**AC3**The created user should have appropriate access privileges as per the role of the candidate.*
+**2000a** As Operator, I want to register a candidate and create a corresponding user.
 
-##3. Analysis
-   *The team conducted an analysis to understand the requirements and dependencies of this user story. It was determined that the functionality should integrate with the existing user management system to create and manage user accounts.*
+**Acceptance Criteria:**
 
-##4. Design
-   4.1. Realization
-   *The realization of this functionality involves creating the necessary service layer components to handle candidate registration and user creation.*
+- 2000a.1. The system provides a functionality for Operators to register candidates and create a corresponding user.
 
-   4.2. Class Diagram
-[2000a-class-diagram.svg](svg/2000a-class-diagram.svg)
+- 2000a.2. The system shall provide a registration form to input the candidate's details such as name, email, phone number, and other relevant information.
 
-##5. Implementation
-   *The implementation adheres to the design decisions and involves the creation of service classes and database entities to support candidate registration and user creation.*
+- 2000a.3. Upon submission of the registration form, the system shall automatically generate a user account for the candidate.
 
+- 2000a.4. The user account shall include a username and an initial password, which can be communicated to the candidate.
 
-##6. Integration/Demonstration
-   *The functionality was integrated with the existing user management system to ensure seamless user registration and account creation. Instructions for testing and demonstrating this functionality can be found in the project documentation.*
+- 2000a.5. The candidate's information shall be saved in the system's database, ensuring data integrity and accessibility.
+ 
+**Dependencies/References:**
 
-##7. Observations
-   *No additional observations at this time.*
+- ...
+## 3. Analysis
+
+Functional Requirements
+Registration Form:
+
+A web form must be created for the Operator to input the candidate's details.
+Required fields: name, email, phone number, address, and other relevant information.
+The form should have validation to ensure all mandatory fields are filled and data formats are correct (e.g., valid email format).
+User Account Creation:
+
+The system should automatically generate a user account upon successful form submission.
+The user account must include a unique username and a secure, initial password.
+Data Storage:
+
+Candidate details and the corresponding user account information must be stored in a relational database.
+Ensure data integrity and enforce constraints such as unique email addresses.
+Confirmation Message:
+
+The system should provide feedback to the Operator about the success or failure of the registration process.
+A confirmation message should include the candidate’s username and any further steps, such as password change instructions.
+
+### Client Clarifications
+
+## 4. Design
+
+### 4.1. Realization
+
+A functionality is implemented within the system to allow Operators to register a candidate and create a corresponding user so that the candidate's information is properly stored and accessible in the system.
+
+### 4.2. Tests
+
+N/A
+
+## 5. Implementation
+
+The system features functionality for creating candidates enabling Operators to customize the data and personal information of a person that will be a candidate.
+
+## 6. Integration/Demonstration
+
+There was no demonstration for this task.
+
+## 7. Observations
+
+There was no observation for this task.
