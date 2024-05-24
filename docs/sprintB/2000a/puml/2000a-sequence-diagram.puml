@@ -5,11 +5,9 @@ autonumber
 actor Operator as Operator
 participant AddCandidateUI as UI <<UI>>
 participant AddCandidateController as CTRL <<Application>>
-participant Role as Role <<Domain>>
 participant AuthorizationService as AS <<Service>>
 participant CandidateManagementService as UMS <<Service>>
 participant SystemCandidateBuilder as SUB <<Domain>>
-participant UserRepository as URepo <<Persistence>>
 participant Candidate as C <<Domain>>
 participant CandidateRepository as CRepo <<Persistence>>
 
@@ -48,19 +46,11 @@ activate SUB
 UMS-> SUB: .build()
 SUB--> UMS: user
 deactivate SUB
-UMS->URepo: save the user
-activate URepo
-deactivate URepo
-UMS-->CTRL: user
-deactivate UMS
-CTRL-->CTRL: saves the user
-CTRL-> C: Candidate (user)
-activate C
-C--> CTRL: candidate
-deactivate C
-CTRL->CRepo: save(candidate)
+UMS->CRepo: save the user
 activate CRepo
 deactivate CRepo
+UMS-->CTRL: candidate
+deactivate UMS
 CTRL-->UI : candidate added successfully
 deactivate CTRL
 UI --> Operator: Creates the registered candidate and throws operation success

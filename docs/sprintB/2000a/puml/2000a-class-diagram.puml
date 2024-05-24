@@ -53,7 +53,7 @@ AddCandidateUI --> AddCandidateController
 AddCandidateController --> CandidateManagementService
 AddCandidateController --> SystemCandidateBuilder
 AddCandidateController --> CandidateRepository
-AddCandidateController --> CandidateRepository
+AddCandidateController --> AuthorizationService
 CandidateRepository -> Candidate
 
 @enduml
