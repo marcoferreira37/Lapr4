@@ -12,11 +12,22 @@ public class AddJobOpeningController {
     /**
      * The service to be used to add a job opening
      */
-    private final JobOpeningService service = new JobOpeningService();
+    private JobOpeningService service;
     /**
      * The service to be used to check if the user has permission to add a job opening
      */
-    private final AuthorizationService autzService = AuthzRegistry.authorizationService();
+    private AuthorizationService autzService;
+
+    public AddJobOpeningController() {
+        service=new JobOpeningService();
+        autzService=AuthzRegistry.authorizationService();
+    }
+
+    //For testing purpose but should be how it normally is defined ;)
+    public AddJobOpeningController(JobOpeningService service, AuthorizationService autzService) {
+        this.service = service;
+        this.autzService = autzService;
+    }
 
     /**
      * Method to add a job opening
