@@ -3,6 +3,7 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.repositories.CandidateRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
@@ -33,4 +34,9 @@ public class JpaCandidateRepository extends JpaAutoTxRepository<Candidate, Email
             return query.getResultList();
         }
 
+    @Override
+    public Iterable<Candidate> getCandidate(JobOpeningApplication jobOpeningApplication) {
+        return null;
     }
+
+}
