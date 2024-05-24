@@ -18,10 +18,13 @@ class AddJobOpeningControllerTest {
     public static final String INVALID_DESCRIPTION_BLANK = " \t ";
 
     public static final String INVALID_DESCRIPTION_NUMBERS = "123";
+    private static final String INVALID_VACANCIESNUMBER = "SSSS";
+    private static final String INVALID_VACANCIESNUMBER_BLANK = " \t ";
+    private static final String VALID_VACANCIESNUMBER = "12";
+    private static final String VALID_COMPANYID = "8712";
+    private static final String INVALID_COMPANYID_BLANK = " \t ";
 
     private final String VALID_ADDRESS = "Aveiro";
-
-    private final String INVALID_ADDRESS = "123";
 
     private static final String INVALID_ADDRESS_BLANK = " \t ";
 
@@ -32,19 +35,12 @@ class AddJobOpeningControllerTest {
 
     private final String INVALID_TITLEORFUNCTION = "834";
 
-    private static final String INVALID_TITLEORFUNCTION_BLANK = " \t ";
-
-    private static final String INVALID_TITLEORFUNCTION_NUMBERS = "100";
-
-
     private AddJobOpeningController testingTarget;
     private JobOpeningService mockService;
 
     private AuthorizationService autzService;
 
     private final String VALID_DESCRIPTION = "O balão do João,\n Sobe sobe sem parar! \uD83C\uDFB5";
-
-    private final String INVALID_DESCRIPTION = "123";
 
     private final Mode VALID_MODE = Mode.REMOTE;
 
@@ -54,13 +50,7 @@ class AddJobOpeningControllerTest {
 
 
     private final Role[] VALID_ROLES = new Role[]{BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN, BaseRoles.POWER_USER};
-
-    //TODO Get all invalid Roles
-    private final Role[] INVALID_ROLES = new Role[]{BaseRoles.CANDIDATE, BaseRoles.OPERATOR};
-
     private final JobOpening DUMMY_VALID_JOB_OPENING = new JobOpening(new JobReference(10L, "dummy"));
-    private final JobOpening DUMMY_INVALID_JOB_OPENING = new JobOpening(new JobReference(11L, "dummy"));
-
 
     @BeforeEach
     void setUp() {
@@ -148,6 +138,58 @@ class AddJobOpeningControllerTest {
 
 
     @Test
+    void checkVacanciesNumberValid() {
+        assertFalse(testingTarget.checkVacanciesNumber(VALID_VACANCIESNUMBER), "Valid title or function should produce false: " + VALID_TITLEORFUNCTION);
+    }
+
+    @Test
+    void checkVacanciesNumberInvalidNull() {
+        assertTrue(testingTarget.checkVacanciesNumber(null), "Invalid title or function should produce true: null");
+    }
+
+    @Test
+    void checkVacanciesNumberInvalidIsBlank() {
+        assertTrue(testingTarget.checkVacanciesNumber(INVALID_VACANCIESNUMBER_BLANK),
+                "Invalid title or function should produce true: " + INVALID_VACANCIESNUMBER_BLANK);
+    }
+
+    @Test
+    void checkVacanciesNumberInvalidString() {
+        assertTrue(testingTarget.checkVacanciesNumber(INVALID_VACANCIESNUMBER),
+                "Invalid title or function should produce true: " + INVALID_VACANCIESNUMBER);
+    }
+
+    @Test
+    void checkVacanciesNumberInvalidNegative() {
+        assertTrue(testingTarget.checkVacanciesNumber("-1"),
+                "Invalid title or function should produce true: " + "-1");
+    }
+
+
+    @Test
+    void checkCompanyIDValid() {
+        assertFalse(testingTarget.checkCompanyID(VALID_COMPANYID), "Valid companyID should produce false: " + VALID_COMPANYID);
+    }
+
+    @Test
+    void checkCompanyIDInvalidNull() {
+        assertTrue(testingTarget.checkCompanyID(null), "Invalid companyID should produce true: null");
+    }
+
+
+    @Test
+    void checkCompanyIDInvalidIsBlank() {
+        assertTrue(testingTarget.checkCompanyID(INVALID_COMPANYID_BLANK),
+                "Invalid companyID should produce true: " + INVALID_COMPANYID_BLANK);
+    }
+
+    @Test
+    void checkCompanyIDInvalidString() {
+        assertTrue(testingTarget.checkCompanyID("SSSS"),
+                "Invalid companyID should produce true: " + "SSSS");
+    }
+
+    @Test
     void addValidJobOpeningTest() {
         Mockito.doNothing().when(autzService).ensureAuthenticatedUserHasAnyOf(VALID_ROLES);
         Mockito.when(mockService.create(VALID_DESCRIPTION, VALID_ADDRESS, VALID_MODE, VALID_CONTRACTTYPE, VALID_EPITAPH, 13, 2)).thenReturn(DUMMY_VALID_JOB_OPENING);
@@ -162,10 +204,11 @@ class AddJobOpeningControllerTest {
     @Test
     void addInValidJobOpeningTest() {
         Mockito.doNothing().when(autzService).ensureAuthenticatedUserHasAnyOf(VALID_ROLES);
+        String INVALID_ADDRESS = "123";
+        String INVALID_DESCRIPTION = "123";
         Mockito.when(mockService.create(INVALID_DESCRIPTION, INVALID_ADDRESS, VALID_MODE, VALID_CONTRACTTYPE, VALID_EPITAPH, 13, 2)).thenReturn(DUMMY_VALID_JOB_OPENING);
         assertNotEquals(DUMMY_VALID_JOB_OPENING,
                 testingTarget.addJobOpening(VALID_DESCRIPTION, VALID_ADDRESS, VALID_MODE, VALID_CONTRACTTYPE, VALID_EPITAPH, 13, 2),
                 "AddJobOpeningController.addJobOpening should fail when passed with invalid parameters");
     }
-
 }
