@@ -27,18 +27,11 @@
 
 ## 4. Design
 
-### 4.1. Realization
-
-### 4.2. Class Diagram
-
-### 4.3. Applied Patterns
-
-### 4.4. Tests
-
+The objective is to design a system that continuously monitors the files produced by the Applications Email Bot and processes them for import into the main system. This design will ensure seamless integration and data flow between the Email Bot and the main system.
 
 ## 5. Implementation
 
-   The implementation of the file processing functionality aligns with the design specifications outlined above. Regular code reviews and automated tests ensure that the implementation adheres to the intended functionality.
+The implementation of the file processing functionality aligns with the design specifications outlined above. Regular code reviews and automated tests ensure that the implementation adheres to the intended functionality.
 
 ## 6. Integration/Demonstration
 
