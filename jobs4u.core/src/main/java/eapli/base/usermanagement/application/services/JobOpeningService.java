@@ -2,6 +2,7 @@ package eapli.base.usermanagement.application.services;
 
 
 import eapli.base.customer.Criteria;
+import eapli.base.domain.jobOpeningProcess.PhaseType;
 import eapli.base.filter.jobOpening.JobOpeningFilteringStrategy;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.jobOpening.*;
@@ -45,6 +46,7 @@ public class JobOpeningService {
                 .address(new Address(address))
                 .vacanciesNumber(new VacanciesNumber(vacanciesNumber))
                 .company(company.get())
+                .currentJobPhase(PhaseType.APPLICATION)
                 .build();
 
 
