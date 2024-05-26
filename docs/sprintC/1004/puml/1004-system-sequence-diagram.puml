@@ -10,46 +10,14 @@ activate S
 S -> U : list all Job References and asks user to choose a job opening
 U -> S : chooses a job opening
 S -> U : shows Job Opening details
-S -> U : Asks if user wants to update the description
-alt User wants to update the description
-    U -> S : enters new description
-    S -> U : shows updated Job Opening details
+loop until user chooses to stop
+S -> U : Asks to choose what user wants to update
+S -> S: Saves options to update
 end
-S -> U : Asks if user wants to update the address
-alt User wants to update the address
-    U -> S : enters new address
+loop for every single choice
+S -> U : Asks for new value
+U -> S : Enters new value
 end
-
-S -> U : Asks if user wants to update the Mode (e.g Remote, Onsite, Hybrid)
-alt User wants to update the Mode
-    U -> S : enters new Mode
-end
-
-S -> U : Asks if user wants to update the contract type(e.g Full Time, Part Time)
-
-alt User wants to update the contract type
-    U -> S : enters new contract type
-end
-
-S -> U : Asks if user wants to update the title
-
-alt User wants to update the title
-    U -> S : enters new title
-end
-
-S -> U : Asks if user wants to update the number of vacancies
-
-alt User wants to update the number of vacancies
-    U -> S : enters new number of vacancies
-end
-
-S -> U : Asks if user wants to update the company
-
-alt User wants to update the company
-    S -> U : shows list of companies and asks user to choose a company
-    U -> S : chooses updated company
-end
-
-S -> U : Shows job opening with updated details and sends a success message
+S -> U : Shows updated Job Opening details with confirmation message
 
 @enduml
