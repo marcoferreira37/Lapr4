@@ -23,13 +23,9 @@ package eapli.base.persistence.impl.inmemory;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
-import eapli.base.repositories.CustomerRepository;
+import eapli.base.domain.jobOpeningInterview.JobInterview;
+import eapli.base.repositories.*;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
-import eapli.base.repositories.RepositoryFactory;
-import eapli.base.repositories.CandidateRepository;
-import eapli.base.repositories.JobOpeningApplicationRepository;
-import eapli.base.repositories.JobOpeningRepository;
-import eapli.base.repositories.CompanyRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.inmemory.InMemoryUserRepository;
@@ -130,6 +126,18 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public JobOpeningApplicationRepository jobApplications() {
         return JobApplications(null);
     }
+
+    @Override
+    public JobInterviewRepository jobInterviews(TransactionalContext autoTx) {
+        return new InMemoryJobInterviewRepository();
+    }
+
+
+    @Override
+    public JobInterviewRepository jobInterviews() {
+        return jobInterviews(null);
+    }
+
 
     @Override
     public SignupRequestRepository signupRequests(final TransactionalContext tx) {
