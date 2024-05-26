@@ -106,4 +106,8 @@ public interface RepositoryFactory {
     JobOpeningApplicationRepository JobApplications(TransactionalContext autoTx);
 
     JobOpeningApplicationRepository jobApplications();
+
+    JobInterviewRepository jobInterviews(TransactionalContext autoTx);
+
+    JobInterviewRepository jobInterviews();
 }
