@@ -4,11 +4,15 @@ import eapli.base.domain.candidate.Candidate;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
+import lombok.Getter;
+
+import java.util.Calendar;
+import java.util.Objects;
 
 @Entity
 @Table(name = "JobInterview")
 @Transactional
-public class JobInterview implements AggregateRoot<Long> {
+public class JobInterview implements AggregateRoot<Long>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,45 +22,67 @@ public class JobInterview implements AggregateRoot<Long> {
     @JoinColumn(name = "CANDIDATEID")
     private Candidate candidate;
 
+    @Getter
+    @Column(name = "INTERVIEWTIME")
+    private String interviewTime;
 
-    private final String interviewResult;
+    @Column(name = "INTERVIEWDATE")
+    private final Calendar interviewDate;
 
-    private final String interviewTime;
-    private final String interviewLocation;
-    private final String interviewType;
-
-    public JobInterview(String interviewDate, String interviewTime, String interviewLocation, String interviewType) {
-        this.interviewResult = interviewDate;
+    public JobInterview(String interviewTime, Calendar interviewDate, Candidate candidate) {
         this.interviewTime = interviewTime;
-        this.interviewLocation = interviewLocation;
-        this.interviewType = interviewType;
+        this.interviewDate = interviewDate;
+        this.candidate = candidate;
+
     }
 
-
-
-    public String getInterviewResult() {
-        return interviewResult;
+    // Construtor sem argumentos exigido pelo JPA
+    protected JobInterview() {
+        this.interviewDate = null;
     }
 
-    public String getInterviewTime() {
-        return interviewTime;
+    public JobInterview jobInterview() {
+        return jobInterview();
     }
 
-    public String getInterviewLocation() {
-        return interviewLocation;
-    }
-
-    public String getInterviewType() {
-        return interviewType;
-    }
 
     @Override
     public boolean sameAs(Object other) {
-        return false;
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        JobInterview that = (JobInterview) other;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(candidate, that.candidate) &&
+                Objects.equals(interviewTime, that.interviewTime) &&
+                Objects.equals(interviewDate, that.interviewDate);
     }
 
     @Override
     public Long identity() {
         return null;
     }
+
+    public Candidate candidate() {
+        return this.candidate;
+    }
+
+    public Calendar interviewDate() {
+        return this.interviewDate;
+    }
+
+    public String interviewTime() {
+        return this.interviewTime;
+    }
+
+    @Override
+    public String toString() {
+        return "JobInterview{" +
+                "id=" + id +
+                ", candidate=" + candidate +
+                ", interviewTime='" + interviewTime + '\'' +
+                ", interviewDate=" + interviewDate +
+                '}';
+    }
+
+
 }
