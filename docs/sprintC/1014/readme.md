@@ -7,7 +7,7 @@ The task is to record the time and date for an interview with a candidate, ensur
 
 This task is not related to fixing a bug but rather adding a new feature to the system.
 
-## 2. Requirements
+## 2. Requirements Engineering and Analysis
 
 **US 1014** As Customer Manager, I want to record the time and date for an interview with a candidate.
 
@@ -30,6 +30,26 @@ Has dependency in the user stories:
 - 2002 -> As Operator, I want to register an application of a candidate for a job opening and
   import all files received.
 - 
+## 2.1 Product Owner Specifications
+
+> **Question**: Uma entrevista pode ter apenas uma questão? US1014, time and date, quer dizer data de inicio e não data final? Podem haver entrevistas em paralelo?
+> 
+> **Answer**: Quanto ao número de perguntas numa entrevista, não está definido nenhum limite inferior ou superior. Ou seja, pode haver uma entrevista com apenas 1 pergunta (não fará sentido não ter perguntas). A US1014 refere-se à marcação da data de uma entrevista com um candidato. Algo como indicar o dia e a hora (ex: 23 de abril pelas 14:00). Em relação à marcação de entrevistas “sobrepostas” (com a mesma data de inicio), neste momento, seria algo a permitir (pode, por exemplo, o customer manager delegar noutra pessoa a condução da entrevista). Isso não invalida que devam validar se as entrevistas ocorrem dentro da fase das entrevistas.
+
+
+> **Question**: Em relação à marcação da intervista, só deve ser possível marcar esta data quando? Só será possível marcar a entrevista quando a fase de recrutamento se encontrar na fase de intervista? Ou será possivel marcar noutras fases anteriores?
+>
+> **Answer**: Por mim pode ser possível marcar as entrevistas antes mas deve-se ter em atenção se o candidato “passou” o screening. Não faz sentido marcar uma entrevista para um candidato que não foi aceite. Tenham em atenção este tipo de aspetos.
+
+
+> **Question**: As Customer Manager, I want to record the time and date for an interview with a candidate." Is it possible to schedule interviews for any day and time or we must take into account weekends, working hours and holidays, for example?
+> 
+> **Answer**: The system should display the day of the week for the selected date. But the system should accept any valid dat
+
+
+> **Question**: Em relação à marcação de uma entrevista com um candidato, deve ser possível marcar mais do que uma entrevista por candidatura?
+> 
+> **Answer**: O sistema nesta fase está pensado para apenas suportar uma entrevista por job opening por isso não faz muito sentido marcar mais do que uma entrevista para um candidato a não ser para remarcar a mesma entrevista (por exemplo, o candidato faltou justificadamente a uma entrevista anterior). Neste contexto, eu diria que faz mais sentido poder alterar a marcação de uma entrevista do que marcar mais do que uma entrevista para o mesmo candidato.
 
 ## 3. Analysis
 

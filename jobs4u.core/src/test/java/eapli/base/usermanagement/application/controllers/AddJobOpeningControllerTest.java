@@ -188,5 +188,27 @@ class AddJobOpeningControllerTest {
         assertTrue(testingTarget.checkCompanyID("SSSS"),
                 "Invalid companyID should produce true: " + "SSSS");
     }
-}
 
+
+    @Test
+    void addValidJobOpeningTest() {
+        Mockito.doNothing().when(autzService).ensureAuthenticatedUserHasAnyOf(VALID_ROLES);
+        Mockito.when(mockService.create(VALID_DESCRIPTION, VALID_ADDRESS, VALID_MODE, VALID_CONTRACTTYPE, VALID_EPITAPH, 13, 2)).thenReturn(DUMMY_VALID_JOB_OPENING);
+
+
+        assertEquals(DUMMY_VALID_JOB_OPENING,
+                testingTarget.addJobOpening(VALID_DESCRIPTION, VALID_ADDRESS, VALID_MODE, VALID_CONTRACTTYPE, VALID_EPITAPH, 13, 2),
+                "AddJobOpeningController.addJobOpening should not fail when passed with valid parameters");
+    }
+
+    @Test
+    void addInValidJobOpeningTest() {
+        Mockito.doNothing().when(autzService).ensureAuthenticatedUserHasAnyOf(VALID_ROLES);
+        String INVALID_ADDRESS = "123";
+        String INVALID_DESCRIPTION = "123";
+        Mockito.when(mockService.create(INVALID_DESCRIPTION, INVALID_ADDRESS, VALID_MODE, VALID_CONTRACTTYPE, VALID_EPITAPH, 13, 2)).thenReturn(DUMMY_VALID_JOB_OPENING);
+        assertNotEquals(DUMMY_VALID_JOB_OPENING,
+                testingTarget.addJobOpening(VALID_DESCRIPTION, VALID_ADDRESS, VALID_MODE, VALID_CONTRACTTYPE, VALID_EPITAPH, 13, 2),
+                "AddJobOpeningController.addJobOpening should fail when passed with invalid parameters");
+    }
+}

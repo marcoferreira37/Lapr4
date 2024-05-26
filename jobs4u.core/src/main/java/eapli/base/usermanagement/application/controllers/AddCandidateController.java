@@ -7,6 +7,7 @@ import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.general.domain.model.EmailAddress;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
@@ -22,10 +23,11 @@ import java.util.Set;
 public class AddCandidateController {
 
     private final UserManagementService userSvc= AuthzRegistry.userService();
-
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final CandidateManagementService candidateSvc = new CandidateManagementService();
 
     public Candidate addCandidate(final String firstname, final String lastname, final String email, final Calendar createdOn, final long telephoneNumber){
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN);
         Set<Role> role = new HashSet<>();
         role.add(BaseRoles.CANDIDATE);
         final SystemUser newUser = createSystemUser(firstname, lastname, email, role, createdOn);

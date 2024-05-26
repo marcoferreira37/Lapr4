@@ -18,6 +18,13 @@ Operator -> UI: Request to register candidate
 
 UI -> CTRL**:create
 activate CTRL
+
+UI --> Operator: Request the firstName, lastName, email, telephoneNumber
+deactivate UI
+Operator -> UI: Types in the data (firstName, lastName, email, telephoneNumber)
+activate UI
+UI-> UI : .add(BaseRoles.CANDIDATE)
+UI-> CTRL: addCandidate(firstName, lastName, email,telephoneNumber, createdOn)
 CTRL -> AS : authorizationService()
 activate AS
 AS --> CTRL: authz
@@ -25,13 +32,6 @@ deactivate AS
 CTRL->AS : ensureAuthenticatedUserHasAnyOf()
 activate AS
 deactivate AS
-UI --> Operator: Request the username, password, \nfirstName, lastName, email, roleTypes
-deactivate UI
-Operator -> UI: Types in the data (username, password, \nfirstName, lastName, email, roleTypes)
-activate UI
-UI-->UI : saves the data
-UI-> UI : .add(ROLE.CANDIDATE)
-UI-> CTRL: addCandidate(username, password, \nfirstName, lastName, email, roleTypes)
 CTRL-> UMS : candidateSvc()
 activate UMS
 UMS-->CTRL: candidateSvc
