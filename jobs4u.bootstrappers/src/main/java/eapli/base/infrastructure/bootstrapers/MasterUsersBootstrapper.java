@@ -20,6 +20,7 @@
  */
 package eapli.base.infrastructure.bootstrapers;
 
+import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.usermanagement.application.controllers.AddJobOpeningController;
 import eapli.base.usermanagement.application.controllers.AddJobApplicationController;
 import eapli.base.domain.candidate.Candidate;
@@ -30,12 +31,14 @@ import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpening.Mode;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.CandidateRepository;
+import eapli.base.usermanagement.application.controllers.RecordInterviewController;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,7 +48,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     public boolean execute() {
         registerAdmin("admin", TestDataConstants.PASSWORD1, "Jane", "Doe Admin",
                 "jane.doe@email.local");
-        registerOperator("operator", TestDataConstants.PASSWORD1, "Francisco","Monteiro", "franciscomonteiro@gmail.com");
+        registerOperator("operator", TestDataConstants.PASSWORD1, "Francisco", "Monteiro", "franciscomonteiro@gmail.com");
 
         registerCustomerManager("customerManager", TestDataConstants.PASSWORD1, "Francisco", "Silveira", "franciscosilveira@gmail.com");
 
@@ -54,10 +57,9 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         Candidate candida3 = registerCandidate("maria", TestDataConstants.PASSWORD1, "Maria", "Pereira", EmailAddress.valueOf("vozinha@gmail.com"));
         Candidate candida4 = registerCandidate("fisco", TestDataConstants.PASSWORD1, "Fisco", "Fiasco", EmailAddress.valueOf("fiascos@somosnos.com"));
 
-        JobOpening jo = registerJobOpening("bailarino","casa do ah",Mode.ONSITE,ContractType.FULL_TIME,"baila baila",1,1);
-        JobOpening jo2 = registerJobOpening("monstro","o grande lago de penafiel",Mode.ONSITE,ContractType.FULL_TIME,"ARRRGHHHHHH",1,1);
-        JobOpening jo3 = registerJobOpening("Programador com capacidades de completar o projeto de lapr4","ISEP",Mode.ONSITE,ContractType.FULL_TIME,"Programador",1,1);
-
+        JobOpening jo = registerJobOpening("bailarino", "casa do ah", Mode.ONSITE, ContractType.FULL_TIME, "baila baila", 1, 1);
+        JobOpening jo2 = registerJobOpening("monstro", "o grande lago de penafiel", Mode.ONSITE, ContractType.FULL_TIME, "ARRRGHHHHHH", 1, 1);
+        JobOpening jo3 = registerJobOpening("Programador com capacidades de completar o projeto de lapr4", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Programador", 1, 1);
 
 
         JobOpeningApplication application = registerApplication(jo, candida);
@@ -70,6 +72,11 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpeningApplication application7 = registerApplication(jo3, candida2);
         JobOpeningApplication application8 = registerApplication(jo3, candida3);
 
+        Calendar date = Calendar.getInstance();
+        JobInterview interview1 = registerInterview(date,"11:00", application5);
+        JobInterview interview2 = registerInterview(date,"12:00", application6);
+        JobInterview interview3 = registerInterview(date,"13:00", application7);
+        JobInterview interview4 = registerInterview(date,"14:00", application8);
 
         System.out.println(candida);
         System.out.println(candida2);
@@ -80,10 +87,14 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         System.out.println(jo2);
         System.out.println(jo3);
 
-        System.out.println(application);
         System.out.println(application2);
         System.out.println(application3);
         System.out.println(application4);
+
+        System.out.println(interview1);
+        System.out.println(interview2);
+        System.out.println(interview3);
+        System.out.println(interview4);
 
         return true;
     }
@@ -93,7 +104,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
      *
      */
     private void registerAdmin(final String username, final String password, final String firstName,
-            final String lastName, final String email) {
+                               final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.ADMIN);
 
@@ -101,7 +112,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerOperator(final String username, final String password, final String firstName,
-                               final String lastName, final String email) {
+                                  final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.OPERATOR);
 
@@ -109,31 +120,37 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerCustomerManager(final String username, final String password, final String firstName,
-                               final String lastName, final String email) {
+                                         final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.CUSTOMER_MANAGER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
 
-    private Candidate registerCandidate (final String username, final String password, final String firstName,
-    final String lastName, final EmailAddress email){
+    private Candidate registerCandidate(final String username, final String password, final String firstName,
+                                        final String lastName, final EmailAddress email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.CANDIDATE);
 
         SystemUser u = registerUser(username, password, firstName, lastName, String.valueOf(email), roles);
-        Candidate c = new Candidate(u, email, new TelephoneNumber(910920930),"curriculum");
+        Candidate c = new Candidate(u, email, new TelephoneNumber(910920930), "curriculum");
         CandidateRepository candidateRepository = PersistenceContext.repositories().candidateRepository();
         candidateRepository.save(c);
         return c;
     }
-    private JobOpening registerJobOpening( String description, String address, Mode mode,ContractType contractType, String title,int vacancies ,int c){
+
+    private JobOpening registerJobOpening(String description, String address, Mode mode, ContractType contractType, String title, int vacancies, int c) {
         AddJobOpeningController controller = new AddJobOpeningController();
-       return controller.addJobOpening(description,address,mode,contractType,title,vacancies, c);
+        return controller.addJobOpening(description, address, mode, contractType, title, vacancies, c);
     }
 
     private JobOpeningApplication registerApplication(JobOpening jo, Candidate c) {
         AddJobApplicationController controller = new AddJobApplicationController();
         return controller.addJobOpeningApplication(jo, c);
+    }
+
+    private JobInterview registerInterview(Calendar interviewDate, String interviewTime, JobOpeningApplication jobOpeningApplication) {
+        RecordInterviewController controller = new RecordInterviewController();
+        return controller.recordInterview(interviewDate, interviewTime, jobOpeningApplication);
     }
 }

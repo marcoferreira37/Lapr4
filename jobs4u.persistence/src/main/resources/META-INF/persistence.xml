@@ -18,6 +18,7 @@
     <class>eapli.base.domain.candidate.Candidate</class>
     <class>eapli.base.domain.jobApplication.JobOpeningApplication</class>
     <class>eapli.base.domain.jobOpening.Phase</class>
+    <class>eapli.base.domain.jobOpeningInterview.JobInterview</class>
 
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
