@@ -3,14 +3,14 @@ grammar backEndDeveloperGrammar;
 start: requirements;
 
 
-requirements: BULLET_POINT_T REQUIREMENTS requirements_body;
+requirements: 'Requirements' requirements_body;
 
 requirements_body: requirements_atomic requirements_body    //Eventhough left recursion is supported by ANTLR4 let's not do that for compatibility issues with other parsers
                  | requirements_atomic
                  ;
 
 //TODO Define the requirements for the language
-requirements_atomic: ENTRY_T requirementName=String AS requirementsType TERMINAL_T ;
+requirements_atomic: '->' ENTRY_T requirementName=String 'as' requirementsType '.' ;
 
 
 requirementsType: 'text' (MAY_BE String)?
@@ -27,26 +27,11 @@ arr: arr COMA_T String
 
 //Categories
 
-fragment CreateCapitalized: 'Create';
-fragment CreateUncapitalized: 'create';
-fragment RequirementsCapitalized: 'Requirements';
-fragment RequirementsUncapitalized: 'requirements';
-fragment InterviewCapitalized : 'Interview';
-fragment InterviewUncapitalized : 'interview';
-fragment FooterCapitalized : 'Footer';
-fragment FooterUncapitalized : 'footer';
 fragment PassingCapitalized : 'Passing';
 fragment PassingUncapitalized : 'passing';
 fragment CommentBody: ~[#\n]*;
-fragment QuestionCapitalized: 'Question';
-fragment QuestionUncapitalized : 'question';
 
-FOOTER: FooterCapitalized | FooterUncapitalized;
-INTERVIEW: InterviewCapitalized | InterviewUncapitalized;
-REQUIREMENTS: RequirementsCapitalized | RequirementsUncapitalized;
-CREATE: CreateCapitalized | CreateUncapitalized;
 PASSING: PassingCapitalized | PassingUncapitalized;
-QUESTION: QuestionCapitalized| QuestionUncapitalized;
 
 //
 
@@ -54,7 +39,6 @@ QUESTION: QuestionCapitalized| QuestionUncapitalized;
  //Semantic tokens, soul of the language and the readability to
 
  AND: 'and';
- AS: 'as';
  AWARDING: 'awarding';
  BEING: 'being';
  BETWEEN: 'between';
@@ -84,7 +68,6 @@ QUESTION: QuestionCapitalized| QuestionUncapitalized;
  //Syntax tokens, sugar for the language
  BULLET_POINT_T: '*';
  COMA_T: ',';
- ENTRY_T: '->';
  SPECIFICATION_T: ':';
  TERMINAL_T: '.';
  String: '"' ~'"'+ '"';

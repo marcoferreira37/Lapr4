@@ -26,24 +26,24 @@ questions: question questions
 
 question: 'Question' id=Decimal ':' questionType;
 
-questionType: trueOrFalseQuestion
-                |singleChoiceQuestion
-                |shortAnswerQuestion
-                |multipleChoiceQuestion
-                |integerQuestion
-                |dateQuestion
-                |timeQuestion
-                |scaleQuestion
+questionType: trueOrFalseType
+                |singleChoiceType
+                |shortAnswerType
+                |multipleChoiceType
+                |integerType
+                |dateType
+                |timeType
+                |scaleType
                 ;
 
-trueOrFalseQuestion: STRING '( True or False ) with answer' answer=correctAnswer;
-singleChoiceQuestion: STRING '( Single Choice ) within options' STRING 'with answer' answer=correctAnswer;
-shortAnswerQuestion: STRING '( Short Answer ) with answer' answer=correctAnswer;
-multipleChoiceQuestion: STRING '( Multiple Choice ) within options' STRING 'with answer' answer=correctAnswer;
-integerQuestion: STRING '( Integer ) with answer' answer=correctAnswer;
-dateQuestion: STRING '( Date ) with answer' answer=correctAnswer;
-timeQuestion: STRING '( Time ) with answer' answer=correctAnswer;
-scaleQuestion: STRING '( Scale ) within range' INTEGER 'to' INTEGER 'with answer' answer=correctAnswer;
+trueOrFalseType: STRING '( True or False ) with answer' answer=correctAnswer;
+singleChoiceType: STRING '( Single Choice ) within options' STRING 'with answer' answer=correctAnswer;
+shortAnswerType: STRING '( Short Answer ) with answer' answer=correctAnswer;
+multipleChoiceType: STRING '( Multiple Choice ) within options' STRING 'with answer' answer=correctAnswer;
+integerType: STRING '( Integer ) with answer' answer=correctAnswer;
+dateType: STRING '( Date ) with answer' answer=correctAnswer;
+timeType: STRING '( Time ) with answer' answer=correctAnswer;
+scaleType: STRING '( Scale ) within range' INTEGER 'to' INTEGER 'with answer' answer=correctAnswer;
 
 correctAnswer: BOOLEAN | INTEGER | REAL | STRING;
 
