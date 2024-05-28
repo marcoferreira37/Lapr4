@@ -1,6 +1,7 @@
 package eapli.base.service;
 
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.repositories.JobInterviewRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,15 @@ public class InterviewService {
     }
 
     @Transactional
-    public JobInterview recordInterview(Calendar interviewDate, String interviewTime, Candidate candidate) {
-        return repository.save(new JobInterview(interviewTime, interviewDate, candidate));
+    public JobInterview recordInterview(Calendar interviewDate, String interviewTime, JobOpeningApplication jobOpeningApplication) {
+//        try {
+            return repository.save(new JobInterview(interviewTime, interviewDate, jobOpeningApplication));
+//        } catch (Exception e) {
+//            System.out.println("O saco é merda");
+//            System.out.println("Anyway...");
+//            e.printStackTrace();
+//        }
+//        return null;
+
     }
 }
