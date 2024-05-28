@@ -1,122 +1,138 @@
 @startuml
 Actor "Customer Manager" as User
 participant ":UpdateJobOpeningUI" as UI <<UI>>
-participant ":UpdateJobOpeningController" as Controller <<Application>>
-participant ":AuthorizationService" as Auth <<Service>>
-participant ":JobOpeningService" as JobOpeningService <<Service>>
+participant ":EditJobOpeningController" as Controller <<Application>>
+participant ":JobOpeningService" as JobOpeningService <<Application>>
+
+participant ":AuthorizationService" as Auth <<Application>>
+participant ":UserSession" as UserSession <<Application>>
+participant ":SystemUser" as SystemUser <<Domain>>
 database "JobOpeningRepository" as jobrepo <<Repository>>
-participant ":JobOpening" as JobOpening <<Domain>>
-database ":CompanyRepository" as companyrepo <<Repository>>
+participant ":JobOpeningMapper" as JobOpeningMapper <<Domain>>
 
 
 activate User
 
-User -> UI: selects option to edit a Job Opening
+User -> UI: Chooses to edit a job opening
 activate UI
-UI -> Controller: allJobs()
+
+UI -> Controller : Request to edit job opening
 activate Controller
-Controller -> Auth: ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN, BaseRoles.POWER_USER)
+
+Controller -> Auth : ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN, BaseRoles.POWER_USER)
 activate Auth
+
+Auth --> Controller : User is authorized
 deactivate Auth
-Controller -> JobOpeningService: allJobs()
+Controller -> JobOpeningService : allJobsForCustomerManager()
 activate JobOpeningService
-JobOpeningService -> jobrepo: findAll()
+
+JobOpeningService -> Auth: session()
+activate Auth
+
+Auth -> UserSession : authenticatedUser()
+activate UserSession
+
+UserSession -> SystemUser: user()
+activate SystemUser
+
+SystemUser --> UserSession : returns authenticatedUser
+deactivate SystemUser
+UserSession --> Auth : returns user
+deactivate UserSession
+Auth --> JobOpeningService : returns user
+deactivate Auth
+JobOpeningService -> jobrepo : findAllCreatedByUser(user)
 activate jobrepo
-jobrepo --> JobOpeningService: Iterable<JobOpening>
+jobrepo --> JobOpeningService : returns Iterable<JobOpening> jobOpenings
 deactivate jobrepo
-JobOpeningService --> Controller: List<JobOpening> jobOpenings
+JobOpeningService --> Controller : returns (List <JobOpening) jobOpenings
 deactivate JobOpeningService
-Controller --> UI: List<JobOpening> jobOpenings
+Controller -> UI : displayListOfJobOpenings(jobOpenings)
 deactivate Controller
-UI --> User: Display list of Job Openings with an index
+UI -> User : displays jobOpenings
 deactivate UI
-User -> UI: selects a Job Opening to edit
+User -> UI : Chooses to edit a job opening
 activate UI
 
-UI -> UI : editJobOpening(jobOpening)
-activate UI
-UI -> User : isToUpdate("Description")
-alt isToUpdate("Description") == true
-User --> UI : enters new description
-UI -> JobOpening: setDescription(newDescription)
-activate JobOpening
-deactivate JobOpening
-end
-UI -> User: isToUpdate("Address")
-alt isToUpdate("Address") == true
-User --> UI : enters new address
-UI -> JobOpening: setAddress(newAddress)
-activate JobOpening
-deactivate JobOpening
-end
-UI -> User: isToUpdate("Mode")
-alt isToUpdate("Mode") == true
-User --> UI : selects new mode
-UI -> JobOpening: setMode(newMode)
-activate JobOpening
-deactivate JobOpening
-end
-
-UI -> User: isToUpdate("Contract Type")
-alt isToUpdate("Contract Type") == true
-User --> UI : selects new contract type
-UI -> JobOpening: setContractType(newContractType)
-activate JobOpening
-deactivate JobOpening
-end
-UI -> User: isToUpdate("Job Title")
-alt isToUpdate("Job Title") == true
-User --> UI : enters new job title
-UI -> JobOpening: setJobTitle(newJobTitle)
-activate JobOpening
-deactivate JobOpening
-end
-UI -> User: isToUpdate("Vacancies Number")
-alt isToUpdate("Vacancies Number") == true
-User --> UI : enters new vacancies number
-UI -> JobOpening: setVacanciesNumber(newVacanciesNumber)
-activate JobOpening
-deactivate JobOpening
-end
-UI -> User: isToUpdate("Company Name")
-alt isToUpdate("Company Name") == true
-UI -> UI: selectCompany()
-activate UI
-UI -> Controller: allCompanies()
+UI --> Controller: returns jobOpening index
 activate Controller
-Controller -> JobOpeningService: allCompanies()
+
+Controller -> Controller: saves JobOpening
+
+Controller -> UI : updateList(Edit.values())
+deactivate Controller
+loop until user chooses to stop
+UI -> User : displays parameters to edit and option to stop
+User --> UI : Chooses parameter to edit
+UI -> UI: return list add(option)
+end
+UI --> Controller : returns List <Edit> edits
+activate Controller
+
+Controller -> JobOpeningService : toDto(jobOpening)
 activate JobOpeningService
-JobOpeningService -> companyrepo: findAll()
-activate companyrepo
-companyrepo --> JobOpeningService: Iterable<Company>
-deactivate companyrepo
-JobOpeningService --> Controller: List<Company> companies
+
+ JobOpeningService -> JobOpeningMapper: toDto(jobOpening)
+ activate JobOpeningMapper
+
+ JobOpeningMapper --> JobOpeningService: jobOpeningDto
+ deactivate JobOpeningMapper
+
+ JobOpeningService --> Controller: jobOpeningDto
+  deactivate JobOpeningService
+
+loop for each edit
+
+alt edit is a string
+Controller -> UI : updateString(Edit.StringField)
+UI -> User : request to update string field
+User --> UI : enters new value
+UI --> Controller : returns new value
+end
+
+alt edit is a number
+Controller -> UI : updateNumber(Edit.NumberField)
+UI -> User : request to update string field
+User --> UI : enters new value
+UI --> Controller : returns new value
+end
+
+alt edit is a Enum
+Controller -> UI : updateEnum(Edit.EnumField)
+UI -> User : request to update string field
+User --> UI : enters new value
+UI --> Controller : returns new value
+end
+
+Controller -> JobOpeningService : updateJobOpening(jobOpeningDto, edit, value)
+activate JobOpeningService
+
+JobOpeningService --> Controller : returns jobOpeningDto
 deactivate JobOpeningService
-Controller --> UI: List<Company> companies
-deactivate Controller
-UI --> User: Display list of Companies with an index
-deactivate UI
-User -> UI: selects a Company
-
-UI -> JobOpening: setCompany(company)
-activate JobOpening
-deactivate JobOpening
-
 end
-deactivate UI
-UI -> Controller: editJobOpening(jobOpening)
-activate Controller
-Controller -> JobOpeningService: editJobOpening(jobOpening)
+
+Controller --> UI : displayJobOpening(jobOpeningDTO)
+
+UI -> User : displays updated jobOpening
+
+Controller -> JobOpeningService : toDomain(jobOpeningDto)
 activate JobOpeningService
-JobOpeningService -> jobrepo: save(jobOpening)
-activate jobrepo
-jobrepo --> JobOpeningService: JobOpening
+
+JobOpeningService -> JobOpeningMapper: toDomain(jobOpeningDto)
+activate JobOpeningMapper
+
+ JobOpeningMapper --> JobOpeningService: jobOpening
+deactivate JobOpeningMapper
+
+ JobOpeningService -> jobrepo: save(jobOpening)
+ activate jobrepo
+ jobrepo --> JobOpeningService: saved jobOpening
 deactivate jobrepo
-JobOpeningService --> Controller: JobOpening
+JobOpeningService --> Controller: returns true
 deactivate JobOpeningService
-Controller --> UI: JobOpening
+Controller --> UI : returns true
 deactivate Controller
-UI --> User: displays new updated JobOpening and success message
+UI --> User : displays success message
 deactivate UI
-
 @enduml

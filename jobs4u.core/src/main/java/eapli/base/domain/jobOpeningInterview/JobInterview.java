@@ -1,6 +1,6 @@
 package eapli.base.domain.jobOpeningInterview;
 
-import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
@@ -12,15 +12,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "JobInterview")
 @Transactional
-public class JobInterview implements AggregateRoot<Long>{
+public class JobInterview implements AggregateRoot<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "INTERVIEWID")
     private long id;
-    @ManyToOne
-    @JoinColumn(name = "CANDIDATEID")
-    private Candidate candidate;
 
     @Getter
     @Column(name = "INTERVIEWTIME")
@@ -28,11 +25,14 @@ public class JobInterview implements AggregateRoot<Long>{
 
     @Column(name = "INTERVIEWDATE")
     private final Calendar interviewDate;
+    @OneToOne // OneToOne porque um JobInterview só pode ter uma JobOpeningApplication
+    @JoinColumn(name = "JOBOPENINGAPPLICATIONID")
+    private JobOpeningApplication jobOpeningApplication;
 
-    public JobInterview(String interviewTime, Calendar interviewDate, Candidate candidate) {
+    public JobInterview(String interviewTime, Calendar interviewDate, JobOpeningApplication jobOpeningApplication) {
         this.interviewTime = interviewTime;
         this.interviewDate = interviewDate;
-        this.candidate = candidate;
+        this.jobOpeningApplication = jobOpeningApplication;
 
     }
 
@@ -52,7 +52,7 @@ public class JobInterview implements AggregateRoot<Long>{
         if (other == null || getClass() != other.getClass()) return false;
         JobInterview that = (JobInterview) other;
         return Objects.equals(id, that.id) &&
-                Objects.equals(candidate, that.candidate) &&
+                Objects.equals(jobOpeningApplication, that.jobOpeningApplication) &&
                 Objects.equals(interviewTime, that.interviewTime) &&
                 Objects.equals(interviewDate, that.interviewDate);
     }
@@ -62,8 +62,8 @@ public class JobInterview implements AggregateRoot<Long>{
         return null;
     }
 
-    public Candidate candidate() {
-        return this.candidate;
+    public JobOpeningApplication jobOpeningApplication() {
+        return this.jobOpeningApplication;
     }
 
     public Calendar interviewDate() {
@@ -78,7 +78,7 @@ public class JobInterview implements AggregateRoot<Long>{
     public String toString() {
         return "JobInterview{" +
                 "id=" + id +
-                ", candidate=" + candidate +
+                ", jobOpeningApplication=" + jobOpeningApplication +
                 ", interviewTime='" + interviewTime + '\'' +
                 ", interviewDate=" + interviewDate +
                 '}';
