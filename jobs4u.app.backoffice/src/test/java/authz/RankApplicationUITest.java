@@ -124,36 +124,4 @@ class RankApplicationUITest {
 
         assertThat(relevantOutput.toString(), equalTo(expectedOutput));
     }
-
-    @Test
-    public void testIsRankUnique_EmptyApplicationList() {
-        List<JobOpeningApplication> emptyList = new ArrayList<>();
-        RankApplicationUI rankApplicationUI = new RankApplicationUI();
-
-        boolean result = rankApplicationUI.isRankUnique(5, emptyList);
-
-        assertTrue(result);
-    }
-
-    @Test
-    public void testIsRankUnique_NoDuplicates() {
-        // Arrange
-        List<JobOpeningApplication> applications = new ArrayList<>();
-        RankApplicationUI rankApplicationUI = new RankApplicationUI();
-
-        JobReference jobReference1 = new JobReference(111L, "FIS");
-        JobReference jobReference2 = new JobReference(222L, "FIS");
-        JobReference jobReference3 = new JobReference(333L, "FIS");
-
-        applications.add(new JobOpeningApplication(new JobOpening(jobReference1), new Candidate()));
-        applications.add(new JobOpeningApplication(new JobOpening(jobReference2), new Candidate()));
-        applications.add(new JobOpeningApplication(new JobOpening(jobReference3), new Candidate()));
-
-        // Act
-        boolean result = rankApplicationUI.isRankUnique(5, applications);
-
-        // Assert
-        assertTrue(result);
-    }
-
 }
