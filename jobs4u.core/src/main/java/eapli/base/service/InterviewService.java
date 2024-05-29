@@ -19,14 +19,13 @@ public class InterviewService {
 
     @Transactional
     public JobInterview recordInterview(Calendar interviewDate, String interviewTime, JobOpeningApplication jobOpeningApplication) {
-//        try {
+        try {
             return repository.save(new JobInterview(interviewTime, interviewDate, jobOpeningApplication));
-//        } catch (Exception e) {
-//            System.out.println("O saco é merda");
-//            System.out.println("Anyway...");
-//            e.printStackTrace();
-//        }
-//        return null;
+        } catch (Exception e) {
+            System.out.println("Something went wrong while trying to record the interview.");
+            e.printStackTrace();
+        }
+        return null;
 
     }
 }

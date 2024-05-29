@@ -25,7 +25,7 @@ public class JobInterview implements AggregateRoot<Long> {
 
     @Column(name = "INTERVIEWDATE")
     private final Calendar interviewDate;
-    @OneToOne // OneToOne porque um JobInterview só pode ter uma JobOpeningApplication
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH}) // OneToOne porque um JobInterview só pode ter uma JobOpeningApplication
     @JoinColumn(name = "JOBOPENINGAPPLICATIONID")
     private JobOpeningApplication jobOpeningApplication;
 

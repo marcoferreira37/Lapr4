@@ -61,7 +61,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpening jo2 = registerJobOpening("monstro", "o grande lago de penafiel", Mode.ONSITE, ContractType.FULL_TIME, "ARRRGHHHHHH", 1, 1);
         JobOpening jo3 = registerJobOpening("Programador com capacidades de completar o projeto de lapr4", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Programador", 1, 1);
 
-
         JobOpeningApplication application = registerApplication(jo, candida);
         JobOpeningApplication application2 = registerApplication(jo, candida2);
         JobOpeningApplication application3 = registerApplication(jo, candida3);
@@ -77,7 +76,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobInterview interview2 = registerInterview(date,"12:00", application6);
         JobInterview interview3 = registerInterview(date,"13:00", application7);
         JobInterview interview4 = registerInterview(date,"14:00", application8);
-
         System.out.println(candida);
         System.out.println(candida2);
         System.out.println(candida3);
