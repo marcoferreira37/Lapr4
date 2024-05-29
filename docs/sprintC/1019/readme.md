@@ -7,6 +7,58 @@ as requested by the Customer Manager for the first time in this sprint.
 The feature aims to assist the Customer Manager in analyzing and comparing candidates' performance efficiently, 
 helping to make informed selection decisions by providing a clear, ranked list based on interview grades.
 
+
+## Client Specifications
+
+> *Question*: Q169 Simoes – US1019 - Relativamente a esta user story, "US 1019 - As
+>Customer Manager, I want to get an ordered list of candidates, using the job
+>interview points (grades), to help me analyze the candidates.", a lista que
+>pretende é relacionada a uma job opening correto? A maneira de ordenação é
+>ascendente ou quer uma opção que inclua ascendente e descendente?
+> *Answer*: A169 Sim, a ordenação é relativa a candidaturas para um job opening. A ordenação deve
+>ser descendente, do que tem maior pontuação para o que tem menor pontuação.
+
+> *Question*: Q169 Simoes – US1019 - Relativamente a esta user story, "US 1019 - As
+>Customer Manager, I want to get an ordered list of candidates, using the job
+>interview points (grades), to help me analyze the candidates.", a lista que
+>pretende é relacionada a uma job opening correto? A maneira de ordenação é
+>ascendente ou quer uma opção que inclua ascendente e descendente?
+> *Answer*: A169 Sim, a ordenação é relativa a candidaturas para um job opening. A ordenação deve
+>ser descendente, do que tem maior pontuação para o que tem menor pontuação.
+
+> *Question*: Q177 Artur – US 1019 Esclarecimento - Na US 1019: As Customer Manager, I
+>want to get an ordered list of candidates, using the job interview points
+>(grades), to help me analyze the candidates. Pretende que para uma
+>determinada Job Opening de um cliente meu, retorno uma lista ordenada de
+>candidatos e suas notas da entrevista. Penso implementar essa funcionalidade
+>da seguinte forma:
+>Job Opening : XXX
+>Nome | Email | Grade
+>Jane Doe| jane@doe.pt | 85
+>John Doe | john@doe.pt | 70
+>Ou seja com ordenação descendente.
+>Conforme refere Q153 consegue ver numa instancia esta lista, e noutra instancia faz o
+>ranking que achar pertinente.
+>Acha bem?
+> *Answer*: A177 Penso que queira fazer referência a Q163. Relativamente ao exemplo que apresenta
+>parece-me que satisfaz o que pretendo.
+
+> *Question*: Q204 Paula – US 1019– segundo a resposta A197, devemos então apenas
+>permitir a listagem de job openings que tenham entrevista?
+> *Answer*: A204. Penso que não percebi bem a referência à listagem de job openings. Esta US não faz
+>sentido para job openings que não tenham entrevista, uma vez que assenta na listagem
+>dos candidatos e dos seus pontos nas entrevista.
+
+> *Question*: Q226 Bernardo Barbosa – US 1019 - Na descrição da user story : " As
+>Customer Manager, I want to get an ordered list of candidates, using the job
+>interview points (grades), to help me analyze the candidates". A intenção
+>"analyze the candidates" impõe alguma mudança/remoção de candidatos no
+>sistema?
+> *Answer*: A226. A referência a “analize the candidates” é apenas para passar a ideia que se
+>pretende nesta US que o sistema disponibilize uma forma do CustomerManager conseguir
+>consultar o resultado das entrevistas de forma a ajudar a decidiro ranking dos candidatos.
+>Nada mais. O ranking doa candidatos é registado no sistema através da US 1013.
+
 ## 2. Requirements
 
 **US 1019**  As Customer Manager, I want to get an ordered list of candidates, using the job
