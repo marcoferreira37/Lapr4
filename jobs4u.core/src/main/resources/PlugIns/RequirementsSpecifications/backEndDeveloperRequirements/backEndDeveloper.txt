@@ -1,7 +1,8 @@
 * Requirements
--> "Years of Experience" as number may be ^2.
--> "Programming Languages" as group may be one of ["JavaScript","Java", "TypeScript"].
--> "Years of Experience with Language" as number may be 1+.
--> "Knoladge of the English Language" as yes/no may be yes.
--> "Has a previous dismissal for unprofessional behaviour" as yes/no may be no.
--> "Ask for a description of self in 3 words (or less)" as text.
+-> "Database connection" as text.
+-> "Max retries" as number may be 5.
+-> "Retry interval" as number may be ^3.
+-> "Allowed IPs" as group may be one of ["127.0.0.1", "192.168.0.1"].
+-> "Enable logging" as yes/no may be yes.
+-> "Log level" as text may be "info".
+-> "Timeout" as number may be 30+.
