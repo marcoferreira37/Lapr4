@@ -11,18 +11,34 @@ rectangle "Job Opening" #bbccaa {
 
     class TitleOrFunction<<Value Object>>{}
 
-    enum ContractType<<Enumerated>><<Value Object>>{}
+    enum ContractType<<Enumerated>><<Value Object>>{
+        FULL_TIME
+        PART_TIME
+    }
 
-    class Mode<<Enumerated>><<Value Object>>{}
+    enum Mode<<Enumerated>><<Value Object>>{
+        REMOTE
+        ON-SITE
+        HYBRID
+        }
 
 
     class VacanciesNumber<<Value Object>>{}
 
     class Description<<Value Object>>{}
-
-    ''Maybe go to Interview Model
-
+'
+'    class PhaseDates<<Entity>>{}
+'    enum PhaseType<<Enumerated>><<Value Object>>{
+'                APPLICATION
+'                SCREENING
+'                INTERVIEWS
+'                ANALYSIS
+'                RESULT
+'            }
+'     JobOpening "1" --> "0..1" PhaseDates
+'     PhaseDates "1" --> "1" PhaseType
 }
+
 
 rectangle "Job Opening Application" #aaccbb {
 
@@ -38,7 +54,8 @@ rectangle "Job Opening Application" #aaccbb {
 
     class ApplicationStatus<<Value Object>>{}
 
-    class ApplicationGrade<<Value Object>>{}
+    class ApplicationRank<<Value Object>>{}
+
 }
 
 
@@ -53,8 +70,8 @@ rectangle candidate #aabbcc{
 rectangle "Job Opening Process" #ccbbcc{
     class JobOpeningProcess<<Aggregate Root>><<Entity>>{}
     class JobOpeningProcessId<<Identity>><<Value Object>>{}
-    class JobOpeningProcessStatus<<Value Object>>{}
-    class JobOpeningProcessStage<<Value Object>>{}
+'    class JobOpeningProcessStatus<<Value Object>>{}
+'    class JobOpeningProcessStage<<Value Object>>{}
     class Phase<<Entity>>{
         }
     enum PhaseType<<Enumerated>><<Value Object>>{
@@ -86,12 +103,12 @@ Application "1" --> "1" ApplicatorData
 Application "*" -----> "1" JobOpening : submitted for
 Application "1" -> "1" Candidate : submitted by
 Application "1" --> "1" ApplicationStatus
-Application "1" --> "1" ApplicationGrade
+Application "1" --> "0..1" ApplicationRank
+
 
 JobOpeningProcess "1" -left-> "1" JobOpeningProcessId
 JobOpening "1" -----> "*" JobOpeningProcess : has
-Phase "1" --> "1" JobOpeningProcessStatus
-Phase "1" --> "1" JobOpeningProcessStage
+'Phase "1" --> "1" JobOpeningProcessStatus
 JobOpeningProcess "1" --> "1" Phase
 Phase "1" --> "1" PhaseType
 
