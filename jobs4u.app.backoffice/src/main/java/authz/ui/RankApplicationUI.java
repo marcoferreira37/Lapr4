@@ -14,16 +14,27 @@ import java.util.Set;
 
 public class RankApplicationUI extends AbstractUI {
 
+    /**
+     * The controller for ranking an application
+     */
     private final RankApplicationController theController = new RankApplicationController();
+    /**
+     * The controller for listing all applications for a job opening
+     */
     private final ListAllApplicationsForJobOpeningController controllerApplication = new ListAllApplicationsForJobOpeningController();
 
+    /**
+     * Show the UI
+     *
+     * @return true if the UI should keep running, false otherwise
+     */
     @Override
     protected boolean doShow() {
         System.out.println("=====================================================");
         System.out.println("|| List of Job Openings ||");
         List<JobOpening> openingList = (List<JobOpening>) controllerApplication.allJobOpenings();
         if (openingList.isEmpty()) {
-            System.out.println("No job openings available.");
+            System.out.println("No job openings available!");
             return false;
         }
         printNumeratedList(openingList);
@@ -31,7 +42,7 @@ public class RankApplicationUI extends AbstractUI {
         JobOpening jobOpening = openingList.get(option - 1);
         List<JobOpeningApplication> applications = controllerApplication.allApplicationsForJobOpening(jobOpening);
         if (applications.isEmpty()) {
-            System.out.println("There are no applications for this job opening.");
+            System.out.println("There are no applications for this job opening!");
             return false;
         }
 
@@ -48,8 +59,8 @@ public class RankApplicationUI extends AbstractUI {
      * Rank an application for a job opening
      *
      * @param application the application to rank
-     * @param maxRank the maximum rank value
-     * @param usedRanks the set of ranks that have already been used
+     * @param maxRank     the maximum rank value
+     * @param usedRanks   the set of ranks that have already been used
      */
     private void rankApplication(JobOpeningApplication application, int maxRank, Set<Integer> usedRanks) {
         System.out.println("Application ID: " + application.identity());
@@ -120,6 +131,12 @@ public class RankApplicationUI extends AbstractUI {
         }
     }
 
+    /**
+     * Validate an integer input
+     *
+     * @param input the input to validate
+     * @return the integer value if it's valid, -1 otherwise
+     */
     public int validInteger(String input) {
         int result;
         try {
@@ -137,6 +154,12 @@ public class RankApplicationUI extends AbstractUI {
         return result;
     }
 
+    /**
+     * Get the user's option
+     *
+     * @param size the size of the list of options
+     * @return the user's option
+     */
     private int getUserOption(int size) {
         int option;
         while (true) {
