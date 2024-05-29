@@ -3,38 +3,26 @@ grammar BackEndDeveloperGrammar;
 start: header interviewModel footer;
 
 //HEADER
-header: 'Create interview model' interviewName=String 'for job opening' jobOpeningReference=String 'as follows:';
-
-
-//FOOTER
-footer: 'Footer' score_definition '.';
-
-score_definition: 'Passing results must score' passingScore=Decimal outstandingClause?;
-
-outstandingClause: ', Outstanding results must' outstandingResults=Decimal;
+header: 'Create interview model' interviewName=STRING 'for job opening' jobOpeningReference=STRING 'as follows:';
 
 //INTERVIEW
-interviewModel: interview interviewModel
-                | interview
+interviewModel: interview+ ;
 
-interview: questions '\n' questionAnswer '\n' questionPoints=Decimal;
+interview: questions questionAnswers questionPoints;
 
-//question
+//questions
+questions: question+ ;
 
-questions: question questions
-            | question
-
-question: 'Question' id=Decimal ':' questionType;
+question: 'Question' id=INTEGER ':' questionType;
 
 questionType: trueOrFalseType
-                |singleChoiceType
-                |shortAnswerType
-                |multipleChoiceType
-                |integerType
-                |dateType
-                |timeType
-                |scaleType
-                ;
+            | singleChoiceType
+            | shortAnswerType
+            | multipleChoiceType
+            | integerType
+            | dateType
+            | timeType
+            | scaleType;
 
 trueOrFalseType: STRING '( True or False ) with answer' answer=correctAnswer;
 singleChoiceType: STRING '( Single Choice ) within options' STRING 'with answer' answer=correctAnswer;
@@ -47,22 +35,24 @@ scaleType: STRING '( Scale ) within range' INTEGER 'to' INTEGER 'with answer' an
 
 correctAnswer: BOOLEAN | INTEGER | REAL | STRING;
 
-//answer
-questionAnswers: 'Answer' INTEGER ':' correctAnswer;
+//answers
+questionAnswers: ('Answer' id=INTEGER ':' answer=correctAnswer)+ ;
 
 //points
-questionPoints: 'Awarding :' INTEGER 'points';
+questionPoints: 'Awarding :' points=INTEGER 'points';
 
+//FOOTER
+footer: 'Footer' score_definition '.';
+
+score_definition: 'Passing results must score' passingScore=INTEGER outstandingClause?;
+
+outstandingClause: ', Outstanding results must' outstandingResults=INTEGER;
 
 //Syntax tokens, sugar for the language
-String: '"' ~'"'+ '"';
-Decimal: '0'|[1-9][0-9]*;
-REAL: Decimal ('.'|',') ([0-9]+[1-9]|'0');
-BOOLEAN : 'true' | 'false';
-//
-
+STRING: '"' (~["\\] | '\\' .)* '"';
+BOOLEAN: 'true' | 'false';
+INTEGER: ('0'|[1-9][0-9]*);
 
 //Skip comments or structural tokens.
-COMMENT: '#' CommentBody '\r'?'\n' -> skip;
-WS: [ \t\r\n]->skip;
-//
+COMMENT: '#' ~[\r\n]* -> skip;
+WS: [ \t\r\n] -> skip;

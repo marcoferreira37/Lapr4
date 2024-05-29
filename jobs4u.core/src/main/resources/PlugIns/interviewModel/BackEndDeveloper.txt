@@ -1,27 +1,31 @@
-#Coment
-Create interview model "Junior Developer - backend Engineer" for job opening "ntx-001" as follows:
+Create interview model "Software Developer" for job opening "SD123" as follows:
 
-* Interview
--> true/false question with id "q1" being "Are Java and C# interpreted languages?" with difficulty
-of 1. Its validation is defined as false awarding 10.
+Question 1: "Explain what a binary tree is." ( Short Answer ) with answer "A tree data structure in which each node has at most two children."
+Answer 1: "A tree data structure in which each node has at most two children."
+Awarding : 10 points
 
--> Short text question with id "q2" being "Which type iteration focus on iterating over elements by a defined condition?"
-with difficulty of 2. Its validation is defined as "^[wW]hile ([lL]oops?)?$" of type regex awarding 10.
+Question 2: "Is Java a statically typed language?" ( True or False ) with answer true
+Answer 2: true
+Awarding : 5 points
 
-->  single choice question with id "q3" being "Which one of the following options is not a primitive type?"
-with difficulty of 4. Its validation is defined as "string" from "int" "double" "char" awarding 10.
+Question 3: "Which of the following are programming languages?" ( Multiple Choice ) within options "Java, Python, HTML, CSS" with answer "Java, Python"
+Answer 3: "Java, Python"
+Awarding : 15 points
 
+Question 4: "How many bits are there in a byte?" ( Integer ) with answer 8
+Answer 4: 8
+Awarding : 5 points
 
+Question 5: "What is the date today?" ( Date ) with answer "2023-05-29"
+Answer 5: "2023-05-29"
+Awarding : 2 points
 
--> Multiple choice question with id "q4" being "Which of the following options are not a primitive type?"
-with difficulty of 10. Its validation is defined as ("string",2) ("date",2) ("array",3) from "int" "double" "char" awarding 10.
+Question 6: "What time is it now?" ( Time ) with answer "14:30"
+Answer 6: "14:30"
+Awarding : 3 points
 
--> integer number question with id "q5" being "What is the result of the following code when mistery is called with argument 5: \n mystery(x){ if(x==1) return 1; return x*mystery(x-1);}"
-with difficulty of 1. Its validation is defined as 120 awarding 10.
+Question 7: "Rate your experience with Python from 1 to 10." ( Scale ) within range 1 to 10 with answer 7
+Answer 7: 7
+Awarding : 8 points
 
--> real number question with id "q6" being "What is the result of the following code when mistery is called with argument 3: \n mystery(x){ return Math.round(Math.PI,x);}"
-with difficulty of 2. Its validation is defined as 3.14 awarding 10.
-
-* Footer
-
-Passing results must score 40, outstanding results must score 60. Interview should be conducted in random order.
+Footer Passing results must score 30, Outstanding results must 50.
