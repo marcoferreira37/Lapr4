@@ -62,6 +62,7 @@ public class UpdateJobOpeningUI extends AbstractUI {
                 controller.updateInterview(jobOpening,interviews[interviewsIndex-1].getName());
                 break;
             case "4":
+                /*
                 controller.showJobPhases(jobOpening);
                 System.out.println("1. Advance to next phase");
                 System.out.println("2. Go back to previous phase");
@@ -83,7 +84,9 @@ public class UpdateJobOpeningUI extends AbstractUI {
                     }
                 }
 
-                jobOpening = controller.updatePhase(jobOpening,change,interviewPhase);
+
+               jobOpening = controller.updatePhase(jobOpening,change,interviewPhase);
+              */
                 break;
             case "5":
                 editJobOpening(jobOpening);
