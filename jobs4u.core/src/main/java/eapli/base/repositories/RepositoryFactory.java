@@ -55,13 +55,6 @@ public interface RepositoryFactory {
      */
     UserRepository users();
 
-    /**
-     *
-     * @param autoTx
-     *            the transactional context to enroll
-     * @return
-     */
-
     Ijobs4UUserRepository jobs4UUsers();
 
     ClientUserRepository clientUsers(TransactionalContext autoTx);
