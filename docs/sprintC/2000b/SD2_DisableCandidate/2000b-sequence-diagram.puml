@@ -7,18 +7,32 @@ actor Operator as ADM
 participant "DisableCandidateUI" as UI <<ui>>
 participant ":DisableCandidateController" as CTRL <<application>>
 participant ":ListCandidatesUI" as LUI <<ui>>
+participant ":ListCandidatesController" as LCTRL <<application>>
 participant "Candidate" as User <<domain>>
-participant "CandidateRepository" as REPO <<repository>>
 participant "SystemUser" as SYS <<domain>>
+participant "CandidateRepository" as REPO <<repository>>
+
 
 activate ADM
 ADM-> UI : Request to disable a candidate
 activate UI
-UI -> CTRL : create(candidateRepo)
-activate CTRL
+UI -> CTRL** : create
 UI -> LUI: listEnabledCandidates()
 deactivate CTRL
 activate LUI
+LUI->LCTRL:enabledCandidates()
+activate LCTRL
+LCTRL-->LCTRL: allCandidates()
+LCTRL-> User: .user()
+activate User
+User-> SYS : .isActive()
+deactivate User
+activate SYS
+SYS-->LCTRL:enabledCandidates
+deactivate SYS
+LCTRL-->LUI:enabledCandidates
+deactivate LCTRL
+LUI-->LUI:printCandidates(candidates)
 LUI-->CTRL: list
 deactivate LUI
 activate CTRL
@@ -29,14 +43,18 @@ deactivate LUI
 ADM -> UI : selects a candidate
 UI -> CTRL : disableCandidate(email)
 activate CTRL
-CTRL->SYS :.user()
+CTRL->User :.user()
+activate User
+User->SYS: .deactivate(deactivatedOn)
 activate SYS
-SYS-->SYS:.deactivate(deactivatedOn)
+deactivate User
+SYS--> CTRL: candidate deactivated
+deactivate SYS
 CTRL->REPO : save(candidate)
 activate REPO
-deactivate SYS
+REPO--> CTRL: candidate
 deactivate REPO
-CTRL --> UI : returns success
+CTRL --> UI : returns the disabled candidate
 deactivate CTRL
 UI --> ADM : displays success
 deactivate UI
