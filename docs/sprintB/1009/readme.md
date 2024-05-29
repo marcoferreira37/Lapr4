@@ -29,7 +29,15 @@ Review of industry standards and best practices.
 
 ### 4.2. Class Diagram
 
-### 4.3. Applied Patterns
+![Class Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1009\CD\US1009_DM.svg)
+
+
+### 4.3. Sequence Diagram
+
+![Sequence Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1009\SD\US1009-SD.svg)
+
+
+### 4.4. Applied Patterns
 
 * MVC (Model-View-Controller) Pattern: Separation of concerns between UI, controller, and model components.
 
@@ -42,4 +50,6 @@ Review of industry standards and best practices.
 
 ## 6. Integration/Demonstration
 
-* We can see all the integration and we can have a demonstration of the success of this User Story opening the project and register as Customer Manager and selecting the option "Update a Job Opening"
+* We can see all the integration and we can have a demonstration of the success of 
+  this User Story opening the project and register as Customer Manager and selecting the option 
+  "Update a Job Opening"

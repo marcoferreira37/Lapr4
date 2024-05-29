@@ -6,6 +6,7 @@ import eapli.base.domain.candidate.Candidate;
 import eapli.base.usermanagement.application.controllers.RecordInterviewController;
 import eapli.framework.io.util.Console;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,19 +41,22 @@ public class RecordInterviewUI extends AbstractUI {
         JobOpeningApplication selectedApplication = jobOpeningApplicationsList.get(jobIndex);
         System.out.println("Job Opening Application chosen: " + selectedApplication.toString());
 
-        System.out.println("qlwfbAªfbAd");
+
 
         // Obtenha o candidato correspondente
 
         Candidate candidate1 = selectedApplication.candidate();
         System.out.println("Candidate: " + candidate1.toString());
 
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         Calendar interviewDate = Console.readCalendar("Interview Date (dd-MM-yyyy): ");
+//        String newDate =sdf.format(interviewDate.getTime());
         String interviewTime = Console.readLine("Interview Time (HH:mm): ");
 
 
-        recordController.recordInterview(interviewDate, interviewTime, candidate1);
+        recordController.recordInterview(interviewDate, interviewTime, selectedApplication);
+
 
         return true;
     }

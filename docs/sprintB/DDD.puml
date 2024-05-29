@@ -69,7 +69,7 @@ rectangle "Job Opening" #bbccaa {
                 ANALYSIS
                 RESULT
             }
-     JobOpening "1" --> "1" PhaseDates
+     JobOpening "1" --> "0..1" PhaseDates
      PhaseDates "1" --> "1" PhaseType
 }
 

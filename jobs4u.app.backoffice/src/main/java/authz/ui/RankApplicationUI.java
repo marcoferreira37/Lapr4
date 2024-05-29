@@ -53,17 +53,26 @@ public class RankApplicationUI extends AbstractUI {
         System.out.println("Job Opening Reference: " + application.jobOpening().identity().fullReference());
         System.out.println();
 
-        // Ask for a new rank until it's unique among all applications for the job opening
+        // Get the number of applications for the job opening
+        int maxRank = controllerApplication.allApplicationsForJobOpening(application.jobOpening()).size();
+
+        // Ask for a new rank until it's unique among all applications for the job opening and within the valid range
         int newRank;
-        boolean isUnique;
+        boolean isUnique = false;
+        boolean isValidRange = false;
         do {
-            String input = Console.readLine("Rank the application: ");
+            String input = Console.readLine("Rank the application (1 to " + maxRank + "): ");
             newRank = validInteger(input);
+            isValidRange = newRank >= 1 && newRank <= maxRank;
+            if (!isValidRange) {
+                System.out.println("Error: The rank must be between 1 and " + maxRank + ". Please enter a valid rank.");
+                continue;
+            }
             isUnique = isRankUnique(newRank, controllerApplication.allApplicationsForJobOpening(application.jobOpening()));
             if (!isUnique) {
                 System.out.println("Error: The rank must be unique among all applications for this job opening. Please enter a different rank.");
             }
-        } while (!isUnique);
+        } while (!isUnique || !isValidRange);
 
         // Update the rank in the database with the new rank
         theController.rankApplication(application, newRank);
@@ -157,4 +166,3 @@ public class RankApplicationUI extends AbstractUI {
         return result;
     }
 }
-

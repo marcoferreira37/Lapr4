@@ -13,7 +13,7 @@ import eapli.base.service.JobOpeningApplicationService;
 import java.util.Calendar;
 import java.util.List;
 
-public class RecordInterviewController {
+public class RecordInterviewController  {
 
 
     private final JobOpeningApplicationRepository repo = PersistenceContext.repositories().jobApplications();
@@ -40,8 +40,8 @@ public class RecordInterviewController {
         return candidateManagementService.getCandidate(jobOpeningApplication);
     }
 
-    public JobInterview recordInterview(Calendar interviewDate, String interviewTime, Candidate candidate) {
+    public JobInterview recordInterview(Calendar interviewDate, String interviewTime, JobOpeningApplication jobOpeningApplication) {
 
-         return interviewService.recordInterview(interviewDate, interviewTime, candidate);
+         return interviewService.recordInterview(interviewDate, interviewTime, jobOpeningApplication);
     }
 }
