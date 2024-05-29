@@ -2,6 +2,7 @@ package authz.ui;
 
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.domain.jobOpening.*;
+import eapli.base.domain.jobOpeningProcess.Phase;
 import eapli.base.usermanagement.application.controllers.UpdateJobOpeningController;
 import eapli.framework.io.util.Console;
 
@@ -90,7 +91,8 @@ public class UpdateJobOpeningUI extends AbstractUI {
                 break;
         }
         if (jobOpening == null) return false;
-        System.out.println("Job Opening updated successfully");
+        System.out.println(jobOpening);
+        System.out.println("\n\nJob Opening updated successfully");
         return true;
 
 
