@@ -8,6 +8,7 @@ participant "DisableCandidateUI" as UI <<ui>>
 participant ":DisableCandidateController" as CTRL <<application>>
 participant ":ListCandidatesUI" as LUI <<ui>>
 participant ":ListCandidatesController" as LCTRL <<application>>
+participant ":UserService" as AS <<Service>>
 participant "Candidate" as User <<domain>>
 participant "SystemUser" as SYS <<domain>>
 participant "CandidateRepository" as REPO <<repository>>
@@ -43,6 +44,10 @@ deactivate LUI
 ADM -> UI : selects a candidate
 UI -> CTRL : disableCandidate(email)
 activate CTRL
+CTRL-> AS:ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN)
+activate AS
+AS--> CTRL: ensures the user has operator role
+deactivate AS
 CTRL->User :.user()
 activate User
 User->SYS: .deactivate(deactivatedOn)

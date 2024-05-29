@@ -40,6 +40,11 @@ package ui {
             +.activate()
         }
 
+        class AuthorizationService {
+            +authorizationService() : AuthorizationService
+            +ensureAuthenticatedUserHasAnyOf()
+        }
+
         class Candidate {
             +.user()
         }
@@ -55,5 +60,6 @@ Candidate --> SystemUser
 EnableCandidateController --> Candidate
 EnableCandidateController --> CandidateRepository
 CandidateRepository -> Candidate
+EnableCandidateController --> AuthorizationService
 
 @enduml
