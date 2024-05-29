@@ -138,6 +138,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
         return jobInterviews(null);
     }
 
+    @Override
+    public JobOpeningProcessRepository jobProcess(TransactionalContext autoTx) {
+        return new InMemoryJobOpeningProcessRepository();
+    }
+
+    @Override
+    public JobOpeningProcessRepository jobProcess() {
+        return jobProcess(null);
+    }
+
 
     @Override
     public SignupRequestRepository signupRequests(final TransactionalContext tx) {

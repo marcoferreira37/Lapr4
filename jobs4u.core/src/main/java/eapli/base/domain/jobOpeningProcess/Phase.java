@@ -1,4 +1,4 @@
-package eapli.base.domain.jobOpening;
+package eapli.base.domain.jobOpeningProcess;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.*;
@@ -8,28 +8,28 @@ import java.util.Date;
 
 @Getter
 @Setter
-
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Embeddable
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Phase implements ValueObject {
 
-    @Temporal(TemporalType.DATE)
+
     @Column(name = "application_date")
     private Date applicationDate;
 
-    @Temporal(TemporalType.DATE)
+
     @Column(name = "screening_date")
     private Date screeningDate;
 
-    @Temporal(TemporalType.DATE)
+
     @Column(name = "interview_date")
     private Date interviewDate;
 
-    @Temporal(TemporalType.DATE)
+
     @Column(name = "analysis_date")
     private Date analysisDate;
 
-    @Temporal(TemporalType.DATE)
+
     @Column(name = "results_date")
     private Date resultsDate;
 

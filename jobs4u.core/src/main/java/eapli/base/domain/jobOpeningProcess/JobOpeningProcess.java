@@ -2,36 +2,42 @@ package eapli.base.domain.jobOpeningProcess;
 
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpening.JobReference;
-import eapli.base.domain.jobOpening.Phase;
+import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 
 @Entity
-public class RecruitmentProcess  {
+@Table(name = "JOB_OPENING_PROCESS")
+public class JobOpeningProcess implements AggregateRoot<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long processId;
+    @Column(name = "Id")
+    private long id;
 
-    @ManyToOne
+    @ManyToOne (cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
     @JoinColumns({
             @JoinColumn(name = "JOBREFERENCE_COMPANYINDEX", referencedColumnName = "companyIndex"),
             @JoinColumn(name = "JOBREFERENCE_ID", referencedColumnName = "iD"),
             @JoinColumn(name = "JOBREFERENCE_FULLREFERENCE", referencedColumnName = "fullReference"),
     })
     public JobOpening jobOpening;
+    @Enumerated(EnumType.STRING)
     private PhaseType currentPhase;
+
     private Phase phaseDate;
-    private boolean status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 
-    public RecruitmentProcess(Phase phase) {
-        this.currentPhase = PhaseType.APPLICATION;
+    public JobOpeningProcess(JobOpening jobOpening,Phase phase) {
+        this.currentPhase = PhaseType.REVIEW;
         this.phaseDate = phase;
-        this.status = true;
+        status = Status.OPENED;
     }
 
-    protected RecruitmentProcess() {
+    protected JobOpeningProcess() {
     }
 
     public PhaseType currentPhase() {
@@ -61,7 +67,7 @@ public class RecruitmentProcess  {
                 currentPhase = PhaseType.RESULT;
                 break;
             default:
-                status = false;
+                status = Status.CLOSED;
                 break;
         }
     }
@@ -71,9 +77,19 @@ public class RecruitmentProcess  {
     }
 
     public void deactivateProcess() {
-        status = false;
+        status = Status.CLOSED;
     }
     public void activateProcess() {
-        status = true;
+        status = Status.ACTIVE;
+    }
+
+    @Override
+    public boolean sameAs(Object other) {
+        return false;
+    }
+
+    @Override
+    public Long identity() {
+        return id;
     }
 }

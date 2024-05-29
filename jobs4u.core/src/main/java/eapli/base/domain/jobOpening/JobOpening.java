@@ -53,11 +53,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @JoinColumn(name = "COMPANY")
     private Company company;
 
-    @JoinColumn(name = "Phase")
-    @Embedded
-    private Phase phaseDates;
-
-
     @Column(name = "CREATION_DATE")
     private Calendar creationDate;
 
@@ -67,10 +62,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Column(name = "Requirements")
     String requirements;
 
-    @Column(name = "Current Job Phase")
-    @Enumerated(value = EnumType.STRING)
-
-    PhaseType currentJobPhase;
 
     public JobOpening() {
 
@@ -78,22 +69,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     public JobOpening(JobReference jobReference) {
         this.jobReference = jobReference;
-    }
-
-    public JobOpening(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, Company company, Phase phaseDates, Calendar creationDate, String interviewModel, String requirements) {
-        this.jobReference = jobReference;
-        this.description = description;
-        this.address = address;
-        this.mode = mode;
-        this.contractType = contractType;
-        this.titleOrFunction = titleOrFunction;
-        this.vacanciesNumber = vacanciesNumber;
-        this.company = company;
-        this.phaseDates = phaseDates;
-        this.creationDate = creationDate;
-        this.interviewModel = interviewModel;
-        this.requirements = requirements;
-        this.currentJobPhase = PhaseType.APPLICATION;
     }
 
     @Override
@@ -136,14 +111,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
     }
 
 
-    public void advanceToNextPhase(boolean interviewPhase) {
-        currentJobPhase = currentJobPhase.nextPhase(interviewPhase);
-    }
-
-    public void goBackToPreviousPhase(boolean interviewPhase) {
-        currentJobPhase = currentJobPhase.previousPhase(interviewPhase);
-    }
-
     @Override
     public String toString() {
         String result = "\n-----------------------------------------------------" +
@@ -160,9 +127,8 @@ public class JobOpening implements AggregateRoot<JobReference> {
         if (creationDate != null) {
             result += "\nCreation Date = " + creationDate.getTime();
         }
-        if (phaseDates != null) {
-            result += "\nPhase Dates = " + phaseDates;
-        }
+        if (requirements != null) result += "\nRequirements File = " + requirements;
+        if (interviewModel != null) result += "\nInterview Model = " + interviewModel;
 
 
         return result;

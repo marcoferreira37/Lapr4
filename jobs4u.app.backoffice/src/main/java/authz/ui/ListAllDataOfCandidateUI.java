@@ -24,7 +24,11 @@ public class ListAllDataOfCandidateUI extends AbstractUI {
         printNumeratedList("Candidate List:", candidates);
         int option = Console.readInteger("Select a candidate: ");
 
-        System.out.println( candidates.get(option - 1).toString() );
+        Candidate c = candidates.get(option - 1);
+
+        System.out.println("Email Address: " + c.identity() );
+        System.out.println("Username: "+ c.user().username());
+        System.out.println("Phone Number: " + c.telephoneNumber().telephoneNumber());
 
         return false;
     }

@@ -23,6 +23,7 @@ package eapli.base.persistence.impl.jpa;
 import eapli.base.Application;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
+import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
 import eapli.base.repositories.*;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -139,6 +140,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public TransactionalContext newTransactionalContext() {
         return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),
                 Application.settings().getExtendedPersistenceProperties());
+    }
+
+    @Override
+    public JobOpeningProcessRepository jobProcess(){
+        return new JpaJobProcessRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public JobOpeningProcessRepository jobProcess(TransactionalContext autoTx) {
+        return new JpaJobProcessRepository(autoTx);
     }
 
 }

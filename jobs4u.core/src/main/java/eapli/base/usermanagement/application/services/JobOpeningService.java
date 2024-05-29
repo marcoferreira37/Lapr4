@@ -2,22 +2,23 @@ package eapli.base.usermanagement.application.services;
 
 
 import eapli.base.customer.Criteria;
+import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
+import eapli.base.domain.jobOpeningProcess.Phase;
 import eapli.base.domain.jobOpeningProcess.PhaseType;
 import eapli.base.filter.jobOpening.JobOpeningFilteringStrategy;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.jobOpening.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.repositories.JobOpeningProcessRepository;
 import eapli.base.repositories.JobOpeningRepository;
 import eapli.base.repositories.CompanyRepository;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class JobOpeningService {
 
     private final JobOpeningRepository repository = PersistenceContext.repositories().jobOpeningRepository();
+    private final JobOpeningProcessRepository processRepository = PersistenceContext.repositories().jobProcess();
     private final CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
 
     public JobOpening create(String description, String address, Mode mode, ContractType contractType,
@@ -34,7 +35,6 @@ public class JobOpeningService {
         Company c = company.get();
         String cIndex = c.getCompanyName().companyName().substring(0, 3).toUpperCase();
 
-
         JobOpening jo = builder
                 .jobReference(new JobReference(lastJR + 1, cIndex))
                 .titleOrFunction(new TitleOrFunction(titleOrFunction))
@@ -44,10 +44,11 @@ public class JobOpeningService {
                 .address(new Address(address))
                 .vacanciesNumber(new VacanciesNumber(vacanciesNumber))
                 .company(company.get())
-                .currentJobPhase(PhaseType.APPLICATION)
                 .build();
 
 
+        JobOpeningProcess jobProcess = new JobOpeningProcess(jo, new Phase(new Date(), new Date(), new Date(), new Date(), new Date()));
+        processRepository.save(jobProcess);
         jo = repository.save(jo);
         return jo;
     }
@@ -86,20 +87,21 @@ public class JobOpeningService {
         }
         return listToReturnFiltered;
     }
-    public JobOpening advanceToNextPhase(JobOpening jobOpening, boolean interviewPhase){
+
+    public JobOpeningProcess advanceToNextPhase(JobOpeningProcess jobOpening, boolean interviewPhase) {
         jobOpening.advanceToNextPhase(interviewPhase);
-        jobOpening = repository.save(jobOpening);
+        jobOpening = processRepository.save(jobOpening);
         return jobOpening;
     }
 
-    public JobOpening goBackToPreviousPhase(JobOpening jobOpening, boolean interviewPhase){
+    public JobOpeningProcess goBackToPreviousPhase(JobOpeningProcess jobOpening, boolean interviewPhase) {
         jobOpening.goBackToPreviousPhase(interviewPhase);
-        jobOpening = repository.save(jobOpening);
+        jobOpening = processRepository.save(jobOpening);
         return jobOpening;
     }
 
 
     public List<Company> companyList() {
-        return  (List<Company>) companyRepository.findAll();
+        return (List<Company>) companyRepository.findAll();
     }
 }
