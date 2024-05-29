@@ -1,32 +1,39 @@
-# US 3004
-
-*This is an example template*
+# US 3003
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+This task involves implementing the functionality for customers to receive notifications in their application
+when the state (phase) of their job openings changes. 
+It's essential for customers to stay updated on the progress of their job openings.
+This task is being assigned for development in this sprint.
+
+## Client Specifications
+
+>*NO SPECIFICATIONS PROVIDED YET*
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
-
-*Example*
-
-**US G002** As {Ator} I Want...
+**US 3003** As Customer, I want to be notified in my application when the state (phase) of my job openings changes.
 
 **Acceptance Criteria:**
 
-- G002.1. The system should...Blá Blá Blá ...
+- 3003.1. The system should allow customers to receive notifications in their application when the state of their job openings changes.
 
-- G002.2. Blá Blá Blá ...
+- 3003.2. Notifications should be timely and accurately reflect the current state of the job openings.
+
+- 3003.3. Customers should have the option to customize notification preferences for different types of state changes.
 
 **Dependencies/References:**
 
-*Regarding this requirement we understand that it relates to...*
+*This requirement relates to NFR10(RCOMP) and NFR11(RCOMP).*
 
 ## 3. Analysis
 
 *In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+
+During the analysis phase, we conducted a study to understand the requirements for notifying customers 
+about changes in the state of their job openings. We considered factors such as the frequency of notifications,
+the types of state changes to be notified, and the customization options for notification preferences.
 
 ## 4. Design
 
@@ -59,19 +66,33 @@ public void ensureXxxxYyyy() {
 ## 5. Implementation
 
 *In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
-
 *It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+
+* The implementation ensures that customers receive timely notifications
+in their application when the state of their job openings changes.
+Notifications are designed to accurately reflect the current state of the job openings, 
+and customers have the flexibility to customize their notification preferences based on their requirements.
+
 
 ## 6. Integration/Demonstration
 
 *In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
-
 *It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+
+* Efforts have been made to integrate this functionality seamlessly with other parts of the system. 
+Notifications are triggered based on changes in the state of job openings and are delivered to customers 
+via their application interface.
+
+*To demonstrate this functionality:*
+
+- Log in as a customer.
+
+- Navigate to the section for managing job openings.
+
+- Make changes to the state of a job opening.
+
+- Verify that the customer receives a notification reflecting the state change.
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+This section should be used to include any additional comments or observations regarding the implementation of this functionality. It is important to ensure that the notification system is robust and reliable, providing customers with timely updates on their job openings. Feedback from customers should be considered to refine and improve the notification mechanism.

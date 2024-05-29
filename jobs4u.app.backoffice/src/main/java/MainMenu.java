@@ -157,7 +157,8 @@ public class MainMenu extends AbstractUI {
         menu.addItem(8, "Update a Job Opening", new UpdateJobOpeningUI()::show);
         menu.addItem(9, "Rank Applications ", new RankApplicationUI()::show);
         menu.addItem(10,"Record the time and the date for an interview", new RecordInterviewUI()::show);
-        menu.addItem(11, RETURN_LABEL, Actions.SUCCESS);
+        menu.addItem(11,"Execute interview grading", new InterviewGradingUI()::show);
+        menu.addItem(12, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 
