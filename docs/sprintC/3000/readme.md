@@ -1,32 +1,42 @@
-# US 3004
-
-*This is an example template*
+# US 3000
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+This task involves implementing the functionality for candidates to list all their applications 
+along with their current state, including the number of applicants for each job opening they have applied to. 
+This is the first time this task is being developed.
+
+## Client Specifications
+
+> *Question*: Q176 Artur – US3000 - Na US3000 pede que, para alem de listar as aplicações
+>e o estado das mesmas de um candidato, que liste o numero de candidatos.
+>Este numero de candidatos é um somatório da quantidade de candidatos que
+>fizeram uma aplicação para as mesmas Job Openings deste primeiro
+>candidato (que esta a executar o caso de uso)?
+> *Answer*: A176 Devem ser listadas todas as “applications” (candidaturas) do candidato, o estado
+>delas, assim como o número de candidaturas que cada job opening teve (assim o
+>candidato tem uma noção da “concorrência” que teve para cada uma das suas
+>candidaturas).
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
+US 3000 As Candidate, I want to list all my applications and their state (including the number of applicants).
 
-*Example*
+Acceptance Criteria:
 
-**US G002** As {Ator} I Want...
-
-**Acceptance Criteria:**
-
-- G002.1. The system should...Blá Blá Blá ...
-
-- G002.2. Blá Blá Blá ...
+3000.1. The system should allow candidates to view a list of all their applications.
+3000.2. Each application should display its current state.
+3000.3. The system should display the number of applicants for each job opening the candidate has applied to.
 
 **Dependencies/References:**
 
-*Regarding this requirement we understand that it relates to...*
+*This requirement relates to NFR10(RCOMP) and NFR11(RCOMP).*
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+* During the analysis phase, we conducted a study to understand the candidate's perspective on 
+viewing their applications and their states. Additionally, we analyzed the implications of displaying 
+the number of applicants for each job opening to provide candidates with insights into the competition.
 
 ## 4. Design
 
@@ -59,14 +69,29 @@ public void ensureXxxxYyyy() {
 ## 5. Implementation
 
 *In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
-
 *It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+
+The implementation ensures that candidates can view a comprehensive list of their applications, 
+including their states. Additionally, the system displays the number of applicants for each job opening to 
+provide candidates with valuable insights.
+
+
 
 ## 6. Integration/Demonstration
 
 *In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
-
 *It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+
+* Efforts have been made to seamlessly integrate this functionality with other parts of the system. 
+The user interface components are integrated with the overall system interface, 
+and the necessary interactions between controllers, services, and repositories have been established.
+
+*To demonstrate this functionality:*
+
+- Log in as a candidate.
+- Navigate to the section for viewing applications.
+- Verify that all applications are listed along with their states.
+- Note the displayed number of applicants for each job opening.
 
 ## 7. Observations
 
