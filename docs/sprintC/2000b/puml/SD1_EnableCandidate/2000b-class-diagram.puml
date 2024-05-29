@@ -1,0 +1,59 @@
+@startuml
+
+
+
+
+package ui {
+        class EnableCandidateUI {
+        }
+
+        class ListCandidatesUI{
+            +listDisabledCandidates()
+            +printCandidates(candidates)
+        }
+    }
+
+
+
+
+    package application {
+        class EnableCandidateController {
+            +enableCandidate(email)
+        }
+
+        class ListCandidatesController{
+            +disabledCandidates()
+            +allCandidates()
+        }
+    }
+
+    package repository {
+
+        interface CandidateRepository{
+            +.save(candidate)
+        }
+    }
+
+    package domain {
+        class SystemUser{
+            +.isActive()
+            +.activate()
+        }
+
+        class Candidate {
+            +.user()
+        }
+    }
+
+
+
+EnableCandidateUI --> EnableCandidateController
+EnableCandidateUI --> ListCandidatesUI
+ListCandidatesUI --> ListCandidatesController
+ListCandidatesController --> Candidate
+Candidate --> SystemUser
+EnableCandidateController --> Candidate
+EnableCandidateController --> CandidateRepository
+CandidateRepository -> Candidate
+
+@enduml
