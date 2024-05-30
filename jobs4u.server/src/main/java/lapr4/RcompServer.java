@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class RcompServer {
 
     private static final Logger DATABASE_LOGGER = LoggerFactory.getLogger(RcompServer.class);
-    private static final int PORT = 7878;
+    private static final int PORT = 10004;
 
     public static void main(String[] args) throws InterruptedException {
         try {
