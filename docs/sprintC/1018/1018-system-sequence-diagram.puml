@@ -1,0 +1,44 @@
+@startuml
+'skinparam monochrome true
+'skinparam packageStyle rectangle
+'skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Grade Interviews for a Job Opening
+
+actor "Customer Manager" as Agent
+participant ":System" as System
+
+activate Agent
+
+Agent -> System : Request to grade the interviews for a job opening
+activate System
+
+System --> Agent: Show list of applicable job openings
+deactivate
+
+Agent -> System : Select a job opening
+activate System
+
+System --> Agent : Show list of interviews for the selected job opening
+System --> Agent : Requests user to select one
+
+
+
+loop while grading all interviews
+
+System --> Agent : Requests new grade
+
+deactivate
+Agent -> System : Provides new grade
+
+activate System
+
+System --> Agent  : Confirms new grade
+
+deactivate System
+
+end loop
+
+deactivate Agent
+
+@enduml

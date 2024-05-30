@@ -1,0 +1,31 @@
+@startuml
+
+rectangle application{
+    class JobOpeningApplication<<Aggregate Root>><<Entity>>{}
+    class Ranking<<Value Object>>{
+        -int rating
+    }
+
+
+    JobOpeningApplication"1" *--> "0..1" Ranking
+
+
+
+}
+
+
+rectangle opening{
+    class JobOpening<<Aggregate Root>><<Entity>>{}
+    JobOpeningApplication"1" o--> "1"JobOpening
+
+}
+
+rectangle candidate{
+    class Candidate<<Aggregate Root>><<Entity>>{}
+
+}
+JobOpeningApplication"1" o--> "1"Candidate
+
+
+
+@enduml

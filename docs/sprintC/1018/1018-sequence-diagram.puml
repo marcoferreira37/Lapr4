@@ -1,0 +1,98 @@
+@startuml
+
+actor "Customer Manager" as Agent
+participant ":RankApplicationUI" as ui <<UI>>
+participant ":RankApplicationController" as ctrl <<Application>>
+participant ":JobOpeningService" as jobServ <<Service>>
+participant ":JobOpeningRepository" as jobRepo <<Persistence>>
+participant ":ApplicationService" as appServ <<Service>>
+participant ":ApplicationRepository" as appRepo <<Persistence>>
+participant "rank:Ranking" as rank <<Domain>>
+participant "app:Application" as app <<Domain>>
+
+autonumber
+
+activate Agent
+
+Agent -> ui: Request to rank candidates for a job opening
+activate ui
+ui -> ctrl: allJobOpenings()
+activate ctrl
+ctrl -> jobServ: allJobOpenings()
+activate jobServ
+jobServ -> jobRepo: findAllByAnalysisPhase()
+activate jobRepo
+jobRepo --> jobServ: openings
+deactivate
+jobServ --> ctrl: openings
+deactivate
+ctrl --> ui: openings
+deactivate
+ui --> Agent: Show list of applicable job openings
+deactivate
+Agent -> ui : Select a job opening
+activate ui
+
+
+
+ui -> ctrl: allApplicationsForJobOpening(opening)
+
+activate ctrl
+
+ctrl -> appServ: allApplicationsForJobOpening(opening)
+
+
+
+
+activate appServ
+appServ -> appRepo: findAllByJobOpening(opening)
+activate appRepo
+appRepo --> appServ: applications
+deactivate
+
+appServ --> ctrl: applications
+deactivate
+
+ctrl --> ui: applications
+deactivate
+
+ui --> Agent : Show list of applications for the selected job opening
+alt User wants to re-rank an application
+loop while ranking all applications
+
+ui --> Agent : Requests new ranking
+
+Agent -> ui : Provides new ranking
+ui -> ctrl : rankApplication(app, ranking)
+
+activate ctrl
+ctrl -> appServ : rankApplication(app, ranking)
+
+activate appServ
+appServ -> appRepo : isValidRankingFor(opening, ranking)
+activate appRepo
+appRepo --> appServ : true
+deactivate
+appServ -> rank** : «creates»
+appServ -> app : updateRanking(ranking)
+activate app
+deactivate
+
+appServ -> appRepo : save(app)
+activate appRepo
+appRepo --> appServ : app
+deactivate
+appServ --> ctrl : app
+deactivate
+ctrl --> ui : app
+deactivate
+ui --> Agent  : Confirms new ranking
+
+
+end loop
+
+deactivate Agent
+
+
+
+@enduml
