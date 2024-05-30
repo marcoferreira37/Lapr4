@@ -28,4 +28,9 @@ public class InterviewService {
         return null;
 
     }
+
+    public void gradeInterview(JobInterview interview, int grade) {
+        interview.gradeInterview(grade);
+        repository.save(interview);
+    }
 }
