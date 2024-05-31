@@ -1,0 +1,17 @@
+@startuml
+title System Sequence Diagram (US 2004 - As Operator, I want to upload a text file with the data fields (requirements) of a candidate for its verification)
+
+actor Operator as Operator
+participant System as "System"
+
+activate Operator
+Operator -> System: Request to upload a text file with the requirements of a candidate
+activate System
+System --> Operator: Retrieves list of all candidates and asks to choose one
+deactivate System
+Operator -> System: Selects the candidate
+activate System
+System --> Operator: Verifies the candidate's requirements and displays success message
+deactivate System
+
+@enduml
