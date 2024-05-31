@@ -1,0 +1,52 @@
+@startuml
+
+
+
+
+package ui {
+        class UploadTextFileUI {
+            +printNumeratedList()
+        }
+    }
+
+
+
+
+    package application {
+        class UploadTextFileController {
+            +allCandidates()
+            +uploadFile()
+        }
+    }
+
+    package repository {
+
+        interface CandidateRepository{
+            +findAllCandidates()
+        }
+    }
+
+    package domain {
+
+        class AuthorizationService {
+            +authorizationService() : AuthorizationService
+            +ensureAuthenticatedUserHasAnyOf()
+        }
+
+        class CandidateManagementService{
+            +allCandidate()
+        }
+
+        class Candidate {
+            +.curriculum()
+        }
+    }
+
+UploadTextFileUI--> UploadTextFileController
+UploadTextFileUI --> Candidate
+UploadTextFileController --> AuthorizationService
+UploadTextFileController --> CandidateManagementService
+CandidateManagementService --> CandidateRepository
+CandidateRepository --> Candidate
+
+@enduml
