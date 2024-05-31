@@ -1,35 +1,51 @@
 @startuml
 autonumber
-actor Operator as ADM
-participant "EnableCandidateUI" as UI <<ui>>
-participant ":EnableCandidateController" as CTRL <<application>>
-participant "ListCandidatesUI" as LUI <<ui>>
-participant "Candidate" as EU <<domain>>
-database "CandidateRepository" as REPO <<repository>>
 
-activate ADM
-ADM-> UI : Request to enable a candidate
+title "Sequence diagram - 2004 (Upload a text file with the requirements of a candidate for its validation)"
+actor Operator as Operator
+participant UploadTextFileUI as UI <<UI>>
+participant "UploadTextFileController" as CTRL <<application>>
+participant "Candidate" as C <<Domain>>
+participant "AuthorizationService" as AS <<Service>>
+participant "CandidateManagementService" as CMS <<Service>>
+participant "CandidateRepository" as CREPO <<Repository>>
+
+activate Operator
+Operator -> UI: Request to upload a text file with the requirements of a candidate
 activate UI
-UI -> CTRL : create(userRepo)
-UI -> LUI: listDisabledCandidates()
-activate LUI
-LUI --> UI : list
-deactivate LUI
-UI-->ADM: returns a list of the disables candidates
-deactivate UI
-ADM -> UI : selects a disabled candidate
-UI -> CTRL : enableCandidate(candidate)
+UI-> CTRL**: create
+UI->CTRL:allCandidates()
 activate CTRL
-CTRL -> EU : enable()
-activate EU
-deactivate EU
-CTRL -> REPO : save(user)
-activate REPO
-deactivate REPO
-CTRL --> UI : returns success
+CTRL->AS:ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN, BaseRoles.POWERUSER)
+activate AS
+AS--> CTRL: ensures the user has operator role
+deactivate AS
+CTRL->CMS:allCandidate()
+activate CMS
+CMS-> CREPO:findAllCandidates()
+activate CREPO
+CREPO--> CMS:list of all candidates
+deactivate CREPO
+CMS-->CTRL : list of all candidates
+deactivate CMS
+CTRL--> UI: list of all candidates
 deactivate CTRL
-UI --> ADM : displays success
+UI-->UI:printNumeratedList(message, collection)
+UI --> Operator: Retrieves list of all candidates and asks to choose one
 deactivate UI
-
+Operator -> UI: Selects the candidate
+activate UI
+UI->C: get(option-1)
+activate C
+C--> UI: gets the chosen candidate (c)
+deactivate C
+UI->CTRL:.uploadFile(c.curriculum())
+activate CTRL
+CTRL--> UI: the file is created
+deactivate CTRL
+UI --> Operator: Verifies the candidate's requirements and displays success message
+deactivate UI
 
 @enduml
+
+
