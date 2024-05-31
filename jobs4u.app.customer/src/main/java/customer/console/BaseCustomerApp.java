@@ -22,7 +22,7 @@ public final class BaseCustomerApp {
 
     public static void main(final String[] args) {
         System.out.println("=====================================");
-        System.out.println("Base User App");
+        System.out.println("Base Customer App");
         System.out.println("(C) 2016 - 2019");
         System.out.println("=====================================");
 
