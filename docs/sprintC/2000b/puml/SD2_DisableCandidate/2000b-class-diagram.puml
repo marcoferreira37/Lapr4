@@ -1,0 +1,64 @@
+«@startuml
+
+
+
+
+ package ui {
+         class DisableCandidateUI {
+         }
+
+         class ListCandidatesUI{
+             +listEnabledCandidates()
+             +printCandidates(candidates)
+         }
+     }
+
+
+
+
+     package application {
+         class DisableCandidateController {
+             +disableCandidate(email)
+         }
+
+         class ListCandidatesController{
+             +enabledCandidates()
+             +allCandidates()
+         }
+     }
+
+     package repository {
+
+         interface CandidateRepository{
+             +.save(candidate)
+         }
+     }
+
+     package domain {
+         class SystemUser{
+             +.isActive()
+             +.activate()
+         }
+         class AuthorizationService {
+                +authorizationService() : AuthorizationService
+                +ensureAuthenticatedUserHasAnyOf()
+         }
+
+         class Candidate {
+             +.user()
+         }
+     }
+
+
+
+ DisableCandidateUI --> DisableCandidateController
+ DisableCandidateUI --> ListCandidatesUI
+ ListCandidatesUI --> ListCandidatesController
+ ListCandidatesController --> Candidate
+ Candidate --> SystemUser
+ DisableCandidateController --> Candidate
+ DisableCandidateController --> CandidateRepository
+ CandidateRepository -> Candidate
+ DisableCandidateController --> AuthorizationService
+
+ @enduml

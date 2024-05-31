@@ -2,12 +2,14 @@ package eapli.base.domain.jobApplication;
 
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobOpening.JobOpening;
+import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 
 
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name = "JobOpeningApplication")
@@ -100,6 +102,7 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
 
     /**
      * Show the rank of the application as a string
+     *
      * @return the rank of the application
      */
     public String showRank() {
@@ -108,10 +111,16 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
 
     /**
      * Show the rank of the application as an integer
+     *
      * @return the rank of the application
      */
     public int showRanking() {
         return rank;
     }
+
+    public List<JobInterview> getInterviews() {
+        return null;
+    }
+        
 }
 

@@ -1,159 +1,58 @@
 grammar BackEndDeveloperGrammar;
 
-start: header interview footer;
+start: header interviewModel footer;
 
-footer: BULLET_POINT_T FOOTER score_definition TERMINAL_T interview_conduct TERMINAL_T;
+//HEADER
+header: 'Create interview model' interviewName=STRING 'for job opening' jobOpeningReference=STRING 'as follows:';
 
-interview_conduct: INTERVIEW SHOULD_BE CONDUCTED IN order ORDER;
+//INTERVIEW
+interviewModel: interview+ ;
 
+interview: questions questionAnswers questionPoints;
 
-order: order_atomic COMA_T order
-     | order_atomic
-     ;
+//questions
+questions: question+ ;
 
-order_atomic: ORDER_TYPE ORDER_METHOD?;
+question: 'Question' id=INTEGER ':' questionType;
 
+questionType: trueOrFalseType
+            | singleChoiceType
+            | shortAnswerType
+            | multipleChoiceType
+            | integerType
+            | dateType
+            | timeType
+            | scaleType;
 
-score_definition: PASSING RESULTS MUST_SCORE passingScore=Decimal outstandingClause?;
+trueOrFalseType: STRING '( True or False ) with answer' answer=correctAnswer;
+singleChoiceType: STRING '( Single Choice ) within options' STRING 'with answer' answer=correctAnswer;
+shortAnswerType: STRING '( Short Answer ) with answer' answer=correctAnswer;
+multipleChoiceType: STRING '( Multiple Choice ) within options' STRING 'with answer' answer=correctAnswer;
+integerType: STRING '( Integer ) with answer' answer=correctAnswer;
+dateType: STRING '( Date ) with answer' answer=correctAnswer;
+timeType: STRING '( Time ) with answer' answer=correctAnswer;
+scaleType: STRING '( Scale ) within range' INTEGER 'to' INTEGER 'with answer' answer=correctAnswer;
 
-outstandingClause: COMA_T OUTSTANDING RESULTS MUST_SCORE outstandingResults=Decimal;
+correctAnswer: BOOLEAN | INTEGER | REAL | STRING;
 
-interview: BULLET_POINT_T INTERVIEW interview_body;
+//answers
+questionAnswers: ('Answer' id=INTEGER ':' answer=correctAnswer)+ ;
 
-interview_body: interview_atomic interview_body
-              | interview_atomic
-              ;
+//points
+questionPoints: 'Awarding :' points=INTEGER 'points';
 
-//TODO Define
-interview_atomic: ENTRY_T (true_false | short | single_choice | multiple_choice | int_q | real_q | date_q | time_q | scale_q) TERMINAL_T;
+//FOOTER
+footer: 'Footer' score_definition '.';
 
-true_false: TRUE_FALSE QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-ITS_VALIDATION IS_DEFINED AS (TRUE|FALSE) AWARDING questionPoints=Decimal;
+score_definition: 'Passing results must score' passingScore=INTEGER outstandingClause?;
 
-short: SHORT_TEXT QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-ITS_VALIDATION IS_DEFINED AS questionCorrection=String OF TYPE ('literal' | 'regex') AWARDING questionPoints=Decimal;
-
-single_choice: SINGLE_CHOICE QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-ITS_VALIDATION IS_DEFINED AS correctChoice=String FROM choices=String+ AWARDING questionPoints=Decimal;
-
-multiple_choice: MULTIPLE_CHOICE QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-ITS_VALIDATION IS_DEFINED AS correctChoices=c_choices FROM choices=String+ AWARDING questionPoints=Decimal;
-
-c_choices: choice choice+;
-
-choice: '(' String COMA_T Decimal ')';
-
-int_q: INTEGER_NUMBER QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-       ITS_VALIDATION IS_DEFINED AS questionCorrection=Decimal AWARDING questionPoints=Decimal;
-
-real_q: REAL_NUMBER QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-        ITS_VALIDATION IS_DEFINED AS questionCorrection=Real AWARDING questionPoints=Decimal;
-
-date_q: DATE QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-             ITS_VALIDATION IS_DEFINED AS questionCorrection=String OF TYPE format=String AWARDING questionPoints=Decimal;
-
-time_q: TIME QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-             ITS_VALIDATION IS_DEFINED AS questionCorrection=String OF TYPE format=String AWARDING questionPoints=Decimal;
-
-scale_q: SCALE QUESTION WITH ID questionId=String BEING questionPrompt=String WITH DIFFICULTY OF questionDifficulty=Decimal TERMINAL_T
-                     ITS_VALIDATION IS_DEFINED AS questionCorrection=Decimal BETWEEN lowerBound=Decimal AND higherBound=Decimal AWARDING questionPoints=Decimal;
-
-header: CREATE INTERVIEW_MODEL interviewName=String FOR_JOB jobOpeningReference=String AS FOLLOWS SPECIFICATION_T;
-
-
-
-
-
-
-//Categories
-
-fragment CreateCapitalized: 'Create';
-fragment CreateUncapitalized: 'create';
-fragment RequirementsCapitalized: 'Requirements';
-fragment RequirementsUncapitalized: 'requirements';
-fragment InterviewCapitalized : 'Interview';
-fragment InterviewUncapitalized : 'interview';
-fragment FooterCapitalized : 'Footer';
-fragment FooterUncapitalized : 'footer';
-fragment PassingCapitalized : 'Passing';
-fragment PassingUncapitalized : 'passing';
-fragment CommentBody: ~[#\n]*;
-fragment QuestionCapitalized: 'Question';
-fragment QuestionUncapitalized : 'question';
-
-FOOTER: FooterCapitalized | FooterUncapitalized;
-INTERVIEW: InterviewCapitalized | InterviewUncapitalized;
-REQUIREMENTS: RequirementsCapitalized | RequirementsUncapitalized;
-CREATE: CreateCapitalized | CreateUncapitalized;
-PASSING: PassingCapitalized | PassingUncapitalized;
-QUESTION: QuestionCapitalized| QuestionUncapitalized;
-
-//
-
-//Semantic tokens, soul of the language and the readability to
-
-AND: 'and';
-AS: 'as';
-AWARDING: 'awarding';
-BEING: 'being';
-BETWEEN: 'between';
-CONDUCTED: 'conducted';
-DIFFICULTY: 'difficulty';
-FALSE: 'false';
-FOLLOWS: 'follows';
-FOR_JOB: 'for job opening';
-FROM: 'from';
-IN: 'in';
-INTERVIEW_MODEL: 'interview model';
-IS_DEFINED: 'is defined';
-ITS_VALIDATION: [Ii]'ts validation'; //Note how more necessary work is needed to understand the parsing vs the fragment approach
-MAY_BE: 'may be';
-MUST_SCORE: 'must score';
-OF:'of';
-OUTSTANDING: 'outstanding';
-ORDER: 'order';
-RESULTS: 'results';
-SHOULD_BE:'should be';
-TRUE: 'true';
-TYPE: 'type';
-WITH: 'with';
-
-//
+outstandingClause: ', Outstanding results must' outstandingResults=INTEGER;
 
 //Syntax tokens, sugar for the language
-BULLET_POINT_T: '*';
-COMA_T: ',';
-ENTRY_T: '->';
-SPECIFICATION_T: ':';
-TERMINAL_T: '.';
-String: '"' ~'"'+ '"';
-Decimal: '0'|[1-9][0-9]*;
-Real: Decimal (TERMINAL_T|COMA_T) ('0' | [0-9]*[1-9]);
-AND_MORE: '+';
-AT_LEAST: '^';
-
-ORDER_TYPE: ([rR]'andom'|[pP]'riority'|[dD]'ifficulty');
-ORDER_METHOD: ([aA]'scending'|[dD]'escending');
-
-
-
-
-//
-
+STRING: '"' (~["\\] | '\\' .)* '"';
+BOOLEAN: 'true' | 'false';
+INTEGER: ('0'|[1-9][0-9]*);
 
 //Skip comments or structural tokens.
-COMMENT: '#' CommentBody '\r'?'\n' -> skip;
-WS: [ \t\r\n]->skip;
-//
-
-
-TRUE_FALSE: [tT]'rue/false';
-SHORT_TEXT: [sS]'hort text';
-SINGLE_CHOICE: [sS]'ingle choice';
-MULTIPLE_CHOICE: [mM]'ultiple choice';
-INTEGER_NUMBER: [iI]'nteger number';
-REAL_NUMBER: [rR]'eal number';
-DATE: [dD]'ate';
-TIME: [tT]'ime';
-SCALE: [sS]'cale';
-ID:'id';
+COMMENT: '#' ~[\r\n]* -> skip;
+WS: [ \t\r\n] -> skip;

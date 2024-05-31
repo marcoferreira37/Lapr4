@@ -25,10 +25,11 @@ public class ListAllApplicationsForJobOpeningController {
     }
 
     public List<JobOpeningApplication> allApplicationsForJobOpening(JobOpening jobOpening) {
-        return(List<JobOpeningApplication>) PersistenceContext.repositories().jobApplications().findAllApplicationsForJobOpening(jobOpening);
+        return (List<JobOpeningApplication>) PersistenceContext.repositories().jobApplications().findAllApplicationsForJobOpening(jobOpening);
 
     }
-
+}
+/*
     public Object findAllByAnalysisPhase() {
             List<JobOpening> listToReturn = (List<JobOpening>) repository.findAll();
             List<JobOpening> listToReturnFiltered = new ArrayList<>();
@@ -43,3 +44,4 @@ public class ListAllApplicationsForJobOpeningController {
 
     }
 
+*/

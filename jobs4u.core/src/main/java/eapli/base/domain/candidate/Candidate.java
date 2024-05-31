@@ -19,7 +19,7 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     private EmailAddress emailAddress;
     private TelephoneNumber telephoneNumber;
 
-@Transient
+    @Column (name = "Curriculum")
     private String curriculum;
 
     public Candidate(final SystemUser systemUser, final EmailAddress emailAddress, final TelephoneNumber telephoneNumber, final String curriculum){
@@ -66,6 +66,7 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     public String toString() {
         return "Candidate{" +
                 ", emailAddress=" + emailAddress +
-                ", telephoneNumber=" + telephoneNumber;
+                ", telephoneNumber=" + telephoneNumber +
+                ", curriculum= " + curriculum;
     }
 }

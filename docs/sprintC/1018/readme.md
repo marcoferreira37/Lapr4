@@ -1,28 +1,60 @@
-# US 3004
-
-*This is an example template*
+# US 1018
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+This task involves executing the process that evaluates (grades) the interviews for a job opening. 
+It's crucial for the Customer Manager role to have this functionality available. 
+This task is assigned for development in this sprint.
+
+## Client Specifications
+
+> *Question*: Q199 Ribeiro – US1018 – Relativamente à US1018, após a execução do
+>processo de avalição de todas as entrevistas da job opening, a fase em que
+>esta se encontra deve ser automaticamente mudado para "Result" ou deve ser
+>mantida em "Analysis" e apenas pode ser mudada pela execução da US1010?
+> *Answer*: A199. A US1018 não deve alterar a fase actual. A US1010 permite fazer a mudança de
+>fases do processo de recrutamento.
+
+> *Question*: Q214 Pedro – US1017/1018 – O nosso grupo tem uma dúvida em relação ao
+>processamento dos ficheiros de respostas dos candidatos para a entrevista.
+>No caso de upload de um ficheiro, se a pergunta que requer um número
+>como resposta for preenchida com um formato inválido, por exemplo, uma
+>letra, devemos considerar isso como um formato inválido na US 1017 (e pedir
+>para o user voltar a dar upload a um ficheiro válido) ou devemos, na US1018,
+>considerar que está incorreta e atribuir 0 pontos automaticamente para essa
+>resposta inválida? Isto é, na US 1017, devemos apenas verificar o formato do
+>ficheiro ou devemos verificar também se as respostas são preenchidas com
+>o tipo de dados correto?
+> *Answer*: A214. O caso mencionado deve ser considerado um erro de validação do ficheiro (ou seja,
+>o ficheiro submetido não corresponde à gramática definida).
+
+> *Question*: Q199 Ribeiro – US1018 – Relativamente à US1018, após a execução do
+>processo de avalição de todas as entrevistas da job opening, a fase em que
+>esta se encontra deve ser automaticamente mudado para "Result" ou deve ser
+>mantida em "Analysis" e apenas pode ser mudada pela execução da US1010?
+> *Answer*: A199. A US1018 não deve alterar a fase actual. A US1010 permite fazer a mudança de
+>fases do processo de recrutamento.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies). You should also add acceptance criteria.*
-
-*Example*
-
-**US G002** As {Ator} I Want...
+**US 1018** As Customer Manager, I want to execute the process that evaluates (grades) the interviews for a job opening.
 
 **Acceptance Criteria:**
 
-- G002.1. The system should...Blá Blá Blá ...
+- 1018.1. The system should allow the Customer Manager to evaluate the interviews.
 
-- G002.2. Blá Blá Blá ...
+- 1018.2. The system should persist the evaluations of the interviews.
+
+- 1018.3. The system should validate the input details before registering the evaluations.
+
+- 1018.4. The system should provide a user interface for the evaluation of the interviews.
+
+- 1018.5. The application should be in the Analysis phase.
 
 **Dependencies/References:**
 
-*Regarding this requirement we understand that it relates to...*
+* Alternatively, this can be achieved by a bootstrap process.
+
 
 ## 3. Analysis
 

@@ -1,0 +1,68 @@
+@startuml
+
+title Disable Candidate - Sequence Diagram
+
+autonumber
+actor Operator as ADM
+participant "DisableCandidateUI" as UI <<ui>>
+participant ":DisableCandidateController" as CTRL <<application>>
+participant ":ListCandidatesUI" as LUI <<ui>>
+participant ":ListCandidatesController" as LCTRL <<application>>
+participant ":UserService" as AS <<Service>>
+participant "Candidate" as User <<domain>>
+participant "SystemUser" as SYS <<domain>>
+participant "CandidateRepository" as REPO <<repository>>
+
+
+activate ADM
+ADM-> UI : Request to disable a candidate
+activate UI
+UI -> CTRL** : create
+UI -> LUI: listEnabledCandidates()
+deactivate CTRL
+activate LUI
+LUI->LCTRL:enabledCandidates()
+activate LCTRL
+LCTRL-->LCTRL: allCandidates()
+LCTRL-> User: .user()
+activate User
+User-> SYS : .isActive()
+deactivate User
+activate SYS
+SYS-->LCTRL:enabledCandidates
+deactivate SYS
+LCTRL-->LUI:enabledCandidates
+deactivate LCTRL
+LUI-->LUI:printCandidates(candidates)
+LUI-->CTRL: list
+deactivate LUI
+activate CTRL
+CTRL-->UI:list
+deactivate CTRL
+UI --> ADM : displays the \nlist of candidates
+deactivate LUI
+ADM -> UI : selects a candidate
+UI -> CTRL : disableCandidate(email)
+activate CTRL
+CTRL-> AS:ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN)
+activate AS
+AS--> CTRL: ensures the user has operator role
+deactivate AS
+CTRL->User :.user()
+activate User
+User->SYS: .deactivate(deactivatedOn)
+activate SYS
+deactivate User
+SYS--> CTRL: candidate deactivated
+deactivate SYS
+CTRL->REPO : save(candidate)
+activate REPO
+REPO--> CTRL: candidate
+deactivate REPO
+CTRL --> UI : returns the disabled candidate
+deactivate CTRL
+UI --> ADM : displays success
+deactivate UI
+
+
+@enduml

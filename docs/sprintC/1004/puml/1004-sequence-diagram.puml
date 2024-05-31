@@ -24,41 +24,61 @@ activate Auth
 
 Auth --> Controller : User is authorized
 deactivate Auth
-Controller -> JobOpeningService : allJobsForCustomerManager()
-activate JobOpeningService
 
-JobOpeningService -> Auth: session()
-activate Auth
-
-Auth -> UserSession : authenticatedUser()
+Controller -> UserSession : getUser()
 activate UserSession
-
 UserSession -> SystemUser: user()
 activate SystemUser
-
-SystemUser --> UserSession : returns authenticatedUser
+SystemUser --> UserSession: returns user
 deactivate SystemUser
-UserSession --> Auth : returns user
+UserSession --> Controller: returns user
 deactivate UserSession
-Auth --> JobOpeningService : returns user
-deactivate Auth
-JobOpeningService -> jobrepo : findAllCreatedByUser(user)
-activate jobrepo
-jobrepo --> JobOpeningService : returns Iterable<JobOpening> jobOpenings
-deactivate jobrepo
-JobOpeningService --> Controller : returns (List <JobOpening) jobOpenings
-deactivate JobOpeningService
-Controller -> UI : displayListOfJobOpenings(jobOpenings)
 deactivate Controller
-UI -> User : displays jobOpenings
-deactivate UI
-User -> UI : Chooses to edit a job opening
-activate UI
+loop while confirmation == false
 
-UI --> Controller: returns jobOpening index
+UI -> User: asks for JobReference
+User --> UI: enters JobReference
+
+UI -> Controller : validateJobReference(jobReference)
 activate Controller
+Controller -> JobOpeningService: verifyJobReference(jobReference)
+activate JobOpeningService
+JobOpeningService -> jobrepo: findByJobReference(jobReference)
+activate jobrepo
+jobrepo --> JobOpeningService: jobOpening
+deactivate jobrepo
+JobOpeningService -> jobrepo: isCreatedByCurrentUser(jobOpening, user)
+activate jobrepo
+alt returns true
+jobrepo --> JobOpeningService: return jobOpening
 
-Controller -> Controller: saves JobOpening
+else returns false
+jobrepo --> JobOpeningService: return null
+deactivate jobrepo
+end
+alt jobOpening is null
+JobOpeningService --> Controller: jobOpening is null
+deactivate JobOpeningService
+Controller --> UI: displayError("JobOpening not found")
+deactivate Controller
+UI --> User: displays error message
+else jobOpening is not null
+activate JobOpeningService
+activate Controller
+JobOpeningService --> Controller: jobOpening
+deactivate JobOpeningService
+
+Controller --> UI: displayJobOpening(jobOpening)
+deactivate Controller
+UI --> User: displays jobOpening
+end
+UI -> User: request confirmation
+deactivate UI
+User -> UI: inputs confirmation
+activate UI
+end
+UI -> Controller: displayEditingOptions()
+activate Controller
 
 Controller -> UI : updateList(Edit.values())
 deactivate Controller

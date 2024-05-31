@@ -1,0 +1,69 @@
+@startuml
+
+title Enable Candidate - Sequence Diagram
+
+autonumber
+actor Operator as ADM
+participant "EnableCandidateUI" as UI <<ui>>
+participant ":EnableCandidateController" as CTRL <<application>>
+participant "ListCandidatesUI" as LUI <<ui>>
+participant "ListCandidatesController" as LCTRL <<application>>
+participant "AuthorizationService" as AS <<Service>>
+participant "Candidate" as EU <<domain>>
+participant "SystemUser" as SYS <<domain>>
+participant "CandidateRepository" as REPO <<repository>>
+
+
+activate ADM
+ADM-> UI : Request to enable a candidate
+activate UI
+UI -> CTRL** : create
+UI -> LUI: listDisabledCandidates()
+activate LUI
+LUI-> LCTRL :disabledCandidates()
+activate LCTRL
+LCTRL-->LCTRL: allCandidates()
+LCTRL-> EU: .user()
+activate EU
+EU-> SYS : .isActive()
+note right
+    !
+end note
+deactivate EU
+activate SYS
+SYS-->LCTRL:disabledCandidates
+deactivate SYS
+LCTRL-->LUI:disabledCandidates
+deactivate LCTRL
+LUI-->LUI:printCandidates(candidates)
+LUI --> UI : list
+deactivate LUI
+UI-->ADM: returns a list of the disabled candidates
+deactivate UI
+ADM -> UI : selects a disabled candidate
+activate UI
+UI -> CTRL : enableCandidate(email)
+activate CTRL
+CTRL-> AS:ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN)
+activate AS
+AS--> CTRL: ensures the user has operator role
+deactivate AS
+CTRL-> EU: .user()
+activate EU
+EU -> SYS : .activate()
+deactivate EU
+activate SYS
+SYS--> CTRL :candidate activated
+deactivate SYS
+CTRL -> REPO : save(candidate)
+activate REPO
+REPO--> CTRL: the enabled candidate
+deactivate REPO
+deactivate SYS
+CTRL --> UI : returns success or failure
+deactivate CTRL
+UI --> ADM : displays success or failure
+deactivate UI
+
+
+@enduml

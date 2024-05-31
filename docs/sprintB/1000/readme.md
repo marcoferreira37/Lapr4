@@ -24,7 +24,8 @@
 
 * For the analysis of the requirement to register, disable/enable, and list users in the back office,
   our team conducted a thorough study to ensure that the design decisions were optimal and aligned with 
-  the system's goals. We began by examining similar functionalities in existing systems to understand common patterns and potential pitfalls. Additionally, we analyzed the specific needs and constraints of our system to tailor the solution accordingly.
+  the system's goals. We began by examining similar functionalities in existing systems to understand common patterns.
+* Additionally, we analyzed the specific needs and constraints of our system to tailor the solution accordingly.
 
 ## 4. Design
 
@@ -32,7 +33,27 @@
 
 * In this section, we present the design solution adopted to fulfill the requirement of user management in the back office.
 
-### 4.3. Applied Patterns
+## 4.2 Class Diagram
+
+![Class Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1000\1000.1_RegisterUser\US1000_CD1.svg)
+
+![Class Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1000\1000.2_DisableUser\US1000_CD2.svg)
+
+![Class Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1000\1000.3_EnableUser\US1000_CD3.svg)
+
+![Class Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1000\1000.4_ListUsers\US1000_CD4.svg)
+
+## 4.3. System Sequence Diagram
+
+![System Sequence Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1000\1000.1_RegisterUser\US1000_SD1-UI.svg)
+
+![System Sequence Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1000\1000.2_DisableUser\US1000_SD2.svg)
+
+![System Sequence Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1000\1000.3_EnableUser\US1000_SD3.svg)
+
+![System Sequence Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1000\1000.4_ListUsers\US1000_SD4.svg)
+
+### 4.4. Applied Patterns
 
 * MVC (Model-View-Controller) Pattern: Separation of concerns between UI, controller, and model components.
 
@@ -43,29 +64,13 @@
 
 In this section, we provide insights into the implementation of the user management functionality, ensuring alignment with the previously presented design. We include evidence of adherence to the design and discuss relevant artifacts such as configuration files.
 
-To ensure that the implementation accurately reflects the design, we conducted regular code reviews and employed automated testing to validate the functionality. Additionally, we utilized version control system logs to track major commits related to this requirement.
+To ensure that the implementation accurately reflects the design, we conducted regular code reviews.
 
-While the user management functionality primarily relies on application logic and database interactions, certain configuration files play a crucial role in setting up the environment. These files include database configuration files (database.yml) and authentication configuration files (devise.rb), which specify parameters such as database credentials and authentication strategies.
-
-Initial Implementation of User Registration: This commit introduces the basic structure and functionality for registering new users in the system.
-Implementation of User Disable/Enable Feature: This commit adds the logic for administrators to disable or enable existing users as per the requirement.
-Integration of User Listing Functionality: This commit integrates the functionality to retrieve and display a list of all registered users in the back office.
-These major commits represent significant milestones in the implementation process, each contributing to the realization of the user management requirement.
 
 ## 6. Integration/Demonstration
 
-In this section, we describe the efforts made to integrate the user management functionality with other parts/components of the system and provide instructions for demonstration.
-
-Integration Efforts
-The user management functionality has been seamlessly integrated with the existing authentication system and user interface components of the back office application. Integration tests were conducted to ensure proper interaction between different modules and to identify any potential conflicts or inconsistencies.
-
-Demonstration Instructions
-To demonstrate the user management functionality:
-
-Access the Back Office: Log in to the back office application using valid administrator credentials.
-Navigate to User Management Section: Locate the user management section within the administrative dashboard.
-Register New Users: Use the provided interface to register new users by entering relevant details such as username, email, and password.
-Disable/Enable Existing Users: Utilize the provided controls to disable or enable existing users as needed.
-View User Listing: Access the user listing page to view a comprehensive list of all registered users, including their details.
-By following these instructions, users can effectively explore and interact with the implemented user management functionality within the back office application.
+* We can see all the integration, and we can have a demonstration of the success of this User 
+  Story opening the project and register as Admin, selecting the options "Regist a candidate",
+  "List all candidates", "Enable a candidate", "Enable a candidate" we will see the Use Cases  
+  all the use cases working correctly.
 

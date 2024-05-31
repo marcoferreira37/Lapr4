@@ -20,7 +20,7 @@ This task is not related to fixing a bug but rather adding a new feature to the 
 >say that 100 candidates apply for a job opening. Does the Customer Manager
 >have to sort all 100 candidates?
 > *Answer*: A155 The order of candidates should include at least all the first candidates within the
->vacancy number andsome following candidates. At the moment, I do not know exactly the
+>vacancy number and some following candidates. At the moment, I do not know exactly the
 >number of the following candidates to be ordered. Therefore, I would like for it to be a
 >global configuration property in the system. It could be a number representing a magnitude
 >from the vacancy number. For instance, 1 could mean exactly the same number of
@@ -90,11 +90,11 @@ This task is not related to fixing a bug but rather adding a new feature to the 
 > *Answer*: A183. Once again this could be only a UX/UI issue. Please refer to Q17, Q163 and Q140.
 Also note that there is US1021 for listing application data
 
-> *Question*: Q192 Varela – US1013 – Global Configurations – I'm struggling to understang
+> *Question*: Q192 Varela – US1013 – Global Configurations – I'm struggling to understand
 >the global configurations defined for US1013. All candidates must be ranked,
 >so that all of them can be notified. Are the global configurations only for
 >persistence purposes? Example: all candidates are ranked and notified, so if
->0.5 is in the global definition, then only half of the number of vancancies must
+>0.5 is in the global definition, then only half of the number of vacancies must
 >be persisted in the system. Is this the scenario that Mr. Client has in mind?
 > *Answer*: A192. I am assuming you refer to Q155. Suppose you have 2 vacancies. You have 80
 >candidates. If you configure the property as 1 you need to rank (record in the system) the 2
@@ -173,7 +173,7 @@ The Customer Manager requested a feature to rank the candidates for a job openin
 This feature will allow the manager to rank the candidates, persist the rankings, change the rankings, and view the rankings. 
 The system should have validations to ensure that the data is valid.
 
-## 4. Design
+## 4. Design                                                                                                                                                                                                                                                                                                                                                          
 
 ### 4.1. Realization
 
@@ -191,7 +191,7 @@ This includes actions like viewing a list of candidates, assigning a rank, savin
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
+*In this section the team should present, if necessary, some evidences that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
 
 *It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
 
@@ -205,6 +205,6 @@ This includes actions like viewing a list of candidates, assigning a rank, savin
 
 *This section should be used to include any content that does not fit any of the previous sections.*
 
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
+*The team should present here, for instance, a critical perspective on the developed work including the analysis of alternative solutions or related works*
 
 *The team should include in this section statements/references regarding third party works that were used in the development this work.*

@@ -3,7 +3,7 @@ package eapli.base.usermanagement.application.controllers;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.jobOpeningProcess.PhaseType;
 import eapli.base.domain.jobOpening.JobOpening;
-import eapli.base.domain.jobOpening.Phase;
+import eapli.base.domain.jobOpeningProcess.Phase;
 import eapli.base.usermanagement.application.services.JobOpeningService;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -26,7 +26,7 @@ public class UpdateJobOpeningController {
 
     public JobOpening updateDates(JobOpening jobOpening, Phase phase) {
         autzService.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN, BaseRoles.POWER_USER);
-        jobOpening.setPhaseDates(phase);
+  //      jobOpening.setPhaseDates(phase);
         JobOpening jo = service.saveJobOpening(jobOpening);
         return jo;
     }
@@ -52,7 +52,7 @@ public class UpdateJobOpeningController {
         autzService.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN);
         int index = 1;
         for(JobOpening job : service.allJobs()){
-            System.out.println(index + ". " + job.getJobReference().fullReference() + "\n" + job.getCurrentJobPhase() + "\n" + job.getPhaseDates() );
+ //           System.out.println(index + ". " + job.getJobReference().fullReference() + "\nCurrent Phase: " + job.getCurrentJobPhase() + "\nPhase Dates: " + job.getPhaseDates() );
             index++;
         }
 
@@ -109,34 +109,35 @@ public class UpdateJobOpeningController {
         return jobOpening;
     }
 
+    /*
+        public void showJobPhases(JobOpening jobOpening) {
+            System.out.println("Job Phase Process:");
 
-    public void showJobPhases(JobOpening jobOpening) {
-        System.out.println("Job Phase Process:");
-
-        for (PhaseType phase : PhaseType.values()) {
-            if (phase == jobOpening.getCurrentJobPhase()) {
-                System.out.println(phase + ": Open");
-            } else {
-                System.out.println(phase + ": Closed");
+            for (PhaseType phase : PhaseType.values()) {
+                if (phase == jobOpening.getCurrentJobPhase()) {
+                    System.out.println(phase + ": Open");
+                } else {
+                    System.out.println(phase + ": Closed");
+                }
             }
         }
-    }
 
-    public boolean checkForInterviewPhase(int choice, JobOpening jobOpening) {
-        if (choice == 1 && jobOpening.getCurrentJobPhase() == PhaseType.SCREENING)
-            return true;
-        return choice == 2 && jobOpening.getCurrentJobPhase() == PhaseType.ANALYSIS;
-    }
+        public boolean checkForInterviewPhase(int choice, JobOpening jobOpening) {
+            if (choice == 1 && jobOpening.getCurrentJobPhase() == PhaseType.SCREENING)
+                return true;
+            return choice == 2 && jobOpening.getCurrentJobPhase() == PhaseType.ANALYSIS;
+        }
 
-    public JobOpening updatePhase(JobOpening jobOpening, int choice, boolean interviewPhase){
-        if(choice == 1){
-            jobOpening = service.advanceToNextPhase(jobOpening,interviewPhase);
+        public JobOpening updatePhase(JobOpening jobOpening, int choice, boolean interviewPhase){
+            if(choice == 1){
+                jobOpening = service.advanceToNextPhase(jobOpening,interviewPhase);
+            }
+            else{
+                jobOpening = service.goBackToPreviousPhase(jobOpening,interviewPhase);
+            }
+            return jobOpening;
         }
-        else{
-            jobOpening = service.goBackToPreviousPhase(jobOpening,interviewPhase);
-        }
-        return jobOpening;
-    }
+    */
     public Phase buildPhase(Date application, Date screening, Date interview, Date analysis, Date results) {
         return Phase.from(application, screening,interview,analysis,results);
     }

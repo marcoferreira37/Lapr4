@@ -60,17 +60,17 @@ rectangle "Job Opening" #bbccaa {
     class VacanciesNumber<<Value Object>>{}
 
     class Description<<Value Object>>{}
-
-    class PhaseDates<<Entity>>{}
-    enum PhaseType<<Enumerated>><<Value Object>>{
-                APPLICATION
-                SCREENING
-                INTERVIEWS
-                ANALYSIS
-                RESULT
-            }
-     JobOpening "1" --> "0..1" PhaseDates
-     PhaseDates "1" --> "1" PhaseType
+'
+'    class PhaseDates<<Entity>>{}
+'    enum PhaseType<<Enumerated>><<Value Object>>{
+'                APPLICATION
+'                SCREENING
+'                INTERVIEWS
+'                ANALYSIS
+'                RESULT
+'            }
+'     JobOpening "1" --> "0..1" PhaseDates
+'     PhaseDates "1" --> "1" PhaseType
 }
 
 
@@ -131,6 +131,20 @@ rectangle "User" #ccbbcc {
 '}
 
 
+
+rectangle "Job Opening Process" #ccbbcc{
+    class JobOpeningProcess<<Aggregate Root>><<Entity>>{}
+    class JobOpeningProcessId<<Identity>><<Value Object>>{}
+    class Phase<<Entity>>{
+        }
+    enum PhaseType<<Enumerated>><<Value Object>>{
+        APPLICATION
+        SCREENING
+        INTERVIEWS
+        ANALYSIS
+        RESULT
+    }
+}
 
 
 
@@ -205,6 +219,11 @@ Application "1" -up-> "0..1" ApplicationRank
 
 JarFile "1" +..> "*" InterviewModel : interviewModels
 JarFile "1" +..> "*" Requirement : requirements
+
+JobOpeningProcess "1" -left-> "1" JobOpeningProcessId
+JobOpening "1" -----> "*" JobOpeningProcess : has
+JobOpeningProcess "1" --> "1" Phase
+Phase "1" --> "1" PhaseType
 
 
 @enduml

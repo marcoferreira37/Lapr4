@@ -29,7 +29,17 @@
 
 * The realization of the functionality involves providing a user-friendly interface for the Customer Manager to perform CRUD operations on job opening phases. This interface should allow customization of phase details such as name, description, duration, sequence, and visibility.
 
-### 4.3. Applied Patterns
+### 4.2. Class Diagram
+
+![Class Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1007\CD\US1007_CD.svg)
+
+
+### 4.3. Sequence Diagram
+
+![Sequence Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintB\1007\SD\US1007-SD.svg)
+
+
+### 4.4. Applied Patterns
 
 * MVC (Model-View-Controller) Pattern: Separation of concerns between UI, controller, and model components.
 
@@ -42,6 +52,7 @@ The implementation of the phase management functionality adheres to the design s
 
 ## 6. Integration/Demonstration
 
-* We can see all the integration and we can have a demonstration of the success of this User Story opening the project and register as Customer Manager and selecting the option "Update a Job Opening"
+* We can see all the integration and we can have a demonstration of the success of this User Story 
+  opening the project and register as Customer Manager and selecting the option "Update a Job Opening"
 
 

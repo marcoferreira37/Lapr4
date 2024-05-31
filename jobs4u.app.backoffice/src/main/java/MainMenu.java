@@ -1,4 +1,5 @@
 
+import authz.UploadTextFileUI;
 import authz.ui.ListAllApplicationsForJobOpeningUI;
 import authz.ui.ListJobOpeningUI;
 import authz.enable_disable_users.DisableCandidateUI;
@@ -137,9 +138,10 @@ public class MainMenu extends AbstractUI {
         menu.addItem(1, "Regist a candidate", new AddCandidateUI()::show);
         menu.addItem(2, "List all candidates", new ListCandidatesUI()::show);
         menu.addItem(3, "Export template for Requirements Specification", new GenerateTemplateUI()::show);
-        menu.addItem(4, "Register a an application", new AddJobApplicationUI()::show);
+        menu.addItem(4, "Register an application", new AddJobApplicationUI()::show);
         menu.addItem(5, "Enable a candidate", new EnableCandidateUI()::show);
         menu.addItem(6, "Disable a candidate", new DisableCandidateUI()::show);
+        menu.addItem(7, "Update text file", new UploadTextFileUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
@@ -157,7 +159,8 @@ public class MainMenu extends AbstractUI {
         menu.addItem(8, "Update a Job Opening", new UpdateJobOpeningUI()::show);
         menu.addItem(9, "Rank Applications ", new RankApplicationUI()::show);
         menu.addItem(10,"Record the time and the date for an interview", new RecordInterviewUI()::show);
-        menu.addItem(11, RETURN_LABEL, Actions.SUCCESS);
+        menu.addItem(11,"Execute interview grading", new InterviewGradingUI()::show);
+        menu.addItem(12, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 
