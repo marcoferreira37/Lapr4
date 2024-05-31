@@ -33,8 +33,8 @@ public class FrontMenu extends AbstractUI {
      */
     @Override
     public boolean doShow() {
-        final Menu menu = new Menu("Customer Menu Options:");
-        LoginUI loginUI = new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.CUSTOMER);
+        final Menu menu = new Menu("Candidate Menu Options:");
+        LoginUI loginUI = new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.CANDIDATE);
 
         menu.addItem(LOGIN_OPTION, "Login", new ChainedAction(loginUI::show, () -> {new MainMenu().mainLoop();return true;}));
         menu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
@@ -45,6 +45,6 @@ public class FrontMenu extends AbstractUI {
 
     @Override
     public String headline() {
-        return "Base";
+        return "Base Candidate";
     }
 }
