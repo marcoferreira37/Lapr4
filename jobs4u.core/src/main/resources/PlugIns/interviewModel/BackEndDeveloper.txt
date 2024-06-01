@@ -28,4 +28,8 @@ Question 7: "Rate your experience with Python from 1 to 10." ( Scale ) within ra
 Answer 7: 7
 Awarding : 8 points
 
+Question 8: "What is the value of PI to two decimal places?" ( Decimal ) with answer 3.14
+Answer 8: 3.14
+Awarding : 4 points
+
 Footer Passing results must score 30, Outstanding results must 50.
