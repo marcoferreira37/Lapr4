@@ -5,6 +5,8 @@ import eapli.base.app.common.console.ui.components.ColorCode;
 import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
+import eapli.base.domain.candidate.Candidate;
+import eapli.base.usermanagement.application.controllers.OrderedCandidatesController;
 import eapli.base.usermanagement.application.controllers.ListAllApplicationsForJobOpeningController;
 
 import java.util.List;
@@ -12,10 +14,10 @@ import java.util.List;
 public class OrderedCandidatesUI extends AbstractUI {
 
     private final ListAllApplicationsForJobOpeningController controllerApplication = new ListAllApplicationsForJobOpeningController();
+    private final OrderedCandidatesController orderedCandidatesController = new OrderedCandidatesController();
 
     @Override
     protected boolean doShow() {
-
         System.out.println("=====================================================");
         System.out.println("|| List of Job Openings ||");
         List<JobOpening> openingList = (List<JobOpening>) controllerApplication.allJobOpenings();
@@ -26,11 +28,13 @@ public class OrderedCandidatesUI extends AbstractUI {
         printNumeratedList(openingList);
         int option = getUserOption(openingList.size());
         JobOpening jobOpening = openingList.get(option - 1);
-        List<JobOpeningApplication> applications = controllerApplication.allApplicationsForJobOpening(jobOpening);
-        if (applications.isEmpty()) {
-            System.out.println("There are no applications for this job opening!");
+        List<Candidate> candidates = orderedCandidatesController.orderedCandidatesOfJobOpening(jobOpening);
+        if (candidates.isEmpty()) {
+            System.out.println("There are no candidates for this job opening!");
             return false;
         }
+
+        printCandidates(candidates);
 
         return false;
     }
@@ -66,5 +70,19 @@ public class OrderedCandidatesUI extends AbstractUI {
             }
         }
         return option;
+    }
+
+    public void printCandidates(List<Candidate> candidates) {
+        System.out.println("=====================================================");
+        System.out.println("|| Ordered List of Candidates ||");
+        int index = 1;
+        for (Candidate candidate : candidates) {
+            System.out.printf("%d. Candidate: %s, Highest Grade: %.2f%n",
+                    index++, candidate.identity(), getHighestInterviewGrade(candidate));
+        }
+    }
+
+    private double getHighestInterviewGrade(Candidate candidate) {
+        return 12;
     }
 }

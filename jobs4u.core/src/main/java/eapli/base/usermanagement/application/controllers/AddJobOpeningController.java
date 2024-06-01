@@ -12,11 +12,11 @@ public class AddJobOpeningController {
     /**
      * The service to be used to add a job opening
      */
-    private JobOpeningService service;
+    private final JobOpeningService service;
     /**
      * The service to be used to check if the user has permission to add a job opening
      */
-    private AuthorizationService autzService;
+    private final AuthorizationService autzService;
 
     public AddJobOpeningController() {
         service=new JobOpeningService();
