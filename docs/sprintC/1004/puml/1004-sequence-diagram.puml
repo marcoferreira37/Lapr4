@@ -1,158 +1,134 @@
 @startuml
-Actor "Customer Manager" as User
-participant ":UpdateJobOpeningUI" as UI <<UI>>
-participant ":EditJobOpeningController" as Controller <<Application>>
-participant ":JobOpeningService" as JobOpeningService <<Application>>
-
-participant ":AuthorizationService" as Auth <<Application>>
-participant ":UserSession" as UserSession <<Application>>
-participant ":SystemUser" as SystemUser <<Domain>>
-database "JobOpeningRepository" as jobrepo <<Repository>>
-participant ":JobOpeningMapper" as JobOpeningMapper <<Domain>>
+participant "Customer Manager" as u
+participant ":EditJobOpeningUI" as ui <<UI>>
+participant ":EditJobOpeningController" as controller <<Application>>
+participant ":Editable" as editable <<Domain>>
+participant ":JobOpeningService" as service <<Application>>
+participant ":JobOpening" as jobOpening <<Domain>>
+database ":JobOpeningRepository" as repository <<Persistence>>
 
 
-activate User
+autonumber
 
-User -> UI: Chooses to edit a job opening
-activate UI
+activate u
+u -> ui: Requests to update job opening
+activate ui
+ui --> u: Requests to input job reference
+deactivate ui
+u -> ui: Inputs job reference
+activate ui
+ui -> controller: existsJobReference(jobReference)
+activate controller
+controller -> service: jobReferenceToJobOpening(jobReference)
+activate service
+service -> repository: findJobOpeningByFullReference(String jobReference)
+activate repository
+repository --> service: return jobOpening
+deactivate repository
+service --> controller: return jobOpening
+deactivate service
+controller -> controller: save JobOpening
+activate controller
+deactivate controller
+controller --> ui: return true
+deactivate controller
+ui --> u: displays job opening and asks if user wants to update the description
+deactivate ui
+u -> ui: inputs option (yes/no)
+activate ui
 
-UI -> Controller : Request to edit job opening
-activate Controller
+ui -> controller: edits.add(Editable.DESCRIPTION)
+activate controller
+deactivate controller
+ui --> u : asks if user wants to update the address
+deactivate ui
+u -> ui: inputs option (yes/no)
+activate ui
+ui -> controller: edits.add(Editable.ADDRESS)
+activate controller
+deactivate controller
 
-Controller -> Auth : ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN, BaseRoles.POWER_USER)
-activate Auth
+ui --> u : asks if user wants to update the job title
+deactivate ui
+u -> ui: inputs option (yes/no)
+activate ui
+ui -> controller: edits.add(Editable.JOB_TITLE)
+activate controller
+deactivate controller
+ui --> u : asks if user wants to update the mode
+deactivate ui
+u -> ui: inputs option (yes/no)
+activate ui
+ui -> controller: edits.add(Editable.Mode)
+activate controller
+deactivate controller
+ui --> u : asks if user wants to update the contract type
+deactivate ui
+u -> ui: inputs option (yes/no)
+activate ui
+ui -> controller: edits.add(Editable.CONTRACT_TYPE)
+activate controller
+deactivate controller
+ui --> u : asks if user wants to update the number of vacancies
+deactivate ui
+u -> ui: inputs option (yes/no)
+activate ui
+ui -> controller: edits.add(Editable.VACANCIES_NUMBER)
+activate controller
+deactivate controller
 
-Auth --> Controller : User is authorized
-deactivate Auth
+ui -> controller: cycleEdits()
 
-Controller -> UserSession : getUser()
-activate UserSession
-UserSession -> SystemUser: user()
-activate SystemUser
-SystemUser --> UserSession: returns user
-deactivate SystemUser
-UserSession --> Controller: returns user
-deactivate UserSession
-deactivate Controller
-loop while confirmation == false
+loop for each Editable in edits
+    alt Editable.DESCRIPTION
+    activate controller
+        controller -> service: editDescription()
+        activate service
+        service --> controller: editString(Editable.DESCRIPTION)
+        deactivate service
+        controller --> ui: editString(Editable.DESCRIPTION)
+        deactivate controller
+        ui --> u: Requests new value for description
+        deactivate ui
+        u -> ui: Inputs new description
+        activate ui
+        ui -> controller: saveDescription(description)
+        activate controller
+        controller -> service: saveDescription(description)
+        activate service
+        service -> jobOpening: setDescription(description)
+        activate jobOpening
+        jobOpening -> jobOpening: this.description = description
+        jobOpening --> service: return jobOpening
+        deactivate jobOpening
+        service -> repository: save(jobOpening)
+        activate repository
+        repository --> service: return jobOpening
+        deactivate repository
+        service --> controller: return jobOpening
+        deactivate service
+        deactivate controller
+    else Editable.ADDRESS
 
-UI -> User: asks for JobReference
-User --> UI: enters JobReference
+        controller -> service: editAddress()
+        activate service
 
-UI -> Controller : validateJobReference(jobReference)
-activate Controller
-Controller -> JobOpeningService: verifyJobReference(jobReference)
-activate JobOpeningService
-JobOpeningService -> jobrepo: findByJobReference(jobReference)
-activate jobrepo
-jobrepo --> JobOpeningService: jobOpening
-deactivate jobrepo
-JobOpeningService -> jobrepo: isCreatedByCurrentUser(jobOpening, user)
-activate jobrepo
-alt returns true
-jobrepo --> JobOpeningService: return jobOpening
+    else Editable.JOB_TITLE
+        controller -> service: editJobTitle()
+    else Editable.Mode
+        controller -> service: editMode()
+    else Editable.CONTRACT_TYPE
+        controller -> service: editContractType()
+    else Editable.VACANCIES_NUMBER
+        controller -> service: editVacanciesNumber()
+    end
 
-else returns false
-jobrepo --> JobOpeningService: return null
-deactivate jobrepo
 end
-alt jobOpening is null
-JobOpeningService --> Controller: jobOpening is null
-deactivate JobOpeningService
-Controller --> UI: displayError("JobOpening not found")
-deactivate Controller
-UI --> User: displays error message
-else jobOpening is not null
-activate JobOpeningService
-activate Controller
-JobOpeningService --> Controller: jobOpening
-deactivate JobOpeningService
+deactivate service
+deactivate controller
+ui --> u: displays job opening and success message
+deactivate ui
 
-Controller --> UI: displayJobOpening(jobOpening)
-deactivate Controller
-UI --> User: displays jobOpening
-end
-UI -> User: request confirmation
-deactivate UI
-User -> UI: inputs confirmation
-activate UI
-end
-UI -> Controller: displayEditingOptions()
-activate Controller
 
-Controller -> UI : updateList(Edit.values())
-deactivate Controller
-loop until user chooses to stop
-UI -> User : displays parameters to edit and option to stop
-User --> UI : Chooses parameter to edit
-UI -> UI: return list add(option)
-end
-UI --> Controller : returns List <Edit> edits
-activate Controller
 
-Controller -> JobOpeningService : toDto(jobOpening)
-activate JobOpeningService
-
- JobOpeningService -> JobOpeningMapper: toDto(jobOpening)
- activate JobOpeningMapper
-
- JobOpeningMapper --> JobOpeningService: jobOpeningDto
- deactivate JobOpeningMapper
-
- JobOpeningService --> Controller: jobOpeningDto
-  deactivate JobOpeningService
-
-loop for each edit
-
-alt edit is a string
-Controller -> UI : updateString(Edit.StringField)
-UI -> User : request to update string field
-User --> UI : enters new value
-UI --> Controller : returns new value
-end
-
-alt edit is a number
-Controller -> UI : updateNumber(Edit.NumberField)
-UI -> User : request to update string field
-User --> UI : enters new value
-UI --> Controller : returns new value
-end
-
-alt edit is a Enum
-Controller -> UI : updateEnum(Edit.EnumField)
-UI -> User : request to update string field
-User --> UI : enters new value
-UI --> Controller : returns new value
-end
-
-Controller -> JobOpeningService : updateJobOpening(jobOpeningDto, edit, value)
-activate JobOpeningService
-
-JobOpeningService --> Controller : returns jobOpeningDto
-deactivate JobOpeningService
-end
-
-Controller --> UI : displayJobOpening(jobOpeningDTO)
-
-UI -> User : displays updated jobOpening
-
-Controller -> JobOpeningService : toDomain(jobOpeningDto)
-activate JobOpeningService
-
-JobOpeningService -> JobOpeningMapper: toDomain(jobOpeningDto)
-activate JobOpeningMapper
-
- JobOpeningMapper --> JobOpeningService: jobOpening
-deactivate JobOpeningMapper
-
- JobOpeningService -> jobrepo: save(jobOpening)
- activate jobrepo
- jobrepo --> JobOpeningService: saved jobOpening
-deactivate jobrepo
-JobOpeningService --> Controller: returns true
-deactivate JobOpeningService
-Controller --> UI : returns true
-deactivate Controller
-UI --> User : displays success message
-deactivate UI
 @enduml

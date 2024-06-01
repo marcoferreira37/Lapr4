@@ -37,7 +37,7 @@ import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 /**
  * @author Paulo Gandra Sousa
  */
- class MainMenu extends CustomerBaseUI {
+ class MainMenu extends CandidateBaseUI {
 
     private static final String SEPARATOR_LABEL = "--------------";
 

@@ -7,17 +7,23 @@ activate U
 
 U -> S: selects option to edit a job opening
 activate S
-S -> U : list all Job References and asks user to choose a job opening
-U -> S : chooses a job opening
-S -> U : shows Job Opening details
-loop until user chooses to stop
-S -> U : Asks to choose what user wants to update
-S -> S: Saves options to update
-end
-loop for every single choice
-S -> U : Asks for new value
-U -> S : Enters new value
-end
-S -> U : Shows updated Job Opening details with confirmation message
+
+S --> U : Requests to input a job reference
+U -> S : Inputs Job Reference
+S -> U : shows Job Opening details and asks user if he wants to update the description
+U --> S : Inputs option (yes/no)
+S -> U : Asks if user wants to update address
+U --> S : Inputs option (yes/no)
+S -> U: Asks if user wants to update the Mode
+U --> S : Inputs option (yes/no)
+S -> U : Asks if user wants to update the Contract Type
+U --> S : Inputs option (yes/no)
+S -> U: Asks if user wants to update the job title
+U --> S : Inputs option (yes/no)
+S -> U: Asks if user wants to update the number of vacancies
+U --> S: Inputs option (yes/no)
+S -> U: Requests user for new values to update
+U --> S: Inputs values
+S -> U : Displays updated Job Opening and shows operation success
 
 @enduml

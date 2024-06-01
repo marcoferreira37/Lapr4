@@ -37,7 +37,7 @@ public abstract class CustomerBaseUI extends AbstractUI {
     public String headline() {
 
         return authz.session().map(s -> "Base [ @" + s.authenticatedUser().identity() + " ] ")
-                .orElse("Base [ ==Anonymous== ]");
+                .orElse("Base [ ==Customer== ]");
     }
 
     @Override

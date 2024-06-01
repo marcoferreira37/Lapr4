@@ -49,6 +49,6 @@ public class FrontMenu extends AbstractUI {
 
     @Override
     public String headline() {
-        return "Base";
+        return "Base Customer";
     }
 }

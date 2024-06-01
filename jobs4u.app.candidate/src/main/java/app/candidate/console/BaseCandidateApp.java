@@ -18,32 +18,38 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package app.candidate.console.presentation;
+package app.candidate.console;
 
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import app.candidate.console.presentation.FrontMenu;
+import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 
 /**
- *
- * @author mcn
+ * Base User App.
  */
 @SuppressWarnings("squid:S106")
-public abstract class ClientUserBaseUI extends AbstractUI {
+public final class BaseCandidateApp {
 
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
-
-    @Override
-    public String headline() {
-
-        return authz.session().map(s -> "Base [ @" + s.authenticatedUser().identity() + " ] ")
-                .orElse("Base [ ==Anonymous== ]");
+    /**
+     * Empty constructor is private to avoid instantiation of this class.
+     */
+    private BaseCandidateApp() {
     }
 
-    @Override
-    protected void drawFormTitle(final String title) {
-        final String titleBorder = BORDER.substring(0, 2) + " " + title;
-        System.out.println(titleBorder);
-        drawFormBorder();
+    public static void main(final String[] args) {
+        System.out.println("=====================================");
+        System.out.println("Base Candidate App");
+        System.out.println("(C) 2016 - 2019");
+        System.out.println("=====================================");
+
+        AuthzRegistry.configure(PersistenceContext.repositories().users(),
+                new BasePasswordPolicy(), new PlainTextEncoder());
+
+        new FrontMenu().show();
+
+        // exiting the application, closing all threads
+        System.exit(0);
     }
 }
