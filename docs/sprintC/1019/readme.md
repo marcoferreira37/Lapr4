@@ -18,14 +18,6 @@ helping to make informed selection decisions by providing a clear, ranked list b
 > *Answer*: A169 Sim, a ordenação é relativa a candidaturas para um job opening. A ordenação deve
 >ser descendente, do que tem maior pontuação para o que tem menor pontuação.
 
-> *Question*: Q169 Simoes – US1019 - Relativamente a esta user story, "US 1019 - As
->Customer Manager, I want to get an ordered list of candidates, using the job
->interview points (grades), to help me analyze the candidates.", a lista que
->pretende é relacionada a uma job opening correto? A maneira de ordenação é
->ascendente ou quer uma opção que inclua ascendente e descendente?
-> *Answer*: A169 Sim, a ordenação é relativa a candidaturas para um job opening. A ordenação deve
->ser descendente, do que tem maior pontuação para o que tem menor pontuação.
-
 > *Question*: Q177 Artur – US 1019 Esclarecimento - Na US 1019: As Customer Manager, I
 >want to get an ordered list of candidates, using the job interview points
 >(grades), to help me analyze the candidates. Pretende que para uma

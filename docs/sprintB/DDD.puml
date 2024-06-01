@@ -90,6 +90,8 @@ rectangle "Job Opening Application" #aaccbb {
 
     class ApplicationRank<<Value Object>>{}
 
+'    Deviamos retirar o rank deste agregrado
+
 }
 
 rectangle "Job Opening Interview" #ccbbaa {

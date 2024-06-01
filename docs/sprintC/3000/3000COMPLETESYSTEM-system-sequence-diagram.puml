@@ -1,0 +1,33 @@
+@startuml
+'skinparam monochrome true
+'skinparam packageStyle rectangle
+'skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Get an ordered list of candidates
+
+actor "Customer Manager" as Agent
+'participant ":System" as System ( estes dois estão dentro do System )
+participant ":CandidateApp" as CandidateApp
+participant ":FollowUpServer" as FollowUpServer
+
+activate Agent
+
+Agent -> CandidateApp : Request to view applications
+
+activate CandidateApp
+
+CandidateApp -> FollowUpServer : (tcp:)requestUserApps() -- não é um método, meter anotação --
+
+activate FollowUpServer
+
+FollowUpServer --> CandidateApp :
+
+deactivate FollowUpServer
+
+CandidateApp --> Agent: Show list of job openings with status and number of applications
+
+deactivate
+
+
+
+@enduml

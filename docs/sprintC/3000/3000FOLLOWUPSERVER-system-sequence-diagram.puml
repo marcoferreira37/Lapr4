@@ -1,0 +1,65 @@
+@startuml
+'skinparam monochrome true
+'skinparam packageStyle rectangle
+'skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Get an ordered list of candidates
+
+
+
+
+'ServerHandler" e ( estes estão dentro do System )
+actor "CandidateApp" as Agent
+participant ":ServerHandler" as System
+'é uma tred - ele precisa de ler a informação recebi e inspecionar o código da mensagem ( código por mensagens / tem que haver um switch case )
+participant ":UseCaseController" as CTRL
+'este é criado uma instancia pelo Handler
+
+participant ":AppsReportRepository" as APR
+
+
+activate Agent
+
+'Tem que ter o id do candidate dentro deste método
+Agent -> System : (tcp:)requestUserApps() -- não é um método, meter anotação --
+
+activate System
+
+System --> CTRL** : create
+
+System -> CTRL : listMyApps()
+
+activate CTRL
+
+
+CTRL --> APR** : findAllOfCandidate(currentUser)
+
+activate APR
+
+'Se for diferenete teremos de meter serviço e repositorio(s)
+
+
+APR --> CTRL : Iterable<AppForCandidateDTOS>
+
+deactivate APR
+
+CTRL --> System
+
+deactivate CTRL
+
+
+System --> System :  PROCESS DATA TO BE SENT ( FAZER UMA NOTA )
+
+System --> Agent:
+
+deactivate
+
+
+
+'Sugestão do stor: repositório de report: retorna as informações que quiser para gerar um DTO ( é uma forma de fazer uma query para chamar coisas fora do mesmo agregrado)
+'Senão o fizermos teremos que fazer n + 1 chamadas aos repositórios ( neste caso teriamos que usar um serviço )
+'Nem precisa de retornar todos os dados de uma candidatura pode apenas retornar as informações que quero
+
+'Chamar apenas uma vez à base de dados é o aconselhado
+
+@enduml

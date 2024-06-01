@@ -4,8 +4,8 @@ actor "Customer Manager" as Agent
 participant ":OrderedCandidatesUI" as ui <<UI>>
 participant ":OrderedCandidatesController" as ctrl <<Application>>
 participant ":JobOpeningService" as jobServ <<Service>>
-database ":JobOpeningRepository" as jobRepo <<Persistence>>
-database ":JobOpeningApplicationRepository" as candRepo <<Persistence>>
+participant ":JobOpeningRepository" as jobRepo <<Persistence>>
+participant ":JobOpeningApplicationRepository" as candRepo <<Persistence>>
 
 autonumber
 
