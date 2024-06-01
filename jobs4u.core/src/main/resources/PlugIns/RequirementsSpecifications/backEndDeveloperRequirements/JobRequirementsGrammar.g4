@@ -4,7 +4,6 @@ start: header requirements+ EOF;
 
 header: text=STRING;
 
-
 requirements: 'Requirement' id=INTEGER requirementType;
 
 requirementType: trueOrFalseRequirement
@@ -24,7 +23,7 @@ correctAnswer: BOOLEAN | INTEGER | REAL | STRING;
 STRING: '"' (~["\\] | '\\' .)* '"';
 BOOLEAN: 'true' | 'false';
 INTEGER: ('0' | [1-9][0-9]*);
-TRUEORFALSEANSWER: 'True' | 'False' | 'true' | 'false';
+REAL: [0-9]+ '.' [0-9]+;
 
 // Skip comments and whitespace
 COMMENT: '#' ~[\r\n]* -> skip;
