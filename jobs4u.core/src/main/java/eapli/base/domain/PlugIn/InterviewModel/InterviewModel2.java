@@ -50,7 +50,7 @@ public class InterviewModel2 implements InterviewModelInterface {
 
     @Override
     public int evaluate(String path) throws IOException {
-        //verify if the file exists
+        // Verify if the file exists
         File file = new File(path);
         if (!file.exists()) {
             throw new IOException("File not found");
