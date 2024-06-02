@@ -1,0 +1,145 @@
+@startuml
+
+actor "Customer Manager" as Agent
+participant ":RecordInterviewUI" as ui <<UI>>
+participant ":RecordInterviewController" as ctrl <<Application>>
+participant ":JobOpeningApplicationService" as jobApServ <<Service>>
+database ":JobOpeningApplicationRepository" as jobRepo <<Persistence>>
+'participant ":ApplicationService" as appServ <<Service>>
+database ":InterviewRepository" as intRepo <<Persistence>>
+participant "app:JobOpeningApplication" as app <<Domain>>
+participant "interview:Interview" as interview <<Domain>>
+
+
+autonumber
+
+activate Agent
+
+Agent -> ui: Record the time and date for an interview with a candidate
+activate ui
+
+ui -> ctrl: getJobOpeningApplication()
+
+deactivate ui
+
+
+activate ctrl
+
+ctrl -> jobApServ: getJobOpeningApplication()
+deactivate ctrl
+
+activate jobApServ
+
+jobApServ -> jobRepo: getJobOpeningApplication()
+deactivate jobApServ
+activate jobRepo
+
+jobRepo --> jobApServ: JobOpeningApplications
+
+deactivate jobRepo
+
+activate jobApServ
+
+jobApServ --> ctrl: JobOpeningApplications
+deactivate jobApServ
+
+activate ctrl
+
+ctrl --> ui: JobOpeningApplications
+deactivate ctrl
+
+activate ui
+
+ui --> Agent: JobOpeningApplications
+deactivate ui
+
+Agent -> ui: Select the job opening application for which the interview is to be scheduled
+activate ui
+
+ui -> ctrl: getCandidate(jobOpeningApplication)
+deactivate ui
+
+activate ctrl
+
+ctrl -> jobApServ: getCandidate(jobOpeningApplication)
+deactivate ctrl
+
+activate jobApServ
+
+jobApServ -> app: getCandidate(jobOpeningApplication)
+deactivate jobApServ
+
+activate app
+
+app --> jobApServ: Candidate
+deactivate app
+
+activate jobApServ
+
+jobApServ --> ctrl: Candidate
+deactivate jobApServ
+
+activate ctrl
+
+ctrl --> ui: Candidate
+deactivate ctrl
+
+activate ui
+
+ui --> Agent: Candidate
+deactivate ui
+
+Agent -> ui: Record the time and date for an interview with the candidate
+activate ui
+
+ui -> ctrl: recordInterview(jobOpeningApplication, candidate, time, date)
+deactivate ui
+
+activate ctrl
+
+ctrl -> jobApServ: recordInterview(jobOpeningApplication, candidate, time, date)
+deactivate ctrl
+
+activate jobApServ
+
+jobApServ -> intRepo: recordInterview(jobOpeningApplication, candidate, time, date)
+deactivate jobApServ
+
+activate intRepo
+
+intRepo -> jobApServ: Save interview
+deactivate intRepo
+
+activate jobApServ
+
+jobApServ -> interview** : «creates»
+
+jobApServ -> intRepo: getInterview(jobOpeningApplication, candidate, time, date)
+deactivate jobApServ
+
+activate intRepo
+
+intRepo --> jobApServ: Interview
+deactivate intRepo
+
+activate jobApServ
+
+jobApServ --> ctrl: Interview
+deactivate jobApServ
+
+activate ctrl
+
+ctrl --> ui: Interview
+deactivate ctrl
+
+activate ui
+
+ui --> Agent: Interview
+
+
+
+
+
+
+
+@enduml
