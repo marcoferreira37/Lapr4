@@ -104,4 +104,52 @@ public class JobOpeningService {
     public List<Company> companyList() {
         return (List<Company>) companyRepository.findAll();
     }
+
+    public boolean existsJobReference(String jr) {
+        JobOpening job = repository.findJobOpeningByFullReference(jr);
+        JobOpeningProcess jobProcess = processRepository.findJobProcessByJobOpening(job);
+        if (job == null) {
+            System.out.println("Invalid Job Reference!");
+            return false;
+        }else {
+            if (jobProcess.currentPhase() != PhaseType.DRAFT) {
+                System.out.println("Job Opening is not in Draft Phase!");
+                return false;
+            }
+            System.out.println(job);
+            return true;
+        }
+    }
+    public JobOpening jobReferenceToJobOpening(String inputJobReference) {
+        return repository.findJobOpeningByFullReference(inputJobReference);
+    }
+
+    public JobOpening editDescription(JobOpening jobOpening, String newDescription) {
+        jobOpening.setDescription(new Description(newDescription));
+         return repository.save(jobOpening);
+    }
+
+    public JobOpening editAddress(JobOpening jobOpening, String s) {
+        jobOpening.setAddress(new Address(s));
+        return repository.save(jobOpening);
+    }
+
+    public JobOpening editMode(JobOpening j, Mode m){
+        j.setMode(m);
+        return repository.save(j);
+    }
+    public JobOpening editContractType(JobOpening j, ContractType c){
+        j.setContractType(c);
+        return repository.save(j);
+    }
+
+    public JobOpening editTitle(JobOpening jobOpening, String t) {
+        jobOpening.setTitleOrFunction(new TitleOrFunction(t));
+        return repository.save(jobOpening);
+    }
+
+    public JobOpening editNumber(JobOpening jobOpening, int n) {
+        jobOpening.setVacanciesNumber(new VacanciesNumber(n));
+        return repository.save(jobOpening);
+    }
 }
