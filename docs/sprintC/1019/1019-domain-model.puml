@@ -11,18 +11,24 @@ rectangle "Job Opening" #bbccaa {
 
     class TitleOrFunction<<Value Object>>{}
 
-    enum ContractType<<Enumerated>><<Value Object>>{}
+    enum ContractType<<Enumerated>><<Value Object>>{
+        FULL_TIME
+        PART_TIME
+    }
 
-    class Mode<<Enumerated>><<Value Object>>{}
+    enum Mode<<Enumerated>><<Value Object>>{
+        REMOTE
+        ON-SITE
+        HYBRID
+        }
 
 
     class VacanciesNumber<<Value Object>>{}
 
     class Description<<Value Object>>{}
 
-    ''Maybe go to Interview Model
-
 }
+
 
 rectangle "Job Opening Application" #aaccbb {
 
@@ -38,7 +44,8 @@ rectangle "Job Opening Application" #aaccbb {
 
     class ApplicationStatus<<Value Object>>{}
 
-    class ApplicationGrade<<Value Object>>{}
+    class ApplicationRank<<Value Object>>{}
+
 }
 
 
@@ -47,6 +54,44 @@ rectangle candidate #aabbcc{
     class CandidateId<<Identity>><<Value Object>>{}
     class CurriculumVitae<<Value Object>>{}
 }
+
+
+
+rectangle "Job Opening Process" #ccbbcc{
+    class JobOpeningProcess<<Aggregate Root>><<Entity>>{}
+    class JobOpeningProcessId<<Identity>><<Value Object>>{}
+'    class JobOpeningProcessStatus<<Value Object>>{}
+'    class JobOpeningProcessStage<<Value Object>>{}
+    class Phase<<Entity>>{
+        }
+    enum PhaseType<<Enumerated>><<Value Object>>{
+        APPLICATION
+        SCREENING
+        INTERVIEWS
+        ANALYSIS
+        RESULT
+    }
+}
+
+rectangle "Job Opening Interview" #ccbbaa {
+    class JobInterview <<Aggregate Root>><<Entity>>{}
+    class JobInterviewId<<Identity>><<Value Object>>{}
+    class InterviewDate<<Value Object>>{}
+    class InterviewTime<<Value Object>>{}
+    class Score<<Value Object>>{}
+    class InterviewResult<<Value Object>>{}
+}
+
+
+JobInterview "1" -up-> "1" JobInterviewId
+JobInterview "1" -up-> "1" InterviewDate
+JobInterview "1" --> "1" InterviewTime
+JobInterview "1" -> "1" Score
+JobInterview "1" --> "1" InterviewResult
+
+Application "1" -up-> "1" JobInterview
+
+
 
 
 JobReference "1" <-up- "1" JobOpening
@@ -67,8 +112,12 @@ Application "1" --> "1" ApplicatorData
 Application "*" -----> "1" JobOpening : submitted for
 Application "1" -> "1" Candidate : submitted by
 Application "1" --> "1" ApplicationStatus
-Application "1" --> "1" ApplicationGrade
+Application "1" --> "0..1" ApplicationRank
 
 
+JobOpeningProcess "1" -left-> "1" JobOpeningProcessId
+JobOpening "1" -----> "*" JobOpeningProcess : has
+JobOpeningProcess "1" --> "1" Phase
+Phase "1" --> "1" PhaseType
 
 @enduml
