@@ -1,0 +1,24 @@
+@startuml
+
+rectangle application{
+    class JobOpeningApplication<<Aggregate Root>><<Entity>>{}
+
+
+rectangle interview{
+    class Interview<<Aggregate Root>><<Entity>>{}
+
+}
+
+
+rectangle candidate{
+    class Candidate<<Aggregate Root>><<Entity>>{}
+
+}
+JobOpeningApplication"1" o--> "1"Candidate
+
+Candidate"1" o--> "1"Interview
+
+
+
+
+@enduml

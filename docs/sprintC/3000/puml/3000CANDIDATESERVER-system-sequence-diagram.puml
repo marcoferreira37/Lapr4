@@ -1,0 +1,24 @@
+@startuml
+'skinparam monochrome true
+'skinparam packageStyle rectangle
+'skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Get an ordered list of candidates
+
+actor "Customer Manager" as Agent
+participant ":System" as System
+
+activate Agent
+
+Agent -> System : Request to view applications
+
+activate System
+
+System --> Agent: Show list of job openings with status and number of applications
+deactivate
+
+'Meter outro controllador que não é o mesmo do Server
+
+
+
+@enduml

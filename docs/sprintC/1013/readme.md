@@ -146,10 +146,10 @@ Also note that there is US1021 for listing application data
 
 Furthermore, it is necessary to view all the candidates that have applied for the job opening.
 Has dependency in the user stories:
-- G007 -> As a Project Manager, I want the system to support and apply authentication and
+- G007 - As a Project Manager, I want the system to support and apply authentication and
   authorization for all its users and functionalities.
-- 1002 -> As Customer Manager, I want to register a job opening.
-- 2002 -> As Operator, I want to register an application of a candidate for a job opening and
+- 1002 - As Customer Manager, I want to register a job opening.
+- 2002 - As Operator, I want to register an application of a candidate for a job opening and
   import all files received.
 
 ## 3. Analysis
@@ -191,20 +191,44 @@ This includes actions like viewing a list of candidates, assigning a rank, savin
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidences that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
+- The implementation of the candidate ranking feature involves several key components: the UI layer, 
+the business logic layer, and the persistence layer. 
+The primary goal is to allow the Customer Manager to rank candidates for a job opening, save these rankings, and modify 
+them as necessary. The implementation also ensures that all candidates are ranked and that the rankings are persisted.
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+* Controller (OrderedCandidatesController): Manages the interaction with the ApplicationService to rank applications.
+
+* Repository (ApplicationRepository): Handles the persistence of application data, including the rankings assigned by the Customer Manager.
+
+* Repository (ApplicationRepository): Handles the persistence of application data, including the rankings assigned by the Customer Manager.
+
+* Service (ApplicationService): Handles the business logic for ranking applications and persists the changes using the repository.
+
+* UI (OrderedCandidatesUI): Provides a user interface for the Customer Manager to select job openings, view applications, and rank candidates.
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
+* Integration with other system components was verified by:
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+- Ensuring that the OrderedCandidatesController correctly interacts with the ApplicationService.
+- Validating that the ApplicationService correctly persists rankings using the ApplicationRepository.
+- Testing the complete workflow from the UI to the service and persistence layers.
+- To demonstrate this functionality:
+
+1) Run the application.
+2) Navigate to the Ordered Candidates UI.
+3) Select a job opening.
+4) View and rank candidates.
+5) Verify that rankings are saved and can be modified.
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
+* During development, the following considerations were made:
 
-*The team should present here, for instance, a critical perspective on the developed work including the analysis of alternative solutions or related works*
+- UI/UX: The UI was designed to be intuitive, allowing the Customer Manager to easily navigate and rank candidates. 
+Future improvements could include additional filtering and sorting options.
+- Performance: The ranking operation was optimized to ensure quick response times, even with a large number of applications.
+- Extensibility: The current implementation is modular, allowing for future enhancements such as automated initial ranking based on predefined criteria.
 
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+- Alternative solutions considered included automated ranking based on interview scores, 
+but this was deferred to future work to keep the initial implementation simple and focused on manual ranking by the Customer Manager.

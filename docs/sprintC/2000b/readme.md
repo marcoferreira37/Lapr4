@@ -10,11 +10,11 @@ This task involves enabling the Operator to enable/disable a candidate in the sy
 
 **Acceptance Criteria:**
 
-- 2000a.1. The system provides a functionality for Operators to enable/disable candidates inside the system.
+- 2000b.1. The system provides a functionality for Operators to enable/disable candidates inside the system.
 
-- 2000a.2. The system shall provide a registration form to input the candidate's email.
+- 2000b.2. The system shall provide a registration form to input the candidate's email.
 
-- 2000a.3. The candidate's information (if he's active or disabled) shall be saved in the system's database, ensuring data integrity and accessibility.
+- 2000b.3. The candidate's information (if he's active or disabled) shall be saved in the system's database, ensuring data integrity and accessibility.
 
 **Dependencies/References:**
 

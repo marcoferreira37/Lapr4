@@ -1,0 +1,35 @@
+@startuml
+'skinparam monochrome true
+'skinparam packageStyle rectangle
+'skinparam shadowing false
+
+title System Sequence Diagram (SSD) -  Record an interview with a candidate
+
+actor "Customer Manager" as Agent
+participant ":System" as System
+
+activate Agent
+
+Agent -> System : Record the time and date for an interview with a candidate
+activate System
+
+System --> Agent: Show list of job opening applications
+deactivate
+
+Agent -> System : Select a job opening application
+activate System
+
+System --> Agent : Show the job opening application selected and the candidate associated with it
+System --> Agent : Request information about the interview date and time
+deactivate
+
+Agent -> System : Types the interview date and time
+activate System
+
+System --> Agent : Confirm the interview date and time
+
+
+
+deactivate Agent
+
+@enduml
