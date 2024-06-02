@@ -100,4 +100,10 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     public JobOpening jobOpening() {
         return jobOpening;
     }
+    public void updatePhaseDate(Phase phase){
+        this.phaseDate = phase;
+    }
+    public Phase phaseDate(){
+        return phaseDate;
+    }
 }
