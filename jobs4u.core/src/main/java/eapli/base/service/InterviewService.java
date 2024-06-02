@@ -21,9 +21,9 @@ public class InterviewService {
     public JobInterview recordInterview(Calendar interviewDate, String interviewTime, JobOpeningApplication jobOpeningApplication) {
         try {
             return repository.save(new JobInterview(interviewTime, interviewDate, jobOpeningApplication));
-        } catch (Exception e) {
-            System.out.println("Something went wrong while trying to record the interview.");
-            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error recording the interview: " + e.getMessage());
+            // Lógica adicional para lidar com o erro, como solicitar novos valores
         }
         return null;
 

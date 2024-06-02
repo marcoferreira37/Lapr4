@@ -84,11 +84,10 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
 
     @Override
     public String toString() {
-        return "JobOpeningApplication - {" +
+        return "JobOpeningApplication " +
                "\n Id =" + id +
                "\n Candidate Email:" + candidate.identity() +
-               "\n Job Reference :" + jobOpening.getJobReference().fullReference() +
-               '}';
+               "\n Job Reference :" + jobOpening.getJobReference().fullReference();
     }
 
     /**
