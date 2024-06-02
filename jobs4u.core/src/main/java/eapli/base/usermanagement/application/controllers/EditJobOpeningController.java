@@ -96,12 +96,13 @@ public class EditJobOpeningController {
     public String viewJobOpening() {
         return jobOpening.toString();
     }
-    public void addEdits() {
+    public boolean addEdits() {
         for (Editable edit : Editable.values()) {
             if (Console.readBoolean("Do you want to update " + edit.toString() + "? (y/n)")) {
                 edits.add(edit);
             }
         }
+        return !edits.isEmpty();
     }
 
     public void cycleEdits() {

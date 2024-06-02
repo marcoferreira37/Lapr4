@@ -15,7 +15,9 @@ public class EditJobOpeningUI extends AbstractUI {
     protected boolean doShow() {
         String inputJobReference = grabJobReference();
         controller.transformJobReferenceToJobOpening(inputJobReference);
-        controller.addEdits();
+        if (!controller.addEdits()){
+            return false;
+        }
         controller.cycleEdits();
 
         System.out.println("Updated Job Opening: \n" + controller.viewJobOpening());
