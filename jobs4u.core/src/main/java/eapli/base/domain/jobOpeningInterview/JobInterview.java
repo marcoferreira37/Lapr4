@@ -1,7 +1,9 @@
 package eapli.base.domain.jobOpeningInterview;
 
 import eapli.base.domain.jobApplication.JobOpeningApplication;
+import eapli.base.utils.Validations;
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.Getter;
@@ -34,11 +36,40 @@ public class JobInterview implements AggregateRoot<Long> {
     private int grade;
 
     public JobInterview(String interviewTime, Calendar interviewDate, JobOpeningApplication jobOpeningApplication) {
+
+        validateInterviewTimeNotNull(interviewTime);
+
+        validateInterviewDate(interviewDate);
+
+        validateJobOpeningApplication(jobOpeningApplication);
+
         this.interviewTime = interviewTime;
         this.interviewDate = interviewDate;
         this.jobOpeningApplication = jobOpeningApplication;
 
     }
+
+    public void validateJobOpeningApplication(JobOpeningApplication jobOpeningApplication) {
+        if (jobOpeningApplication == null) {
+            throw new IllegalArgumentException("Job Opening Application must not be null");
+        }
+
+    }
+
+    public void validateInterviewDate(Calendar interviewDate) {
+        if (interviewDate.before(Calendar.getInstance())) {
+            throw new IllegalArgumentException("Interview Date must not be in the past");
+        }
+        
+    }
+
+    public void validateInterviewTimeNotNull(String interviewTime) {
+        if (interviewTime == null) {
+            throw new IllegalArgumentException("Interview Time must not be null");
+        }
+        
+    }
+
 
     public JobInterview(String interviewTime, Calendar interviewDate, JobOpeningApplication jobOpeningApplication, int grade) {
         this.interviewTime = interviewTime;
@@ -63,9 +94,9 @@ public class JobInterview implements AggregateRoot<Long> {
         if (other == null || getClass() != other.getClass()) return false;
         JobInterview that = (JobInterview) other;
         return Objects.equals(id, that.id) &&
-               Objects.equals(jobOpeningApplication, that.jobOpeningApplication) &&
-               Objects.equals(interviewTime, that.interviewTime) &&
-               Objects.equals(interviewDate, that.interviewDate);
+                Objects.equals(jobOpeningApplication, that.jobOpeningApplication) &&
+                Objects.equals(interviewTime, that.interviewTime) &&
+                Objects.equals(interviewDate, that.interviewDate);
     }
 
     @Override
@@ -91,13 +122,12 @@ public class JobInterview implements AggregateRoot<Long> {
 
     @Override
     public String toString() {
-        return "JobInterview { " +
-               "id=" + id +
-               ", jobOpeningApplication=" + jobOpeningApplication +
-               ", interviewTime='" + interviewTime + '\'' +
-               ", interviewDate=" + interviewDate +
-               ", grade=" + grade +
-               '}';
+        return "----- JobInterview -----" +
+                "\nid= " + id +
+                "\njobOpeningApplication= " + jobOpeningApplication +
+                "\ninterviewTime= " + interviewTime + '\'' +
+                "\ninterviewDate= " + interviewDate +
+                "\ngrade= " + grade;
     }
 
     public void gradeInterview(int grade) {
