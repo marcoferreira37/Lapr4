@@ -16,6 +16,8 @@ import java.util.List;
 public class RecordInterviewUI extends AbstractUI {
 
     public RecordInterviewController recordController = new RecordInterviewController();
+    boolean validInput = false;
+
 
     @Override
     protected boolean doShow() {
@@ -26,38 +28,33 @@ public class RecordInterviewUI extends AbstractUI {
             jobOpeningApplicationsList.add(application);
         }
 
-// Exiba as aplicações
+// Show the list of job opening applications
         System.out.println("Job Opening Applications:");
         int i = 1;
         for (JobOpeningApplication jobOpeningApplication : jobOpeningApplicationsList) {
             System.out.println(i + ". " + jobOpeningApplication.toString());
             i++;
         }
-
-// Leia o índice selecionado pelo usuário
         int jobIndex = Console.readInteger("Choose a Job Opening Application: ") - 1;
 
-// Verifique se o índice é válido
+// Verify if the index is valid
         JobOpeningApplication selectedApplication = jobOpeningApplicationsList.get(jobIndex);
         System.out.println("Job Opening Application chosen: " + selectedApplication.toString());
 
+        while (!validInput) {
+            try {
+                Calendar interviewDate = Console.readCalendar("Interview Date (dd-MM-yyyy): ");
+                interviewDate.add(Calendar.DAY_OF_MONTH, 1); // Definindo a data para amanhã
+
+                String interviewTime = Console.readLine("Interview Time (HH:mm): ");
 
 
-        // Obtenha o candidato correspondente
-
-        Candidate candidate1 = selectedApplication.candidate();
-        System.out.println("Candidate: " + candidate1.toString());
-
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-        Calendar interviewDate = Console.readCalendar("Interview Date (dd-MM-yyyy): ");
-//        String newDate =sdf.format(interviewDate.getTime());
-        String interviewTime = Console.readLine("Interview Time (HH:mm): ");
-
-
-        recordController.recordInterview(interviewDate, interviewTime, selectedApplication);
-
-
+                System.out.println(recordController.recordInterview(interviewDate, interviewTime, selectedApplication));
+                validInput = true;
+            }catch (IllegalArgumentException e) {
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
         return true;
     }
 
@@ -65,5 +62,5 @@ public class RecordInterviewUI extends AbstractUI {
     public String headline() {
         return "Record Interview";
     }
-
 }
+
