@@ -107,25 +107,151 @@ loop for each Editable in edits
         deactivate repository
         service --> controller: return jobOpening
         deactivate service
-        deactivate controller
+
     else Editable.ADDRESS
+
 
         controller -> service: editAddress()
         activate service
+        service --> controller: editString(Editable.ADDRESS)
+        deactivate service
+        controller --> ui: editString(Editable.ADDRESS)
+        deactivate controller
+        ui --> u: Requests new value for address
+        deactivate ui
+        u -> ui: Inputs new address
+        activate ui
+        ui -> controller: return address
+        activate controller
+        controller -> service: saveAddress(address)
+        activate service
+        service -> jobOpening: setAddress(address)
+        activate jobOpening
+        jobOpening -> jobOpening: this.address = address
+        jobOpening --> service: return jobOpening
+        deactivate jobOpening
+        service -> repository: save(jobOpening)
+        activate repository
+        repository --> service: return jobOpening
+        deactivate repository
+        service --> controller: return jobOpening
+        deactivate service
 
     else Editable.JOB_TITLE
         controller -> service: editJobTitle()
+        activate service
+                service --> controller: editString(Editable.JOB_TITLE)
+                deactivate service
+                controller --> ui: editString(Editable.JOB_TITLE)
+                deactivate controller
+                ui --> u: Requests new value for job title
+                deactivate ui
+                u -> ui: Inputs new job title
+                activate ui
+                ui -> controller: return title
+                activate controller
+                controller -> service: saveDescription(title
+                activate service
+                service -> jobOpening: setDescription(title)
+                activate jobOpening
+                jobOpening -> jobOpening: this.titleOrFunction = title
+                jobOpening --> service: return jobOpening
+                deactivate jobOpening
+                service -> repository: save(jobOpening)
+                activate repository
+                repository --> service: return jobOpening
+                deactivate repository
+                service --> controller: return jobOpening
+                deactivate service
     else Editable.Mode
         controller -> service: editMode()
+        activate service
+        service --> controller: editEnum(Editable.Mode, Mode FullTime)
+        deactivate service
+        controller --> ui: editEnum(Editable.Mode, Mode FullTime)
+        deactivate controller
+        ui --> u: Requests new value for mode
+        deactivate ui
+        u -> ui: Inputs new mode
+        activate ui
+        ui -> controller: return mode
+        activate controller
+        controller -> service: saveMode(mode)
+        activate service
+        service -> jobOpening: setMode(mode)
+        activate jobOpening
+        jobOpening -> jobOpening: this.mode = mode
+        jobOpening --> service: return jobOpening
+        deactivate jobOpening
+        service -> repository: save(jobOpening)
+        activate repository
+        repository --> service: return jobOpening
+        deactivate repository
+        service --> controller: return jobOpening
+        deactivate service
+
     else Editable.CONTRACT_TYPE
         controller -> service: editContractType()
+        activate service
+        service --> controller: editEnum(Editable.CONTRACT_TYPE, ContractType ONSITE)
+        deactivate service
+        controller --> ui: editEnum(Editable.CONTRACT_TYPE, ContractType ONSITE)
+        deactivate controller
+        ui --> u: Requests new value for contract type
+        deactivate ui
+        u -> ui: Inputs new contract type
+        activate ui
+        ui -> controller: return contractType
+        activate controller
+        controller -> service: saveContractType(contractType)
+        activate service
+        service -> jobOpening: setContractType(contractType)
+        activate jobOpening
+        jobOpening -> jobOpening: this.contractType = contractType
+        jobOpening --> service: return jobOpening
+        deactivate jobOpening
+        service -> repository: save(jobOpening)
+        activate repository
+        repository --> service: return jobOpening
+        deactivate repository
+        service --> controller: return jobOpening
+        deactivate service
     else Editable.VACANCIES_NUMBER
         controller -> service: editVacanciesNumber()
+        activate service
+        service --> controller: editInt(Editable.VACANCIES_NUMBER)
+        deactivate service
+        controller --> ui: editInt(Editable.VACANCIES_NUMBER)
+        deactivate controller
+        ui --> u: Requests new value for vacancies number
+        deactivate ui
+        u -> ui: Inputs new vacancies number
+        activate ui
+        ui -> controller: return vacanciesNumber
+        activate controller
+        controller -> service: saveVacanciesNumber(vacanciesNumber)
+        activate service
+        service -> jobOpening: setVacanciesNumber(vacanciesNumber)
+        activate jobOpening
+        jobOpening -> jobOpening: this.vacanciesNumber = vacanciesNumber
+        jobOpening --> service: return jobOpening
+        deactivate jobOpening
+        service -> repository: save(jobOpening)
+        activate repository
+        repository --> service: return jobOpening
+        deactivate repository
+        service --> controller: return jobOpening
+        deactivate service
+
     end
 
 end
 deactivate service
+
+controller --> ui: displayJobOpening(jobOpening)
+
 deactivate controller
+
 ui --> u: displays job opening and success message
 deactivate ui
 
