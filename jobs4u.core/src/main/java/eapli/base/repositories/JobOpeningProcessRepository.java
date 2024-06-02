@@ -7,4 +7,6 @@ import eapli.framework.domain.repositories.DomainRepository;
 
 public interface JobOpeningProcessRepository extends DomainRepository<Long, JobOpeningProcess> {
     JobOpeningProcess findById(long id);
+
+    JobOpeningProcess findJobProcessByJobOpening(JobOpening job);
 }
