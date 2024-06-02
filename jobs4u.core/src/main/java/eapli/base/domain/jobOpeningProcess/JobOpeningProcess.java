@@ -32,6 +32,7 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
 
 
     public JobOpeningProcess(JobOpening jobOpening,Phase phase) {
+        this.jobOpening = jobOpening;
         this.currentPhase = PhaseType.DRAFT;
         this.phaseDate = phase;
         status = Status.OPENED;
