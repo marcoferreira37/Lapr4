@@ -30,7 +30,7 @@ public class JpaJobProcessRepository extends JpaAutoTxRepository<JobOpeningProce
 
     @Override
     public JobOpeningProcess findJobProcessByJobOpening(JobOpening job) {
-        final Map<String, Object> params = Map.of("job", job);
-        return (matchOne("e.job=:job", params).orElseThrow(IllegalArgumentException::new));
+        final Map<String, Object> params = Map.of("jobOpening", job);
+        return (matchOne("e.jobOpening=:jobOpening", params).orElseThrow(IllegalArgumentException::new));
     }
 }
