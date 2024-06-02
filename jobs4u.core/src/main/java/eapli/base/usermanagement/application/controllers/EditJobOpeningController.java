@@ -98,7 +98,7 @@ public class EditJobOpeningController {
     }
     public boolean addEdits() {
         for (Editable edit : Editable.values()) {
-            if (Console.readBoolean("Do you want to update " + edit.toString() + "? (y/n)")) {
+            if (Console.readBoolean("Do you want to update " + edit.toString().replace("-"," ") + "? (y/n)")) {
                 edits.add(edit);
             }
         }
@@ -116,14 +116,21 @@ public class EditJobOpeningController {
                     break;
                 case Address:
                     editAddress();
+                    break;
                 case Mode:
                     editMode();
+                    break;
                 case Contract_Type:
                     editContractType();
+                    break;
                 case Title_Or_Function:
                     editTitle();
+                    break;
                 case Vacancies_Number:
                     editVacanciesNumber();
+                    break;
+                default:
+                    break;
             }
         }
     }
