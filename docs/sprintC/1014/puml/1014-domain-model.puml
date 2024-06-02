@@ -15,11 +15,6 @@ rectangle "Job Opening Application" #aaccbb {
 }
 
 
-rectangle candidate #aabbcc{
-    class Candidate<<Aggregate Root>><<Entity>>{}
-    class CandidateId<<Identity>><<Value Object>>{}
-    class CurriculumVitae<<Value Object>>{}
-}
 
 
 
@@ -38,15 +33,13 @@ rectangle candidate #aabbcc{
 
 
 
-Candidate "1"--> "1" CandidateId
-Candidate "1"--> "1" CurriculumVitae
+
 
 
 Application "1" --> "1" ApplicationId
 Application "1" --> "1" AttachedEmail
 Application "1" --> "1" AttachedFile
 Application "1" --> "1" ApplicatorData
-Application "1" -> "1" Candidate : submitted by
 Application "1" --> "1" ApplicationStatus
 Application "1" --> "1" ApplicationGrade
 
@@ -56,7 +49,6 @@ JobInterview "1" --> "1" InterviewTime
 JobInterview "1" -> "1" Score
 JobInterview "1" --> "1" InterviewResult
 
-JobInterview "1" -> "1" Candidate : with
-
+Application "1" --> "1" JobInterview
 
 @enduml
