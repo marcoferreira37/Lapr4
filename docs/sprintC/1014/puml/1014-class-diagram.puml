@@ -10,13 +10,9 @@ rectangle interview{
 }
 
 
-rectangle candidate{
-    class Candidate<<Aggregate Root>><<Entity>>{}
 
-}
-JobOpeningApplication"1" o--> "1"Candidate
+JobOpeningApplication"1" o--> "1"Interview
 
-Candidate"1" o--> "1"Interview
 
 
 
