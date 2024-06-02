@@ -2,6 +2,7 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
 import eapli.base.repositories.CandidateRepository;
 import eapli.base.repositories.JobOpeningProcessRepository;
@@ -25,5 +26,11 @@ public class JpaJobProcessRepository extends JpaAutoTxRepository<JobOpeningProce
     public JobOpeningProcess findById(long id) {
         final Map<String, Object> params = Map.of("id", id);
         return (matchOne("e.id=:id", params).orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Override
+    public JobOpeningProcess findJobProcessByJobOpening(JobOpening job) {
+        final Map<String, Object> params = Map.of("jobOpening", job);
+        return (matchOne("e.jobOpening=:jobOpening", params).orElseThrow(IllegalArgumentException::new));
     }
 }

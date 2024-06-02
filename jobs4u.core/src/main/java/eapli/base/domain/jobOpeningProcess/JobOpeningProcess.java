@@ -32,7 +32,8 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
 
 
     public JobOpeningProcess(JobOpening jobOpening,Phase phase) {
-        this.currentPhase = PhaseType.REVIEW;
+        this.jobOpening = jobOpening;
+        this.currentPhase = PhaseType.DRAFT;
         this.phaseDate = phase;
         status = Status.OPENED;
     }
@@ -50,6 +51,9 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
 
     public void goBackToPreviousPhase(boolean interviewPhase) {
         currentPhase = currentPhase.previousPhase(interviewPhase);
+    }
+    public void changeCurrentPhase(PhaseType phaseType) {
+        currentPhase = phaseType;
     }
 
     public void skipToNextPhase() {
@@ -91,5 +95,9 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     @Override
     public Long identity() {
         return id;
+    }
+
+    public JobOpening jobOpening() {
+        return jobOpening;
     }
 }

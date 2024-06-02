@@ -89,8 +89,8 @@ public class UpdateJobOpeningUI extends AbstractUI {
               */
                 break;
             case "5":
-                editJobOpening(jobOpening);
-                System.out.println("New job opening: " + jobOpening + "\n\n");
+                EditJobOpeningUI ui = new EditJobOpeningUI();
+                ui.doShow();
                 break;
         }
         if (jobOpening == null) return false;

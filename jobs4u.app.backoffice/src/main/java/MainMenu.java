@@ -146,7 +146,6 @@ public class MainMenu extends AbstractUI {
 
         return menu;
     }
-
     private Menu buildCustomerManagerMenu() {
         final Menu menu = new Menu("Customer Manager >");
 
@@ -158,11 +157,12 @@ public class MainMenu extends AbstractUI {
         menu.addItem(6, "List All Applications for a Job Opening", new ListAllApplicationsForJobOpeningUI()::show);
         menu.addItem(7, "List Job Openings", new ListJobOpeningUI()::show);
         menu.addItem(8, "Update a Job Opening", new UpdateJobOpeningUI()::show);
-        menu.addItem(9, "Rank Applications ", new RankApplicationUI()::show);
-        menu.addItem(10, "Record the time and the date for an interview", new RecordInterviewUI()::show);
-        menu.addItem(11, "Execute interview grading", new InterviewGradingUI()::show);
-        menu.addItem(12, "Ordered Candidates", new OrderedCandidatesUI()::show);
-        menu.addItem(13, RETURN_LABEL, Actions.SUCCESS);
+        menu.addItem(9,"Edit a Job Opening",new EditJobOpeningUI()::show);
+        menu.addItem(10, "Rank Applications ", new RankApplicationUI()::show);
+        menu.addItem(11,"Record the time and the date for an interview", new RecordInterviewUI()::show);
+        menu.addItem(12,"Execute interview grading", new InterviewGradingUI()::show);
+        menu.addItem(13, "Ordered Candidates", new OrderedCandidatesUI()::show);
+        menu.addItem(14, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 

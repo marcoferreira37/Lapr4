@@ -1,0 +1,74 @@
+---
+
+**Juan Rodriguez**
+
+789 Oak Avenue, Los Angeles, CA, 56789 | 961234777 | david.rodriguez@email.com
+
+---
+
+**Objective**
+
+
+Results-driven software engineer with a passion for developing scalable solutions. Seeking a challenging role where I can leverage my expertise in backend development and cloud computing to contribute to innovative projects.
+
+---
+
+**Education**
+
+
+**Master of Science in Computer Science**
+
+University of California, Los Angeles, CA
+
+September 2017 - May 2019
+
+---
+
+**Skills**
+
+-Proficient in Java, Python, and JavaScript
+-Strong understanding of distributed systems and cloud technologies (AWS, Azure)
+-Excellent problem-solving and critical thinking abilities
+
+---
+
+**Work Experience**
+
+**Software Engineer**
+
+Tech Innovations, Inc., Los Angeles, CA
+
+June 2019 - Present
+
+-Designed and implemented RESTful APIs to support new product features, improving system performance by 30%
+-Collaborated with cross-functional teams to troubleshoot and resolve critical issues in production environments
+-Led the migration of legacy systems to cloud-based infrastructure, resulting in improved scalability and cost efficiency
+
+
+---
+
+**Projects**
+
+**E-commerce Platform Backend**
+
+-Developed a scalable backend system to support an e-commerce platform, handling millions of transactions per day
+-Implemented features such as user authentication, product catalog management, and order processing
+-Utilized microservices architecture and containerization with Docker and Kubernetes
+
+---
+
+**Certifications**
+
+**AWS Certified Solutions Architect - Associate**
+
+Amazon Web Services
+
+February 2020
+
+---
+
+**References**
+
+Available upon request
+
+---

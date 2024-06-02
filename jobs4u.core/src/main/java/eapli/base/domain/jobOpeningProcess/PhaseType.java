@@ -1,7 +1,7 @@
 package eapli.base.domain.jobOpeningProcess;
 
 public enum PhaseType {
-    REVIEW,
+    DRAFT,
     APPLICATION,
     SCREENING,
     INTERVIEWS,
@@ -12,8 +12,8 @@ public enum PhaseType {
         if (interviewPhase) {
             return INTERVIEWS;
         }
-        if(this == REVIEW){
-            return REVIEW;
+        if(this == DRAFT){
+            return APPLICATION;
         }
         if (this == APPLICATION) {
             return SCREENING;
@@ -35,7 +35,7 @@ public enum PhaseType {
         }
 
         if (this== APPLICATION){
-            return REVIEW;
+            return DRAFT;
         }
         if (this == SCREENING) {
             return APPLICATION;
