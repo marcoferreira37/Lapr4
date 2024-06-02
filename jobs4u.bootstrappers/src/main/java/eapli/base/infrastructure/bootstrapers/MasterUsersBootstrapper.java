@@ -79,10 +79,11 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpeningApplication application8 = registerApplication(jo3, candida3);
 
         Calendar date = Calendar.getInstance();
-        JobInterview interview1 = registerInterview(date, "11:00", application5);
-        JobInterview interview2 = registerInterview(date, "12:00", application6);
-        JobInterview interview3 = registerInterview(date, "13:00", application7);
-        JobInterview interview4 = registerInterview(date, "14:00", application8);
+        JobInterview interview1 = registerInterview(date,"11:00", application5);
+        JobInterview interview2 = registerInterview(date,"12:00", application6);
+        JobInterview interview3 = registerInterview(date,"13:00", application7);
+        JobInterview interview4 = registerInterview(date,"14:00", application8);
+
         System.out.println(candida);
         System.out.println(candida2);
         System.out.println(candida3);
