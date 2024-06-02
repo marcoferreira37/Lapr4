@@ -1,0 +1,44 @@
+@startuml
+rectangle "Job Opening" #bbccaa {
+
+    class JobOpening<<Aggregate Root>><<Entity>>{}
+
+    class JobReference<<Identity>><<Value Object>>{}
+
+    class TitleOrFunction<<Value Object>>{}
+
+    enum ContractType<<Enumerated>><<Value Object>>{
+        FULL_TIME
+        PART_TIME
+    }
+
+    enum Mode<<Enumerated>><<Value Object>>{
+        REMOTE
+        ON-SITE
+        HYBRID
+        }
+
+
+    class VacanciesNumber<<Value Object>>{}
+
+    class Description<<Value Object>>{}
+'
+'    class PhaseDates<<Entity>>{}
+'    enum PhaseType<<Enumerated>><<Value Object>>{
+'                APPLICATION
+'                SCREENING
+'                INTERVIEWS
+'                ANALYSIS
+'                RESULT
+'            }
+'     JobOpening "1" --> "0..1" PhaseDates
+'     PhaseDates "1" --> "1" PhaseType
+}
+
+JobReference "1" <-up- "1" JobOpening
+TitleOrFunction "1" <-up- "1" JobOpening
+ContractType "1" <-- "1" JobOpening
+Mode "1" <-- "1" JobOpening
+Description "1" <-up- "1" JobOpening
+VacanciesNumber "1" <-up- "1" JobOpening
+@enduml
