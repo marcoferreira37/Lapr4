@@ -91,6 +91,9 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
 
     public void skipToNextPhase() {
         switch (currentPhase) {
+            case DRAFT:
+                currentPhase = PhaseType.APPLICATION;
+                break;
             case APPLICATION:
                 currentPhase = PhaseType.SCREENING;
                 break;
