@@ -2,67 +2,70 @@
 
 actor CustomerManager as CM
 participant UploadInterviewAnswersFileUI as UI <<UI>>
-participant ListCandidatesController as CTRLList <<Application>>
-participant CandidateManagementService as UMS <<Service>>
-participant CandidateRepository as CRepo <<Persistence>>
+participant ListAllDataOfCandidateController as C <<Application>>
+participant "PersistenceContext" as P <<Service>>
+participant "RepositoryFactory" as RF <<Persistence>>
+participant "CandidateRepository" as CR <<Persistence>>
+participant "JobOpeningApplicationRepository" as JAR <<Persistence>>
+
 participant UpdateInterviewAnswerController as CTRL <<Application>>
-participant Candidate as CAN <<Domain>>
 participant ApplicationService as APPS <<Service>>
-participant ApplicationRepository AS APPRepo <<Persistence>>
 participant Applications as Aps <<Domain>>
 
 
 
 
 activate CM
-
 CM -> UI: Requests to Upload Interview Answers File
 activate UI
+UI -> C : allCandidates()
+activate C
+C -> P: repositories()
+activate P
+P --> C: return repositories
+deactivate P
+C -> RF: candidateRepository()
+activate RF
+RF --> C: return candidateRepository
+deactivate RF
+C -> CR: findAllCandidates()
+activate CR
+CR --> C: return Iterable<Candidate>
+deactivate CR
+C --> UI: return Iterable<Candidate>
+deactivate C
+UI --> CM: Display Candidates Id's (emails) list and asks to choose one
+deactivate UI
+CM->UI: Inputs index of candidate
+activate UI
+UI -> C: allApplicationsById (candidates.get ( index ) )
+activate C
+C -> P: repositories()
+activate P
+P --> C: return repositories
+deactivate P
+C -> RF: jobOpeningApplicationRepository()
+activate RF
+RF --> C: return jobOpeningApplicationRepository
+deactivate RF
+C -> JAR: findAllApplicationsByCandidateId(candidates.get ( index ).getId())
+activate JAR
+JAR --> C: return Iterable<JobOpeningApplication>
+deactivate JAR
+C --> UI: return Iterable<JobOpeningApplication>
+deactivate C
 
 
-UI-> CTRLList: get all candidates from database
-activate CTRLList
-CTRLList-->CTRLList:allCandidates()
-CTRLList-> UMS : allCandidate()
-activate UMS
-UMS->CRepo: findAllCandidates()
-activate CRepo
-CRepo --> UMS: all candidates
-deactivate CRepo
-UMS-->CTRLList: all candidates
-deactivate UMS
-CTRLList-->UI : all candidates
-deactivate CTRLList
-UI --> CM:Displays the candidates list
 
-CM->UI : Select a candidate
 
-UI -> CTRL: allApplicationsOfCandidate(candidate)
-activate CTRL
-
-CTRL -> CAN : identity()
-activate CAN
-CAN --> CTRL : identity
-deactivate CAN
-
-CTRL -> APPS : allApplicationsOfCandidate(identity)
-activate APPS
-APPS -> APPRepo: findApplicationByCandidateID(candidateID)
-activate APPRepo
-APPRepo--> APPS: allApplicationsOfCandidate
-deactivate APPRepo
-
-APPS-->CTRL : allApplicationsOfCandidate
-
-deactivate APPS
-CTRL-->UI:allApplicationsOfCandidate
-deactivate CTRL
 UI--> CM : Show all job applications of the selected candidate
-
+deactivate UI
 CM->UI : Selects a application
+activate UI
 UI-->CM: Requests the path of the file that's being uploaded
+deactivate UI
 CM->UI: Provides the path of the file
-
+activate UI
 UI->CTRL : uploadInterviewAnswersFile (application, filePath)
 activate CTRL
 CTRL->APPS: uploadInterviewAnswersFile (application, filePath)
