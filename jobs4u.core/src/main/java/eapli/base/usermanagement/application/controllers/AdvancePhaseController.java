@@ -26,6 +26,9 @@ public class AdvancePhaseController {
     public JobOpeningProcess updatePhase(JobOpening job, int choice, boolean interviewPhase){
         jobOpening = job;
         jobProcess = service.jobProcessFromJobOpening(job);
+        if (jobProcess.checkIfDatesWerentSetup()) {
+            return null;
+        }
         System.out.println("Old phase: " + jobProcess.currentPhase() + " Status: " + jobProcess.status());
         if(choice == 1){
             jobProcess = service.advanceToNextPhase(jobProcess,interviewPhase);
