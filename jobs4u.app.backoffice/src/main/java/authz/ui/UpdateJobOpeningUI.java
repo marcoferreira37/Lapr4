@@ -3,6 +3,7 @@ package authz.ui;
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.domain.jobOpening.*;
 import eapli.base.domain.jobOpeningProcess.Phase;
+import eapli.base.usermanagement.application.controllers.AdvancePhaseController;
 import eapli.base.usermanagement.application.controllers.UpdateJobOpeningController;
 import eapli.framework.io.util.Console;
 
@@ -17,6 +18,7 @@ public class UpdateJobOpeningUI extends AbstractUI {
 
 
     private final UpdateJobOpeningController controller = new UpdateJobOpeningController();
+    private final AdvancePhaseController advancePhaseController = new AdvancePhaseController();
     @Override
     protected boolean doShow() {
         List<JobOpening> jobs  = controller.allJobs();
@@ -49,7 +51,7 @@ public class UpdateJobOpeningUI extends AbstractUI {
 
                 Phase phase = controller.buildPhase(application, screening, interview, analysis, results);
 
-                jobOpening = controller.updateDates(jobOpening, phase);
+                controller.updateDates(jobOpening, phase);
                 break;
             case "2":
                 File[] requirements = controller.showRequirements();
@@ -62,8 +64,8 @@ public class UpdateJobOpeningUI extends AbstractUI {
                 controller.updateInterview(jobOpening,interviews[interviewsIndex-1].getName());
                 break;
             case "4":
-                /*
-                controller.showJobPhases(jobOpening);
+
+
                 System.out.println("1. Advance to next phase");
                 System.out.println("2. Go back to previous phase");
                 int change = Console.readInteger("What do you wish to do?\n");
@@ -85,8 +87,8 @@ public class UpdateJobOpeningUI extends AbstractUI {
                 }
 
 
-               jobOpening = controller.updatePhase(jobOpening,change,interviewPhase);
-              */
+                controller.updatePhase(jobOpening,change,interviewPhase);
+
                 break;
             case "5":
                 EditJobOpeningUI ui = new EditJobOpeningUI();
@@ -94,66 +96,11 @@ public class UpdateJobOpeningUI extends AbstractUI {
                 break;
         }
         if (jobOpening == null) return false;
-        System.out.println(jobOpening);
         System.out.println("\n\nJob Opening updated successfully");
         return true;
 
 
     }
-    private void editJobOpening(JobOpening jobOpening) {
-        System.out.println(jobOpening);
-
-        if (isToUpdate("Description")) jobOpening.setDescription(new Description(updateString("Description")));
-        if (isToUpdate("Address")) jobOpening.setAddress(new Address(updateString("Address")));
-        if (isToUpdate("Mode")) jobOpening.setMode((Mode) updateEnum("Mode", jobOpening.getMode()));
-        if (isToUpdate("Contract Type"))
-            jobOpening.setContractType((ContractType) updateEnum("Contract type", jobOpening.getContractType()));
-        if (isToUpdate("Title")) jobOpening.setTitleOrFunction(new TitleOrFunction(updateString("Title")));
-        if (isToUpdate("Vacancies number"))
-            jobOpening.setVacanciesNumber(new VacanciesNumber(updateInteger("Vacancies number")));
-        if (isToUpdate("Company")) jobOpening = updateCompany(jobOpening);
-
-        controller.editJobOpening(jobOpening);
-    }
-
-    private JobOpening updateCompany(JobOpening jobOpening) {
-        return controller.updateCompany(jobOpening);
-    }
-
-    public String updateString(String atribute) {
-        do {
-            String s = Console.readLine("New " + atribute + " :");
-            if (!s.isEmpty()) {
-                return s;
-            } else {
-                System.out.println(ANSI_RED + "Invalid input!" + ANSI_RESET);
-            }
-        } while (true);
-
-    }
-
-    public Enum updateEnum(String atribute, Enum e) {
-        int option;
-        int index = 1;
-        List<Enum> modes = List.of(e.getClass().getEnumConstants());
-        for (Enum m : modes) {
-            System.out.println(index + " - " + m);
-            index++;
-        }
-        option = Console.readInteger("Choose a " + atribute + ": ");
-        return modes.get(option - 1);
-
-    }
-
-    public int updateInteger(String atribute) {
-        return Console.readInteger("New " + atribute + " number: ");
-    }
-
-    public boolean isToUpdate(String atribute) {
-        System.out.println("Do you wish to update the " + atribute + " ?");
-        return Console.readBoolean("Y/N");
-    }
-
 
     @Override
     public String headline() {
