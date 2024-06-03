@@ -21,7 +21,11 @@
 package eapli.base.infrastructure.bootstrapers;
 
 import eapli.base.domain.jobOpeningInterview.JobInterview;
+import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
+import eapli.base.domain.jobOpeningProcess.PhaseType;
+import eapli.base.domain.jobOpeningProcess.Status;
 import eapli.base.repositories.JobInterviewRepository;
+import eapli.base.repositories.JobOpeningProcessRepository;
 import eapli.base.usermanagement.application.controllers.AddJobOpeningController;
 import eapli.base.usermanagement.application.controllers.AddJobApplicationController;
 import eapli.base.domain.candidate.Candidate;
@@ -60,14 +64,20 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         Candidate candida5 = registerCandidateWithCurriculum("fisco2", TestDataConstants.PASSWORD1, "Fisco", "Fiasco", EmailAddress.valueOf("fiascos2@somosnos.com"), "Curriculum com jopedrito a fumar ganza no parque ya");
 
 
-
-
-
-
         JobOpening jo = registerJobOpening("bailarino", "casa do ah", Mode.ONSITE, ContractType.FULL_TIME, "baila baila", 1, 1);
         JobOpening jo2 = registerJobOpening("monstro", "o grande lago de penafiel", Mode.ONSITE, ContractType.FULL_TIME, "ARRRGHHHHHH", 1, 1);
         JobOpening jo3 = registerJobOpening("Programador com capacidades de completar o projeto de lapr4", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Programador", 1, 1);
         JobOpening jo4 = registerJobOpening("Alguem para acordar o saco", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Despertador", 1, 1);
+
+        JobOpeningProcess jobOpeningProcess = new JobOpeningProcess(jo, PhaseType.ANALYSIS);
+
+        registerJobOpeningProcess(jobOpeningProcess);
+
+        JobOpeningProcess jobOpeningProcess2 = new JobOpeningProcess(jo2, PhaseType.APPLICATION);
+
+        registerJobOpeningProcess(jobOpeningProcess2);
+
+
 
         JobOpeningApplication application = registerApplication(jo, candida);
         JobOpeningApplication application2 = registerApplication(jo, candida2);
@@ -79,18 +89,18 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpeningApplication application7 = registerApplication(jo3, candida2);
         JobOpeningApplication application8 = registerApplication(jo3, candida3);
 
-        JobInterviewRepository jobRep =  PersistenceContext.repositories().jobInterviews();
+        JobInterviewRepository jobRep = PersistenceContext.repositories().jobInterviews();
 
         Calendar date = new Calendar.Builder().setDate(2025, 5, 5).build();
-        JobInterview interview1 = registerInterview(date,"11:00", application5);
+        JobInterview interview1 = registerInterview(date, "11:00", application5);
 //        System.out.println(interview1.toString());
-                interview1.gradeInterview(10);
-                jobRep.save(interview1);
-        JobInterview interview2 = registerInterview(date,"12:00", application5);
+        interview1.gradeInterview(10);
+        jobRep.save(interview1);
+        JobInterview interview2 = registerInterview(date, "12:00", application5);
         interview2.gradeInterview(20);
         jobRep.save(interview2);
-        JobInterview interview3 = registerInterview(date,"13:00", application7);
-        JobInterview interview4 = registerInterview(date,"14:00", application8);
+        JobInterview interview3 = registerInterview(date, "13:00", application7);
+        JobInterview interview4 = registerInterview(date, "14:00", application8);
 
         System.out.println(candida);
         System.out.println(candida2);
@@ -113,6 +123,11 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         System.out.println(interview4);
 
         return true;
+    }
+
+    private static void registerJobOpeningProcess(JobOpeningProcess jobOpeningProcess) {
+        JobOpeningProcessRepository jobOpeningProcessRepository = PersistenceContext.repositories().jobProcess();
+        jobOpeningProcessRepository.save(jobOpeningProcess);
     }
 
 
@@ -166,7 +181,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         return c;
 
     }
-
 
     private JobOpening registerJobOpening(String description, String address, Mode mode, ContractType contractType, String title, int vacancies, int c) {
         AddJobOpeningController controller = new AddJobOpeningController();

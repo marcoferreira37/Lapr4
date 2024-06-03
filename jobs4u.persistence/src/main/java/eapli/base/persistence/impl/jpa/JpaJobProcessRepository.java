@@ -10,14 +10,16 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import java.util.List;
 import java.util.Map;
 
 public class JpaJobProcessRepository extends JpaAutoTxRepository<JobOpeningProcess, Long, Long> implements JobOpeningProcessRepository {
 
-   public JpaJobProcessRepository (TransactionalContext autoTx) {
-        super(autoTx,"Id");
+    public JpaJobProcessRepository(TransactionalContext autoTx) {
+        super(autoTx, "Id");
     }
-    public JpaJobProcessRepository (final String puname){
+
+    public JpaJobProcessRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
                 "Id");
     }
@@ -32,5 +34,10 @@ public class JpaJobProcessRepository extends JpaAutoTxRepository<JobOpeningProce
     public JobOpeningProcess findJobProcessByJobOpening(JobOpening job) {
         final Map<String, Object> params = Map.of("jobOpening", job);
         return (matchOne("e.jobOpening=:jobOpening", params).orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Override
+    public List<JobOpening> findAllInAnalysis() {
+        return (match("e.currentPhase='ANALYSIS'")).stream().map(JobOpeningProcess::jobOpening).toList();
     }
 }

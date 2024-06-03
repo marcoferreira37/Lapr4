@@ -6,6 +6,8 @@ import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobInterviewRepository;
 import eapli.base.repositories.JobOpeningApplicationRepository;
+import eapli.base.repositories.JobOpeningProcessRepository;
+import eapli.base.repositories.JobOpeningRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,8 @@ import java.util.List;
 public class ApplicationService {
     private final JobOpeningApplicationRepository jobOpeningApplicationRepository = PersistenceContext.repositories().jobApplications();
     private final JobInterviewRepository jobInterviewRepository = PersistenceContext.repositories().jobInterviews();
+
+    private final JobOpeningProcessRepository jobOpeningProcesses = PersistenceContext.repositories().jobProcess();
 
     public void rankApplication(JobOpeningApplication application, int rank) {
         application.rankApplication(rank);
@@ -47,5 +51,9 @@ public class ApplicationService {
 
         }
         return returnList;
+    }
+
+    public List<JobOpening> getAllJobOpeningInAnalysis() {
+        return jobOpeningProcesses.findAllInAnalysis();
     }
 }

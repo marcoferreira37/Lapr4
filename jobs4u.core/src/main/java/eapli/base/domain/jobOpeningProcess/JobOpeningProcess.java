@@ -41,6 +41,12 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
         status = Status.OPENED;
     }
 
+    public JobOpeningProcess(JobOpening jobOpening, PhaseType currentPhase) {
+        this.jobOpening = jobOpening;
+        this.currentPhase = currentPhase;
+
+    }
+
     protected JobOpeningProcess() {
     }
 
@@ -162,5 +168,9 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     }
     public boolean checkIfDatesWerentSetup(){
         return phaseDate.getApplicationDate().equals( phaseDate.getAnalysisDate() );
+    }
+
+    public boolean isInAnalysis() {
+        return currentPhase == PhaseType.ANALYSIS;
     }
 }
