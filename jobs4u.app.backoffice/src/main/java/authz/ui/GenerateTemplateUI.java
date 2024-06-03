@@ -41,16 +41,11 @@ public class GenerateTemplateUI extends AbstractUI {
             if (option == 0) {
                 System.out.println("No Job Opening selected");
             } else {
-                String interview = listJobOpenings.get(option - 1).getInterviewModel();
-                Path sourcePath = Paths.get("jobs4u.core/src/main/resources/PlugIns/RequirementsSpecifications/backEndDeveloperRequirements" + interview);
-                Path destinationPath = Paths.get("jobs4u.core/src/main/resources/PlugIns/templateFile"+ interview);
+                JobOpening jobOpening = listJobOpenings.get(option - 1);
+                String requirements = jobOpening.getRequirements();
+                Path sourcePath = Paths.get("jobs4u.core/src/main/resources/PlugIns/RequirementsSpecifications/backEndDeveloperRequirements/" + requirements);
 
-                try{
-                    Files.copy(sourcePath,destinationPath, StandardCopyOption.REPLACE_EXISTING);
-                    System.out.println("Template exported successfully");
-                }catch (IOException e) {
-                    System.out.println("Error exporting template");
-                }
+               controller.template(sourcePath, jobOpening );
             }
         }
 
