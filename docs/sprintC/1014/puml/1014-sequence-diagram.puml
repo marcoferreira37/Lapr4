@@ -4,9 +4,9 @@ actor "Customer Manager" as Agent
 participant ":RecordInterviewUI" as ui <<UI>>
 participant ":RecordInterviewController" as ctrl <<Application>>
 participant ":JobOpeningApplicationService" as jobApServ <<Service>>
-database ":JobOpeningApplicationRepository" as jobRepo <<Persistence>>
+participant ":JobOpeningApplicationRepository" as jobRepo <<Persistence>>
 'participant ":ApplicationService" as appServ <<Service>>
-database ":InterviewRepository" as intRepo <<Persistence>>
+participant ":InterviewRepository" as intRepo <<Persistence>>
 'participant "app:JobOpeningApplication" as app <<Domain>>
 participant "interview:Interview" as interview <<Domain>>
 
@@ -28,7 +28,7 @@ ctrl -> jobApServ: getJobOpeningApplication()
 
 activate jobApServ
 
-jobApServ -> jobRepo: getJobOpeningApplication()
+jobApServ -> jobRepo: findAll()
 activate jobRepo
 
 jobRepo --> jobApServ: JobOpeningApplications
@@ -52,15 +52,15 @@ deactivate ui
 Agent -> ui: Record the time and date for an interview with the candidate
 activate ui
 
-ui -> ctrl: recordInterview(jobOpeningApplication, time, date)
+ui -> ctrl: recordInterview(jobOpeningApplication, interviewTime, interviewDate)
 
 activate ctrl
 
-ctrl -> jobApServ: recordInterview(jobOpeningApplication, time, date)
+ctrl -> jobApServ: recordInterview(jobOpeningApplication, interviewTime, interviewDate)
 
 activate jobApServ
 
-jobApServ -> intRepo: recordInterview(jobOpeningApplication, time, date)
+jobApServ -> intRepo: recordInterview(jobOpeningApplication, interviewTime, interviewDate)
 
 activate intRepo
 
@@ -70,11 +70,7 @@ deactivate intRepo
 
 jobApServ -> interview** : «creates»
 
-jobApServ -> intRepo: getInterview(jobOpeningApplication, candidate, time, date)
 
-activate intRepo
-
-intRepo --> jobApServ: Interview
 deactivate intRepo
 
 

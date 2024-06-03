@@ -19,7 +19,8 @@
 		<module>jobs4u.app.bootstrap</module>
 		<module>jobs4u.app.backoffice</module>
 		<module>jobs4u.server</module>
-	</modules>
+        <module>jobs4u.plugIn</module>
+    </modules>
 
 	<properties>
 		<m2e.apt.activation>jdt_apt</m2e.apt.activation>

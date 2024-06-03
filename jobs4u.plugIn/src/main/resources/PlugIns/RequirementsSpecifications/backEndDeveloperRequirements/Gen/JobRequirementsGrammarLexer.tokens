@@ -1,0 +1,14 @@
+T__0=1
+T__1=2
+T__2=3
+T__3=4
+STRING=5
+BOOLEAN=6
+INTEGER=7
+REAL=8
+COMMENT=9
+WS=10
+'Requirement'=1
+'TrueOrFalse:'=2
+'ShortAnswer:'=3
+'Integer:'=4
