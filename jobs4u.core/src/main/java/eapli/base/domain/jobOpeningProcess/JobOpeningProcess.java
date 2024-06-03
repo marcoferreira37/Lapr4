@@ -6,6 +6,9 @@ import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 
+import java.time.Instant;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "JOB_OPENING_PROCESS")
@@ -50,8 +53,37 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     }
 
     public void goBackToPreviousPhase(boolean interviewPhase) {
+        if (currentPhase == PhaseType.DRAFT){
+            throw new RuntimeException("Can't go back to previous phase, already in the first phase.");
+        }
+        if (status == Status.ACTIVE){
+            throw new RuntimeException("Can't go back to previous phase, process is already active.");
+        }
         currentPhase = currentPhase.previousPhase(interviewPhase);
+        skipPhaseDate(currentPhase);
+        status = Status.OPENED;
     }
+
+    private void skipPhaseDate(PhaseType currentPhase) {
+        switch (currentPhase) {
+            case APPLICATION:
+                phaseDate.setAnalysisDate( (Date.from(Instant.now())));
+                break;
+            case SCREENING:
+                phaseDate.setScreeningDate((Date.from(Instant.now())));
+                break;
+            case INTERVIEWS:
+                phaseDate.setInterviewDate((Date.from(Instant.now())));
+                break;
+            case ANALYSIS:
+                phaseDate.setAnalysisDate((Date.from(Instant.now())));
+                break;
+            case RESULT:
+                phaseDate.setResultsDate((Date.from(Instant.now())));
+                break;
+        }
+    }
+
     public void changeCurrentPhase(PhaseType phaseType) {
         currentPhase = phaseType;
     }
