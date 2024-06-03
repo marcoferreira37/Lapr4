@@ -3,21 +3,49 @@ package eapli.base.domain.jobOpening;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Embeddable
-@AllArgsConstructor
+
 public class Address implements ValueObject {
 
     private String address;
 
 
     protected Address() {
-        // Necessário para JPA Boa! E o contrutor para meter dados?
+    }
+
+
+    public Address(String address) {
+        validateAddress(address);
+        this.address = address;
+    }
+
+    private void validateAddress(String address) {
+        if (isNull(address)) {
+            throw new IllegalArgumentException("Address cannot be null");
+        }
+        if (isEmpty(address)) {
+            throw new IllegalArgumentException("Address cannot be empty");
+        }
+        if (!isString(address)) {
+            throw new IllegalArgumentException("Address must be a string");
+        }
+    }
+
+    private boolean isNull(String address) {
+        return address == null;
+    }
+
+    private boolean isEmpty(String address) {
+        return address.isEmpty();
+    }
+
+    private boolean isString(Object address) {
+        return address instanceof String;
     }
 
     @Override

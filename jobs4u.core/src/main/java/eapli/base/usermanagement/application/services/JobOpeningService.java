@@ -13,6 +13,8 @@ import eapli.base.repositories.JobOpeningProcessRepository;
 import eapli.base.repositories.JobOpeningRepository;
 import eapli.base.repositories.CompanyRepository;
 
+import java.io.*;
+import java.nio.file.Path;
 import java.util.*;
 
 public class JobOpeningService {
@@ -90,6 +92,7 @@ public class JobOpeningService {
 
     public JobOpeningProcess advanceToNextPhase(JobOpeningProcess jobOpening, boolean interviewPhase) {
         jobOpening.advanceToNextPhase(interviewPhase);
+        jobOpening.activateProcess();
         jobOpening = processRepository.save(jobOpening);
         return jobOpening;
     }
@@ -159,5 +162,37 @@ public class JobOpeningService {
 
     public JobOpeningProcess saveJobProcess(JobOpeningProcess jobOpeningProcess) {
         return processRepository.save(jobOpeningProcess);
+    }
+
+    public boolean generateTemplate(Path sourcePath, JobOpening jobOpening) {
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(sourcePath)))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                int colonIndex = line.indexOf(':');
+                if (colonIndex != -1) {
+                    lines.add(line.substring(0, colonIndex + 1).trim());
+                } else {
+                    lines.add(line.trim());
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading the file");
+            e.printStackTrace();
+            return false;
+        }
+
+        File destinationFile = new File("jobs4u.core/src/main/resources/PlugIns/RequirementsSpecifications/backEndDeveloperRequirements/template/" + jobOpening.identity().fullReference() + ".txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(destinationFile))) {
+            for (String processedLine : lines) {
+                writer.write(processedLine);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing the file");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

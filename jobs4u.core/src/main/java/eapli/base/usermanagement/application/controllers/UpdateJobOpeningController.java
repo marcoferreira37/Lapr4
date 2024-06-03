@@ -24,6 +24,8 @@ public class UpdateJobOpeningController {
 
     private JobOpeningService service = new JobOpeningService();
     private AuthorizationService autzService = AuthzRegistry.authorizationService();
+    private JobOpening jobOpening;
+    private JobOpeningProcess jobProcess;
 
     public void updateDates(JobOpening jobOpening, Phase phase) {
         autzService.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN, BaseRoles.POWER_USER);
@@ -54,9 +56,10 @@ public class UpdateJobOpeningController {
 
     public List<JobOpening> allJobs() {
         autzService.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN);
+        jobProcess = service.jobProcessFromJobOpening(jobOpening);
         int index = 1;
         for(JobOpening job : service.allJobs()){
- //           System.out.println(index + ". " + job.getJobReference().fullReference() + "\nCurrent Phase: " + job.getCurrentJobPhase() + "\nPhase Dates: " + job.getPhaseDates() );
+          System.out.println(index + ". " + job.getJobReference().fullReference() + "\nCurrent Phase: " + jobProcess.currentPhase() + "\nStatus: " + jobProcess.status() +"\nPhase Dates: " + jobProcess.phaseDate() + "\n");
             index++;
         }
 
@@ -125,23 +128,24 @@ public class UpdateJobOpeningController {
                 }
             }
         }
-
+*/
         public boolean checkForInterviewPhase(int choice, JobOpening jobOpening) {
-            if (choice == 1 && jobOpening.getCurrentJobPhase() == PhaseType.SCREENING)
+            JobOpeningProcess jobProcess = service.jobProcessFromJobOpening(jobOpening);
+            if (choice == 1 && jobProcess.currentPhase() == PhaseType.SCREENING)
                 return true;
-            return choice == 2 && jobOpening.getCurrentJobPhase() == PhaseType.ANALYSIS;
+            return choice == 2 && jobProcess.currentPhase() == PhaseType.ANALYSIS;
         }
 
-        public JobOpening updatePhase(JobOpening jobOpening, int choice, boolean interviewPhase){
+        public JobOpeningProcess updatePhase(JobOpening jobOp, int choice, boolean interviewPhase){
             if(choice == 1){
-                jobOpening = service.advanceToNextPhase(jobOpening,interviewPhase);
+                jobProcess = service.advanceToNextPhase(jobProcess,interviewPhase);
             }
             else{
-                jobOpening = service.goBackToPreviousPhase(jobOpening,interviewPhase);
+                jobProcess = service.goBackToPreviousPhase(jobProcess,interviewPhase);
             }
-            return jobOpening;
+            return jobProcess;
         }
-    */
+
     public Phase buildPhase(Date application, Date screening, Date interview, Date analysis, Date results) {
         return Phase.from(application, screening,interview,analysis,results);
     }

@@ -29,9 +29,11 @@ deactivate
 Agent -> System : Provides new ranking
 activate System
 System --> Agent  : Confirms new ranking
-deactivate System
 
 end loop
+
+Agent --> System : Shows all applications by descending ranking
+
 
 deactivate Agent
 
