@@ -23,14 +23,15 @@ class PhaseTest {
     @BeforeEach
     void setUp() {
         Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 1000); // set application date to future
         applicationDate = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+        calendar.add(Calendar.DATE, 1000);
         screeningDate = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+        calendar.add(Calendar.DATE, 1000);
         interviewDate = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+        calendar.add(Calendar.DATE, 1000);
         analysisDate = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+        calendar.add(Calendar.DATE, 1000);
         resultsDate = calendar.getTime();
         phase = Phase.from(applicationDate, screeningDate, interviewDate, analysisDate, resultsDate);
     }
@@ -57,18 +58,18 @@ class PhaseTest {
     @DisplayName("Phase inequality")
     @Test
     void shouldReturnFalseWhenPhasesAreNotEqual() {
-            //implement this test
         Calendar calendar = Calendar.getInstance();
-        Date applicationDate = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+        calendar.add(Calendar.DATE, 1000); // set application date to future
+        Date futureApplicationDate = calendar.getTime();
+        calendar.add(Calendar.DATE, 1000);
         Date screeningDate = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+        calendar.add(Calendar.DATE, 1000);
         Date interviewDate = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+        calendar.add(Calendar.DATE, 1000);
         Date analysisDate = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+        calendar.add(Calendar.DATE, 1000);
         Date resultsDate = calendar.getTime();
-        Phase anotherPhase = Phase.from(applicationDate, screeningDate, interviewDate, analysisDate, resultsDate);
+        Phase anotherPhase = Phase.from(futureApplicationDate, screeningDate, interviewDate, analysisDate, resultsDate);
         assertNotEquals(phase, anotherPhase);
     }
 }
