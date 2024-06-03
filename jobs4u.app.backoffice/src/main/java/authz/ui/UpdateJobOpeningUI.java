@@ -77,21 +77,25 @@ public class UpdateJobOpeningUI extends AbstractUI {
                     change = Console.readInteger("What do you wish to do?\n");
                 }
                 boolean interviewPhase = false;
-                if(controller.checkForInterviewPhase(change,jobOpening)){
-                    String confirm = Console.readLine("Do you wish to jump interview phase [y/n]?");
-                    if(confirm.toLowerCase().matches("y(es)?")){
-                        interviewPhase = false;
-                    }
-                    if(confirm.toLowerCase().matches("no?")){
-                        interviewPhase = true;
+                if ( change != 3) {
+                    if (advancePhaseController.checkForInterviewPhase(change, jobOpening)) {
+                        String confirm = Console.readLine("Do you wish to jump interview phase [y/n]?");
+                        if (confirm.toLowerCase().matches("y(es)?")) {
+                            interviewPhase = false;
+                        }
+                        if (confirm.toLowerCase().matches("no?")) {
+                            interviewPhase = true;
+                        }
                     }
                 }
-
 
                JobOpeningProcess j =  advancePhaseController.updatePhase(jobOpening ,change,interviewPhase);
                 if (j != null) {
                     System.out.println("Job Process Updated successfully\n");
                     System.out.println(j);
+                }else {
+                    System.out.println("Job Process could not be updated\n");
+                    System.out.println("Try setting up the phase dates first\n");
                 }
                 break;
             case "5":
