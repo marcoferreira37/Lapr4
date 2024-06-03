@@ -1,12 +1,16 @@
-package eapli.base.usermanagement.application;
+package eapli.base.usermanagement.application.controllers;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import eapli.base.candidate.CandidateManagementService;
+import eapli.base.domain.PlugIn.JobRequirements.genClasses.JobRequirementsGrammarLexer;
+import eapli.base.domain.PlugIn.JobRequirements.genClasses.JobRequirementsGrammarParser;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.application.UserManagementService;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -33,6 +37,31 @@ public class UploadTextFileController {
             System.out.println("File uploaded with success!");
         } catch (IOException e) {
             System.err.println("Error generating file" + e.getMessage());
+        }
+    }
+
+    public static void verifyRequirementsGrammar(String filePath) {
+        try {
+            CharStream input = CharStreams.fromFileName(filePath);
+
+            JobRequirementsGrammarLexer lexer = new JobRequirementsGrammarLexer(input);
+
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+            JobRequirementsGrammarParser parser = new JobRequirementsGrammarParser(tokens);
+
+
+            ParseTree tree = parser.start();
+
+
+            System.out.println(tree.toStringTree(parser));
+
+            System.out.println("Grammar verified successfully!");
+
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error verifying grammar: " + e.getMessage());
         }
     }
 }

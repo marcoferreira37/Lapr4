@@ -20,15 +20,20 @@ public class VacanciesNumber implements ValueObject {
     }
 
     public VacanciesNumber(int number) {
-        if (number <= 0) {
-            throw new IllegalArgumentException("Number of vacancies should be greater than 0");
-        }
+        validateVacanciesNumber(number);
         this.number = number;
+    }
+
+    private void validateVacanciesNumber(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("Number of vacancies cannot be negative");
+        }
     }
 
     public int number() {
         return number;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,8 +50,7 @@ public class VacanciesNumber implements ValueObject {
     @Override
     public String toString() {
         return "VacanciesNumber{" +
-                "number=" + number +
-                '}';
-
+               "number=" + number +
+               '}';
     }
 }

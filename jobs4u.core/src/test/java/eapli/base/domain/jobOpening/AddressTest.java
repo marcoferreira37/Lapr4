@@ -79,4 +79,48 @@ class AddressTest {
     public void testToString() {
         assertEquals("123 Main St", address1.toString());
     }
+
+    @Test
+    public void testIsNull() {
+        Address address = new Address("Test");
+        assertTrue(address.isNull(null));
+        assertFalse(address.isNull("Not null"));
+    }
+
+    @Test
+    public void testIsEmpty() {
+        Address address = new Address("Test");
+        assertTrue(address.isEmpty(""));
+        assertFalse(address.isEmpty("Not empty"));
+    }
+
+    @Test
+    public void testIsString() {
+        Address address = new Address("Test");
+        assertTrue(address.isString("String"));
+        assertFalse(address.isString(123));
+    }
+
+    @Test
+    public void testValidateAddress_valid() {
+        Address address = new Address("Valid Address");
+        assertNotNull(address);
+    }
+
+    @Test
+    public void testValidateAddress_null() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Address(null);
+        });
+        assertEquals("Address cannot be null", exception.getMessage());
+    }
+
+    @Test
+    public void testValidateAddress_empty() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Address("");
+        });
+        assertEquals("Address cannot be empty", exception.getMessage());
+    }
+
 }
