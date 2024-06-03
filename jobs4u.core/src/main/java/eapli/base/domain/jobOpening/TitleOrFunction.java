@@ -20,15 +20,38 @@ public class TitleOrFunction implements ValueObject {
     }
 
     public TitleOrFunction(String titleOrFunction) {
-        if (titleOrFunction == null || titleOrFunction.isEmpty() || titleOrFunction.isBlank()) {
-            throw new IllegalArgumentException("Title or Function should neither be null nor empty");
-        }
+        validateTitleOrFunction(titleOrFunction);
         this.titleOrFunction = titleOrFunction;
+    }
+
+    private void validateTitleOrFunction(String titleOrFunction) {
+        if (isNull(titleOrFunction)) {
+            throw new IllegalArgumentException("Title or Function cannot be null");
+        }
+        if (isEmpty(titleOrFunction)) {
+            throw new IllegalArgumentException("Title or Function cannot be empty");
+        }
+        if (!isString(titleOrFunction)) {
+            throw new IllegalArgumentException("Title or Function must be a string");
+        }
+    }
+
+    private boolean isNull(String titleOrFunction) {
+        return titleOrFunction == null;
+    }
+
+    private boolean isEmpty(String titleOrFunction) {
+        return titleOrFunction.isEmpty();
+    }
+
+    private boolean isString(Object titleOrFunction) {
+        return titleOrFunction instanceof String;
     }
 
     public String titleOrFunction() {
         return titleOrFunction;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,8 +68,8 @@ public class TitleOrFunction implements ValueObject {
     @Override
     public String toString() {
         return "TitleOrFunction{" +
-                "titleOrFunction='" + titleOrFunction + '\'' +
-                '}';
+               "titleOrFunction='" + titleOrFunction + '\'' +
+               '}';
     }
 }
 

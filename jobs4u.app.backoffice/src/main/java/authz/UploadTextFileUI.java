@@ -3,7 +3,7 @@ package authz;
 import eapli.base.app.common.console.ui.components.ColorCode;
 import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.domain.candidate.Candidate;
-import eapli.base.usermanagement.application.UploadTextFileController;
+import eapli.base.usermanagement.application.controllers.UploadTextFileController;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.util.List;
@@ -26,6 +26,8 @@ public class UploadTextFileUI extends AbstractUI {
         Candidate c = candidates.get(option - 1);
 
         theController.uploadFile(c.curriculum());
+
+        theController.verifyRequirementsGrammar(c.curriculum());
         return false;
     }
 

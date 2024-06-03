@@ -46,6 +46,8 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
     @Column(name = "JOBREFERENCE", insertable = false, updatable = false)
     private String jobReference;
 
+    private String candidateRequirements;
+
     @Column(name = "RANK")
     private int rank;
 
@@ -57,6 +59,7 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
     public JobOpeningApplication(JobOpening j, Candidate c) {
         this.jobOpening = j;
         this.candidate = c;
+        this.candidateRequirements = "N/A";
         this.rank = -1;
     }
 
@@ -120,6 +123,13 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
     public List<JobInterview> getInterviews() {
         return null;
     }
-        
+
+    public String candidateRequirements(){
+        return candidateRequirements;
+    }
+
+    public void setCandidateRequirements(String canReq){
+        this.candidateRequirements = canReq;
+    }
 }
 

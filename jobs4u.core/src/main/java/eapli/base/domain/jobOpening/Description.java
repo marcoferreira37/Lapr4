@@ -13,20 +13,44 @@ public class Description implements ValueObject {
 
     private String description;
 
-
     protected Description() {
         // Necessário para JPA
     }
 
     public Description(String description) {
-        if (description == null || description.isEmpty()) {
-            throw new IllegalArgumentException("Description should neither be null nor empty");
-        }
+        validateDescription(description);
         this.description = description;
     }
+
+    private void validateDescription(String address) {
+        if (isNull(address)) {
+            throw new IllegalArgumentException("Description cannot be null");
+        }
+        if (isEmpty(address)) {
+            throw new IllegalArgumentException("Description cannot be empty");
+        }
+        if (!isString(address)) {
+            throw new IllegalArgumentException("Description must be a string");
+        }
+    }
+
+    public boolean isNull(String address) {
+        return address == null;
+    }
+
+    public boolean isEmpty(String address) {
+        return address.isEmpty();
+    }
+
+    public boolean isString(Object address) {
+        return address instanceof String;
+    }
+
+
     public String description() {
         return description;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,6 +61,7 @@ public class Description implements ValueObject {
 
     /**
      * Returns a hash code value for the object.
+     *
      * @return a hash code value for this object.
      */
     @Override
@@ -46,6 +71,7 @@ public class Description implements ValueObject {
 
     /**
      * Returns a string representation of the object.
+     *
      * @return a string representation of the object.
      */
     @Override
