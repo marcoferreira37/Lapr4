@@ -141,4 +141,19 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     public Phase phaseDate(){
         return phaseDate;
     }
+
+    @Override
+    public String toString() {
+        String result = "JobOpeningProcess" +
+                "\n id: " + id +
+                "\n Job Reference: " + jobOpening.getJobReference().fullReference() +
+                "\n Current Phase: " + currentPhase +
+                "\n Status: " + status;
+                if (phaseDate.getApplicationDate().equals( phaseDate.getAnalysisDate() ) ) {
+                    result += "\n Phase Dates:  Not setup yet!";
+                }else {
+                    result += "\n Phase Dates: " + phaseDate ;
+                }
+                return result;
+    }
 }
