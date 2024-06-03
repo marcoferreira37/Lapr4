@@ -2,6 +2,7 @@ package authz.ui;
 
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.domain.jobOpening.*;
+import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
 import eapli.base.domain.jobOpeningProcess.Phase;
 import eapli.base.usermanagement.application.controllers.AdvancePhaseController;
 import eapli.base.usermanagement.application.controllers.UpdateJobOpeningController;
@@ -29,7 +30,7 @@ public class UpdateJobOpeningUI extends AbstractUI {
         System.out.println("1. Phase Dates");
         System.out.println("2. Requirements");
         System.out.println("3. Interview Model");
-        System.out.println("4. Current job phase");
+        System.out.println("4. Change job phase");
         System.out.println("5. Edit a job opening details");
         System.out.println("6. Exit");
         String option = Console.readLine("Choose an option: ");
@@ -66,11 +67,13 @@ public class UpdateJobOpeningUI extends AbstractUI {
 
                 System.out.println("1. Advance to next phase");
                 System.out.println("2. Go back to previous phase");
+                System.out.println("3. Activate current phase");
                 int change = Console.readInteger("What do you wish to do?\n");
-                while(change != 1 && change != 2){
-                    System.out.println("Invalid option");
+                while(change < 1 || change >= 4){
+                    System.out.println(ANSI_RED + "Invalid option" + ANSI_RESET);
                     System.out.println("1. Advance to next phase");
                     System.out.println("2. Go back to previous phase");
+                    System.out.println("3. Activate current phase");
                     change = Console.readInteger("What do you wish to do?\n");
                 }
                 boolean interviewPhase = false;
@@ -85,15 +88,18 @@ public class UpdateJobOpeningUI extends AbstractUI {
                 }
 
 
-                controller.updatePhase(jobOpening,change,interviewPhase);
-
+               JobOpeningProcess j =  advancePhaseController.updatePhase(jobOpening ,change,interviewPhase);
+                if (j != null) {
+                    System.out.println("Job Process Updated successfully\n");
+                    System.out.println(j);
+                }
                 break;
             case "5":
                 EditJobOpeningUI ui = new EditJobOpeningUI();
                 ui.doShow();
                 break;
         }
-        if (jobOpening == null) return false;
+        if (jobOpening == null) return true;
         System.out.println("\n\nJob Opening updated successfully");
         return true;
 
