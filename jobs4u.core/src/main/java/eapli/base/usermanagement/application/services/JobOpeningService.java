@@ -90,6 +90,7 @@ public class JobOpeningService {
 
     public JobOpeningProcess advanceToNextPhase(JobOpeningProcess jobOpening, boolean interviewPhase) {
         jobOpening.advanceToNextPhase(interviewPhase);
+        jobOpening.activateProcess();
         jobOpening = processRepository.save(jobOpening);
         return jobOpening;
     }
