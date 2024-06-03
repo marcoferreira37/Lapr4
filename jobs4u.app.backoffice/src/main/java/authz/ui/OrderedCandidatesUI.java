@@ -6,6 +6,7 @@ import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.usermanagement.application.controllers.OrderedCandidatesController;
 import eapli.base.usermanagement.application.controllers.ListAllApplicationsForJobOpeningController;
 
@@ -25,16 +26,22 @@ public class OrderedCandidatesUI extends AbstractUI {
             System.out.println("No job openings available!");
             return false;
         }
+
         printNumeratedList(openingList);
         int option = getUserOption(openingList.size());
+
+
         JobOpening jobOpening = openingList.get(option - 1);
-        List<Candidate> candidates = orderedCandidatesController.orderedCandidatesOfJobOpening(jobOpening);
-        if (candidates.isEmpty()) {
+        List<JobInterview> candidatesInterviews = orderedCandidatesController.orderedCandidatesOfJobOpening(jobOpening);
+        if (candidatesInterviews.isEmpty()) {
             System.out.println("There are no candidates for this job opening!");
             return false;
         }
 
-        printCandidates(candidates);
+        for (JobInterview interview : candidatesInterviews) {
+            System.out.println("Candidate: " + interview.jobOpeningApplication().candidate().identity());
+            System.out.println("Grade: " + interview.grade());
+        }
 
         return false;
     }

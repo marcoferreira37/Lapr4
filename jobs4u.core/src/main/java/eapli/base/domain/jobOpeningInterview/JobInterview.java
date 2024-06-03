@@ -47,6 +47,7 @@ public class JobInterview implements AggregateRoot<Long> {
         this.interviewTime = interviewTime;
         this.interviewDate = interviewDate;
         this.jobOpeningApplication = jobOpeningApplication;
+        this.grade = 0;
 
     }
 

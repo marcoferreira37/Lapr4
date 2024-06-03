@@ -21,6 +21,7 @@
 package eapli.base.infrastructure.bootstrapers;
 
 import eapli.base.domain.jobOpeningInterview.JobInterview;
+import eapli.base.repositories.JobInterviewRepository;
 import eapli.base.usermanagement.application.controllers.AddJobOpeningController;
 import eapli.base.usermanagement.application.controllers.AddJobApplicationController;
 import eapli.base.domain.candidate.Candidate;
@@ -78,9 +79,16 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpeningApplication application7 = registerApplication(jo3, candida2);
         JobOpeningApplication application8 = registerApplication(jo3, candida3);
 
-        Calendar date = Calendar.getInstance();
+        JobInterviewRepository jobRep =  PersistenceContext.repositories().jobInterviews();
+
+        Calendar date = new Calendar.Builder().setDate(2025, 5, 5).build();
         JobInterview interview1 = registerInterview(date,"11:00", application5);
-        JobInterview interview2 = registerInterview(date,"12:00", application6);
+//        System.out.println(interview1.toString());
+                interview1.gradeInterview(10);
+                jobRep.save(interview1);
+        JobInterview interview2 = registerInterview(date,"12:00", application5);
+        interview2.gradeInterview(20);
+        jobRep.save(interview2);
         JobInterview interview3 = registerInterview(date,"13:00", application7);
         JobInterview interview4 = registerInterview(date,"14:00", application8);
 
