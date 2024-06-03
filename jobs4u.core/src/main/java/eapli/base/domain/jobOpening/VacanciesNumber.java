@@ -20,10 +20,17 @@ public class VacanciesNumber implements ValueObject {
     }
 
     public VacanciesNumber(int number) {
-        if (number <= 0) {
-            throw new IllegalArgumentException("Number of vacancies should be greater than 0");
-        }
+        validateVacanciesNumber(number);
         this.number = number;
+    }
+
+    private void validateVacanciesNumber(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("Number of vacancies cannot be negative");
+        }
+        if ( number == String.valueOf(number).length() ) {
+            throw new IllegalArgumentException("Number of vacancies must be a number");
+        }
     }
 
     public int number() {

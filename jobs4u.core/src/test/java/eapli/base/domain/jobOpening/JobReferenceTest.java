@@ -87,6 +87,11 @@ class JobReferenceTest {
     }
 
     @Test
+    void testEquals_equalObjects() {
+        assertEquals(jobReference1, jobReference1);
+    }
+
+    @Test
     void testEquals_null() {
         assertNotEquals(null, jobReference1);
     }

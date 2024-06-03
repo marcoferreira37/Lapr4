@@ -24,25 +24,25 @@ public class Description implements ValueObject {
 
     private void validateDescription(String address) {
         if (isNull(address)) {
-            throw new IllegalArgumentException("Address cannot be null");
+            throw new IllegalArgumentException("Description cannot be null");
         }
         if (isEmpty(address)) {
-            throw new IllegalArgumentException("Address cannot be empty");
+            throw new IllegalArgumentException("Description cannot be empty");
         }
         if (!isString(address)) {
-            throw new IllegalArgumentException("Address must be a string");
+            throw new IllegalArgumentException("Description must be a string");
         }
     }
 
-    private boolean isNull(String address) {
+    public boolean isNull(String address) {
         return address == null;
     }
 
-    private boolean isEmpty(String address) {
+    public boolean isEmpty(String address) {
         return address.isEmpty();
     }
 
-    private boolean isString(Object address) {
+    public boolean isString(Object address) {
         return address instanceof String;
     }
 

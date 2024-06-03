@@ -26,19 +26,19 @@ class DescriptionTest {
     }
 
     @Test
-    public void testConstructor_nullAddress() {
+    public void testConstructor_nullDescription() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Address(null);
+            new Description(null);
         });
-        assertEquals("Address cannot be null", exception.getMessage());
+        assertEquals("Description cannot be null", exception.getMessage());
     }
 
     @Test
-    public void testConstructor_emptyAddress() {
+    public void testConstructor_emptyDescription() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Address("");
+            new Description("");
         });
-        assertEquals("Address cannot be empty", exception.getMessage());
+        assertEquals("Description cannot be empty", exception.getMessage());
     }
 
     @Test
@@ -60,6 +60,18 @@ class DescriptionTest {
     public void testEquals_differentObjects() {
         assertNotEquals(description1, description3);
     }
+
+    @Test
+    public void testEquals_equalObjects() {
+        Description description = new Description("Pedreiro de massas");
+        assertEquals(description1, description);
+    }
+
+    @Test
+    public void testHashCode_sameObjects() {
+        assertEquals(description1.hashCode(), description1.hashCode());
+    }
+
     @Test
     public void testHashCode_differentObjects() {
         assertNotEquals(description1.hashCode(), description3.hashCode());
@@ -68,6 +80,46 @@ class DescriptionTest {
     @Test
     public void testToString() {
         assertEquals("Bombeiro de fogos", description2.toString());
+    }
+
+    @Test
+    public void testIsNull() {
+        assertTrue(description1.isNull(null));
+        assertFalse(description1.isNull("Not null"));
+    }
+
+    @Test
+    public void testIsEmpty() {
+        assertTrue(description1.isEmpty(""));
+        assertFalse(description1.isEmpty("Not empty"));
+    }
+
+    @Test
+    public void testIsString() {
+        assertTrue(description1.isString("String"));
+        assertFalse(description1.isString(123));
+    }
+
+    @Test
+    public void testValidateDescription_valid() {
+        Description description = new Description("Valid Description");
+        assertNotNull(description);
+    }
+
+    @Test
+    public void testValidateDescription_null() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Description(null);
+        });
+        assertEquals("Description cannot be null", exception.getMessage());
+    }
+
+    @Test
+    public void testValidateDescription_empty() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Description("");
+        });
+        assertEquals("Description cannot be empty", exception.getMessage());
     }
 
 }

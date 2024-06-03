@@ -36,15 +36,15 @@ public class Address implements ValueObject {
         }
     }
 
-    private boolean isNull(String address) {
+    public boolean isNull(String address) {
         return address == null;
     }
 
-    private boolean isEmpty(String address) {
+    public boolean isEmpty(String address) {
         return address.isEmpty();
     }
 
-    private boolean isString(Object address) {
+    public boolean isString(Object address) {
         return address instanceof String;
     }
 
