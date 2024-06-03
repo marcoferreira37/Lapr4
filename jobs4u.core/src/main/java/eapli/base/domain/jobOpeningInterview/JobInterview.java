@@ -142,4 +142,12 @@ public class JobInterview implements AggregateRoot<Long> {
         }
         this.grade = grade;
     }
+
+    public String toStringWithoutGrade() {
+        return "----- JobInterview -----" +
+                "\nid= " + id +
+                "\njobOpeningApplication= " + jobOpeningApplication +
+                "\ninterviewTime= " + interviewTime + '\'' +
+                "\ninterviewDate= " + interviewDate;
+    }
 }

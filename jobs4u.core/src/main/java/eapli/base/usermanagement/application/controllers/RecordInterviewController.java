@@ -31,7 +31,7 @@ public class RecordInterviewController  {
 
 
     public Iterable<JobOpeningApplication> getJobOpeningApplication(){
-    return service.allJobOpeningApplication();
+    return service.getJobOpeningApplication();
     }
 
 

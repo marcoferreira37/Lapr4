@@ -50,6 +50,7 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
 
     public void advanceToNextPhase(boolean interviewPhase) {
         currentPhase = currentPhase.nextPhase(interviewPhase);
+        status = Status.OPENED;
     }
 
     public void goBackToPreviousPhase(boolean interviewPhase) {
@@ -90,6 +91,9 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
 
     public void skipToNextPhase() {
         switch (currentPhase) {
+            case DRAFT:
+                currentPhase = PhaseType.APPLICATION;
+                break;
             case APPLICATION:
                 currentPhase = PhaseType.SCREENING;
                 break;
@@ -140,5 +144,23 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     }
     public Phase phaseDate(){
         return phaseDate;
+    }
+
+    @Override
+    public String toString() {
+        String result = "JobOpeningProcess" +
+                "\n id: " + id +
+                "\n Job Reference: " + jobOpening.getJobReference().fullReference() +
+                "\n Current Phase: " + currentPhase +
+                "\n Status: " + status;
+                if (checkIfDatesWerentSetup() ) {
+                    result += "\n Phase Dates:  Not setup yet!";
+                }else {
+                    result += "\n Phase Dates: " + phaseDate ;
+                }
+                return result;
+    }
+    public boolean checkIfDatesWerentSetup(){
+        return phaseDate.getApplicationDate().equals( phaseDate.getAnalysisDate() );
     }
 }

@@ -54,16 +54,19 @@ public class UpdateJobOpeningController {
         return Console.readDate( dateName + "'s end date: ");
     }
 
-    public List<JobOpening> allJobs() {
+    public JobOpening allJobs() {
         autzService.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN);
-        jobProcess = service.jobProcessFromJobOpening(jobOpening);
         int index = 1;
-        for(JobOpening job : service.allJobs()){
-          System.out.println(index + ". " + job.getJobReference().fullReference() + "\nCurrent Phase: " + jobProcess.currentPhase() + "\nStatus: " + jobProcess.status() +"\nPhase Dates: " + jobProcess.phaseDate() + "\n");
+        List <JobOpening> jobs = service.allJobs();
+        for(JobOpening job : jobs){
+          System.out.println(index + ". " + job.getJobReference().fullReference() + " \nJob Title: " + job.getTitleOrFunction().titleOrFunction() + " \nDescription: " + job.getDescription().toString() + " \nContract Type: " + job.getContractType().toString() + " \nMode: " + job.getMode().toString() + " \nAddress: " + job.getAddress().toString() + " \nNumber of vancancies: " + job.getVacanciesNumber().getNumber()+ " \nCompany Name: " + job.getCompany().getCompanyName().companyName() + "\n");
             index++;
         }
+        int jobIndex = Console.readInteger("Choose a job: ");
 
-        return service.allJobs();
+        jobOpening = jobs.get(jobIndex-1);
+        jobProcess = service.jobProcessFromJobOpening(jobOpening);
+        return jobOpening;
     }
 
     public File[] showInterviews(){
@@ -147,7 +150,21 @@ public class UpdateJobOpeningController {
         }
 
     public Phase buildPhase(Date application, Date screening, Date interview, Date analysis, Date results) {
-        return Phase.from(application, screening,interview,analysis,results);
+        Phase phase = null;
+        while (phase == null) {
+            try {
+                phase = Phase.from(application, screening, interview, analysis, results);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                // Request the dates again
+                application = requestDate("Application");
+                screening = requestDate("Screening");
+                interview = requestDate("Interview");
+                analysis = requestDate("Analysis");
+                results = requestDate("Results");
+            }
+        }
+        return phase;
     }
 
     public JobOpening editJobOpening(JobOpening jobOpening) {

@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -35,7 +36,10 @@ public class Phase implements ValueObject {
     private Date resultsDate;
 
     public static Phase from(Date applicationDate, Date screeningDate, Date interviewDate, Date analysisDate, Date resultsDate) {
-        if (applicationDate.after(Date.from(Instant.now()))  || applicationDate.after(screeningDate) || screeningDate.after(interviewDate) || interviewDate.after(analysisDate) || analysisDate.after(resultsDate)) {
+        if (applicationDate.before(Date.from(Instant.now()))) {
+            throw new IllegalArgumentException("The application cannot be before today's date");
+        }
+        if (!applicationDate.before(screeningDate) || !screeningDate.before(interviewDate) || !interviewDate.before(analysisDate) || !analysisDate.before(resultsDate)) {
             throw new IllegalArgumentException("The dates must be in the correct order");
         }
         return new Phase(applicationDate, screeningDate, interviewDate, analysisDate, resultsDate);
@@ -50,5 +54,18 @@ public class Phase implements ValueObject {
                 "| Analysis Date=" + analysisDate +
                 "| Results Date=" + resultsDate
                 ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Phase phase = (Phase) o;
+        return Objects.equals(applicationDate, phase.applicationDate) && Objects.equals(screeningDate, phase.screeningDate) && Objects.equals(interviewDate, phase.interviewDate) && Objects.equals(analysisDate, phase.analysisDate) && Objects.equals(resultsDate, phase.resultsDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(applicationDate, screeningDate, interviewDate, analysisDate, resultsDate);
     }
 }
