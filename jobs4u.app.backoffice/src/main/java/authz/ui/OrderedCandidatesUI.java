@@ -14,14 +14,13 @@ import java.util.List;
 
 public class OrderedCandidatesUI extends AbstractUI {
 
-    private final ListAllApplicationsForJobOpeningController controllerApplication = new ListAllApplicationsForJobOpeningController();
     private final OrderedCandidatesController orderedCandidatesController = new OrderedCandidatesController();
 
     @Override
     protected boolean doShow() {
         System.out.println("=====================================================");
         System.out.println("|| List of Job Openings ||");
-        List<JobOpening> openingList = (List<JobOpening>) controllerApplication.allJobOpenings();
+        List<JobOpening> openingList = orderedCandidatesController.findAllJobOpeningInResult();
         if (openingList.isEmpty()) {
             System.out.println("No job openings available!");
             return false;

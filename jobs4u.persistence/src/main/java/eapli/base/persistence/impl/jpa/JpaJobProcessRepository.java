@@ -40,4 +40,9 @@ public class JpaJobProcessRepository extends JpaAutoTxRepository<JobOpeningProce
     public List<JobOpening> findAllInAnalysis() {
         return (match("e.currentPhase='ANALYSIS'")).stream().map(JobOpeningProcess::jobOpening).toList();
     }
+
+    @Override
+    public List<JobOpening> findAllInResult() {
+        return (match("e.currentPhase='RESULT'")).stream().map(JobOpeningProcess::jobOpening).toList();
+    }
 }

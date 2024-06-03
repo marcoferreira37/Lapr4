@@ -20,6 +20,14 @@ rectangle opening{
 
 }
 
+rectangle jobOpeningProcess{
+    class JobOpeningProcess<<Aggregate Root>><<Entity>>{}
+    JobOpening"1" o--> "1"JobOpeningProcess
+
+}
+
+
+
 rectangle candidate{
     class Candidate<<Aggregate Root>><<Entity>>{}
 

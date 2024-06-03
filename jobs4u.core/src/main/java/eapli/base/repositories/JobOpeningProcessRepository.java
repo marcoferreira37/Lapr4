@@ -13,4 +13,6 @@ public interface JobOpeningProcessRepository extends DomainRepository<Long, JobO
     JobOpeningProcess findJobProcessByJobOpening(JobOpening job);
 
     List<JobOpening> findAllInAnalysis();
+
+    List<JobOpening> findAllInResult();
 }

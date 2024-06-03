@@ -69,7 +69,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpening jo3 = registerJobOpening("Programador com capacidades de completar o projeto de lapr4", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Programador", 1, 1);
         JobOpening jo4 = registerJobOpening("Alguem para acordar o saco", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Despertador", 1, 1);
 
-        JobOpeningProcess jobOpeningProcess = new JobOpeningProcess(jo, PhaseType.ANALYSIS);
+        JobOpeningProcess jobOpeningProcess = new JobOpeningProcess(jo, PhaseType.RESULT);
 
         registerJobOpeningProcess(jobOpeningProcess);
 

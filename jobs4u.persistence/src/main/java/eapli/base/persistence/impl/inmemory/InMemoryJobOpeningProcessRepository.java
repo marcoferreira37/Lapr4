@@ -26,4 +26,12 @@ public class InMemoryJobOpeningProcessRepository extends InMemoryDomainRepositor
                 .map(JobOpeningProcess::jobOpening)
                 .toList();
     }
+
+    @Override
+    public List<JobOpening> findAllInResult() {
+        return ((List<JobOpeningProcess>) match(JobOpeningProcess::isInResult))
+                .stream()
+                .map(JobOpeningProcess::jobOpening)
+                .toList();
+    }
 }

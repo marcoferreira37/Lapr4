@@ -78,18 +78,6 @@ public class JobOpeningService {
         return strategy.filter(criteria, openings);
     }
 
-    public List<JobOpening> findAllByAnalysisPhase() {
-        List<JobOpening> listToReturn = (List<JobOpening>) repository.findAll();
-        List<JobOpening> listToReturnFiltered = new ArrayList<>();
-
-        for (JobOpening job : listToReturn) {
-            //if (job.currentPhase == ANALYSIS) {
-            listToReturnFiltered.add(job);
-            //}
-        }
-        return listToReturnFiltered;
-    }
-
     public JobOpeningProcess advanceToNextPhase(JobOpeningProcess jobOpening, boolean interviewPhase) {
         jobOpening.advanceToNextPhase(interviewPhase);
         jobOpening = processRepository.save(jobOpening);

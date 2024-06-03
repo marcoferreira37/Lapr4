@@ -4,7 +4,7 @@ actor "Customer Manager" as Agent
 participant ":RankApplicationUI" as ui <<UI>>
 participant ":RankApplicationController" as ctrl <<Application>>
 participant ":JobOpeningService" as jobServ <<Service>>
-participant ":JobOpeningRepository" as jobRepo <<Persistence>>
+participant ":JobOpeningProcessRepository" as jobRepo <<Persistence>>
 participant ":ApplicationService" as appServ <<Service>>
 participant ":ApplicationRepository" as appRepo <<Persistence>>
 participant "rank:Ranking" as rank <<Domain>>
@@ -16,11 +16,11 @@ activate Agent
 
 Agent -> ui: Request to rank candidates for a job opening
 activate ui
-ui -> ctrl: allJobOpenings()
+ui -> ctrl: findAllJobOpeningInAnalysis()
 activate ctrl
-ctrl -> jobServ: allJobOpenings()
+ctrl -> jobServ: findAllJobOpeningInAnalysis()
 activate jobServ
-jobServ -> jobRepo: findAllByAnalysisPhase()
+jobServ -> jobRepo: findAllInResult()
 activate jobRepo
 jobRepo --> jobServ: openings
 deactivate
@@ -69,14 +69,17 @@ activate ctrl
 ctrl -> appServ : rankApplication(app, ranking)
 
 activate appServ
-appServ -> appRepo : isValidRankingFor(opening, ranking)
-activate appRepo
-appRepo --> appServ : true
-deactivate
-appServ -> rank** : «creates»
-appServ -> app : updateRanking(ranking)
+
+appServ -> app : rank(ranking)
+
+
 activate app
-deactivate
+
+app --> appServ : void
+
+deactivate app
+
+
 
 appServ -> appRepo : save(app)
 activate appRepo

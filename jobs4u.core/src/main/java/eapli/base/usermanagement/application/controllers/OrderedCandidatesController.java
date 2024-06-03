@@ -52,8 +52,8 @@ public class OrderedCandidatesController {
      */
     public List<JobInterview> orderedCandidatesOfJobOpening(final JobOpening jobOpening) {
         // Fetch candidates associated with the job opening
-        List<JobOpeningApplication> candidatesIterable = applicationService.getApplicationsByJobOpening(jobOpening);
-        List<JobInterview> interviews = applicationService.getAllJobInterviewsOfApplications(candidatesIterable);
+        List<JobOpeningApplication> candidates = applicationService.getApplicationsByJobOpening(jobOpening);
+        List<JobInterview> interviews = applicationService.getAllJobInterviewsOfApplications(candidates);
 
         // Convert iterable to list and sort by job interview grade in descending order
         interviews.sort((app1, app2) -> {
@@ -72,5 +72,11 @@ public class OrderedCandidatesController {
      */
     private double getHighestInterviewGrade(Candidate candidate) {
         return Double.parseDouble(null);
+    }
+
+    public List<JobOpening> findAllJobOpeningInResult() {
+
+        return applicationService.findAllJobOpeningInResult();
+
     }
 }

@@ -19,7 +19,10 @@ public class RankApplicationController {
         applicationService.rankApplication(application, rank);
     }
 
-    public List<JobOpening> getAllJobOpeningInAnalysis() {
-        return applicationService.getAllJobOpeningInAnalysis();
+    public List<JobOpening> findAllJobOpeningInAnalysis() {
+        return applicationService.findAllJobOpeningInAnalysis();
     }
+
+
+
 }

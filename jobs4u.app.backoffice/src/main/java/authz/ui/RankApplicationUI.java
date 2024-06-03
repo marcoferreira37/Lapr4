@@ -34,7 +34,7 @@ public class RankApplicationUI extends AbstractUI {
     protected boolean doShow() {
         System.out.println("=====================================================");
         System.out.println("|| List of Job Openings ||");
-        List<JobOpening> openingList = theController.getAllJobOpeningInAnalysis();
+        List<JobOpening> openingList = theController.findAllJobOpeningInAnalysis();
         if (openingList.isEmpty()) {
             System.out.println("No job openings available!");
             return false;

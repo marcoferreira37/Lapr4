@@ -7,7 +7,6 @@ import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobInterviewRepository;
 import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.base.repositories.JobOpeningProcessRepository;
-import eapli.base.repositories.JobOpeningRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +52,11 @@ public class ApplicationService {
         return returnList;
     }
 
-    public List<JobOpening> getAllJobOpeningInAnalysis() {
+    public List<JobOpening> findAllJobOpeningInAnalysis() {
         return jobOpeningProcesses.findAllInAnalysis();
+    }
+
+    public List<JobOpening> findAllJobOpeningInResult() {
+        return jobOpeningProcesses.findAllInResult();
     }
 }
