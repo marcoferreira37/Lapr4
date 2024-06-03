@@ -21,9 +21,7 @@ public class UpdateJobOpeningUI extends AbstractUI {
     private final AdvancePhaseController advancePhaseController = new AdvancePhaseController();
     @Override
     protected boolean doShow() {
-        List<JobOpening> jobs  = controller.allJobs();
-        int jobIndex = Console.readInteger("Choose a job: ");
-        JobOpening jobOpening = jobs.get(jobIndex-1);
+        JobOpening jobOpening  = controller.allJobs();
 
 
 
