@@ -49,7 +49,7 @@ public class UpdateJobOpeningUI extends AbstractUI {
 
                 Phase phase = controller.buildPhase(application, screening, interview, analysis, results);
 
-                jobOpening = controller.updateDates(jobOpening, phase);
+                controller.updateDates(jobOpening, phase);
                 break;
             case "2":
                 File[] requirements = controller.showRequirements();
