@@ -36,8 +36,8 @@ public class Phase implements ValueObject {
     private Date resultsDate;
 
     public static Phase from(Date applicationDate, Date screeningDate, Date interviewDate, Date analysisDate, Date resultsDate) {
-        if (applicationDate.after(new Date())) {
-            throw new IllegalArgumentException("The application date must be in the past");
+        if (applicationDate.before(Date.from(Instant.now()))) {
+            throw new IllegalArgumentException("The application cannot be before today's date");
         }
         if (!applicationDate.before(screeningDate) || !screeningDate.before(interviewDate) || !interviewDate.before(analysisDate) || !analysisDate.before(resultsDate)) {
             throw new IllegalArgumentException("The dates must be in the correct order");
