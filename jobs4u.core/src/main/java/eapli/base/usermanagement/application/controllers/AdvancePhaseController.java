@@ -23,12 +23,21 @@ public class AdvancePhaseController {
         return choice == 2 && jobProcess.currentPhase() == PhaseType.ANALYSIS;
     }
 
-    public JobOpeningProcess updatePhase(JobOpening jobOp, int choice, boolean interviewPhase){
+    public JobOpeningProcess updatePhase(JobOpening job, int choice, boolean interviewPhase){
+        jobOpening = job;
+        jobProcess = service.jobProcessFromJobOpening(job);
+        System.out.println("Old phase: " + jobProcess.currentPhase() + " Status: " + jobProcess.status());
         if(choice == 1){
             jobProcess = service.advanceToNextPhase(jobProcess,interviewPhase);
         }
-        else{
+        else if (choice == 2){
             jobProcess = service.goBackToPreviousPhase(jobProcess,interviewPhase);
+        } else {
+            jobProcess.activateProcess();
+        }
+        if (jobProcess != null) {
+            jobProcess = service.saveJobProcess(jobProcess);
+            System.out.println("New phase: " + jobProcess.currentPhase() + " Status: " + jobProcess.status() );
         }
         return jobProcess;
     }
