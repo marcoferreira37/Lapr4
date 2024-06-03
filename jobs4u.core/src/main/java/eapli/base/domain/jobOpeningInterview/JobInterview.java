@@ -37,6 +37,7 @@ public class JobInterview implements AggregateRoot<Long> {
 
     public JobInterview(String interviewTime, Calendar interviewDate, JobOpeningApplication jobOpeningApplication) {
 
+        validateInterviewTime(interviewTime);
         validateInterviewTimeNotNull(interviewTime);
 
         validateInterviewDate(interviewDate);
@@ -60,14 +61,18 @@ public class JobInterview implements AggregateRoot<Long> {
         if (interviewDate.before(Calendar.getInstance())) {
             throw new IllegalArgumentException("Interview Date must not be in the past");
         }
-        
+
+    }
+
+    public void validateInterviewTime(String interviewTime) {
+        Preconditions.nonEmpty(interviewTime, "Interview Time must not be null");
     }
 
     public void validateInterviewTimeNotNull(String interviewTime) {
         if (interviewTime == null) {
             throw new IllegalArgumentException("Interview Time must not be null");
         }
-        
+
     }
 
 

@@ -1,6 +1,7 @@
 package eapli.base.domain.jobOpeningInterview;
 
 import eapli.base.domain.jobApplication.JobOpeningApplication;
+import eapli.framework.validations.Preconditions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
@@ -11,14 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class JobInterviewTest {
 
     private  JobInterview jobInterview;
-
-    @Test
-    void jobInterview() {
-    }
-
-    @Test
-    void sameAs() {
-    }
 
     @Test
     public void validateInterviewTimeNotNullTest() {
@@ -88,47 +81,13 @@ class JobInterviewTest {
         assertEquals("Interview Time must not be null", exception.getMessage());
     }
 
-
-
-
-
-
-
-
-
-
-
-
     @Test
-    void identity() {
+    public void validateInterviewTimeTest() {
+        JobInterview jobInterview = new JobInterview();
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            jobInterview.validateInterviewTime("");
+        });
+        assertEquals("Interview Time must not be null", exception.getMessage());
     }
 
-    @Test
-    void jobOpeningApplication() {
-    }
-
-    @Test
-    void interviewDate() {
-
-    }
-
-    @Test
-    void interviewTime() {
-    }
-
-    @Test
-    void grade() {
-    }
-
-    @Test
-    void testToString() {
-    }
-
-    @Test
-    void gradeInterview() {
-    }
-
-    @Test
-    void getInterviewTime() {
-    }
 }
