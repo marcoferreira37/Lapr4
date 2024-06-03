@@ -4,6 +4,7 @@ import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Getter
@@ -34,7 +35,9 @@ public class Phase implements ValueObject {
     private Date resultsDate;
 
     public static Phase from(Date applicationDate, Date screeningDate, Date interviewDate, Date analysisDate, Date resultsDate) {
-        //TODO Validate business rules
+        if (applicationDate.after(Date.from(Instant.now()))  || applicationDate.after(screeningDate) || screeningDate.after(interviewDate) || interviewDate.after(analysisDate) || analysisDate.after(resultsDate)) {
+            throw new IllegalArgumentException("The dates must be in the correct order");
+        }
         return new Phase(applicationDate, screeningDate, interviewDate, analysisDate, resultsDate);
     }
 

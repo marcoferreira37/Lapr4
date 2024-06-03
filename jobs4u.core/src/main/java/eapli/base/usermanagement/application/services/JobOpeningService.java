@@ -152,4 +152,12 @@ public class JobOpeningService {
         jobOpening.setVacanciesNumber(new VacanciesNumber(n));
         return repository.save(jobOpening);
     }
+
+    public JobOpeningProcess jobProcessFromJobOpening(JobOpening jobOpening) {
+        return processRepository.findJobProcessByJobOpening(jobOpening);
+    }
+
+    public JobOpeningProcess saveJobProcess(JobOpeningProcess jobOpeningProcess) {
+        return processRepository.save(jobOpeningProcess);
+    }
 }

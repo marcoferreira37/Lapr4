@@ -1,6 +1,7 @@
 package eapli.base.usermanagement.application.controllers;
 
 import eapli.base.domain.company.Company;
+import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
 import eapli.base.domain.jobOpeningProcess.PhaseType;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpeningProcess.Phase;
@@ -24,11 +25,14 @@ public class UpdateJobOpeningController {
     private JobOpeningService service = new JobOpeningService();
     private AuthorizationService autzService = AuthzRegistry.authorizationService();
 
-    public JobOpening updateDates(JobOpening jobOpening, Phase phase) {
+    public void updateDates(JobOpening jobOpening, Phase phase) {
         autzService.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN, BaseRoles.POWER_USER);
-  //      jobOpening.setPhaseDates(phase);
-        JobOpening jo = service.saveJobOpening(jobOpening);
-        return jo;
+        JobOpeningProcess jobOpeningProcess = service.jobProcessFromJobOpening(jobOpening);
+        jobOpeningProcess.updatePhaseDate(phase);
+        jobOpeningProcess = service.saveJobProcess(jobOpeningProcess);
+
+        System.out.println("Dates updated successfully!");
+        System.out.println("New Dates: " + jobOpeningProcess.phaseDate());
     }
 
     public Date verifyDate (Date date, String dateName){
