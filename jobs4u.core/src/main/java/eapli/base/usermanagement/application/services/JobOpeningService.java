@@ -98,7 +98,12 @@ public class JobOpeningService {
     }
 
     public JobOpeningProcess goBackToPreviousPhase(JobOpeningProcess jobOpening, boolean interviewPhase) {
-        jobOpening.goBackToPreviousPhase(interviewPhase);
+        try {
+            jobOpening.goBackToPreviousPhase(interviewPhase);
+        }catch (Exception e ){
+            System.out.println(e.getMessage());
+            return null;
+        }
         jobOpening = processRepository.save(jobOpening);
         return jobOpening;
     }
