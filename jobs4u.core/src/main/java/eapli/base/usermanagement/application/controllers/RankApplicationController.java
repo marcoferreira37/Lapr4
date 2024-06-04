@@ -1,6 +1,7 @@
 package eapli.base.usermanagement.application.controllers;
 
 import eapli.base.domain.jobOpening.JobOpening;
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.application.services.ApplicationService;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 
@@ -24,5 +25,9 @@ public class RankApplicationController {
     }
 
 
+    public List<JobOpeningApplication> allApplicationsForJobOpening(JobOpening jobOpening) {
+        return (List<JobOpeningApplication>) PersistenceContext.repositories().jobApplications().findAllApplicationsForJobOpening(jobOpening);
+
+    }
 
 }

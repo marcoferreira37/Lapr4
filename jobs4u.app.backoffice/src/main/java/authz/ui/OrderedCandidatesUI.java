@@ -77,18 +77,4 @@ public class OrderedCandidatesUI extends AbstractUI {
         }
         return option;
     }
-
-    public void printCandidates(List<Candidate> candidates) {
-        System.out.println("=====================================================");
-        System.out.println("|| Ordered List of Candidates ||");
-        int index = 1;
-        for (Candidate candidate : candidates) {
-            System.out.printf("%d. Candidate: %s, Highest Grade: %.2f%n",
-                    index++, candidate.identity(), getHighestInterviewGrade(candidate));
-        }
-    }
-
-    private double getHighestInterviewGrade(Candidate candidate) {
-        return 12;
-    }
 }
