@@ -61,7 +61,7 @@ interview points (grades), to help me analyze the candidates.
 - 1019.1: The system should allow the Customer Manager to input or upload a list of candidates along with their interview points.
 - 1019.2: The system should sort the candidates in descending order based on their interview points.
 - 1019.3: The sorted list should be displayed clearly, showing each candidate's name and their respective interview points.
-- 1019.4: The system should ensure data accuracy by validating the inputted interview points to be numerical and within a defined range (e.g., 0-100).
+- 1019.4: The system should ensure data accuracy by validating the inputted interview points to be numerical and within a defined range (e.g., 0-20).
 - 1019.5: The system should be able to handle a large number of candidates efficiently, ensuring quick sorting and display.
 
 **Dependencies/References:**
@@ -71,56 +71,81 @@ interview points (grades), to help me analyze the candidates.
 
 ## 3. Analysis
 
-The Customer Manager requested a feature to generate an ordered list of candidates based on their interview points.
+### 3.1. Domain Model
+
+The domain model is composed of the following entities:
+
+- **JobOpening**: Represents a job opening in the company.
+- **Candidate**: Represents a candidate that has applied for a job opening.
+- **Application**: Represents the application of a candidate for a job opening.
+- **Phase**: Represents the phase of the application process.
+
+![Domain Model](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-domain-model.svg)
+
+## 3.2 System Sequence Diagram
+
+![System Sequence Diagram - Full](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-system-sequence-diagram-System_Sequence_Diagram__SSD____Rank_Candidates_for_a_Job_Opening.png)
+
+The Customer Manager requested a feature to list candidates based on their interview points.
+The system sequence diagram shows the interactions between the Customer Manager and the system to achieve this.
+The customer manager requests the list of candidates for a job opening, and the system retrieves and sorts the candidates based on their interview points.
+Selects a job opening and requests the list of candidates for that job opening.
+Then, the system displays the sorted list to the Customer Manager.
 
 
 ## 4. Design
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
-
-
-
-
 ### 4.1. Realization
 
-### 4.2. Class Diagram
+The realization of the functionality involves defining how the Customer Manager can list candidates based on their interview points.
+This requires interactions between various system components including the UI, business logic, and data persistence layers.
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
+## 4.2 Sequence Diagram
 
-### 4.3. Applied Patterns
+![Sequence Diagram - Full](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1019\svg\1019-sequence-diagram.png)
 
-### 4.4. Tests
-
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
-
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
-
-
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
+The sequence diagram shows the interactions between the Customer Manager and the system to list candidates based on their interview points.
+This includes selecting a job opening, retrieving the candidates for that job opening, sorting the candidates based on 
+their interview points, and displaying the sorted list to the Customer Manager.
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
+- The implementation of the candidate ranking feature involves several key components: the UI layer,
+  the business logic layer, and the persistence layer.
+  The primary goal is to allow the Customer Manager to rank candidates for a job opening, save these rankings, and modify
+  them as necessary. The implementation also ensures that all candidates are ranked and that the rankings are persisted.
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+* Controller (RankApplicationController): Manages the interaction with the ApplicationService to rank applications.
+
+* Repository (ApplicationRepository): Handles the persistence of application data, including the rankings assigned by the Customer Manager.
+
+* Service (ApplicationService): Handles the business logic for listing and ranking candidates based on interview points.
+
+* UI (OrderCandidatesUI): Provides the interface for the Customer Manager to view the list of the candidates and theirs grades.
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
+* Integration with other system components was verified by:
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+- Ensuring that the OrderedCandidatesController correctly interacts with the ApplicationService.
+- Validating that the ApplicationService correctly persists rankings using the ApplicationRepository.
+- Testing the complete workflow from the UI to the service and persistence layers.
+- To demonstrate this functionality:
+
+1) Run the application.
+2) Navigate to the Rank Application UI.
+3) Select a job opening.
+4) View and rank candidates.
+5) Verify that rankings are saved and can be modified.
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
+* During development, the following considerations were made:
 
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
+- UI/UX: The UI was designed to be intuitive, allowing the Customer Manager to easily navigate and rank candidates.
+  Future improvements could include additional filtering and sorting options.
+- Performance: The ranking operation was optimized to ensure quick response times, even with a large number of applications.
+- Extensibility: The current implementation is modular, allowing for future enhancements such as automated initial ranking based on predefined criteria.
 
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+- Alternative solutions considered included automated ranking based on interview scores,
+  but this was deferred to future work to keep the initial implementation simple and focused on manual ranking by the Customer Manager.
