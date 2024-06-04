@@ -46,6 +46,7 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
     @Column(name = "JOBREFERENCE", insertable = false, updatable = false)
     private String jobReference;
 
+    @Column(name = "CANDIDATE_REQUIREMENTS")
     private String candidateRequirements;
 
     @Column(name = "RANK")
@@ -85,6 +86,7 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
         return candidate;
     }
 
+
     @Override
     public String toString() {
         return "JobOpeningApplication " +
@@ -110,6 +112,8 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
     public String showRank() {
         return String.valueOf(rank);
     }
+
+
 
     /**
      * Show the rank of the application as an integer

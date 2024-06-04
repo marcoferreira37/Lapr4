@@ -29,11 +29,12 @@ public interface InterviewModelGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInterviewModel(InterviewModelGrammarParser.InterviewModelContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewModelGrammarParser#interview}.
+	 * Visit a parse tree produced by the {@code evaluation}
+	 * labeled alternative in {@link InterviewModelGrammarParser#interview}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInterview(InterviewModelGrammarParser.InterviewContext ctx);
+	T visitEvaluation(InterviewModelGrammarParser.EvaluationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link InterviewModelGrammarParser#questions}.
 	 * @param ctx the parse tree

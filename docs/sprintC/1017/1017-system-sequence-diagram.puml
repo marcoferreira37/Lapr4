@@ -1,0 +1,40 @@
+@startuml
+'skinparam monochrome true
+'skinparam packageStyle rectangle
+'skinparam shadowing false
+
+title System Sequence Diagram (SSD) -  Record an interview with a candidate
+
+actor "Customer Manager" as Agent
+participant ":System" as System
+
+activate Agent
+
+Agent -> System : Requests to Upload Interview Answers File
+activate System
+
+System --> Agent: Displays the candidates list
+deactivate
+
+Agent -> System : Select a candidate
+activate System
+
+System --> Agent : Show all job applications of the selected candidate
+deactivate
+Agent -> System : Selects a application
+activate System
+
+
+System --> Agent : Requests the path of the file that's being uploaded
+deactivate System
+
+Agent -> System : Provides the path of the file
+activate System
+
+
+System --> Agent : Confirmation that the file has been properly updated
+deactivate System
+
+deactivate Agent
+
+@enduml

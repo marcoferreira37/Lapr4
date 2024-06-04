@@ -8,7 +8,7 @@ header: 'Create interview model' interviewName=STRING 'for job opening' jobOpeni
 //INTERVIEW
 interviewModel: interview+ ;
 
-interview: questions questionAnswers questionPoints;
+interview: questions questionAnswers questionPoints #evaluation;
 
 //questions
 questions: question+ ;

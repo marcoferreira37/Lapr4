@@ -1,8 +1,12 @@
 package lapr4;
 
+import eapli.framework.io.util.Console;
+
 public class Main {
     public static void main(String[] args) {
         InterviewModel interviewModel = new InterviewModel();
-        interviewModel.enterStart();
+
+        String file = Console.readLine("Insert the file name: ");
+        interviewModel.enterStart(file);
     }
 }

@@ -182,9 +182,16 @@ and how these rankings are stored and modified in the system.
 This requires interactions between various system components including the UI, business logic, 
 and data persistence layers.
 
-## 4.2 Sequence Diagram
+## 4.2 Class Diagram
 
-![Sequence Diagram - Full](svg/us017-sequence-diagram-full.svg)
+![Class Diagram - Full](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-class-diagram.png)
+
+The class diagram shows the key classes involved in the ranking of candidates for a job opening.
+This includes the Application, Candidate, Process and Job Opening.
+
+## 4.3 Sequence Diagram
+
+![Sequence Diagram - Full](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-sequence-diagram.png)
 
 The sequence diagram shows the interactions between the Customer Manager and the system to rank candidates. 
 This includes actions like viewing a list of candidates, assigning a rank, saving the rank, and modifying it later.
@@ -196,15 +203,13 @@ the business logic layer, and the persistence layer.
 The primary goal is to allow the Customer Manager to rank candidates for a job opening, save these rankings, and modify 
 them as necessary. The implementation also ensures that all candidates are ranked and that the rankings are persisted.
 
-* Controller (OrderedCandidatesController): Manages the interaction with the ApplicationService to rank applications.
-
-* Repository (ApplicationRepository): Handles the persistence of application data, including the rankings assigned by the Customer Manager.
+* Controller (RankApplicationController): Manages the interaction with the ApplicationService to rank applications.
 
 * Repository (ApplicationRepository): Handles the persistence of application data, including the rankings assigned by the Customer Manager.
 
 * Service (ApplicationService): Handles the business logic for ranking applications and persists the changes using the repository.
 
-* UI (OrderedCandidatesUI): Provides a user interface for the Customer Manager to select job openings, view applications, and rank candidates.
+* UI (RankApplicationUI): Provides a user interface for the Customer Manager to select job openings, view applications, and rank candidates.
 
 ## 6. Integration/Demonstration
 
@@ -216,7 +221,7 @@ them as necessary. The implementation also ensures that all candidates are ranke
 - To demonstrate this functionality:
 
 1) Run the application.
-2) Navigate to the Ordered Candidates UI.
+2) Navigate to the Rank Application UI.
 3) Select a job opening.
 4) View and rank candidates.
 5) Verify that rankings are saved and can be modified.

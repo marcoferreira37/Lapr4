@@ -1,4 +1,4 @@
-# US 2000a
+# US 2000b
 
 ## 1. Context
 
@@ -18,7 +18,25 @@ This task involves enabling the Operator to enable/disable a candidate in the sy
 
 **Dependencies/References:**
 
+- G007 - As a Project Manager, I want the system to support and apply authentication and
+  authorization for all its users and functionalities.
+
+- 2000a - As Operator, I want to register a candidate and create a corresponding user.
+- 
 - ...
+
+### Client Clarifications
+
+-Q30 Alejandro – US2000b, o que é o enable/disable do candidato?
+-A30. (alguma referencia a Q23). Refere-se a desativar o acesso do candidato ao sistema (i.e., Candidate App)
+
+-Q146 Alejandro – US 2000b – for the use case 2000b which states "As Operator, I want to enable/disable a candidate". I would like to know if the client would like two different menus to be created, with each menu responsible for either activating or deactivating candidates.
+-A146 I have no specific requirements for the UX/UI but I want you to follow best practices.
+
+-Q213 Vitorino – US2000b – Na us 2000b, é suposto ao desativar um candidato, apenas lhe retirar a role e deixa-lo como user ao desativa-lo completamente?
+-A213. Ver Q30. Considero que o objetivo desta US é permitir bloquear e desbloquear o acesso de um candidato ao sistema. Isso não deve invalidar as candidaturas dessa pessoa, apenas o acesso desse candidato ao sistema.
+
+
 ## 3. Analysis
 
 Functional Requirements: 
@@ -81,17 +99,16 @@ Prevent unauthorized access to the enable/disable functionality by implementing 
 
 Usability Risks:
 Address potential usability issues by conducting user testing and gathering feedback from Operators.
+### 3.1. Domain Model
 
-### Client Clarifications
+The domain model is composed of the following entities:
 
--Q30 Alejandro – US2000b, o que é o enable/disable do candidato?
--A30. (alguma referencia a Q23). Refere-se a desativar o acesso do candidato ao sistema (i.e., Candidate App)
 
--Q146 Alejandro – US 2000b – for the use case 2000b which states "As Operator, I want to enable/disable a candidate". I would like to know if the client would like two different menus to be created, with each menu responsible for either activating or deactivating candidates.
--A146 I have no specific requirements for the UX/UI but I want you to follow best practices.
+- **Candidate**: Represents a candidate that will be disabled or enabled.
+- **SystemUser**: Represents a system user, that in this case will be a candidate.
 
--Q213 Vitorino – US2000b – Na us 2000b, é suposto ao desativar um candidato, apenas lhe retirar a role e deixa-lo como user ao desativa-lo completamente?
--A213. Ver Q30. Considero que o objetivo desta US é permitir bloquear e desbloquear o acesso de um candidato ao sistema. Isso não deve invalidar as candidaturas dessa pessoa, apenas o acesso desse candidato ao sistema.
+![Domain Model](docs/sprintC/2000b/puml/2000b-domain-model.puml)
+
 
 ## 4. Design
 
@@ -99,18 +116,54 @@ Address potential usability issues by conducting user testing and gathering feed
 
 A functionality is implemented within the system to allow Operators to enable/disable a candidate so that the candidate has access (or not) to the system.
 
-### 4.2. Tests
+## 4.2 Class Diagram
 
-N/A
+![Class Diagram - Enable](docs/sprintC/2000b/puml/SD1_EnableCandidate/2000b-class-diagram.puml)
+![Class Diagram - Disable](docs/sprintC/2000b/puml/SD2_DisableCandidate/2000b-class-diagram.puml)
+The class diagram shows the key classes involved in the enabling or disabling a candidate.
+This includes the Candidate and the SystemUser.
+
+## 4.3 Sequence Diagram
+
+![Sequence Diagram - Enable](docs/sprintC/2000b/puml/SD2_DisableCandidate/2000b-class-diagram.puml)
+![Sequence Diagram - Disable](docs/sprintC/2000b/puml/SD2_DisableCandidate/2000b-sequence-diagram.puml)
+
+The sequence diagram shows the interactions between the Operator and the system to disable/enable a candidate.
+This includes actions like viewing the list of candidates enabled/disabled, choose one of them, and enable/disable him.
+
 
 ## 5. Implementation
 
 The system features functionality for enabling/disabling candidates enabling Operators to customize the status of a candidate.
 
+
+* Controller (EnableCandidateController/DisableCandidateController): Manages the interaction with the CandidateManagementService to enable or disabling candidates.
+
+* Repository (CandidateRepository): Handles the persistence of the data.
+
+* Service (CandidateManagementService): Handles the business logic for enabling/disabling candidates and persists the changes using the repository.
+
+* UI (EnableCandidateUI/DisableCandidateUI): Provides a user interface for the Operator to select a candidate from the list of candidates and enable/disable them.
+
 ## 6. Integration/Demonstration
 
-There was no demonstration for this task.
+* Integration with other system components was verified by:
+
+- Ensuring that the ListCandidatesController correctly interacts with the CandidateManagementService.
+-  Ensuring that the EnableCandidateController/DisableCandidateController correctly interacts with the CandidateManagementService.
+- Validating that the CandidateManagementService correctly persists the status of the candidate using the CandidateRepository.
+- Testing the complete workflow from the UI to the service and persistence layers.
+- To demonstrate this functionality:
+
+1) Run the application.
+2) Navigate to the Enable Candidate UI / Disable Candidate UI
+3) Select a candidate from the list to enable/disable. 
+4) Verify that the candidate status was changed in the database.
+
 
 ## 7. Observations
 
-There was no observation for this task.
+* During development, the following considerations were made:
+
+- UI/UX: The UI was designed to be intuitive, allowing the Operator to easily enable and disable candidates.
+- Performance: The enabling/disabling operation was optimized to ensure quick response times, even with a large number of candidates in the list.
