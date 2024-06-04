@@ -56,7 +56,7 @@ public class ListCandidatesController{
     private final CandidateManagementService candidateSvc = new CandidateManagementService();
 
     public Iterable<Candidate> allCandidates() {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.OPERATOR);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.OPERATOR, BaseRoles.CUSTOMER_MANAGER);
 
         return candidateSvc.allCandidate();
     }
