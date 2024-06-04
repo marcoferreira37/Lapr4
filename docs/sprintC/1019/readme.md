@@ -110,14 +110,18 @@ their interview points, and displaying the sorted list to the Customer Manager.
 
 ## 5. Implementation
 
-- The implementation of the candidate ranking feature involves several key components: the UI layer,
+- The implementation of listing candidates based on the grades involves several key components: the UI layer,
   the business logic layer, and the persistence layer.
-  The primary goal is to allow the Customer Manager to rank candidates for a job opening, save these rankings, and modify
-  them as necessary. The implementation also ensures that all candidates are ranked and that the rankings are persisted.
+  The primary goal is to allow the Customer Manager to list and rank candidates based on their interview points.
+- The following components were implemented:
 
-* Controller (RankApplicationController): Manages the interaction with the ApplicationService to rank applications.
+* Controller (OrderedCandidatesController): Manages the interaction with the ApplicationService to list the candidates based on their interview points.
 
-* Repository (ApplicationRepository): Handles the persistence of application data, including the rankings assigned by the Customer Manager.
+* Repository (JobApplicationRepository): Handles the persistence of application data, including the rankings of candidates based on interview points
+
+* Repository (JobOpeningRepository): Handles the persistence of job opening data, including the list of job openings.
+
+* Repository (InterviewRepository): Handles the persistence of candidate data, including the interview points.
 
 * Service (ApplicationService): Handles the business logic for listing and ranking candidates based on interview points.
 
@@ -128,24 +132,25 @@ their interview points, and displaying the sorted list to the Customer Manager.
 * Integration with other system components was verified by:
 
 - Ensuring that the OrderedCandidatesController correctly interacts with the ApplicationService.
-- Validating that the ApplicationService correctly persists rankings using the ApplicationRepository.
+- Validating that the ApplicationService correctly persists rankings using the JobOpeningApplicationRepository.
+- Verifying that the UI displays the sorted list of candidates based on their interview points.
+- Ensuring that the UI allows the Customer Manager to select a job opening and view the list of candidates.
 - Testing the complete workflow from the UI to the service and persistence layers.
 - To demonstrate this functionality:
 
 1) Run the application.
-2) Navigate to the Rank Application UI.
+2) Navigate to the Ordered Candidates UI.
 3) Select a job opening.
-4) View and rank candidates.
-5) Verify that rankings are saved and can be modified.
+4) View the list of the candidates sorted.
 
 ## 7. Observations
 
 * During development, the following considerations were made:
 
-- UI/UX: The UI was designed to be intuitive, allowing the Customer Manager to easily navigate and rank candidates.
+- UI/UX: The UI was designed to be intuitive, allowing the Customer Manager to easily navigate and list candidates.
   Future improvements could include additional filtering and sorting options.
-- Performance: The ranking operation was optimized to ensure quick response times, even with a large number of applications.
-- Extensibility: The current implementation is modular, allowing for future enhancements such as automated initial ranking based on predefined criteria.
+
+- Extensibility: The current implementation is modular, allowing for future enhancements such as automated initial grades based on predefined criteria.
 
 - Alternative solutions considered included automated ranking based on interview scores,
-  but this was deferred to future work to keep the initial implementation simple and focused on manual ranking by the Customer Manager.
+  but this was deferred to future work to keep the initial implementation simple and focused on manual grading by the Customer Manager.
