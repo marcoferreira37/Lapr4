@@ -19,27 +19,21 @@ import java.util.stream.StreamSupport;
 public class OrderedCandidatesController {
 
     //cria este método
-    private final JobOpeningService service;
-
-    private final AuthorizationService autzService;
-
-    private final CandidateManagementService candidateSvc;
-
     private final ApplicationService applicationService;
 
 
     public OrderedCandidatesController() {
-        autzService = AuthzRegistry.authorizationService();
-        service = new JobOpeningService();
-        candidateSvc = new CandidateManagementService();
+//        autzService = AuthzRegistry.authorizationService();
+//        service = new JobOpeningService();
+//        candidateSvc = new CandidateManagementService();
         applicationService = new ApplicationService();
     }
 
     //For testing purpose
     public OrderedCandidatesController(JobOpeningService service, AuthorizationService autzService, CandidateManagementService candidateSvc, ApplicationService applicationService) {
-        this.service = service;
-        this.autzService = autzService;
-        this.candidateSvc = candidateSvc;
+//        this.service = service;
+//        this.autzService = autzService;
+//        this.candidateSvc = candidateSvc;
         this.applicationService = applicationService;
     }
 
@@ -62,16 +56,6 @@ public class OrderedCandidatesController {
             return Integer.compare(grade2, grade1);
         });
         return interviews;
-    }
-
-    /**
-     * Get the highest job interview grade for a candidate.
-     *
-     * @param candidate the candidate to get the grade for
-     * @return the highest grade of the candidate's job interviews
-     */
-    private double getHighestInterviewGrade(Candidate candidate) {
-        return Double.parseDouble(null);
     }
 
     public List<JobOpening> findAllJobOpeningInResult() {
