@@ -128,7 +128,7 @@ public class InterviewModelGrammarParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_start; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewModelGrammarListener ) ((InterviewModelGrammarListener)listener).enterStart(this);
+			if ( listener instanceof InterviewModelGrammarListener) ((InterviewModelGrammarListener)listener).enterStart(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
@@ -136,7 +136,7 @@ public class InterviewModelGrammarParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewModelGrammarVisitor) return ((InterviewModelGrammarVisitor<? extends T>)visitor).visitStart(this);
+			if ( visitor instanceof InterviewModelGrammarVisitor ) return ((InterviewModelGrammarVisitor<? extends T>)visitor).visitStart(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -287,6 +287,18 @@ public class InterviewModelGrammarParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class InterviewContext extends ParserRuleContext {
+		public InterviewContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_interview; }
+	 
+		public InterviewContext() { }
+		public void copyFrom(InterviewContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class EvaluationContext extends InterviewContext {
 		public QuestionsContext questions() {
 			return getRuleContext(QuestionsContext.class,0);
 		}
@@ -296,21 +308,18 @@ public class InterviewModelGrammarParser extends Parser {
 		public QuestionPointsContext questionPoints() {
 			return getRuleContext(QuestionPointsContext.class,0);
 		}
-		public InterviewContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_interview; }
+		public EvaluationContext(InterviewContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewModelGrammarListener ) ((InterviewModelGrammarListener)listener).enterInterview(this);
+			if ( listener instanceof InterviewModelGrammarListener ) ((InterviewModelGrammarListener)listener).enterEvaluation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewModelGrammarListener ) ((InterviewModelGrammarListener)listener).exitInterview(this);
+			if ( listener instanceof InterviewModelGrammarListener ) ((InterviewModelGrammarListener)listener).exitEvaluation(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewModelGrammarVisitor ) return ((InterviewModelGrammarVisitor<? extends T>)visitor).visitInterview(this);
+			if ( visitor instanceof InterviewModelGrammarVisitor ) return ((InterviewModelGrammarVisitor<? extends T>)visitor).visitEvaluation(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -319,6 +328,7 @@ public class InterviewModelGrammarParser extends Parser {
 		InterviewContext _localctx = new InterviewContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_interview);
 		try {
+			_localctx = new EvaluationContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(60);

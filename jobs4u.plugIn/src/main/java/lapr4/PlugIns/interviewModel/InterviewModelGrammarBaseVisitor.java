@@ -1,10 +1,9 @@
 // Generated from C:/Users/Utilizador/Desktop/sem4pi-23-24-2dh3/sem4pi-23-24-2dh3/jobs4u.plugIn/src/main/resources/PlugIns/interviewModel/InterviewModelGrammar.g4 by ANTLR 4.13.1
 package lapr4.PlugIns.interviewModel;
-import PlugIns.interviewModel.InterviewModelGrammarParser;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
-// * This class provides an empty implementation of {@link InterviewModelGrammarVisitor},
+ * This class provides an empty implementation of {@link InterviewModelGrammarVisitor},
  * which can be extended to create a visitor which only needs to handle a subset
  * of the available methods.
  *
@@ -12,7 +11,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * operations with no return type.
  */
 @SuppressWarnings("CheckReturnValue")
-public class InterviewModelGrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements PlugIns.interviewModel.InterviewModelGrammarVisitor<T> {
+public class InterviewModelGrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements InterviewModelGrammarVisitor<T> {
 	/**
 	 * {@inheritDoc}
 	 *
@@ -40,7 +39,7 @@ public class InterviewModelGrammarBaseVisitor<T> extends AbstractParseTreeVisito
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInterview(InterviewModelGrammarParser.InterviewContext ctx) { return visitChildren(ctx); }
+	@Override public T visitEvaluation(InterviewModelGrammarParser.EvaluationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
