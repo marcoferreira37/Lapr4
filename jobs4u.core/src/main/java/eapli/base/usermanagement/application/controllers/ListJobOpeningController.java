@@ -1,14 +1,17 @@
 package eapli.base.usermanagement.application.controllers;
 
 import eapli.base.customer.Criteria;
+import eapli.base.domain.ClientUser;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.filter.jobOpening.*;
 import eapli.base.usermanagement.application.services.JobOpeningService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ListJobOpeningController {
@@ -82,6 +85,7 @@ public class ListJobOpeningController {
 
     /**
      * Método que cria uma lista de critérios.
+     *
      * @param jobOpeningFilteringStrategy estratégia de filtragem
      * @return lista de critérios
      */
@@ -89,4 +93,22 @@ public class ListJobOpeningController {
         return jobOpeningFilteringStrategy.newCriteria();
 
     }
+
+    public List<JobOpening> showJobOpenings(SystemUser systemUser) {
+
+//        ClientUser client = getClientBySystemUser(user);
+        List<JobOpening> jobOpenings = new LinkedList<>();
+        for (JobOpening jobOpening : service.allJobs()) {
+            String code = jobOpening.getJobReference().fullReference().substring(0, jobOpening.getJobReference().fullReference().indexOf("-"));
+//            if (code.equals(client.identity().toString())) // isto está mal
+                jobOpenings.add(jobOpening);
+        }
+        int index = 1;
+        for (JobOpening jobOpening : jobOpenings) {
+            System.out.println(index + ". " + jobOpening.toString());
+            index++;
+        }
+        return jobOpenings;
+    }
 }
+
