@@ -78,27 +78,19 @@ public class JobOpeningService {
         return strategy.filter(criteria, openings);
     }
 
-    public List<JobOpening> findAllByAnalysisPhase() {
-        List<JobOpening> listToReturn = (List<JobOpening>) repository.findAll();
-        List<JobOpening> listToReturnFiltered = new ArrayList<>();
-
-        for (JobOpening job : listToReturn) {
-            //if (job.currentPhase == ANALYSIS) {
-            listToReturnFiltered.add(job);
-            //}
-        }
-        return listToReturnFiltered;
-    }
-
     public JobOpeningProcess advanceToNextPhase(JobOpeningProcess jobOpening, boolean interviewPhase) {
         jobOpening.advanceToNextPhase(interviewPhase);
-        jobOpening.activateProcess();
         jobOpening = processRepository.save(jobOpening);
         return jobOpening;
     }
 
     public JobOpeningProcess goBackToPreviousPhase(JobOpeningProcess jobOpening, boolean interviewPhase) {
-        jobOpening.goBackToPreviousPhase(interviewPhase);
+        try {
+            jobOpening.goBackToPreviousPhase(interviewPhase);
+        }catch (Exception e ){
+            System.out.println(e.getMessage());
+            return null;
+        }
         jobOpening = processRepository.save(jobOpening);
         return jobOpening;
     }

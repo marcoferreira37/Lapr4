@@ -1,0 +1,86 @@
+@startuml
+
+actor CustomerManager as CM
+participant UploadInterviewAnswersFileUI as UI <<UI>>
+participant ListAllDataOfCandidateController as C <<Application>>
+participant "PersistenceContext" as P <<Service>>
+participant "RepositoryFactory" as RF <<Persistence>>
+participant "CandidateRepository" as CR <<Persistence>>
+participant "JobOpeningApplicationRepository" as JAR <<Persistence>>
+
+participant UpdateInterviewAnswerController as CTRL <<Application>>
+participant ApplicationService as APPS <<Service>>
+participant Applications as Aps <<Domain>>
+
+
+
+
+activate CM
+CM -> UI: Requests to Upload Interview Answers File
+activate UI
+UI -> C : allCandidates()
+activate C
+C -> P: repositories()
+activate P
+P --> C: return repositories
+deactivate P
+C -> RF: candidateRepository()
+activate RF
+RF --> C: return candidateRepository
+deactivate RF
+C -> CR: findAllCandidates()
+activate CR
+CR --> C: return Iterable<Candidate>
+deactivate CR
+C --> UI: return Iterable<Candidate>
+deactivate C
+UI --> CM: Display Candidates Id's (emails) list and asks to choose one
+deactivate UI
+CM->UI: Inputs index of candidate
+activate UI
+UI -> C: allApplicationsById (candidates.get ( index ) )
+activate C
+C -> P: repositories()
+activate P
+P --> C: return repositories
+deactivate P
+C -> RF: jobOpeningApplicationRepository()
+activate RF
+RF --> C: return jobOpeningApplicationRepository
+deactivate RF
+C -> JAR: findAllApplicationsByCandidateId(candidates.get ( index ).getId())
+activate JAR
+JAR --> C: return Iterable<JobOpeningApplication>
+deactivate JAR
+C --> UI: return Iterable<JobOpeningApplication>
+deactivate C
+
+
+
+
+UI--> CM : Show all job applications of the selected candidate
+deactivate UI
+CM->UI : Selects a application
+activate UI
+UI-->CM: Requests the path of the file that's being uploaded
+deactivate UI
+CM->UI: Provides the path of the file
+activate UI
+UI->CTRL : uploadInterviewAnswersFile (application, filePath)
+activate CTRL
+CTRL->APPS: uploadInterviewAnswersFile (application, filePath)
+activate APPS
+APPS->Aps:setInterviewAnswersFile(filePath)
+activate Aps
+Aps-->APPS: updatedInterviewAnswersFile
+deactivate Aps
+APPS-->CTRL: updatedInterviewAnswersFile
+deactivate APPS
+CTRL-->UI: updatedInterviewAnswersFile
+deactivate CTRL
+UI-->CM : Confirmation that the file has been properly updated
+deactivate UI
+
+deactivate CM
+
+@enduml

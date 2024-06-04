@@ -43,5 +43,8 @@ public class CandidateManagementService {
     public Iterable<Candidate> candidatesOfJobOpening(JobOpening jobOpening) {
         return candidateRepository.findAllCandidates();
     }
+
+
+
 }
 
