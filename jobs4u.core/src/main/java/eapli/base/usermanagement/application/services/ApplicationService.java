@@ -59,4 +59,9 @@ public class ApplicationService {
     public List<JobOpening> findAllJobOpeningInResult() {
         return jobOpeningProcesses.findAllInResult();
     }
+
+    public List<JobOpeningApplication> findAllJobOpeningApplicationsInAnalysis(JobOpening jobOpening) {
+        return (List<JobOpeningApplication>) PersistenceContext.repositories().jobApplications().findAllApplicationsForJobOpening(jobOpening);
+    }
 }
+

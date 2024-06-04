@@ -26,7 +26,8 @@ public class RankApplicationController {
 
 
     public List<JobOpeningApplication> allApplicationsForJobOpening(JobOpening jobOpening) {
-        return (List<JobOpeningApplication>) PersistenceContext.repositories().jobApplications().findAllApplicationsForJobOpening(jobOpening);
+        return applicationService.findAllJobOpeningApplicationsInAnalysis(jobOpening);
+//        return (List<JobOpeningApplication>) PersistenceContext.repositories().jobApplications().findAllApplicationsForJobOpening(jobOpening);
 
     }
 
