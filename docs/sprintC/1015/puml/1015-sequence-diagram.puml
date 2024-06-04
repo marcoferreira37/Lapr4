@@ -1,145 +1,43 @@
 @startuml
+actor "Customer Manager" as u
+participant ":RequirementsVerificationProcessUI" as ui <<UI>>
+participant ":RequirementsVerificationProcessController" as controller <<Application>>
+participant ":RequirementsVerificationProcessService" as service <<Service>>
+participant ":JobApplicationRepository" as repository <<Repository>>
+participant ":JobOpeningApplication" as application <<Entity>>
 
-actor "Customer Manager" as Agent
-participant ":RecordInterviewUI" as ui <<UI>>
-participant ":RecordInterviewController" as ctrl <<Application>>
-participant ":JobOpeningApplicationService" as jobApServ <<Service>>
-database ":JobOpeningApplicationRepository" as jobRepo <<Persistence>>
-'participant ":ApplicationService" as appServ <<Service>>
-database ":InterviewRepository" as intRepo <<Persistence>>
-participant "app:JobOpeningApplication" as app <<Domain>>
-participant "interview:Interview" as interview <<Domain>>
-
-
-autonumber
-
-activate Agent
-
-Agent -> ui: Record the time and date for an interview with a candidate
+activate u
+u -> ui: Requests to execute the process of verification of requirements of applications
 activate ui
+ui -> controller: executeVerificationProcess()
+activate controller
+controller -> service: executeVerificationProcess()
+activate service
+service -> repository: findAll()
+activate repository
+repository --> service: List<JobApplication> applications
+deactivate repository
+service -> service: filterApplications(applications)
+loop applications
+activate service
+    service -> service: verifyRequirements(application)
+    service -> application: updateStatus()
+    activate application
+    application --> service: JobOpeningApplication
+    deactivate application
+    service -> repository: save(application)
+    activate repository
+    repository --> service: JobOpeningApplication
+    deactivate repository
+    deactivate service
 
-ui -> ctrl: getJobOpeningApplication()
+end
 
+service --> controller: applications
+deactivate service
+controller --> ui: applications
+deactivate controller
+
+ui --> u: Displays all applications with the status(ACCEPTED/REJECTED) of requirements verification
 deactivate ui
-
-
-activate ctrl
-
-ctrl -> jobApServ: getJobOpeningApplication()
-deactivate ctrl
-
-activate jobApServ
-
-jobApServ -> jobRepo: getJobOpeningApplication()
-deactivate jobApServ
-activate jobRepo
-
-jobRepo --> jobApServ: JobOpeningApplications
-
-deactivate jobRepo
-
-activate jobApServ
-
-jobApServ --> ctrl: JobOpeningApplications
-deactivate jobApServ
-
-activate ctrl
-
-ctrl --> ui: JobOpeningApplications
-deactivate ctrl
-
-activate ui
-
-ui --> Agent: JobOpeningApplications
-deactivate ui
-
-Agent -> ui: Select the job opening application for which the interview is to be scheduled
-activate ui
-
-ui -> ctrl: getCandidate(jobOpeningApplication)
-deactivate ui
-
-activate ctrl
-
-ctrl -> jobApServ: getCandidate(jobOpeningApplication)
-deactivate ctrl
-
-activate jobApServ
-
-jobApServ -> app: getCandidate(jobOpeningApplication)
-deactivate jobApServ
-
-activate app
-
-app --> jobApServ: Candidate
-deactivate app
-
-activate jobApServ
-
-jobApServ --> ctrl: Candidate
-deactivate jobApServ
-
-activate ctrl
-
-ctrl --> ui: Candidate
-deactivate ctrl
-
-activate ui
-
-ui --> Agent: Candidate
-deactivate ui
-
-Agent -> ui: Record the time and date for an interview with the candidate
-activate ui
-
-ui -> ctrl: recordInterview(jobOpeningApplication, candidate, time, date)
-deactivate ui
-
-activate ctrl
-
-ctrl -> jobApServ: recordInterview(jobOpeningApplication, candidate, time, date)
-deactivate ctrl
-
-activate jobApServ
-
-jobApServ -> intRepo: recordInterview(jobOpeningApplication, candidate, time, date)
-deactivate jobApServ
-
-activate intRepo
-
-intRepo -> jobApServ: Save interview
-deactivate intRepo
-
-activate jobApServ
-
-jobApServ -> interview** : «creates»
-
-jobApServ -> intRepo: getInterview(jobOpeningApplication, candidate, time, date)
-deactivate jobApServ
-
-activate intRepo
-
-intRepo --> jobApServ: Interview
-deactivate intRepo
-
-activate jobApServ
-
-jobApServ --> ctrl: Interview
-deactivate jobApServ
-
-activate ctrl
-
-ctrl --> ui: Interview
-deactivate ctrl
-
-activate ui
-
-ui --> Agent: Interview
-
-
-
-
-
-
-
 @enduml
