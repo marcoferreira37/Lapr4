@@ -26,7 +26,6 @@ public class InterviewService {
             // Lógica adicional para lidar com o erro, como solicitar novos valores
         }
         return null;
-
     }
 
     public void gradeInterview(JobInterview interview, int grade) {

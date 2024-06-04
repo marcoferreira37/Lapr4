@@ -17,7 +17,7 @@ public class Company implements AggregateRoot<Long> {
         this.companyName = companyName;
     }
 
-    protected Company() {
+    public Company() {
     }
 
     public String companyIndex(){

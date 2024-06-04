@@ -18,21 +18,13 @@ public class RankApplicationUI extends AbstractUI {
      * The controller for ranking an application
      */
     private final RankApplicationController theController = new RankApplicationController();
-    /**
-     * The controller for listing all applications for a job opening
-     */
-    private final ListAllApplicationsForJobOpeningController controllerApplication = new ListAllApplicationsForJobOpeningController();
 
-    /**
-     * Show the UI
-     *
-     * @return true if the UI should keep running, false otherwise
-     */
+    //Criar um serviço que faça o trabalho dos dois controllers ( para ir buscar as job openings e as applications )
     @Override
     protected boolean doShow() {
         System.out.println("=====================================================");
         System.out.println("|| List of Job Openings ||");
-        List<JobOpening> openingList = (List<JobOpening>) controllerApplication.allJobOpenings();
+        List<JobOpening> openingList = theController.findAllJobOpeningInAnalysis();
         if (openingList.isEmpty()) {
             System.out.println("No job openings available!");
             return false;
@@ -40,7 +32,7 @@ public class RankApplicationUI extends AbstractUI {
         printNumeratedList(openingList);
         int option = getUserOption(openingList.size());
         JobOpening jobOpening = openingList.get(option - 1);
-        List<JobOpeningApplication> applications = controllerApplication.allApplicationsForJobOpening(jobOpening);
+        List<JobOpeningApplication> applications = theController.allApplicationsForJobOpening(jobOpening);
         if (applications.isEmpty()) {
             System.out.println("There are no applications for this job opening!");
             return false;

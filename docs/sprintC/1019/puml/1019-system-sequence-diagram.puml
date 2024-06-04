@@ -14,7 +14,7 @@ Agent -> System : Request to see an ordered list of candidates, using the job in
 
 activate System
 
-System --> Agent: Show list of job openings
+System --> Agent: Show list of job openings and requests to select one
 deactivate
 
 Agent -> System : Select a job opening

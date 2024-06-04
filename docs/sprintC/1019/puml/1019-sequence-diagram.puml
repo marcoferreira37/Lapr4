@@ -3,11 +3,11 @@
 actor "Customer Manager" as Agent
 participant ":OrderedCandidatesUI" as ui <<UI>>
 participant ":OrderedCandidatesController" as ctrl <<Application>>
-participant ":JobOpeningService" as jobServ <<Service>>
-participant ":CandidateManagementService" as candServ <<Service>>
+participant ":ApplicationService" as appServ <<Service>>
+participant ":CandidateManagementService" as appServ <<Service>>
 participant ":JobOpeningRepository" as jobRepo <<Persistence>>
 participant ":JobOpeningApplicationRepository" as candRepo <<Persistence>>
-
+participant ":InterviewRepository" as inteRepo <<Persistence>>
 autonumber
 
 
@@ -16,15 +16,15 @@ activate Agent
 Agent -> ui: Request to see an ordered list of candidates, using the job interview points (grades)
 
 activate ui
-ui -> ctrl: listJobOpenings()
+ui -> ctrl: findAllJobOpeningInResult()
 activate ctrl
-ctrl -> jobServ: getJobOpenings()
-activate jobServ
-jobServ -> jobRepo: getJobOpenings()
+ctrl -> appServ: findAllJobOpeningInResult()
+activate appServ
+appServ -> jobRepo: getJobOpenings()
 activate jobRepo
-jobRepo --> jobServ: openings
+jobRepo --> appServ: openings
 deactivate
-jobServ --> ctrl: openings
+appServ --> ctrl: openings
 deactivate
 ctrl --> ui: openings
 deactivate
@@ -35,20 +35,44 @@ activate ui
 ui -> ctrl: listCandidatesForOpening(opening)
 activate ctrl
 
-ctrl -> candServ: allCandidatesForOpening(opening)
+ctrl -> appServ: getApplicationsByJobOpening(opening)
 
-activate candServ
+activate appServ
 
-candServ -> candRepo: allCandidatesForOpening(opening)
+appServ -> candRepo: findAll()
 
 activate candRepo
 
-candRepo -> candRepo : filterGradesOfCandidates(candidates)
-candRepo --> candServ: candidates
+candRepo --> appServ: candidates
 deactivate
-candServ --> ctrl : candidates
+appServ --> ctrl : candidates
 deactivate
-ctrl --> ui: candidates
+
+
+ctrl -> appServ : getAllJobInterviewsOfApplications(candidates)
+
+activate appServ
+
+appServ -> inteRepo: findAll()
+
+activate inteRepo
+
+inteRepo --> appServ: interviews
+
+deactivate
+
+
+appServ --> ctrl: interviews
+
+
+
+deactivate
+
+ctrl --> ctrl : sort()
+
+ctrl --> ui: sorted interviews
+
+
 
 
 deactivate

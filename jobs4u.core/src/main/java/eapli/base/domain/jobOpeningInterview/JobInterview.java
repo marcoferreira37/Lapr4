@@ -47,6 +47,7 @@ public class JobInterview implements AggregateRoot<Long> {
         this.interviewTime = interviewTime;
         this.interviewDate = interviewDate;
         this.jobOpeningApplication = jobOpeningApplication;
+        this.grade = -1;
 
     }
 
@@ -140,5 +141,13 @@ public class JobInterview implements AggregateRoot<Long> {
             throw new IllegalArgumentException("Grade must be between 0 and 20");
         }
         this.grade = grade;
+    }
+
+    public String toStringWithoutGrade() {
+        return "----- JobInterview -----" +
+                "\nid= " + id +
+                "\njobOpeningApplication= " + jobOpeningApplication +
+                "\ninterviewTime= " + interviewTime + '\'' +
+                "\ninterviewDate= " + interviewDate;
     }
 }

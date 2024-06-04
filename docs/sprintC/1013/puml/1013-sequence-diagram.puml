@@ -3,12 +3,10 @@
 actor "Customer Manager" as Agent
 participant ":RankApplicationUI" as ui <<UI>>
 participant ":RankApplicationController" as ctrl <<Application>>
-participant ":JobOpeningService" as jobServ <<Service>>
-participant ":JobOpeningRepository" as jobRepo <<Persistence>>
 participant ":ApplicationService" as appServ <<Service>>
+participant ":JobOpeningProcessRepository" as jobRepo <<Persistence>>
 participant ":ApplicationRepository" as appRepo <<Persistence>>
-participant "rank:Ranking" as rank <<Domain>>
-participant "app:Application" as app <<Domain>>
+participant ":JobOpeningApplication" as app <<Domain>>
 
 autonumber
 
@@ -16,15 +14,15 @@ activate Agent
 
 Agent -> ui: Request to rank candidates for a job opening
 activate ui
-ui -> ctrl: allJobOpenings()
+ui -> ctrl: findAllJobOpeningInAnalysis()
 activate ctrl
-ctrl -> jobServ: allJobOpenings()
-activate jobServ
-jobServ -> jobRepo: findAllByAnalysisPhase()
+ctrl -> appServ: findAllJobOpeningInAnalysis()
+activate appServ
+appServ -> jobRepo: findAllInAnalysis()
 activate jobRepo
-jobRepo --> jobServ: openings
+jobRepo --> appServ: openings
 deactivate
-jobServ --> ctrl: openings
+appServ --> ctrl: openings
 deactivate
 ctrl --> ui: openings
 deactivate
@@ -39,7 +37,7 @@ ui -> ctrl: allApplicationsForJobOpening(opening)
 
 activate ctrl
 
-ctrl -> appServ: allApplicationsForJobOpening(opening)
+ctrl -> appServ: findAllJobOpeningApplicationsInAnalysis(opening)
 
 
 
@@ -69,14 +67,17 @@ activate ctrl
 ctrl -> appServ : rankApplication(app, ranking)
 
 activate appServ
-appServ -> appRepo : isValidRankingFor(opening, ranking)
-activate appRepo
-appRepo --> appServ : true
-deactivate
-appServ -> rank** : «creates»
-appServ -> app : updateRanking(ranking)
+
+appServ -> app : rankApplication(rank)
+
+
 activate app
-deactivate
+
+app --> appServ : void
+
+deactivate app
+
+
 
 appServ -> appRepo : save(app)
 activate appRepo

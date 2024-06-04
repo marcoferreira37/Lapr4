@@ -49,7 +49,7 @@ public class RecordInterviewUI extends AbstractUI {
                 String interviewTime = Console.readLine("Interview Time (HH:mm): ");
 
 
-                System.out.println(recordController.recordInterview(interviewDate, interviewTime, selectedApplication));
+                System.out.println(recordController.recordInterview(interviewDate, interviewTime, selectedApplication).toStringWithoutGrade());
                 validInput = true;
             }catch (IllegalArgumentException e) {
                 System.out.println("Invalid input. Please try again.");

@@ -19,7 +19,7 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     @Column(name = "Id")
     private long id;
 
-    @ManyToOne (cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumns({
             @JoinColumn(name = "JOBREFERENCE_COMPANYINDEX", referencedColumnName = "companyIndex"),
             @JoinColumn(name = "JOBREFERENCE_ID", referencedColumnName = "iD"),
@@ -34,11 +34,17 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     private Status status;
 
 
-    public JobOpeningProcess(JobOpening jobOpening,Phase phase) {
+    public JobOpeningProcess(JobOpening jobOpening, Phase phase) {
         this.jobOpening = jobOpening;
         this.currentPhase = PhaseType.DRAFT;
         this.phaseDate = phase;
         status = Status.OPENED;
+    }
+
+    public JobOpeningProcess(JobOpening jobOpening, PhaseType currentPhase) {
+        this.jobOpening = jobOpening;
+        this.currentPhase = currentPhase;
+
     }
 
     protected JobOpeningProcess() {
@@ -50,13 +56,14 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
 
     public void advanceToNextPhase(boolean interviewPhase) {
         currentPhase = currentPhase.nextPhase(interviewPhase);
+        status = Status.OPENED;
     }
 
     public void goBackToPreviousPhase(boolean interviewPhase) {
-        if (currentPhase == PhaseType.DRAFT){
+        if (currentPhase == PhaseType.DRAFT) {
             throw new RuntimeException("Can't go back to previous phase, already in the first phase.");
         }
-        if (status == Status.ACTIVE){
+        if (status == Status.ACTIVE) {
             throw new RuntimeException("Can't go back to previous phase, process is already active.");
         }
         currentPhase = currentPhase.previousPhase(interviewPhase);
@@ -67,7 +74,7 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     private void skipPhaseDate(PhaseType currentPhase) {
         switch (currentPhase) {
             case APPLICATION:
-                phaseDate.setAnalysisDate( (Date.from(Instant.now())));
+                phaseDate.setAnalysisDate((Date.from(Instant.now())));
                 break;
             case SCREENING:
                 phaseDate.setScreeningDate((Date.from(Instant.now())));
@@ -90,6 +97,9 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
 
     public void skipToNextPhase() {
         switch (currentPhase) {
+            case DRAFT:
+                currentPhase = PhaseType.APPLICATION;
+                break;
             case APPLICATION:
                 currentPhase = PhaseType.SCREENING;
                 break;
@@ -115,6 +125,7 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     public void deactivateProcess() {
         status = Status.CLOSED;
     }
+
     public void activateProcess() {
         status = Status.ACTIVE;
     }
@@ -132,13 +143,43 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     public JobOpening jobOpening() {
         return jobOpening;
     }
-    public void updatePhaseDate(Phase phase){
+
+    public void updatePhaseDate(Phase phase) {
         this.phaseDate = phase;
     }
-    public Status status(){
+
+    public Status status() {
         return status;
     }
-    public Phase phaseDate(){
+
+    public Phase phaseDate() {
         return phaseDate;
+    }
+
+    @Override
+    public String toString() {
+        String result = "JobOpeningProcess" +
+                        "\n id: " + id +
+                        "\n Job Reference: " + jobOpening.getJobReference().fullReference() +
+                        "\n Current Phase: " + currentPhase +
+                        "\n Status: " + status;
+        if (checkIfDatesWerentSetup()) {
+            result += "\n Phase Dates:  Not setup yet!";
+        } else {
+            result += "\n Phase Dates: " + phaseDate;
+        }
+        return result;
+    }
+
+    public boolean checkIfDatesWerentSetup() {
+        return phaseDate.getApplicationDate().equals(phaseDate.getAnalysisDate());
+    }
+
+    public boolean isInAnalysis() {
+        return currentPhase == PhaseType.ANALYSIS;
+    }
+
+    public boolean isInResult() {
+        return currentPhase == PhaseType.RESULT;
     }
 }
