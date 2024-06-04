@@ -21,23 +21,6 @@ rectangle candidate #aabbcc{
     class CurriculumVitae<<Value Object>>{}
 }
 
-
-
-
-
-  rectangle "Job Opening Interview" #ccbbaa {
-      class JobInterview <<Aggregate Root>><<Entity>>{}
-      class JobInterviewId<<Identity>><<Value Object>>{}
-      class InterviewDate<<Value Object>>{}
-      class InterviewTime<<Value Object>>{}
-      class Score<<Value Object>>{}
-      class InterviewResult<<Value Object>>{}
-  }
-
-
-
-
-
 Candidate "1"--> "1" CandidateId
 Candidate "1"--> "1" CurriculumVitae
 
@@ -50,13 +33,9 @@ Application "1" -> "1" Candidate : submitted by
 Application "1" --> "1" ApplicationStatus
 Application "1" --> "1" ApplicationGrade
 
-JobInterview "1" -up-> "1" JobInterviewId
-JobInterview "1" -up-> "1" InterviewDate
-JobInterview "1" --> "1" InterviewTime
-JobInterview "1" -> "1" Score
-JobInterview "1" --> "1" InterviewResult
 
-JobInterview "1" -> "1" Candidate : with
+
+
 
 
 @enduml
