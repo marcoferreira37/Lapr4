@@ -38,79 +38,11 @@ public class Visitor extends InterviewModelGrammarBaseVisitor<Map<String, Map<St
         return null;
     }
 
-//    @Override
-//    public Object visitQuestionType(InterviewModelGrammarParser.QuestionTypeContext ctx) {
-//        String question = ctx.getText().trim();
-//
-//
-//        System.out.println("Question:" + question);
-//
-//        String test = getQuestionType(question);
-//        System.out.println(test + "..........................................");
-//        switch (test) {
-//            case "TrueorFalse":
-//                System.out.println("True or False Question");
-//                return visit(ctx.trueOrFalseQuestion());
-//            case "SingleChoice":
-//                return visit(ctx.singleChoiceQuestion());
-//            case "ShortAnswer":
-//                return visit(ctx.shortAnswerQuestion());
-//            case "MultipleChoice":
-//                return visit(ctx.multipleChoiceQuestion());
-//            case "Integer":
-//                return visit(ctx.integerQuestion());
-//            case "Decimal":
-//                return visit(ctx.decimalQuestion());
-//            case "Date":
-//                return visit(ctx.dateQuestion());
-//            case "Time":
-//                return visit(ctx.timeQuestion());
-//            case "Scale":
-//                return visit(ctx.scaleQuestion());
-//            default:
-//                System.out.println("Invalid question type");
-//                return null;
-//        }
-//    }
-
-    //    @Override
-//    public Object visitTrueOrFalseQuestion(InterviewModelGrammarParser.TrueOrFalseQuestionContext ctx) {
-//        String answer = this.answer.get(currentQuestion);
-//        String correctAnswer = ctx.answer.getText().trim();
-//        System.out.println("Correct Answer: " + correctAnswer);
-//        System.out.println("Answer: " + answer);
-//        if (answer.equals(correctAnswer)) {
-//            scoreAtual = 1;
-//        } else {
-//            scoreAtual = 0;
-//        }
-//        score += scoreAtual;
-//        System.out.println("Score: " + scoreAtual);
-//        currentQuestion++;
-//        return null;
-//    }
-//    @Override
-//    public Object visitTrueOrFalseQuestion(InterviewModelGrammarParser.TrueOrFalseQuestionContext ctx) {
-//        String userAnswer = this.answer.get(currentQuestion);
-//        String correctAnswer = ctx.answer.getText().trim();
-//        System.out.println("Correct Answer: " + correctAnswer);
-//        System.out.println("User Answer: " + userAnswer);
-//
-//        boolean userAnswerBool = Boolean.parseBoolean(userAnswer);
-//        boolean correctAnswerBool = Boolean.parseBoolean(correctAnswer);
-//
-//        if (userAnswerBool == correctAnswerBool) {
-//            scoreAtual += Integer.parseInt(ctx.
-//        }
-//
-//        System.out.println("Score: " + scoreAtual);
-//        currentQuestion++;
-//        return null;
-//    }
     @Override
     public Map<String, Map<String, String>> visitEvaluation(InterviewModelGrammarParser.EvaluationContext ctx) {
         List<InterviewModelGrammarParser.QuestionsContext> questions = ctx.questions();
         List<InterviewModelGrammarParser.QuestionAnswersContext> correctAnswers = ctx.questionAnswers();
+
 
 
 
@@ -125,7 +57,6 @@ public class Visitor extends InterviewModelGrammarBaseVisitor<Map<String, Map<St
             String correctAnswer = extractSpecificPhrase2(userAnswer);
 
 
-//            System.out.println("Specific Phrase: " + specificPhrase);
             userAnswers.put(specificPhrase, correctAnswer);
 
             String id = questions.get(i).getText();
