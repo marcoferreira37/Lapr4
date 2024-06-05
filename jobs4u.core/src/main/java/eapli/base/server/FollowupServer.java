@@ -2,6 +2,7 @@ package eapli.base.server;
 
 import eapli.base.AppSettings;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.server.server.PropertiesLoader;
 import eapli.base.server.server.Server;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -19,16 +20,16 @@ public class FollowupServer {
 
     public static void main(String[] args) throws InterruptedException {
         try {
-            System.out.println("ola");
+            System.out.println("Good Morning :) ");
             Server server = new Server(PORT);
-            System.out.println("At any time, press ENTER to stop server");
+            System.out.println("If you want to stop the server, press ENTER! Thank you!");
             init();
-           // Thread.sleep(5*1000); //Sleep for 5 seconds
+            Thread.sleep(5 * 1000); //Sleep for 5 seconds
             Thread thread = new Thread(server);
             thread.setDaemon(true);
             thread.start();
             Scanner sc = new Scanner(System.in);
-            System.out.println("At any time, press ENTER to stop server");
+            System.out.println("If you want to stop the server, press ENTER! Thank you!");
             sc.nextLine();
             server.stop();
             stop(thread);
@@ -44,11 +45,11 @@ public class FollowupServer {
         System.out.println("Initializing server...");
         AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
                 new PlainTextEncoder());
-        //PropertiesLoader.load();
+        PropertiesLoader.load();
         new AppSettings();
     }
 
-    public static void stop(Thread thread){
+    public static void stop(Thread thread) {
         thread.interrupt();
     }
 }
