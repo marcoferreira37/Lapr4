@@ -29,7 +29,7 @@ public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<J
     }
 
     @Override
-    public Iterable<JobOpeningApplication> allApplicationsById(Candidate candidate) {
+    public Iterable<JobOpeningApplication> allApplicationsByCandidate(Candidate candidate) {
         // Convert Iterable to Stream
         Stream<JobOpeningApplication> applicationStream = StreamSupport.stream(findAll().spliterator(), false);
 

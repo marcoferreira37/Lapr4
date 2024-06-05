@@ -47,7 +47,7 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobOpeningA
     }
 
     @Override
-    public Iterable<JobOpeningApplication> allApplicationsById(Candidate candidate) {
+    public Iterable<JobOpeningApplication> allApplicationsByCandidate(Candidate candidate) {
         EntityManager em = entityManager();
         TypedQuery<JobOpeningApplication> query = em.createQuery(
                 "SELECT a FROM JobOpeningApplication a WHERE a.candidate = :candidate",

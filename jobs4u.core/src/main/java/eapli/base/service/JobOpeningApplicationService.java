@@ -16,7 +16,4 @@ public class JobOpeningApplicationService {
     public Iterable<JobOpeningApplication> getJobOpeningApplication() {
         return repository.findAll();
     }
-
-
-
 }
