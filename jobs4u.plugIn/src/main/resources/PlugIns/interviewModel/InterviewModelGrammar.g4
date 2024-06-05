@@ -1,14 +1,14 @@
 grammar InterviewModelGrammar;
 
-start: header interviewModel footer EOF;
+start: header interview footer EOF;
 
 //HEADER
 header: 'Create interview model' interviewName=STRING 'for job opening' jobOpeningReference=STRING 'as follows:';
 
 //INTERVIEW
-interviewModel: interview+ ;
 
-interview: questions questionAnswers questionPoints #evaluation;
+
+interview:( questions questionAnswers questionPoints) + #evaluation;
 
 //questions
 questions: question+ ;

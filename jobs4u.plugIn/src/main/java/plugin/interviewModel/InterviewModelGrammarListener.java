@@ -1,5 +1,5 @@
 // Generated from C:/Users/Utilizador/Desktop/sem4pi-23-24-2dh3/sem4pi-23-24-2dh3/jobs4u.plugIn/src/main/resources/PlugIns/interviewModel/InterviewModelGrammar.g4 by ANTLR 4.13.1
-package lapr4.PlugIns.interviewModel;
+package plugin.interviewModel;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -27,16 +27,6 @@ public interface InterviewModelGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitHeader(InterviewModelGrammarParser.HeaderContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link InterviewModelGrammarParser#interviewModel}.
-	 * @param ctx the parse tree
-	 */
-	void enterInterviewModel(InterviewModelGrammarParser.InterviewModelContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InterviewModelGrammarParser#interviewModel}.
-	 * @param ctx the parse tree
-	 */
-	void exitInterviewModel(InterviewModelGrammarParser.InterviewModelContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code evaluation}
 	 * labeled alternative in {@link InterviewModelGrammarParser#interview}.

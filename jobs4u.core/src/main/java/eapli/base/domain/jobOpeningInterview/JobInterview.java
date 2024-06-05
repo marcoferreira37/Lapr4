@@ -27,6 +27,7 @@ public class JobInterview implements AggregateRoot<Long> {
 
     @Column(name = "INTERVIEWDATE")
     private final Calendar interviewDate;
+
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     // OneToOne porque um JobInterview só pode ter uma JobOpeningApplication
     @JoinColumn(name = "JOBOPENINGAPPLICATIONID")
@@ -94,6 +95,7 @@ public class JobInterview implements AggregateRoot<Long> {
     }
 
 
+
     @Override
     public boolean sameAs(Object other) {
         if (this == other) return true;
@@ -149,5 +151,9 @@ public class JobInterview implements AggregateRoot<Long> {
                 "\njobOpeningApplication= " + jobOpeningApplication +
                 "\ninterviewTime= " + interviewTime + '\'' +
                 "\ninterviewDate= " + interviewDate;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
 }
