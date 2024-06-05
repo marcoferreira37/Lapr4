@@ -10,35 +10,17 @@ participant ":System" as System
 
 activate Agent
 
-Agent -> System : Request to grade the interviews for a job opening
+Agent -> System : evaluate the grade for an interview
 activate System
 
-System --> Agent: Show list of applicable job openings
+System --> Agent: request the path for the interview
 deactivate
 
-Agent -> System : Select a job opening
+Agent -> System : Type the path
 activate System
 
-System --> Agent : Show list of interviews for the selected job opening
-System --> Agent : Requests user to select one
+System --> Agent : Show the score
 
 
-
-loop while grading all interviews
-
-System --> Agent : Requests new grade
-
-deactivate
-Agent -> System : Provides new grade
-
-activate System
-
-System --> Agent  : Confirms new grade
-
-deactivate System
-
-end loop
-
-deactivate Agent
 
 @enduml
