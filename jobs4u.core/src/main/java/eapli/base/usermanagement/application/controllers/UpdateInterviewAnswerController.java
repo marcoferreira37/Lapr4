@@ -43,10 +43,14 @@ public class UpdateInterviewAnswerController {
     }
 
     public void uploadFiles(JobOpeningApplication app, String fileName) {
-        Optional<JobInterview> interviewOptional = interviewRepo.findByJobApp(app);
-        JobInterview interview = interviewOptional.get();
-        interview.setInterviewAnswers(fileName);
-        interviewRepo.save(interview);
+        if (passGrammar(fileName)) {
+            Optional<JobInterview> interviewOptional = interviewRepo.findByJobApp(app);
+            JobInterview interview = interviewOptional.get();
+            interview.setInterviewAnswers(fileName);
+            interviewRepo.save(interview);
+        }else {
+            System.out.println("Error: File didnt match grammar");
+        }
 
     }
 }
