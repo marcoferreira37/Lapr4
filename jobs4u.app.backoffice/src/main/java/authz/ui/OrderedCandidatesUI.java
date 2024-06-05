@@ -38,8 +38,12 @@ public class OrderedCandidatesUI extends AbstractUI {
         }
 
         for (JobInterview interview : candidatesInterviews) {
+            System.out.println();
+            System.out.println("=====================================================");
+            System.out.println("Job Opening: " + interview.jobOpeningApplication().jobOpening().identity().fullReference());
             System.out.println("Candidate: " + interview.jobOpeningApplication().candidate().identity());
             System.out.println("Grade: " + interview.grade());
+            System.out.println("=====================================================");
         }
 
         return false;
