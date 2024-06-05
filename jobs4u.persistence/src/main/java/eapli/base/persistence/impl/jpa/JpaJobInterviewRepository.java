@@ -56,10 +56,9 @@ public class JpaJobInterviewRepository extends JpaAutoTxRepository<JobInterview,
 
     @Override
     public Optional<JobInterview> findByJobApplication(JobOpeningApplication app) {
-        final Map<String,Object> params = new HashMap<>();
-        params.put("jobOpeningApplication", app.identity());
-        return matchOne("e.jobOpeningApplication=:jobOpeningApplication", params);
-
+        final Map<String, Object> params = new HashMap<>();
+        params.put("app", app);
+        return matchOne("e.jobOpeningApplication = :app", params);
     }
 
 
