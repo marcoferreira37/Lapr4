@@ -1,7 +1,6 @@
 // Generated from C:/Users/Utilizador/Desktop/sem4pi-23-24-2dh3/sem4pi-23-24-2dh3/jobs4u.plugIn/src/main/resources/PlugIns/interviewModel/InterviewModelGrammar.g4 by ANTLR 4.13.1
 package lapr4.PlugIns.interviewModel;
 
-import lapr4.PlugIns.interviewModel.InterviewModelGrammarParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -37,18 +36,6 @@ public class InterviewModelGrammarBaseListener implements InterviewModelGrammarL
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitHeader(InterviewModelGrammarParser.HeaderContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInterviewModel(InterviewModelGrammarParser.InterviewModelContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInterviewModel(InterviewModelGrammarParser.InterviewModelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

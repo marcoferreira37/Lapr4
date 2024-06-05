@@ -28,16 +28,6 @@ public interface InterviewModelGrammarListener extends ParseTreeListener {
 	 */
 	void exitHeader(InterviewModelGrammarParser.HeaderContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewModelGrammarParser#interviewModel}.
-	 * @param ctx the parse tree
-	 */
-	void enterInterviewModel(InterviewModelGrammarParser.InterviewModelContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InterviewModelGrammarParser#interviewModel}.
-	 * @param ctx the parse tree
-	 */
-	void exitInterviewModel(InterviewModelGrammarParser.InterviewModelContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code evaluation}
 	 * labeled alternative in {@link InterviewModelGrammarParser#interview}.
 	 * @param ctx the parse tree
