@@ -1,4 +1,4 @@
-package lapr4.server;
+package lapr4.garbageServer.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

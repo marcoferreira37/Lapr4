@@ -1,11 +1,10 @@
-package lapr4;
+package lapr4.garbageServer.server;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.misc.LoadProperties;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
-import lapr4.server.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,6 +1,5 @@
-package lapr4.server;
+package lapr4.garbageServer.server;
 
-import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.usermanagement.application.services.JobOpeningService;
 
 import java.io.IOException;

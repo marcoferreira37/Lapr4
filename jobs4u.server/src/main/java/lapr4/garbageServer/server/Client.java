@@ -1,4 +1,4 @@
-package lapr4.server;
+package lapr4.garbageServer.server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
