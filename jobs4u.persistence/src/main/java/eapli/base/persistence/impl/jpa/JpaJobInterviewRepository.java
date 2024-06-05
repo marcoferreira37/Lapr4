@@ -10,6 +10,10 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 public class JpaJobInterviewRepository extends JpaAutoTxRepository<JobInterview, Long, Long> implements JobInterviewRepository {
 
     public JpaJobInterviewRepository(String persistenceUnitName, String identityFieldName) {
@@ -50,7 +54,13 @@ public class JpaJobInterviewRepository extends JpaAutoTxRepository<JobInterview,
         return query.getResultList();
     }
 
+    @Override
+    public Optional<JobInterview> findByJobApplication(JobOpeningApplication app) {
+        final Map<String,Object> params = new HashMap<>();
+        params.put("jobOpeningApplication", app.identity());
+        return matchOne("e.jobOpeningApplication=:jobOpeningApplication", params);
 
+    }
 
 
 }

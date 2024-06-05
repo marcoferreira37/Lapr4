@@ -6,6 +6,7 @@ import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.repositories.JobInterviewRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -29,7 +30,10 @@ public class InMemoryJobInterviewRepository extends InMemoryDomainRepository<Job
                 .collect(Collectors.toList());
     }
 
-
+    @Override
+    public Optional<JobInterview> findByJobApplication(JobOpeningApplication app) {
+        return matchOne(e -> e.jobInterview().jobOpeningApplication().equals(app));
+    }
 
 
 }
