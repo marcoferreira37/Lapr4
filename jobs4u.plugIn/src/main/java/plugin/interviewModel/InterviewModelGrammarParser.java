@@ -1,13 +1,10 @@
 // Generated from C:/Users/Utilizador/Desktop/sem4pi-23-24-2dh3/sem4pi-23-24-2dh3/jobs4u.plugIn/src/main/resources/PlugIns/interviewModel/InterviewModelGrammar.g4 by ANTLR 4.13.1
-package lapr4.PlugIns.interviewModel;
+package plugin.interviewModel;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class InterviewModelGrammarParser extends Parser {

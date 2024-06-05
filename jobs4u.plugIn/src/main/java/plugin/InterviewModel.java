@@ -1,12 +1,12 @@
-package lapr4;
+package plugin;
 
 
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobInterviewRepository;
-import lapr4.PlugIns.interviewModel.InterviewModelGrammarLexer;
-import lapr4.PlugIns.interviewModel.InterviewModelGrammarParser;
+import plugin.interviewModel.InterviewModelGrammarLexer;
+import plugin.interviewModel.InterviewModelGrammarParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -65,7 +65,7 @@ public class InterviewModel {
 
             for (String s : map.keySet()) {
                 if (s.equals("Question1")) {
-                    System.out.println("Questino");
+                    System.out.println("Question");
                     for (String answerCorreta : map.get(s).keySet()) {
                         if (answerCorreta.equals(map.get(s).get(answerCorreta))) {
                             System.out.println("q1"+map.get(s));
