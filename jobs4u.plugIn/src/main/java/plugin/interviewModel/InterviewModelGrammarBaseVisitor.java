@@ -1,5 +1,5 @@
 // Generated from C:/Users/Utilizador/Desktop/sem4pi-23-24-2dh3/sem4pi-23-24-2dh3/jobs4u.plugIn/src/main/resources/PlugIns/interviewModel/InterviewModelGrammar.g4 by ANTLR 4.13.1
-package lapr4.PlugIns.interviewModel;
+package plugin.interviewModel;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**

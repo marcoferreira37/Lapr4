@@ -1,4 +1,4 @@
-package lapr4;
+package plugin;
 
 import eapli.framework.io.util.Console;
 

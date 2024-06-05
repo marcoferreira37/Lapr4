@@ -1,7 +1,7 @@
-package lapr4;
+package plugin;
 
-import lapr4.PlugIns.interviewModel.InterviewModelGrammarBaseVisitor;
-import lapr4.PlugIns.interviewModel.InterviewModelGrammarParser;
+import plugin.interviewModel.InterviewModelGrammarBaseVisitor;
+import plugin.interviewModel.InterviewModelGrammarParser;
 
 import java.util.*;
 import java.util.regex.Matcher;
