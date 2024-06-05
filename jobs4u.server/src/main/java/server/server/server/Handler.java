@@ -2,6 +2,7 @@ package server.server.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eapli.base.protocol.V0Protocol;
 
 import java.io.IOException;
 import java.net.Socket;
