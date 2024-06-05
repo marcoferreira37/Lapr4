@@ -48,8 +48,8 @@ public final class BaseCandidateApp {
                 new BasePasswordPolicy(), new PlainTextEncoder());
 
         new FrontMenu().show();
-
         // exiting the application, closing all threads
         System.exit(0);
+
     }
 }

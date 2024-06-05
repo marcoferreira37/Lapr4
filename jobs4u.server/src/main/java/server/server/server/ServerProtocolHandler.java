@@ -1,15 +1,14 @@
 package server.server.server;
 
-
 import eapli.base.domain.jobOpening.JobOpening;
+import eapli.base.protocol.Packet;
 import eapli.base.usermanagement.application.controllers.ListJobOpeningController;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
-import server.protocol.ComCodes;
-import server.protocol.Packet;
-import server.protocol.dto.LoginDTO;
+import eapli.base.protocol.ComCodes;
+import eapli.base.protocol.dto.LoginDTO;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -69,8 +68,8 @@ public class ServerProtocolHandler extends Handler {
                         break;
                     case 5:
                         //List Job Openings
-                       List<JobOpening> jobsOpenings = controller.showJobOpenings(autz.session().get().authenticatedUser());
-                       protocol.send(ComCodes.LSTOPNS.getValue(), jobsOpenings);
+                        List<JobOpening> jobsOpenings = controller.showJobOpenings(autz.session().get().authenticatedUser());
+                        protocol.send(ComCodes.LSTOPNS.getValue(), jobsOpenings);
                         break;
 
 
@@ -81,6 +80,7 @@ public class ServerProtocolHandler extends Handler {
 
 
         } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

@@ -1,6 +1,6 @@
 package server.server.server;
 
-import server.protocol.ComCodes;
+import eapli.base.protocol.ComCodes;
 
 import java.io.IOException;
 import java.net.Socket;

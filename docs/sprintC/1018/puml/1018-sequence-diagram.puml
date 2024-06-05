@@ -1,95 +1,95 @@
 @startuml
 
 actor "Customer Manager" as Agent
-participant ":RankApplicationUI" as ui <<UI>>
-participant ":RankApplicationController" as ctrl <<Application>>
-participant ":JobOpeningService" as jobServ <<Service>>
-participant ":JobOpeningRepository" as jobRepo <<Persistence>>
-participant ":ApplicationService" as appServ <<Service>>
-participant ":ApplicationRepository" as appRepo <<Persistence>>
-participant "rank:Ranking" as rank <<Domain>>
-participant "app:Application" as app <<Domain>>
+participant "EvaluateInterviewUI" as ui <<UI>>
+participant ":EvaluateInterviewController" as ctrl <<Application>>
+participant ":EvaluateInterviewService" as jobServ <<Service>>
+participant "app:InterviewModel" as interview <<Plugin>>
+participant "app:InterviewModelGrammarLexer" as lexer <<Plugin>>
+participant "app:CommonTokenStream" as stream <<Plugin>>
+participant "app:InterviewModelGrammarParser" as parser <<Plugin>>
+participant "tree:ParseTree" as tree <<Tree>>
+participant "app:Visitor" as visitor <<Plugin>>
+
+
+
+
 
 autonumber
 
 activate Agent
 
-Agent -> ui: Request to rank candidates for a job opening
+Agent -> ui: execute the process that evaluates (grades) the interviews for a job opening.
 activate ui
-ui -> ctrl: allJobOpenings()
+ui -> ctrl: evaluateInterview()
+deactivate ui
+
 activate ctrl
-ctrl -> jobServ: allJobOpenings()
+ctrl -> jobServ: evaluateInterview()
+deactivate ctrl
+
 activate jobServ
-jobServ -> jobRepo: findAllByAnalysisPhase()
-activate jobRepo
-jobRepo --> jobServ: openings
-deactivate
-jobServ --> ctrl: openings
-deactivate
-ctrl --> ui: openings
-deactivate
-ui --> Agent: Show list of applicable job openings
-deactivate
-Agent -> ui : Select a job opening
+
+
+jobServ -> interview: enterStart()
+deactivate jobServ
+
+activate interview
+
+interview -> lexer: InterviewModelGrammarLexer(input)
+activate lexer
+lexer --> interview:
+deactivate lexer
+
+interview -> stream: new CommonTokenStream(lexer)
+activate stream
+stream --> interview:
+deactivate stream
+
+interview -> parser: InterviewModelGrammarParser(tokens)
+activate parser
+parser--> interview:
+deactivate parser
+
+interview -> tree: start()
+activate tree
+tree --> interview: tree
+deactivate tree
+
+
+interview -> visitor: visit(tree)
+activate visitor
+
+visitor -> visitor: visitEvaluation()
+visitor -> visitor: extractSpecificPhrase()
+visitor -> visitor: extractSpecificPhrase2()
+visitor -> visitor: extractSpecificPhrase3()
+
+visitor --> interview: map
+deactivate visitor
+
+interview -> RuleScore: calculateScore(map, score)
+activate RuleScore
+
+RuleScore -> RuleScore: calculateScore()
+
+RuleScore --> interview: score
+deactivate RuleScore
+
+interview -> jobServ: score
+deactivate interview
+activate jobServ
+
+jobServ -> ctrl: score
+deactivate jobServ
+activate ctrl
+ctrl -> ui: score
+deactivate ctrl
 activate ui
+ui -> Agent: score
+deactivate ui
 
 
-
-ui -> ctrl: allApplicationsForJobOpening(opening)
-
-activate ctrl
-
-ctrl -> appServ: allApplicationsForJobOpening(opening)
-
-
-
-
-activate appServ
-appServ -> appRepo: findAllByJobOpening(opening)
-activate appRepo
-appRepo --> appServ: applications
-deactivate
-
-appServ --> ctrl: applications
-deactivate
-
-ctrl --> ui: applications
-deactivate
-
-ui --> Agent : Show list of applications for the selected job opening
-alt User wants to re-rank an application
-loop while ranking all applications
-
-ui --> Agent : Requests new ranking
-
-Agent -> ui : Provides new ranking
-ui -> ctrl : rankApplication(app, ranking)
-
-activate ctrl
-ctrl -> appServ : rankApplication(app, ranking)
-
-activate appServ
-appServ -> appRepo : isValidRankingFor(opening, ranking)
-activate appRepo
-appRepo --> appServ : true
-deactivate
-appServ -> rank** : «creates»
-appServ -> app : updateRanking(ranking)
-activate app
-deactivate
-
-appServ -> appRepo : save(app)
-activate appRepo
-appRepo --> appServ : app
-deactivate
-appServ --> ctrl : app
-deactivate
-ctrl --> ui : app
-deactivate
-ui --> Agent  : Confirms new ranking
-
-
-end loop
 
 deactivate Agent
 

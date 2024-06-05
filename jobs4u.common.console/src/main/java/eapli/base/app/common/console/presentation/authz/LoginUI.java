@@ -28,6 +28,9 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** 
  * UI for user login action. 
  *
@@ -36,7 +39,7 @@ import eapli.framework.presentation.console.AbstractUI;
 @SuppressWarnings("squid:S106")
 public class LoginUI extends AbstractUI {
 
-	private Role onlyWithThis;
+	private List<Role> onlyWithThis;
 	private static final int DEFAULT_MAX_ATTEMPTS = 3;
 	private final int maxAttempts;
 
@@ -48,21 +51,31 @@ public class LoginUI extends AbstractUI {
 	}
 
 	public LoginUI(CredentialHandler credentialHandler, final Role onlyWithThis) {
-		this.onlyWithThis = onlyWithThis;
+		this.onlyWithThis = new ArrayList<>();
+		this.onlyWithThis.add(onlyWithThis);
 		maxAttempts = DEFAULT_MAX_ATTEMPTS;
 		this.credentialHandler = credentialHandler;
 	}
 
 	public LoginUI(CredentialHandler credentialHandler, final int maxAttempts,final Role onlyWithThis) {
-		this.onlyWithThis = onlyWithThis;
+		this.onlyWithThis = new ArrayList<>();
+		this.onlyWithThis .add(onlyWithThis);
 		this.maxAttempts = maxAttempts;
 		this.credentialHandler = credentialHandler;
 	}
 
 	public LoginUI(CredentialHandler credentialHandler, final int maxAttempts) {
+		this.onlyWithThis = new ArrayList<>();
 		this.maxAttempts = maxAttempts;
 		this.credentialHandler = credentialHandler;
 	}
+
+	public LoginUI(CredentialHandler credentialHandler, final List<Role> onlyWithThis) {
+		this.onlyWithThis = new ArrayList<>(onlyWithThis);
+		this.maxAttempts = DEFAULT_MAX_ATTEMPTS;
+		this.credentialHandler = credentialHandler;
+	}
+
 
 	public LoginUI(CredentialHandler credentialHandler, Role role1, Role role2, Role role3, Role role4) {
 		Role[] validRoles = new Role[4];
@@ -89,8 +102,10 @@ public class LoginUI extends AbstractUI {
 			final String userName = Console.readNonEmptyLine("Username:", "Please provide a username");
 			final String password = Console.readLine("Password:");
 
-			if (credentialHandler.authenticated(userName, password, onlyWithThis)) {
-				return true;
+			for (Role role : onlyWithThis) {
+				if (credentialHandler.authenticated(userName, password, role)) {
+					return true;
+				}
 			}
 			System.out.printf("Wrong username or password. You have %d attempts left.%n%n»»»»»»»»»%n",
 					maxAttempts - attempt);

@@ -83,5 +83,16 @@ public class Packet implements Serializable {
         return (T) oin.readObject();
     }
 
+    public byte getVersion() {
+        return version;
+    }
+
+    public byte getCode() {
+        return code;
+    }
+
+    public List<Chunk> getChunks() {
+        return chunks;
+    }
 
 }
