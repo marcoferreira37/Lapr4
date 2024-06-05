@@ -36,10 +36,9 @@ public class FollowupServer {
         } catch (IOException e) {
             System.out.println("Could not bind to port " + PORT);
             System.out.println("Exiting the application...");
-            System.out.println("Have a nice day ;)");
+            System.out.println("Goodbye! Thanks for using our application!!");
         }
     }
-
 
     public static void init() {
         System.out.println("Initializing server...");

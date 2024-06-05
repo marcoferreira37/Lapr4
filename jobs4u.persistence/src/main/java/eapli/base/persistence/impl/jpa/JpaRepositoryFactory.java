@@ -24,6 +24,7 @@ import eapli.base.Application;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
+import eapli.base.persistence.impl.inmemory.InMemoryJobOpeningProcessRepository;
 import eapli.base.repositories.*;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -114,6 +115,51 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public CandidateRepository candidateRepository() {
         return new JpaCandidateRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public JobOpeningProcessRepository jobProcessRepository(TransactionalContext autoTx) {
+        return new JpaJobProcessRepository(autoTx);
+    }
+
+    @Override
+    public JobOpeningProcessRepository jobProcessRepository() {
+        return null;
+    }
+
+    @Override
+    public JobInterviewRepository jobInterviewRepository(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JobInterviewRepository jobInterviewRepository() {
+        return null;
+    }
+
+    @Override
+    public JobOpeningApplicationRepository jobApplicationsRepository(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JobOpeningApplicationRepository jobApplicationsRepository() {
+        return null;
+    }
+
+    @Override
+    public JobOpeningRepository jobOpening(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JobOpeningRepository jobOpening() {
+        return null;
+    }
+
+    @Override
+    public CompanyRepository company(TransactionalContext autoTx) {
+        return null;
     }
 
     @Override

@@ -29,7 +29,6 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
 /**
  * @author Paulo Gandra Sousa
- *
  */
 public interface RepositoryFactory {
 
@@ -41,9 +40,7 @@ public interface RepositoryFactory {
     TransactionalContext newTransactionalContext();
 
     /**
-     *
-     * @param autoTx
-     *            the transactional context to enrol
+     * @param autoTx the transactional context to enrol
      * @return
      */
     UserRepository users(TransactionalContext autoTx);
@@ -67,9 +64,7 @@ public interface RepositoryFactory {
     ClientUserRepository clientUsers();
 
     /**
-     *
-     * @param autoTx
-     *            the transactional context to enroll
+     * @param autoTx the transactional context to enroll
      * @return
      */
     SignupRequestRepository signupRequests(TransactionalContext autoTx);
@@ -84,6 +79,7 @@ public interface RepositoryFactory {
     CustomerRepository customer();
 
     CandidateRepository candidate();
+
     CompanyRepository customer(TransactionalContext autoTx);
 
     JobOpeningRepository jobOpeningRepository(TransactionalContext autoTx);
@@ -95,7 +91,26 @@ public interface RepositoryFactory {
     CompanyRepository companyRepository();
 
     CandidateRepository candidateRepository(TransactionalContext autoTx);
+
     CandidateRepository candidateRepository();
+
+    JobOpeningProcessRepository jobProcessRepository(TransactionalContext autoTx);
+
+    JobOpeningProcessRepository jobProcessRepository();
+
+    JobInterviewRepository jobInterviewRepository(TransactionalContext autoTx);
+
+    JobInterviewRepository jobInterviewRepository();
+
+    JobOpeningApplicationRepository jobApplicationsRepository(TransactionalContext autoTx);
+
+    JobOpeningApplicationRepository jobApplicationsRepository();
+
+    JobOpeningRepository jobOpening(TransactionalContext autoTx);
+
+    JobOpeningRepository jobOpening();
+
+    CompanyRepository company(TransactionalContext autoTx);
 
     JobOpeningApplicationRepository JobApplications(TransactionalContext autoTx);
 
@@ -104,6 +119,8 @@ public interface RepositoryFactory {
     JobInterviewRepository jobInterviews(TransactionalContext autoTx);
 
     JobInterviewRepository jobInterviews();
+
     JobOpeningProcessRepository jobProcess(TransactionalContext autoTx);
+
     JobOpeningProcessRepository jobProcess();
 }

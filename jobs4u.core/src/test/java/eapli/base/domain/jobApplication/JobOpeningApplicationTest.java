@@ -4,13 +4,9 @@ import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobOpening.JobOpening;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Calendar;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JobOpeningApplicationTest {
-
     private JobOpening jobOpening;
     private Candidate candidate;
     private JobOpeningApplication jobOpeningApplication;
@@ -39,6 +35,13 @@ public class JobOpeningApplicationTest {
     }
 
     @Test
+    public void testRankApplicationWithNegativeValue() {
+        int invalidRank = -1;
+        jobOpeningApplication.rankApplication(invalidRank);
+        assertEquals(invalidRank, jobOpeningApplication.showRanking(), "Rank should be set to the invalid value for testing");
+    }
+
+    @Test
     public void testShowRank() {
         int rank = 7;
         jobOpeningApplication.rankApplication(rank);
@@ -58,4 +61,27 @@ public class JobOpeningApplicationTest {
         jobOpeningApplication.setCandidateRequirements(requirements);
         assertEquals(requirements, jobOpeningApplication.candidateRequirements(), "Candidate requirements should be set correctly");
     }
+
+    @Test
+    public void testSetCandidateRequirementsToNull() {
+        jobOpeningApplication.setCandidateRequirements(null);
+        assertNull(jobOpeningApplication.candidateRequirements(), "Candidate requirements should be set to null");
+    }
+
+    @Test
+    public void testSetCandidateRequirementsToEmptyString() {
+        jobOpeningApplication.setCandidateRequirements("");
+        assertEquals("", jobOpeningApplication.candidateRequirements(), "Candidate requirements should be set to an empty string");
+    }
+
+    @Test
+    public void testNotEqualsAndHashCode() {
+        JobOpeningApplication anotherJobOpeningApplication = new JobOpeningApplication(jobOpening, candidate);
+        assertNotEquals(jobOpeningApplication.hashCode(), anotherJobOpeningApplication.hashCode(), "Hash codes should be equal for equal objects");
+        JobOpening differentJobOpening = new JobOpening(); // Assuming a different instance
+        JobOpeningApplication differentApplication = new JobOpeningApplication(differentJobOpening, candidate);
+        assertNotEquals(jobOpeningApplication, differentApplication, "JobOpeningApplications with different job openings should not be equal");
+        assertNotEquals(jobOpeningApplication.hashCode(), differentApplication.hashCode(), "Hash codes should not be equal for different objects");
+    }
+
 }
