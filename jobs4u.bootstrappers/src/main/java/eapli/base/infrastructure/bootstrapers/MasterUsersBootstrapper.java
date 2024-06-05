@@ -63,26 +63,47 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         Candidate candida4 = registerCandidate("fisco", TestDataConstants.PASSWORD1, "Fisco", "Fiasco", EmailAddress.valueOf("fiascos@somosnos.com"));
         Candidate candida5 = registerCandidateWithCurriculum("fisco2", TestDataConstants.PASSWORD1, "Fisco", "Fiasco", EmailAddress.valueOf("fiascos2@somosnos.com"), "Curriculum com jopedrito a fumar ganza no parque ya");
 
-
         JobOpening jo = registerJobOpening("bailarino", "casa do ah", Mode.ONSITE, ContractType.FULL_TIME, "baila baila", 1, 1);
         JobOpening jo2 = registerJobOpening("monstro", "o grande lago de penafiel", Mode.ONSITE, ContractType.FULL_TIME, "ARRRGHHHHHH", 1, 1);
         JobOpening jo3 = registerJobOpening("Programador com capacidades de completar o projeto de lapr4", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Programador", 1, 1);
         JobOpening jo4 = registerJobOpening("Alguem para acordar o saco", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Despertador", 1, 1);
 
+
+        Calendar date2 = new Calendar.Builder().setDate(2026, 5, 15).build();
+
+
+        JobOpening jo5 = registerJobOpening("Construtor de casas", "Rua do Ouro", Mode.ONSITE, ContractType.FULL_TIME, "Construtor", 15, 1);
+        JobOpeningProcess jobOpeningProcess5 = new JobOpeningProcess(jo5, PhaseType.RESULT);
+        registerJobOpeningProcess(jobOpeningProcess5);
+        JobOpeningApplication application9 = registerApplication(jo5, candida);
+        JobOpeningApplication application10 = registerApplication(jo5, candida2);
+        JobOpeningApplication application11 = registerApplication(jo5, candida3);
+        JobInterview interview5 = registerInterview(date2, "13:00", application9);
+        JobInterview interview6 = registerInterview(date2, "11:00", application10);
+        JobInterview interview7 = registerInterview(date2, "12:00", application11);
+        interview5.gradeInterview(12);
+        interview6.gradeInterview(15);
+        interview7.gradeInterview(16);
+
+
+
         JobOpeningProcess jobOpeningProcess = new JobOpeningProcess(jo, PhaseType.RESULT);
+        JobOpeningProcess jobOpeningProcess1 = new JobOpeningProcess(jo, PhaseType.ANALYSIS);
+        JobOpeningProcess jobOpeningProcess2 = new JobOpeningProcess(jo2, PhaseType.ANALYSIS);
+        JobOpeningProcess jobOpeningProcess3 = new JobOpeningProcess(jo3, PhaseType.ANALYSIS);
+        JobOpeningProcess jobOpeningProcess4 = new JobOpeningProcess(jo4, PhaseType.ANALYSIS);
 
         registerJobOpeningProcess(jobOpeningProcess);
-
-        JobOpeningProcess jobOpeningProcess2 = new JobOpeningProcess(jo2, PhaseType.APPLICATION);
-
+        registerJobOpeningProcess(jobOpeningProcess1);
         registerJobOpeningProcess(jobOpeningProcess2);
-
-
+        registerJobOpeningProcess(jobOpeningProcess3);
+        registerJobOpeningProcess(jobOpeningProcess4);
 
         JobOpeningApplication application = registerApplication(jo, candida);
         JobOpeningApplication application2 = registerApplication(jo, candida2);
         JobOpeningApplication application3 = registerApplication(jo, candida3);
         JobOpeningApplication application4 = registerApplication(jo, candida4);
+
 
         JobOpeningApplication application5 = registerApplication(jo2, candida);
         JobOpeningApplication application6 = registerApplication(jo3, candida);
@@ -99,6 +120,10 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobInterview interview2 = registerInterview(date, "12:00", application5);
         interview2.gradeInterview(20);
         jobRep.save(interview2);
+        jobRep.save(interview5);
+        jobRep.save(interview6);
+        jobRep.save(interview7);
+
         JobInterview interview3 = registerInterview(date, "13:00", application7);
         JobInterview interview4 = registerInterview(date, "14:00", application8);
 
@@ -121,6 +146,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         System.out.println(interview2);
         System.out.println(interview3);
         System.out.println(interview4);
+        System.out.println(interview5);
+        System.out.println(interview6);
 
         return true;
     }
