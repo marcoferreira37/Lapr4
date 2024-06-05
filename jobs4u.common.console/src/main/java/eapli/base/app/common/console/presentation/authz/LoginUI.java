@@ -24,6 +24,7 @@
 package eapli.base.app.common.console.presentation.authz;
 
 import eapli.base.infrastructure.authz.CredentialHandler;
+import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
@@ -31,15 +32,16 @@ import eapli.framework.presentation.console.AbstractUI;
 import java.util.ArrayList;
 import java.util.List;
 
-/** 
- * UI for user login action. 
+/**
+ * UI for user login action.
  *
  * @author nuno on 21/03/16.
  */
 @SuppressWarnings("squid:S106")
 public class LoginUI extends AbstractUI {
 
-	private List<Role> onlyWithThis;
+	private List<Role> onlyWithThis = List.of(BaseRoles.POWER_USER, BaseRoles.CUSTOMER_MANAGER, BaseRoles.ADMIN, BaseRoles.OPERATOR);
+
 	private static final int DEFAULT_MAX_ATTEMPTS = 3;
 	private final int maxAttempts;
 
