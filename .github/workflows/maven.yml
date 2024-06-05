@@ -9,9 +9,9 @@
 name: Java CI with Maven
 
 on:
-  #push:
-   # branches:
-     # - main
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
   schedule:
