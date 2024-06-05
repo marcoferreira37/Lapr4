@@ -2,13 +2,9 @@ package authz.ui;
 
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
-import eapli.base.domain.candidate.Candidate;
 import eapli.base.usermanagement.application.controllers.RecordInterviewController;
 import eapli.framework.io.util.Console;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
