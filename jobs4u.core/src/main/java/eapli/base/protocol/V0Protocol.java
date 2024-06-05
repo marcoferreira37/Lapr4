@@ -29,7 +29,6 @@ public class V0Protocol {
 
     public <T> T receive(byte expectedCode) throws IOException, ClassNotFoundException {
         Packet packet = (Packet) in.readObject();
-        System.out.println("CODE: " + packet.getCode() + " EXPECTED: " + expectedCode);
         if (expectedCode != packet.getCode()) {
             out.writeObject(new Packet(VERSION, ComCodes.ERR.getValue(), ""));
             commSocket.close();

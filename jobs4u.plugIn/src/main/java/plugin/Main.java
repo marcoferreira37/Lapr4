@@ -24,7 +24,7 @@ public class Main {
                     System.out.println("####### Evaluete the grade for a Interview #######");
                     System.out.println();
                     String file = Console.readLine("Insert the file path: ");
-                    interviewModel.enterStart(file);
+//                    interviewModel.enterStart(file);
                     break;
                 case 2:
                     // Execute User Story 2

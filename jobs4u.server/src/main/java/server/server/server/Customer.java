@@ -29,7 +29,7 @@ public class Customer {
             System.out.println("Aguarde um momento...");
             Socket s = new Socket("127.0.0.1", 10792);
             protocol = new V0Protocol(s);
-            protocol.send(ComCodes.AUTH.getValue(), new LoginDTO(username, password, BaseRoles.CUSTOMER));
+            protocol.send(ComCodes.AUTH.getValue(), new LoginDTO(username, password, BaseRoles.CUSTOMER_MANAGER));
             Packet p = protocol.receive();
             if (p.getCode() == ComCodes.DISCON.getValue()) {
                 System.out.println("Credenciais inválidas! Tente novamente!");
@@ -42,7 +42,7 @@ public class Customer {
         protocol.send(ComCodes.LSTOPNS.getValue(), "");
         List<JobOpening> jobsOp = protocol.receive(ComCodes.LSTOPNS.getValue());
         System.out.println("As suas oportunides de emprego são:");
-        jobsOp.forEach(d -> System.out.println("Reference: " + d.getJobReference().fullReference() + " | Name: " + d.getCompany().toString()));
+        jobsOp.forEach(d -> System.out.println("Reference: " + d.getJobReference().fullReference() + " | Name: " + d.getCompany().toString() ));
         System.out.println("Agora que já sabe as suas oportunidades de emprego, vamos hackear a sua conta bancária! Continuação de um bom dia!");
         protocol.send(ComCodes.DISCON.getValue(), "");
         protocol.exit();

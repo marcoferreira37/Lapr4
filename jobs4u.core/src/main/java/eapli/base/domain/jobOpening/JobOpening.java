@@ -8,6 +8,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Optional;
 
 @Table(name = "JOB_OPENING")
 @Entity
