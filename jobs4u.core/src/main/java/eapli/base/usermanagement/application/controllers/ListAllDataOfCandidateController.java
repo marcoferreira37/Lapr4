@@ -23,7 +23,7 @@ public class ListAllDataOfCandidateController {
 
     public Iterable<JobOpeningApplication> allApplicationsById(Candidate candidate) {
         final JobOpeningApplicationRepository applications = PersistenceContext.repositories().jobApplications();
-        return applications.allApplicationsById(candidate);
+        return applications.allApplicationsByCandidate(candidate);
     }
 
 }
