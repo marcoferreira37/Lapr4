@@ -2,13 +2,15 @@ package plugin;
 
 import eapli.framework.io.util.Console;
 
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         InterviewModel interviewModel = new InterviewModel();
         showMenu(interviewModel);
     }
 
-    private static void showMenu(InterviewModel interviewModel) {
+    private static void showMenu(InterviewModel interviewModel) throws IOException {
         while (true) {
             System.out.println("1. Evaluete the grade for a Interview");
             System.out.println("2. User Story 2");
