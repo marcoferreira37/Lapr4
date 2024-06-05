@@ -10,6 +10,12 @@ import eapli.base.usermanagement.application.controllers.ListAllDataOfCandidateC
 import eapli.base.usermanagement.application.controllers.ListCandidatesController;
 import eapli.base.usermanagement.application.controllers.UpdateInterviewAnswerController;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 public class UpdateInterviewAnswerUI extends AbstractUI {
@@ -38,6 +44,22 @@ public class UpdateInterviewAnswerUI extends AbstractUI {
         }
         printApplicationNumeratedList("Applications List:", applications);
         int option2 = Console.readInteger("Select a application to be updated: ");
+        JobOpeningApplication app = applications.get(option2 - 1);
+
+        try{
+            String file = Console.readLine("Please insert the path to the desired file: ");
+
+            Path source = Paths.get(file);
+            Path dest = Paths.get("jobs4u.core/src/main/resources/PlugIns/interviewModel/UploadedFiles");
+            Path destPath = dest.resolve("answers" + option2 + ".txt");
+            Files.copy(source,destPath, StandardCopyOption.REPLACE_EXISTING);
+            String fileName = "answers" + option2 + ".txt";
+            controller.uploadFiles(app, fileName);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
         return false;
     }

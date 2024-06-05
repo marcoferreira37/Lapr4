@@ -36,6 +36,9 @@ public class JobInterview implements AggregateRoot<Long> {
     @Column(name = "JOBINTERVIEWGRADE")
     private int grade;
 
+    @Column(name = "INTERVIEWANSWERS")
+    private String interviewAnswers;
+
     public JobInterview(String interviewTime, Calendar interviewDate, JobOpeningApplication jobOpeningApplication) {
 
         validateInterviewTime(interviewTime);
@@ -49,6 +52,7 @@ public class JobInterview implements AggregateRoot<Long> {
         this.interviewDate = interviewDate;
         this.jobOpeningApplication = jobOpeningApplication;
         this.grade = -1;
+        this.interviewAnswers = null;
 
     }
 
@@ -155,5 +159,13 @@ public class JobInterview implements AggregateRoot<Long> {
 
     public void setGrade(int grade) {
         this.grade = grade;
+    }
+
+    public String interviewAnswers() {
+        return interviewAnswers;
+    }
+
+    public void setInterviewAnswers(String interviewAnswers) {
+        this.interviewAnswers = interviewAnswers;
     }
 }
