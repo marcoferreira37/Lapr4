@@ -3,10 +3,12 @@ package authz;
 import eapli.base.app.common.console.ui.components.ColorCode;
 import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.usermanagement.application.controllers.UploadTextFileController;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.util.List;
+import java.util.jar.JarEntry;
 
 public class UploadTextFileUI extends AbstractUI {
 
@@ -25,9 +27,22 @@ public class UploadTextFileUI extends AbstractUI {
 
         Candidate c = candidates.get(option - 1);
 
-        theController.uploadFile(c.curriculum());
+        List<JobOpeningApplication> applications = theController.getApplicationsByCandidate(c);
 
-        theController.verifyRequirementsGrammar(c.curriculum());
+        if (applications.isEmpty()) {
+            System.out.println("This candidate has no applications.");
+            return false;
+        }
+
+        printNumeratedListApp("Job Opening Application List:", applications);
+        int optionApp = Console.readInteger("Select a job opening application: ");
+
+        JobOpeningApplication app = applications.get(optionApp - 1);
+
+        String path = Console.readLine("Enter the path of the file: ");
+
+        theController.uploadFile(app, path);
+
         return false;
     }
 
@@ -41,12 +56,22 @@ public class UploadTextFileUI extends AbstractUI {
 
         int index = 1;
         for (Candidate item : collection) {
-            System.out.println(ColorCode.BLUE.getValue() + index + ColorCode.RESET.getValue() + " - " + "Candidate Id: " + item.identity() );
+            System.out.println(ColorCode.BLUE.getValue() + index + ColorCode.RESET.getValue() + " - " + "Candidate Id: " + item.identity());
             index++;
         }
         System.out.println();
     }
 
+    public void printNumeratedListApp(String message, List<JobOpeningApplication> collection) {
+        System.out.printf("%s\n\n", message);
+
+        int index = 1;
+        for (JobOpeningApplication item : collection) {
+            System.out.println(ColorCode.BLUE.getValue() + index + ColorCode.RESET.getValue() + " - " + "JobOpeningApplication Id: " + item.identity());
+            index++;
+        }
+        System.out.println();
+    }
 }
 
 
