@@ -31,7 +31,6 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.inmemory.InMemoryUserRepository;
 
 /**
- *
  * Created by nuno on 20/03/16.
  */
 public class InMemoryRepositoryFactory implements RepositoryFactory {
@@ -117,6 +116,52 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public CandidateRepository candidateRepository() {
         return candidateRepository(null);
     }
+
+    @Override
+    public JobOpeningProcessRepository jobProcessRepository(TransactionalContext autoTx) {
+        return new InMemoryJobOpeningProcessRepository();
+    }
+
+    @Override
+    public JobOpeningProcessRepository jobProcessRepository() {
+        return null;
+    }
+
+    @Override
+    public JobInterviewRepository jobInterviewRepository(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JobInterviewRepository jobInterviewRepository() {
+        return null;
+    }
+
+    @Override
+    public JobOpeningApplicationRepository jobApplicationsRepository(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JobOpeningApplicationRepository jobApplicationsRepository() {
+        return null;
+    }
+
+    @Override
+    public JobOpeningRepository jobOpening(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JobOpeningRepository jobOpening() {
+        return null;
+    }
+
+    @Override
+    public CompanyRepository company(TransactionalContext autoTx) {
+        return null;
+    }
+
     @Override
     public JobOpeningApplicationRepository JobApplications(TransactionalContext autoTx) {
         return new InMemoryJobApplicationRepository();

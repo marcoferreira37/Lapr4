@@ -1,15 +1,15 @@
-package server.server.server;
+package eapli.base.server.server;
 
 
 import eapli.base.domain.jobOpening.JobOpening;
+import eapli.base.protocol.ComCodes;
+import eapli.base.protocol.Packet;
+import eapli.base.protocol.dto.LoginDTO;
 import eapli.base.usermanagement.application.controllers.ListJobOpeningController;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
-import server.protocol.ComCodes;
-import server.protocol.Packet;
-import server.protocol.dto.LoginDTO;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -80,7 +80,9 @@ public class ServerProtocolHandler extends Handler {
             }
 
 
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

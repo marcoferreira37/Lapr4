@@ -9,8 +9,8 @@ import java.net.Socket;
 
 public class Server implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
-    private static ThreadGroup serverThreadGroup = new ThreadGroup("server-thread-group");
-    private ServerSocket socket;
+    private final static ThreadGroup serverThreadGroup = new ThreadGroup("server-thread-group");
+    private final ServerSocket socket;
     private boolean running;
 
     public Server(int port) throws IOException {
