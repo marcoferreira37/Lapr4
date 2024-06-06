@@ -51,9 +51,10 @@ public class UpdateInterviewAnswerUI extends AbstractUI {
 
             Path source = Paths.get(file);
             Path dest = Paths.get("jobs4u.core/src/main/resources/PlugIns/interviewModel/UploadedFiles");
-            Path destPath = dest.resolve("answers" + option2 + ".txt");
+            String applicationId = String.valueOf(app.identity());
+            Path destPath = dest.resolve("answers" + applicationId + ".txt");
             Files.copy(source,destPath, StandardCopyOption.REPLACE_EXISTING);
-            String fileName = "answers" + option2 + ".txt";
+            String fileName = "answers" + applicationId + ".txt";
             controller.uploadFiles(app, fileName);
 
         } catch (IOException e) {
