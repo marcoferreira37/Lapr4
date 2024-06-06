@@ -1,8 +1,0 @@
-"Software Developer"
-
-Requirement 1 "Do you have a Bachelor's degree in Computer Science?" TrueOrFalse: true
-Requirement 2 "Please describe your experience with Python." ShortAnswer: "I have been working with Python for 5 years, focusing on web development and data analysis."
-Requirement 3 "How many years of professional experience do you have?" Integer: 7
-Requirement 4 "Are you willing to relocate?" TrueOrFalse: false
-Requirement 5 "What is your expected salary?" ShortAnswer: "$80,000 - $100,000"
-Requirement 6 "How many programming languages are you proficient in?" Integer: 4

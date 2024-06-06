@@ -1,39 +1,24 @@
-
 package eapli.base.domain.PlugIn.JobRequirements;
 
 
-
-import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarBaseVisitor;
 import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarLexer;
 import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarParser;
-import lombok.Getter;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.util.HashMap;
-import java.util.List;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Map;
 
-@Getter
-public class RequirementsValidator extends JobRequirementsGrammarBaseVisitor<Map<String, String>> {
+public class JobRequirements {
 
-    private String validation = "Success";
-
-
-    @Override
-    public Map<String, String> visitRequirement(JobRequirementsGrammarParser.RequirementContext ctx) {
-        List<JobRequirementsGrammarParser.RequirementTypeContext> requirements = ctx.requirementType();
-        List<JobRequirementsGrammarParser.AnswersTypeContext> answers = ctx.answersType();
-        Map <String, String> result = new HashMap<>();
-
-        for (int i = 0; i < requirements.size(); i++) {
-            String requirement = requirements.get(i).getText();
-            String answer = answers.get(i).getText();
-            result.put(requirement, answer);
-        }
-        return result;
+    private Map<String, String> parseWithVisitor(ParseTree tree) {
+        RequirementsValidator validator = new RequirementsValidator();
+        return validator.visit(tree);
     }
+
     public boolean verifyRequirements(String  candidateRequirements, String jobRequirements) {
         try {
             JobRequirementsGrammarLexer requirementsGrammarLexer = new JobRequirementsGrammarLexer(CharStreams.fromString(candidateRequirements));
@@ -62,11 +47,6 @@ public class RequirementsValidator extends JobRequirementsGrammarBaseVisitor<Map
         }
         return true;
     }
-    private Map<String, String> parseWithVisitor(ParseTree tree) {
-        RequirementsValidator validator = new RequirementsValidator();
-        return validator.visit(tree);
-    }
-
 
 }
 
