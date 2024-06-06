@@ -99,16 +99,15 @@ public class JobInterview implements AggregateRoot<Long> {
     }
 
 
-
     @Override
     public boolean sameAs(Object other) {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         JobInterview that = (JobInterview) other;
         return Objects.equals(id, that.id) &&
-                Objects.equals(jobOpeningApplication, that.jobOpeningApplication) &&
-                Objects.equals(interviewTime, that.interviewTime) &&
-                Objects.equals(interviewDate, that.interviewDate);
+               Objects.equals(jobOpeningApplication, that.jobOpeningApplication) &&
+               Objects.equals(interviewTime, that.interviewTime) &&
+               Objects.equals(interviewDate, that.interviewDate);
     }
 
     @Override
@@ -135,11 +134,11 @@ public class JobInterview implements AggregateRoot<Long> {
     @Override
     public String toString() {
         return "----- JobInterview -----" +
-                "\nid= " + id +
-                "\njobOpeningApplication= " + jobOpeningApplication +
-                "\ninterviewTime= " + interviewTime + '\'' +
-                "\ninterviewDate= " + interviewDate +
-                "\ngrade= " + grade;
+               "\nid= " + id +
+               "\njobOpeningApplication= " + jobOpeningApplication +
+               "\ninterviewTime= " + interviewTime + '\'' +
+               "\ninterviewDate= " + interviewDate +
+               "\ngrade= " + grade;
     }
 
     public void gradeInterview(int grade) {
@@ -151,10 +150,10 @@ public class JobInterview implements AggregateRoot<Long> {
 
     public String toStringWithoutGrade() {
         return "----- JobInterview -----" +
-                "\nid= " + id +
-                "\njobOpeningApplication= " + jobOpeningApplication +
-                "\ninterviewTime= " + interviewTime + '\'' +
-                "\ninterviewDate= " + interviewDate;
+               "\nid= " + id +
+               "\njobOpeningApplication= " + jobOpeningApplication +
+               "\ninterviewTime= " + interviewTime + '\'' +
+               "\ninterviewDate= " + interviewDate;
     }
 
     public void setGrade(int grade) {
@@ -168,6 +167,7 @@ public class JobInterview implements AggregateRoot<Long> {
     public void setInterviewAnswers(String interviewAnswers) {
         this.interviewAnswers = interviewAnswers;
     }
+
     public boolean hasAnswers() {
         return interviewAnswers != null && !interviewAnswers.isEmpty();
     }

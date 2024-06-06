@@ -9,22 +9,29 @@ import java.net.Socket;
 
 public abstract class Handler implements Runnable {
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger(Handler.class);
 
     protected V0Protocol protocol;
-    private Socket socket;
+    private final Socket socket;
 
-    //
+    /**
+     * Constructor
+     * @param socket the socket
+     * @throws IOException IOException
+     */
     public Handler(Socket socket) throws IOException {
         this.socket = socket;
         protocol = new V0Protocol(socket);
     }
 
-
+    /**
+     * Handle the request
+     */
     public abstract void handle();
 
-
+    /**
+     * Run the handler
+     */
     @Override
     public void run() {
         try {

@@ -1,10 +1,8 @@
 package eapli.base.protocol.dto;
 
-import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class LoginDTO implements Serializable {
 
@@ -21,5 +19,18 @@ public class LoginDTO implements Serializable {
     }
 
     public LoginDTO() {
+    }
+
+    public String findUsername() {
+        return username;
+    }
+
+    public String findPassword() {
+        return password;
+    }
+
+
+    public Role[] findRoles() {
+        return roles;
     }
 }
