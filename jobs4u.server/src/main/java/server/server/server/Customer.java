@@ -44,6 +44,8 @@ public class Customer {
         } while (true);
         System.out.println("Login Successful!");
         System.out.println();
+
+
         protocol.send(ComCodes.LSTOPNS.getValue(), "");
         List<JobOpeningDTO> jobsOp = protocol.receive(ComCodes.LSTOPNS.getValue());
 
