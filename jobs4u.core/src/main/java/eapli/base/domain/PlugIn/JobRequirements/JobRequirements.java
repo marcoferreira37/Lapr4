@@ -80,7 +80,7 @@ public class JobRequirements implements JobRequirementInterface {
             System.err.println("Error validating requirements: " + e.getMessage());
             return false;
         }
-
+        return true;
     }
 
 }
