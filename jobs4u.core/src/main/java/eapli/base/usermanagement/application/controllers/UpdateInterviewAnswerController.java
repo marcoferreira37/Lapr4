@@ -6,7 +6,6 @@ import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobInterviewRepository;
-import eapli.base.repositories.JobOpeningApplicationRepository;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -42,8 +41,8 @@ public class UpdateInterviewAnswerController {
 
     }
 
-    public void uploadFiles(JobOpeningApplication app, String fileName) {
-        if (passGrammar(fileName)) {
+    public void uploadFiles(JobOpeningApplication app, String fileName, String path) {
+        if (passGrammar(path)) {
             Optional<JobInterview> interviewOptional = interviewRepo.findByJobApp(app);
             JobInterview interview = interviewOptional.get();
             interview.setInterviewAnswers(fileName);
