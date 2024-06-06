@@ -3,31 +3,31 @@
 'skinparam packageStyle rectangle
 'skinparam shadowing false
 
-title System Sequence Diagram (SSD) -  Record an interview with a candidate
+title System Sequence Diagram (SSD) -  Display all the data of an application
 
 actor "Customer Manager" as Agent
 participant ":System" as System
 
 activate Agent
 
-Agent -> System : Record the time and date for an interview with a candidate
+Agent -> System : asks to list job opening applications
 activate System
 
-System --> Agent: Show list of job opening applications
+System --> Agent: lists jobReferences and asks user to choose one
 deactivate
 
-Agent -> System : Select a job opening application
+Agent -> System : chooses job reference
 activate System
 
-System --> Agent : Show the job opening application selected and the candidate associated with it
-System --> Agent : Request information about the interview date and time
+System --> Agent : asks if the user wants to see all data from one of the applications
 deactivate
 
-Agent -> System : Types the interview date and time
+alt
+Agent -> System : respond affirmatively
 activate System
 
-System --> Agent : Confirm the interview date and time
-
+System --> Agent : display Candidate data and returns to Customer Manager Menu
+end
 
 
 deactivate Agent
