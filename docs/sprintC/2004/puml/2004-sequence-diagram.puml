@@ -9,7 +9,8 @@ participant "Candidate" as C <<Domain>>
 participant "AuthorizationService" as AS <<Service>>
 participant "CandidateManagementService" as CMS <<Service>>
 participant "CandidateRepository" as CREPO <<Repository>>
-
+participant "JobOpeningApplication" as JOA <<Domain>>
+participant "JobOpeningApplicationRepository" as JOREPO <<Repository>>
 activate Operator
 Operator -> UI: Request to upload a text file with the requirements of a candidate
 activate UI
@@ -39,11 +40,39 @@ UI->C: get(option-1)
 activate C
 C--> UI: gets the chosen candidate (c)
 deactivate C
-UI->CTRL:.uploadFile(c.curriculum())
+UI->CTRL:getApplicationsByCandidate(c)
 activate CTRL
-CTRL--> UI: the file is created
+CTRL-> JOREPO: allApplicationsByCandidate(c)
+activate JOREPO
+JOREPO-->CTRL: list of applications
+deactivate JOREPO
+CTRL--> UI: list of applications
 deactivate CTRL
-UI --> Operator: Verifies the candidate's requirements and displays success message
+UI-->UI:printNumeratedListApp(message, collection)
+UI--> Operator: Retrieves list of all applications of the chosen candidate and asks to choose one
+Operator->UI: Selects the application
+UI-> JOA: get(optionApp - 1)
+activate JOA
+JOA --> UI: gets the chosen application (app)
+deactivate JOA
+UI-->Operator: Asks to enter the path of the file
+Operator-> UI: Enters the path of the file
+UI->CTRL:uploadFile(app, path)
+activate CTRL
+CTRL->AS : ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN, BaseRoles.POWERUSER)
+activate AS
+AS-->CTRL: ensures the user has operator role
+deactivate AS
+CTRL-> JOA:setCandidateRequirements(fileName)
+activate JOA
+JOA-->CTRL: sets the candidate requirements
+deactivate JOA
+CTRL-> JOREPO:.save(app)
+activate JOREPO
+JOREPO-->CTRL: saves the application file in the database
+deactivate JOREPO
+CTRL-->UI : Confirms the file upload
+UI --> Operator: Confirms the file upload
 deactivate UI
 
 @enduml
