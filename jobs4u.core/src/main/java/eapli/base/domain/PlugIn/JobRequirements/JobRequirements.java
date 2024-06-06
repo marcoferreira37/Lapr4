@@ -1,7 +1,8 @@
 package eapli.base.domain.PlugIn.JobRequirements;
 
-import eapli.base.domain.PlugIn.JobRequirements.genClasses.JobRequirementsGrammarLexer;
-import eapli.base.domain.PlugIn.JobRequirements.genClasses.JobRequirementsGrammarParser;
+
+import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarLexer;
+import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -10,7 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class JobRequirements2 implements JobRequirementInterface {
+public class JobRequirements implements JobRequirementInterface {
     @Override
     public File generateTxt(String path) {
         // Create a File object for the desired path
@@ -63,6 +64,23 @@ public class JobRequirements2 implements JobRequirementInterface {
         validator.visit(tree);
 
         return validator.getValidation();
+    }
+
+    public boolean verifyRequirements(String  candidateRequirements, String jobRequirements) {
+        try {
+            String validation = validate(candidateRequirements);
+           if (!validation.equals("Success")) {
+               System.err.println("Error validating requirements: " + validation);
+           }
+           validation= validate(jobRequirements);
+              if (!validation.equals("Success")) {
+                System.err.println("Error validating requirements: " + validation);
+              }
+        } catch (IOException e) {
+            System.err.println("Error validating requirements: " + e.getMessage());
+            return false;
+        }
+
     }
 
 }

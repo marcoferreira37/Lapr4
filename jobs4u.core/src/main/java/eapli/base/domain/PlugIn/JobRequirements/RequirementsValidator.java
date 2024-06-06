@@ -1,55 +1,36 @@
 
 package eapli.base.domain.PlugIn.JobRequirements;
 
-import eapli.base.domain.PlugIn.JobRequirements.genClasses.JobRequirementsGrammarBaseVisitor;
-import eapli.base.domain.PlugIn.JobRequirements.genClasses.JobRequirementsGrammarParser;
 
-public class RequirementsValidator extends JobRequirementsGrammarBaseVisitor {
+
+import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarBaseVisitor;
+import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarParser;
+import lombok.Getter;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Getter
+public class RequirementsValidator extends JobRequirementsGrammarBaseVisitor<Map<String, String>> {
 
     private String validation = "Success";
 
-    public String getValidation() {
-        return validation;
-    }
 
     @Override
-    public Object visitRequirements(JobRequirementsGrammarParser.RequirementsContext ctx) {
-        String id = ctx.id.getText();
+    public Map<String, String> visitRequirement(JobRequirementsGrammarParser.RequirementContext ctx) {
+        List<JobRequirementsGrammarParser.RequirementTypeContext> requirements = ctx.requirementType();
+        List<JobRequirementsGrammarParser.AnswersTypeContext> answers = ctx.answersType();
+        Map <String, String> result = new HashMap<>();
 
-        switch (id) {
-            case "1":
-                int answer = Integer.parseInt(ctx.requirementType().integerRequirement().answer.getText());
-                // Condition: answer is more or equal to 5
-                if (answer < 5) {
-                    if (validation.equals("Success")) {
-                        validation = "Requirement #1 failed: must have at least 5 years of experience";
-                    } else {
-                        validation = validation + "\nRequirement #1 failed: must have at least 5 years of experience";
-                    }
-                }
-                break;
-            case "2":
-                String answer2 = ctx.requirementType().trueOrFalseRequirement().answer.getText();
-                // Condition: answer must be true
-                if (!answer2.equalsIgnoreCase("true")) {
-                    if (validation.equals("Success")) {
-                        validation = "Requirement #2 failed: must be able to operate in a big kitchen";
-                    } else {
-                        validation = validation + "\nRequirement #2 failed: must be able to operate in a big kitchen";
-                    }
-                }
-                break;
-            case "3":
-                String shortAnswer = ctx.requirementType().shortAnswerRequirement().answer.getText();
-                // Add validation logic for short answer if needed
-                break;
-            default:
-                System.out.println("Invalid requirement id: " + id);
-                break;
+        for (int i = 0; i < requirements.size(); i++) {
+            String requirement = requirements.get(i).getText();
+            String answer = answers.get(i).getText();
+            result.put(requirement, answer);
         }
-
-        return null;
+        return result;
     }
+
 
 }
 
