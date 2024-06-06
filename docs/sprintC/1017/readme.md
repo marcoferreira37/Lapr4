@@ -52,7 +52,7 @@ The domain model is composed of the following entities:
 
 ## 3.2 System Sequence Diagram
 
-![System Sequence Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintC\1017\svg\1017-sequence-diagram.svg)
+![System Sequence Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintC\1017\svg\1017-system-sequence-diagram.svg)
 
 ## 4. Design
 
@@ -69,7 +69,7 @@ The realization of the US 1017 functionality involves the following steps:
 
 ## 4.2 Sequence Diagram
 
-![Sequence Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintC\1017\svg\1017-system-sequence-diagram.svg)
+![Sequence Diagram - Full](C:\Users\leono\IdeaProjects\sem3pi2023\sem3pi2023\sem4pi-23-24-2dh3\docs\sprintC\1017\svg\1017-sequence-diagram.svg)
 
 ### 4.3. Applied Patterns
 
