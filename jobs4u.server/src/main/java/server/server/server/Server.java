@@ -8,16 +8,23 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server implements Runnable {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
     private final static ThreadGroup serverThreadGroup = new ThreadGroup("server-thread-group");
     private final ServerSocket socket;
     private boolean running;
 
+    /**
+     * Constructor
+     * @param port the port
+     * @throws IOException IOException
+     */
     public Server(int port) throws IOException {
         socket = new ServerSocket(port);
         running = false;
     }
 
+    /**
+     * Start the server
+     */
     public void start() {
         running = true;
         while (running) {
@@ -35,11 +42,16 @@ public class Server implements Runnable {
         }
     }
 
+    /**
+     * Stop the server
+     */
     public void stop() {
         this.running = false;
     }
 
-
+    /**
+     * Run the server
+     */
     @Override
     public void run() {
         start();

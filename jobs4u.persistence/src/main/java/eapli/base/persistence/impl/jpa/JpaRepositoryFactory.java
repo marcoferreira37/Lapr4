@@ -124,7 +124,7 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JobOpeningProcessRepository jobProcessRepository() {
-        return null;
+        return new JpaJobProcessRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override

@@ -42,8 +42,11 @@ public class Customer {
             }
             break;
         } while (true);
+        System.out.println("Login Successful!");
+        System.out.println();
         protocol.send(ComCodes.LSTOPNS.getValue(), "");
         List<JobOpeningDTO> jobsOp = protocol.receive(ComCodes.LSTOPNS.getValue());
+
 
         jobsOp.forEach(d ->
                 System.out.println("Reference: "

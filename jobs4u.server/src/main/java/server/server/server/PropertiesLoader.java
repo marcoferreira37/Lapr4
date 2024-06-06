@@ -8,12 +8,20 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PropertiesLoader {
+
+
     private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesLoader.class);
 
+    /**
+     * Private constructor to hide the implicit public one
+     */
     private PropertiesLoader() {
         // ensure utility
     }
 
+    /**
+     * Load properties from application.properties file
+     */
     public static void load() {
         Properties sysProps = System.getProperties();
         try {
