@@ -16,6 +16,7 @@ public abstract class Handler implements Runnable {
 
     /**
      * Constructor
+     *
      * @param socket the socket
      * @throws IOException IOException
      */
@@ -48,6 +49,4 @@ public abstract class Handler implements Runnable {
             LOGGER.info("Socket closed successfully!");
         }
     }
-
-
 }

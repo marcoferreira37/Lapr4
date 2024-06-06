@@ -22,6 +22,7 @@ public class Customer {
 
         V0Protocol protocol;
         do {
+
             System.out.println();
 
             System.out.print("Username: ");
@@ -31,7 +32,7 @@ public class Customer {
             String password = sc.nextLine();
 
             System.out.println("Wait a moment please...");
-            Socket s = new Socket("127.0.0.1", 10792);
+            Socket s = new Socket("127.0.0.1", 21782);
             protocol = new V0Protocol(s);
             protocol.send(ComCodes.AUTH.getValue(), new LoginDTO(username, password, BaseRoles.CUSTOMER_MANAGER));
             Packet p = protocol.receive();
@@ -40,8 +41,11 @@ public class Customer {
                 protocol.exit();
                 continue;
             }
+
             break;
+
         } while (true);
+
         System.out.println("Login Successful!");
         System.out.println();
 
@@ -54,6 +58,8 @@ public class Customer {
                 System.out.println("Reference: "
                                    + d.findJobReference() + " | Name: " + d.findCompanyName() + " | Status: " + d.findStatus()));
         protocol.send(ComCodes.DISCON.getValue(), "");
+
         protocol.exit();
+
     }
 }
