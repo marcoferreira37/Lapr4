@@ -6,6 +6,7 @@
 package ui {
         class UploadTextFileUI {
             +printNumeratedList()
+            +printNumeratedListApp()
         }
     }
 
@@ -16,6 +17,7 @@ package ui {
         class UploadTextFileController {
             +allCandidates()
             +uploadFile()
+            +getApplicationsByCandidate()
         }
     }
 
@@ -23,6 +25,11 @@ package ui {
 
         interface CandidateRepository{
             +findAllCandidates()
+        }
+
+        interface JobOpeningApplicationRepository{
+            +allApplicationsByCandidate()
+            +save()
         }
     }
 
@@ -32,13 +39,15 @@ package ui {
             +authorizationService() : AuthorizationService
             +ensureAuthenticatedUserHasAnyOf()
         }
+        class JobOpeningApplication{
+            +setCandidateRequirements()
+        }
 
         class CandidateManagementService{
             +allCandidate()
         }
 
         class Candidate {
-            +.curriculum()
         }
     }
 
@@ -46,7 +55,10 @@ UploadTextFileUI--> UploadTextFileController
 UploadTextFileUI --> Candidate
 UploadTextFileController --> AuthorizationService
 UploadTextFileController --> CandidateManagementService
+UploadTextFileController --> JobOpeningApplicationRepository
+UploadTextFileController --> JobOpeningApplication
 CandidateManagementService --> CandidateRepository
 CandidateRepository --> Candidate
+JobOpeningApplicationRepository --> JobOpeningApplication
 
 @enduml
