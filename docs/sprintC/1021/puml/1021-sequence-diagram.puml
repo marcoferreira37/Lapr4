@@ -5,10 +5,10 @@ title US 1021 - Display all the data of an application
 
 actor "Customer Manager" as User
 
-participant "ListJobOpeningApplicationsUI" as UI <<UI>>
-participant "ListJobOpeningApplicationsController" as Controller <<Controller>>
-participant "JobOpeningRepository" as Repository <<Persistence>>
-participant "ApplicationRepository" as ApplicationRepository <<Persistence>>
+participant ":ListJobOpeningApplicationsUI" as UI <<UI>>
+participant ":ListJobOpeningApplicationsController" as Controller <<Controller>>
+participant ":JobOpeningRepository" as Repository <<Persistence>>
+participant ":ApplicationRepository" as ApplicationRepository <<Persistence>>
 
 
 
@@ -18,24 +18,24 @@ User -> UI: asks to list job opening applications
 
 activate UI
 
-UI -> Controller: new ListJobOpeningAplicationsController()
-    activate Controller
 UI -> Controller:AllJobOpenings()
+    activate Controller
+
 Controller -> Repository: AllJobOpenings()
 
     activate Repository
 
-    Repository --> Controller: Iterable<JobOpening> jobOpenings
+    Repository --> Controller: jobOpenings
 
     deactivate Repository
 
     Controller --> UI: jobOpenings
 
     deactivate Controller
-    UI --> User: lists jobReferences and asks user to choose one
+    UI --> User: show list of job references and asks to select one
 deactivate UI
 
-User -> UI: chooses job reference
+User -> UI: selects job reference
 
 activate UI
 
@@ -47,20 +47,26 @@ activate UI
 Controller -> ApplicationRepository: AllApplicationsByJobOpening(jobOpening)
 activate ApplicationRepository
 
-ApplicationRepository --> Controller:   Iterable<JobOpeningApplication> applications
+ApplicationRepository --> Controller:  applications
 
 deactivate ApplicationRepository
 Controller --> UI: applications
 deactivate Controller
-
+UI --> User: show list of applications
 UI --> User: asks if the user wants to see all data from one of the applications
-alt
-User-->UI: respond affirmatively
+alt if the user wants to see all data from one of the applications
+User->UI: selects an application
 UI -> Controller: application.get(index)
 activate Controller
-Controller --> UI: return Application
+Controller --> UI: application
 deactivate Controller
 UI --> User: display Candidate data and returns to Customer Manager Menu
+
+
+else
+
+User <--UI: returns the Customer Manager Menu
+
 end
 
 deactivate UI
