@@ -25,102 +25,29 @@ public class InterviewModel {
 
     private int score = 0;
 
-    public void enterStart(String template) throws IOException {
+    public int enterStart(String template) throws IOException {
 
 
-            Path file = Paths.get(template);
-            String input = new String(Files.readAllBytes(file));
+        Path file = Paths.get(template);
+        String input = new String(Files.readAllBytes(file));
 
-            InterviewModelGrammarLexer lexer = new InterviewModelGrammarLexer(CharStreams.fromString(input));
-            CommonTokenStream tokens = new CommonTokenStream(lexer);
-            InterviewModelGrammarParser parser = new InterviewModelGrammarParser(tokens);
-
-
-            ParseTree tree = parser.start();
-            Map<String, Map<String, String>> map = new HashMap<>();
-            Visitor visitor = new Visitor(map);
-            visitor.visit(tree);
-            System.out.println("Map generated: " + map);
-
-            score = RuleScore.calculateScore(map, score);
+        InterviewModelGrammarLexer lexer = new InterviewModelGrammarLexer(CharStreams.fromString(input));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        InterviewModelGrammarParser parser = new InterviewModelGrammarParser(tokens);
 
 
-//            for (String s : map.keySet()) {
-//                if (s.equals("Question1")) {
-//                    for (String answerCorreta : map.get(s).keySet()) {
-//                        if (answerCorreta.equals(map.get(s).get(answerCorreta))) {
-//                            System.out.println("Score in question 1: " + QUESTION1);
-//                            score += QUESTION1;
-//                        }
-//
-//                    }
-//                }
-//                if (s.equals("Question2")) {
-//                    for (String setDasRespsotasCertas : map.get(s).keySet()) {
-//                        if (setDasRespsotasCertas.equals(map.get(s).get(setDasRespsotasCertas)))
-//                            System.out.println("Score in question 2: " + QUESTION2);
-//                        score += QUESTION2;
-//
-//                    }
-//                }
-//                if (s.equals("Question3")) {
-//                    for (String setDasRespsotasCertas : map.get(s).keySet()) {
-//                        if (setDasRespsotasCertas.equals(map.get(s).get(setDasRespsotasCertas)))
-//                            System.out.println("Score in question 3: " + QUESTION3);
-//                        score += QUESTION3;
-//
-//                    }
-//                }
-//                if (s.equals("Question4")) {
-//                    for (String setDasRespsotasCertas : map.get(s).keySet()) {
-//                        if (setDasRespsotasCertas.equals(map.get(s).get(setDasRespsotasCertas)))
-//                            System.out.println("Score in question 4: " + QUESTION4);
-//                        score += QUESTION4;
-//
-//                    }
-//                }
-//                if (s.equals("Question5")) {
-//                    for (String setDasRespsotasCertas : map.get(s).keySet()) {
-//                        if (setDasRespsotasCertas.equals(map.get(s).get(setDasRespsotasCertas)))
-//                            System.out.println("Score in question 5: " + QUESTION5);
-//                        score += QUESTION5;
-//
-//                    }
-//                }
-//                if (s.equals("Question6")) {
-//                    for (String setDasRespsotasCertas : map.get(s).keySet()) {
-//                        if (setDasRespsotasCertas.equals(map.get(s).get(setDasRespsotasCertas)))
-//                            System.out.println("Score in question 6: " + QUESTION6);
-//                        score += QUESTION6;
-//
-//                    }
-//                }
-//                if (s.equals("Question7")) {
-//                    for (String setDasRespsotasCertas : map.get(s).keySet()) {
-//                        if (setDasRespsotasCertas.equals(map.get(s).get(setDasRespsotasCertas)))
-//                            System.out.println("Score in question 7: " + QUESTION7);
-//                        score += QUESTION7;
-//
-//                    }
-//                }
-//                if (s.equals("Question8")) {
-//                    for (String setDasRespsotasCertas : map.get(s).keySet()) {
-//                        if (setDasRespsotasCertas.equals(map.get(s).get(setDasRespsotasCertas)))
-//                            System.out.println("Score in question 8: " + QUESTION8);
-//                        score += QUESTION8;
-//
-//                    }
-//
-//                }
+        ParseTree tree = parser.start();
+        Map<String, Map<String, String>> map = new HashMap<>();
+        Visitor visitor = new Visitor(map);
+        visitor.visit(tree);
+        System.out.println("Map generated: " + map);
 
-            System.out.println("---------------");
-            System.out.println("Score: " + score);
+        score = RuleScore.calculateScore(map, score);
 
-//                interview.setGrade(score);
-            //   repo.save(interview);
-
-
-        }
+        System.out.println("---------------");
+        System.out.println("Score: " + score);
+        return score;
     }
+}
 
 

@@ -143,8 +143,8 @@ public class JobInterview implements AggregateRoot<Long> {
     }
 
     public void gradeInterview(int grade) {
-        if (grade < 0 || grade > 20) {
-            throw new IllegalArgumentException("Grade must be between 0 and 20");
+        if (grade < 0 || grade > 100) {
+            throw new IllegalArgumentException("Grade must be between 0 and 100");
         }
         this.grade = grade;
     }
@@ -168,4 +168,8 @@ public class JobInterview implements AggregateRoot<Long> {
     public void setInterviewAnswers(String interviewAnswers) {
         this.interviewAnswers = interviewAnswers;
     }
+    public boolean hasAnswers() {
+        return interviewAnswers != null && !interviewAnswers.isEmpty();
+    }
+
 }

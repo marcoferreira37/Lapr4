@@ -13,13 +13,13 @@ activate Agent
 Agent -> System : evaluate the grade for an interview
 activate System
 
-System --> Agent: request the path for the interview
+System --> Agent: select the list of job Interviews with answers
 deactivate
 
-Agent -> System : Type the path
+Agent -> System : select the job interview
 activate System
 
-System --> Agent : Show the score
+System --> Agent : Show the score for the jobinterview
 
 
 
