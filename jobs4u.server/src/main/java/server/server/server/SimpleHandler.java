@@ -6,10 +6,18 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class SimpleHandler extends Handler {
+    /**
+     * Constructor
+     * @param socket the socket
+     * @throws IOException IOException
+     */
     public SimpleHandler(Socket socket) throws IOException {
         super(socket);
     }
 
+    /**
+     * Handle the request
+     */
     @Override
     public void handle() {
         System.out.println("Hello World! I am Alive!");

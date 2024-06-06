@@ -18,6 +18,11 @@ public class FollowupServer {
     private static final Logger LOGGER = LoggerFactory.getLogger(FollowupServer.class);
     private static final int PORT = 10792;
 
+    /**
+     * Main method
+     * @param args the arguments
+     * @throws InterruptedException InterruptedException
+     */
     public static void main(String[] args) throws InterruptedException {
         try {
             System.out.println("Good Morning :) ");
@@ -35,11 +40,13 @@ public class FollowupServer {
             stop(thread);
         } catch (IOException e) {
             System.out.println("Could not bind to port " + PORT);
-            System.out.println("Exiting the application...");
             System.out.println("Goodbye! Thanks for using our application!!");
         }
     }
 
+    /**
+     * Initialize the server
+     */
     public static void init() {
         System.out.println("Initializing server...");
         AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
@@ -48,6 +55,10 @@ public class FollowupServer {
         new AppSettings();
     }
 
+    /**
+     * Stop the thread
+     * @param thread the thread
+     */
     public static void stop(Thread thread) {
         thread.interrupt();
     }

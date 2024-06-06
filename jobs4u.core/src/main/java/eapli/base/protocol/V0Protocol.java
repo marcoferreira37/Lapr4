@@ -6,45 +6,99 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class V0Protocol {
+
+    private final ObjectInputStream input;
+
+    private final ObjectOutputStream output;
+
     private static final byte VERSION = 0;
-    private final ObjectOutputStream out;
-    private final ObjectInputStream in;
-    private final Socket commSocket;
+    private final Socket theSocket;
 
-    public V0Protocol(Socket commSocket) throws IOException {
-        this.commSocket = commSocket;
-        out = new ObjectOutputStream(commSocket.getOutputStream());
-        in = new ObjectInputStream(commSocket.getInputStream());
+    /**
+     * Constructor
+     *
+     * @param theSocket the communication socket
+     * @throws IOException IOException
+     */
+    public V0Protocol(Socket theSocket) throws IOException {
+
+        this.theSocket = theSocket;
+
+        output = new ObjectOutputStream(theSocket.getOutputStream());
+        input = new ObjectInputStream(theSocket.getInputStream());
     }
 
-
+    /**
+     * Send a packet to the server
+     *
+     * @param code   the code
+     * @param object the object
+     * @throws IOException            IOException
+     * @throws ClassNotFoundException ClassNotFoundException
+     */
     public void send(byte code, Object object) throws IOException, ClassNotFoundException {
-        out.writeObject(new Packet(VERSION, code, object));
-        Packet ack = (Packet) in.readObject();
+
+        output.writeObject(new Packet(VERSION, code, object));
+
+        Packet ack = (Packet) input.readObject();
+
         if (ack.getCode() != ComCodes.ACK.getValue()) {
-            commSocket.close();
+
+            theSocket.close();
+
             throw new IOException("There was an error while communicating... Closing Socket");
+
         }
     }
 
+    /**
+     * Receive a packet from the server
+     *
+     * @param expectedCode the expected code
+     * @param <T>          the type of the object
+     * @return the object received
+     * @throws IOException            IOException
+     * @throws ClassNotFoundException ClassNotFoundException
+     */
     public <T> T receive(byte expectedCode) throws IOException, ClassNotFoundException {
-        Packet packet = (Packet) in.readObject();
+        Packet packet = (Packet) input.readObject();
+
         if (expectedCode != packet.getCode()) {
-            out.writeObject(new Packet(VERSION, ComCodes.ERR.getValue(), ""));
-            commSocket.close();
+
+            output.writeObject(new Packet(VERSION, ComCodes.ERR.getValue(), ""));
+
+            theSocket.close();
+
             throw new IOException("There was an error while communicating... Closing Socket");
         }
-        out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), ""));
+        output.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), ""));
+
         return (T) packet.obtainObject();
     }
 
+    /**
+     * Receive a packet from the server
+     *
+     * @return the packet received
+     * @throws IOException            IOException
+     * @throws ClassNotFoundException ClassNotFoundException
+     */
     public Packet receive() throws IOException, ClassNotFoundException {
-        Packet packet = (Packet) in.readObject();
-        out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), ""));
+
+        Packet packet = (Packet) input.readObject();
+
+        output.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), ""));
+
         return packet;
     }
 
+    /**
+     * Close the socket connection
+     *
+     * @throws IOException IOException
+     */
     public void exit() throws IOException {
-        this.commSocket.close();
+
+        this.theSocket.close();
     }
 }
