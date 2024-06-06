@@ -11,7 +11,14 @@ System --> Operator: Retrieves list of all candidates and asks to choose one
 deactivate System
 Operator -> System: Selects the candidate
 activate System
-System --> Operator: Verifies the candidate's requirements and displays success message
+System --> Operator: Retrieves list of all applications of the chosen candidate and asks to choose one
 deactivate System
-
+Operator->System: Selects the application
+activate System
+System --> Operator: Asks to enter the path of the file
+deactivate System
+Operator->System: Enters the path of the file
+activate System
+System --> Operator: Confirms the file upload
+deactivate System
 @enduml
