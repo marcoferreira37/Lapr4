@@ -4,6 +4,8 @@ actor "Customer Manager" as Agent
 participant "EvaluateInterviewUI" as ui <<UI>>
 participant ":EvaluateInterviewController" as ctrl <<Application>>
 participant ":EvaluateInterviewService" as jobServ <<Service>>
+participant ":JobInterviewRepository" as jobInterRepo <<Persistence>>
+participant ":JobInterview" as jobInterview <<Domain>>
 participant "app:InterviewModel" as interview <<Plugin>>
 participant "app:InterviewModelGrammarLexer" as lexer <<Plugin>>
 participant "app:CommonTokenStream" as stream <<Plugin>>
@@ -15,16 +17,92 @@ participant "app:Visitor" as visitor <<Plugin>>
 
 
 
+
 autonumber
 
 activate Agent
 
+
+
 Agent -> ui: execute the process that evaluates (grades) the interviews for a job opening.
 activate ui
-ui -> ctrl: evaluateInterview()
+
+ui -> ctrl: findJobInterview()
 deactivate ui
 
 activate ctrl
+
+ctrl -> jobServ: findJobInterview()
+deactivate ctrl
+
+activate jobServ
+
+jobServ -> jobInterRepo: findAll()
+activate jobInterRepo
+
+jobInterRepo --> jobServ: jobInterviews
+deactivate jobInterRepo
+
+jobServ -> jobInterview: hasAnswers()
+activate jobInterview
+
+jobInterview --> jobServ: jobInterviewWithAnswers
+
+deactivate jobInterview
+
+jobServ --> ctrl: jobInterviewWithAnswers
+deactivate jobServ
+
+activate ctrl
+
+ctrl -> ui: jobInterviewWithAnswers
+deactivate ctrl
+
+activate ui
+
+ui --> Agent: List all job interviews with answers
+deactivate ui
+
+Agent -> ui: select a job interview to evaluate
+activate ui
+
+
+ui -> ctrl :findPath(chosenInterview)
+deactivate ui
+
+activate ctrl
+
+ctrl -> jobServ: findPath(chosenInterview)
+deactivate ctrl
+
+activate jobServ
+
+jobServ -> jobInterview: findPath(chosenInterview)
+activate jobInterview
+
+jobInterview --> jobServ: fileName
+deactivate jobInterview
+
+jobServ --> jobServ: resolve(fileName)
+jobServ --> ctrl: filePath
+deactivate jobServ
+
+activate ctrl
+
+ctrl -> ui: filePath
+deactivate ctrl
+
+activate ui
+
+
+
+
+
+ui -> ctrl: evaluateInterview(filePath)
+deactivate ui
+
+activate ctrl
+
 ctrl -> jobServ: evaluateInterview()
 deactivate ctrl
 
@@ -86,8 +164,65 @@ activate ctrl
 ctrl -> ui: score
 deactivate ctrl
 activate ui
-ui -> Agent: score
+ui -> ctrl: setGrade(score, chosenInterview)
 deactivate ui
+activate ctrl
+ctrl -> jobServ: setGrade(score, chosenInterview)
+deactivate ctrl
+activate jobServ
+jobServ -> jobInterview: setGrade(score)
+deactivate jobServ
+
+activate jobInterview
+jobInterview -> jobInterview: setGrade(score)
+jobInterview --> jobServ: jobInterview
+deactivate jobInterview
+activate jobServ
+
+jobServ --> ctrl: jobInterview
+deactivate jobServ
+
+activate ctrl
+
+ctrl -> ui: jobInterview
+deactivate ctrl
+
+activate ui
+
+ui -> ctrl: save(chosenInterview)
+deactivate ui
+
+activate ctrl
+
+ctrl -> jobServ: save(chosenInterview)
+deactivate ctrl
+
+activate jobServ
+
+jobServ -> jobInterRepo: save(chosenInterview)
+activate jobInterRepo
+
+
+jobInterRepo -> jobInterRepo: save(chosenInterview)
+jobInterRepo --> jobServ: savedInterview
+
+deactivate jobInterRepo
+
+jobServ --> ctrl: savedInterview
+deactivate jobServ
+
+
+activate ctrl
+
+ctrl -> ui: savedInterview
+
+deactivate ctrl
+
+activate ui
+
+ui --> Agent: savedInterview
+deactivate ui
+
 
 
 
