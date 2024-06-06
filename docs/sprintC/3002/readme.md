@@ -1,10 +1,16 @@
-# US 3004
+# US 3002 - 
 
 *This is an example template*
 
 ## 1. Context
 
 *Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+
+## Client Specifications
+
+>Q172 Varela – US3002 - Job Openings Clarifications - You stated that one of the this to show in the listing of job openings is "active since". You've clarified that an active job opening is the one where its recruitment process is on-going. Are the job openings listed in this funcionality only the ones with recruitment process on-going? Or also the ones without recruitment processes, the ones with processes that haven't yet started or have ended?
+>
+>A172 In the context of this US, “active since” means the date from the start of the process, the “application” phase (since that date, candidates can apply). This functionality should include all the “active” job openings.
 
 ## 2. Requirements
 
