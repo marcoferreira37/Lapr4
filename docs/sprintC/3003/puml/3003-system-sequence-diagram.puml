@@ -1,35 +1,28 @@
 @startuml
-'skinparam monochrome true
-'skinparam packageStyle rectangle
-'skinparam shadowing false
+title System Sequence Diagram (SSD) - Notification of Job Opening State Change
 
-title System Sequence Diagram (SSD) -  Record an interview with a candidate
-
-actor "Customer Manager" as Agent
+actor "Customer" as Customer
 participant ":System" as System
 
-activate Agent
+activate Customer
 
-Agent -> System : Record the time and date for an interview with a candidate
+Customer -> System : Check job opening state
 activate System
 
-System --> Agent: Show list of job opening applications
+System --> Customer: Show list of job openings with their current state
 deactivate
 
-Agent -> System : Select a job opening application
+Customer -> System : Select a job opening
 activate System
 
-System --> Agent : Show the job opening application selected and the candidate associated with it
-System --> Agent : Request information about the interview date and time
+System --> Customer : Show the selected job opening with its current state
 deactivate
 
-Agent -> System : Types the interview date and time
+Customer -> System : Request notification for state change
 activate System
 
-System --> Agent : Confirm the interview date and time
+System --> Customer : Confirm notification setup
 
-
-
-deactivate Agent
+deactivate Customer
 
 @enduml

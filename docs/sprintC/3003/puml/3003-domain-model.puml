@@ -48,11 +48,14 @@ rectangle "Job Opening Application" #aaccbb {
 
 }
 
+rectangle " Notification " #ccbbcc {
 
-rectangle candidate #aabbcc{
-    class Candidate<<Aggregate Root>><<Entity>>{}
-    class CandidateId<<Identity>><<Value Object>>{}
-    class CurriculumVitae<<Value Object>>{}
+    class Notification<<Aggregate Root>><<Entity>>{}
+    class idNotification<<Identity>><<Value Object>>{}
+    class userName<<Value Object>>{}
+    class content<<Value Object>>{}
+    class isSend<<Value Object>>{}
+
 }
 
 
@@ -72,24 +75,24 @@ rectangle "Job Opening Process" #ccbbcc{
         RESULT
     }
 }
+'
+'rectangle "Job Opening Interview" #ccbbaa {
+'    class JobInterview <<Aggregate Root>><<Entity>>{}
+'    class JobInterviewId<<Identity>><<Value Object>>{}
+'    class InterviewDate<<Value Object>>{}
+'    class InterviewTime<<Value Object>>{}
+'    class Score<<Value Object>>{}
+'    class InterviewResult<<Value Object>>{}
+'}
 
-rectangle "Job Opening Interview" #ccbbaa {
-    class JobInterview <<Aggregate Root>><<Entity>>{}
-    class JobInterviewId<<Identity>><<Value Object>>{}
-    class InterviewDate<<Value Object>>{}
-    class InterviewTime<<Value Object>>{}
-    class Score<<Value Object>>{}
-    class InterviewResult<<Value Object>>{}
-}
-
-
-JobInterview "1" -up-> "1" JobInterviewId
-JobInterview "1" -up-> "1" InterviewDate
-JobInterview "1" --> "1" InterviewTime
-JobInterview "1" -> "1" Score
-JobInterview "1" --> "1" InterviewResult
-
-Application "1" -up-> "1" JobInterview
+'
+'JobInterview "1" -up-> "1" JobInterviewId
+'JobInterview "1" -up-> "1" InterviewDate
+'JobInterview "1" --> "1" InterviewTime
+'JobInterview "1" -> "1" Score
+'JobInterview "1" --> "1" InterviewResult
+'
+'Application "1" -up-> "1" JobInterview
 
 
 
@@ -101,8 +104,6 @@ Mode "1" <-- "1" JobOpening
 Description "1" <-up- "1" JobOpening
 VacanciesNumber "1" <-up- "1" JobOpening
 
-Candidate "1"--> "1" CandidateId
-Candidate "1"--> "1" CurriculumVitae
 
 
 Application "1" --> "1" ApplicationId
@@ -110,7 +111,6 @@ Application "1" --> "1" AttachedEmail
 Application "1" --> "1" AttachedFile
 Application "1" --> "1" ApplicatorData
 Application "*" -----> "1" JobOpening : submitted for
-Application "1" -> "1" Candidate : submitted by
 Application "1" --> "1" ApplicationStatus
 Application "1" --> "0..1" ApplicationRank
 
@@ -119,5 +119,13 @@ JobOpeningProcess "1" -left-> "1" JobOpeningProcessId
 JobOpening "1" -----> "*" JobOpeningProcess : has
 JobOpeningProcess "1" --> "1" Phase
 Phase "1" --> "1" PhaseType
+
+Notification "1" --> "1" idNotification
+Notification "1" --> "1" userName
+Notification "1" --> "1" content
+Notification "1" --> "1" isSend
+
+JobOpening "1" -----> "*" Notification : has
+
 
 @enduml

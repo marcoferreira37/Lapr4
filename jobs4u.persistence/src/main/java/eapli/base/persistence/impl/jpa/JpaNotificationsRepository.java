@@ -4,6 +4,7 @@ import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.protocol.Notifications;
 import eapli.base.repositories.NotificationsRepository;
+import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jakarta.persistence.TypedQuery;
 
@@ -14,21 +15,19 @@ public class JpaNotificationsRepository extends JpaAutoTxRepository<Notification
         super(persistenceUnitName, identityFieldName);
     }
 
+    public JpaNotificationsRepository(String persistenceUnitName) {
+        super(persistenceUnitName, "id");
+    }
+
+    public JpaNotificationsRepository(TransactionalContext autoTx) {
+
+        super(autoTx, "id");
+    }
+
     @Override
     public Iterable<Notifications> findByActive(boolean active) {
 
         return match("e.active = :active", "active", active);
 
-    }
-
-    @Override
-    public Iterable<Notifications> findAllNotifications() {
-        TypedQuery<Notifications> query = createQuery("SELECT c FROM Notifications c", Notifications.class);
-        return query.getResultList();
-    }
-
-    @Override
-    public Iterable<Notifications> getNotifications(JobOpeningApplication jobOpeningApplication) {
-        return match("e.jobOpeningApplication = :jobOpeningApplication", "jobOpeningApplication", jobOpeningApplication);
     }
 }

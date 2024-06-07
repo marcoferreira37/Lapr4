@@ -64,6 +64,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
+    public NotificationsRepository notifications() {
+        return new JpaNotificationsRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
     public SignupRequestRepository signupRequests(final TransactionalContext autoTx) {
         return new JpaSignupRequestRepository(autoTx);
     }
@@ -191,6 +196,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public JobOpeningProcessRepository jobProcess(){
         return new JpaJobProcessRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public NotificationsRepository notificationsRepository(TransactionalContext autoTx) {
+        return new JpaNotificationsRepository(autoTx);
+    }
+
+    @Override
+    public NotificationsRepository notificationsRepository() {
+        return new JpaNotificationsRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override

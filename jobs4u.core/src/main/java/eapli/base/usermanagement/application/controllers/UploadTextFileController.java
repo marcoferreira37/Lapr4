@@ -13,7 +13,9 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.tree.ParseTree;
+import plugin.structure.RequirementsValidatorVisitor;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,15 +43,15 @@ public class UploadTextFileController {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN, BaseRoles.POWER_USER);
 
         try {
-            if(passGrammar(file)){
+            if (passGrammar(file)) {
                 Path source = Paths.get(file);
                 Path destinatinPAth = Paths.get("jobs4u.core/src/main/resources/PlugIns/RequirementsSpecifications/backEndDeveloperRequirements");
-                Path destination =  destinatinPAth.resolve( app.jobOpening().getJobReference().fullReference() + ".txt");
+                Path destination = destinatinPAth.resolve(app.jobOpening().getJobReference().fullReference() + ".txt");
                 Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
                 String fileName = app.jobOpening().getJobReference().fullReference() + ".txt";
                 app.setCandidateRequirements(fileName);
-            } else{
-                System.out.println("Error: File didnt match grammar");
+            } else {
+                System.out.println("Error: File didn't match grammar");
             }
         } catch (IOException e) {
             System.err.println("Error generating file" + e.getMessage());
@@ -58,26 +60,31 @@ public class UploadTextFileController {
     }
 
     public boolean passGrammar(String path) {
-        if(path == null){
+        if (path == null) {
             System.out.println("File not found");
             return false;
         }
 
-        try{
+        try {
             CharStream input = CharStreams.fromFileName(path);
             JobRequirementsGrammarLexer lexer = new JobRequirementsGrammarLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             JobRequirementsGrammarParser parser = new JobRequirementsGrammarParser(tokens);
-            ParseTree tree = parser.start();
+            try {
+                new RequirementsValidatorVisitor().visit(parser.start());
+                System.out.println("File matches grammar. Uploading file.");
+                return true;
+            } catch (RuntimeException e) {
+                return false;
+            }
 
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println("Error verifying grammar: " + e.getMessage());
         }
 
-        return true;
-
+        return false;
     }
 
     public List<JobOpeningApplication> getApplicationsByCandidate(Candidate c) {

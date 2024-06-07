@@ -43,7 +43,6 @@ public class UploadTextFileUI extends AbstractUI {
 
         theController.uploadFile(app, path);
 
-        System.out.println("File uploaded successfully. Requirements checked.");
 
         return false;
     }
