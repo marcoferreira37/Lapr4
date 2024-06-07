@@ -63,6 +63,7 @@ CTRL->AS : ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN, 
 activate AS
 AS-->CTRL: ensures the user has operator role
 deactivate AS
+CTRL-->CTRL:passGrammar(path)
 CTRL-> JOA:setCandidateRequirements(fileName)
 activate JOA
 JOA-->CTRL: sets the candidate requirements
