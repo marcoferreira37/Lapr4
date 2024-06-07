@@ -2,8 +2,11 @@ package eapli.base.domain.jobOpeningInterview;
 
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.framework.validations.Preconditions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +14,33 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JobInterviewTest {
 
-    private  JobInterview jobInterview;
+    private JobInterview interview ;
+    private JobInterview interview2;
+    private JobInterview interview3;
+
+
+    @BeforeEach
+    void setUp() {
+        Calendar interviewDate = Calendar.getInstance();
+        interviewDate.set(2024, Calendar.JUNE, 1);
+
+        JobOpeningApplication jobApp = new JobOpeningApplication();
+        JobInterview interview = new JobInterview("1", interviewDate, jobApp, 10);
+        JobInterview interview2 = new JobInterview("1", interviewDate, jobApp, 10);
+        JobInterview interview3 = new JobInterview();
+        interview = JobInterview.builder()
+                .interviewTime("1")
+                .interviewDate(interviewDate)
+                .jobOpeningApplication(jobApp)
+                .grade(10)
+                .build();
+        interview2= JobInterview.builder()
+                .interviewTime("1")
+                .interviewDate(interviewDate)
+                .jobOpeningApplication(jobApp)
+                .grade(10)
+                .build();
+    }
 
     @Test
     public void validateInterviewTimeNotNullTest() {
@@ -90,4 +119,84 @@ class JobInterviewTest {
         assertEquals("Interview Time must not be null", exception.getMessage());
     }
 
+    @Test
+    void testValidGrade() {
+        JobInterview interview = new JobInterview();
+        interview.gradeInterview(85);
+        assertEquals(85, interview.getGrade());
+    }
+
+    @Test
+    void testGradeBelowMinimum() {
+        JobInterview interview = new JobInterview();
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            interview.gradeInterview(-1);
+        });
+        assertEquals("Grade must be between 0 and 100", exception.getMessage());
+    }
+
+    @Test
+    void testGradeAboveMaximum() {
+        JobInterview interview = new JobInterview();
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            interview.gradeInterview(101);
+        });
+        assertEquals("Grade must be between 0 and 100", exception.getMessage());
+    }
+
+    @Test
+    void testGradeAtLowerBoundary() {
+        JobInterview interview = new JobInterview();
+        interview.gradeInterview(0);
+        assertEquals(0, interview.getGrade());
+    }
+
+    @Test
+    void testGradeAtUpperBoundary() {
+        JobInterview interview = new JobInterview();
+        interview.gradeInterview(100);
+        assertEquals(100, interview.getGrade());
+    }
+
+    @Test
+    void testSameAsWithSameObject() {
+        assertTrue(interview.sameAs(interview));
+    }
+
+    @Test
+    void testSameAsWithNull() {
+        assertFalse(interview3.sameAs(null));
+    }
+
+    @Test
+    void testSameAsWithDifferentClass() {
+        assertFalse(interview.sameAs("some string"));
+    }
+
+    @Test
+    void testSameAsWithEqualObject() {
+        assertTrue(interview.sameAs(interview2));
+    }
+
+    @Test
+    void testSameAsWithDifferentId() {
+        assertFalse(interview3.sameAs(interview2));
+    }
+
+    @Test
+    void testSameAsWithDifferentJobOpeningApplication() {
+        assertFalse(interview.sameAs(interview3));
+    }
+
+    @Test
+    void testSameAsWithDifferentInterviewTime() {
+        assertFalse(interview.sameAs(interview2));
+    }
+
+    @Test
+    void testSameAsWithDifferentInterviewDate() {
+        assertFalse(interview3.sameAs(interview2));
+    }
 }
+
+
