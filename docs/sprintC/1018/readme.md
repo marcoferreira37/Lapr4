@@ -49,61 +49,101 @@ This task is assigned for development in this sprint.
 
 - 1018.4. The system should provide a user interface for the evaluation of the interviews.
 
-- 1018.5. The application should be in the Analysis phase.
 
 **Dependencies/References:**
 
-* Alternatively, this can be achieved by a bootstrap process.
+Furthermore, it is necessary to view all the job interviews that have a questionary with answers.
+Has dependency in the user stories:
+- G007 - As a Project Manager, I want the system to support and apply authentication and
+  authorization for all its users and functionalities.
+- 1014 As Customer Manager, I want to record the time and date for an interview with a
+  candidate.
+
 
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+### 3.1. Domain Model
+
+The domain model is composed of the following entities:
+
+- **Plugin**: Represents a plugin that is used to evaluate the interviews for a job opening.
+- **Application**: Represents the application of a candidate for a job opening.
+- **Interview**: Represents an interview with a candidate for a job opening application.
+- **Opening**: Represents a job opening.
+
+[Domain Model](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1018\svg\1018-domain-model.svg)
+
+
+## 3.2 System Sequence Diagram
+
+[System Sequence Diagram - Full](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1018\svg\1018-system-sequence-diagram-System_Sequence_Diagram__SSD____Grade_Interviews_for_a_Job_Opening.svg)
+
+The Customer Manager requested a feature to evaluate the interview of candidates for a job opening.
+This feature will allow the manager to evaluate , persist the grade.
+
 
 ## 4. Design
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
-
 ### 4.1. Realization
 
-### 4.2. Class Diagram
-
-![a class diagram](class-diagram-01.svg "A Class Diagram")
-
-### 4.3. Applied Patterns
-
-### 4.4. Tests
-
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
-
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
+The realization of the functionality involves defining how the Customer Manager can evaluate the interviews for a job opening
+and how these grades are stored and modified in the system.
+This requires interactions between various system components including the UI, business logic,
+and data persistence layers.
 
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
+## 4.2 Class Diagram
+
+
+The class diagram shows the key classes involved.
+This includes the Application, Plugin, Interview and Job Opening.
+
+## 4.3 Sequence Diagram
+
+[Sequence Diagram - Full](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1018\svg\1018-sequence-diagram.svg)
+
+The sequence diagram shows the interactions between the Customer Manager and the system to evaluate the interview.
+This includes actions like viewing a list of interviews, evaluate a grade, saving the grade.
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
+- The implementation of the evaluation feature involves several key components: the UI layer,
+  the business logic layer, and the persistence layer.
+  The primary goal is to allow the Customer Manager to evaluate for a job opening, save the grade.
+  The implementation also ensures that all selected interviews are evaluated and are persisted.
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+* Controller (EvaluateInterviewController): Manages the interaction with the EvaluateInterviewService to evaluate.
+
+* Repository (JobInterviewRepository): Handles the persistence of job interviews.
+
+* Service (EvaluateInterviewService): Handles the business logic for evaluate and persists the changes using the repository.
+
+* UI (EvaluateInterviewUI): Provides a user interface for the Customer Manager to select job interview, view applications, and evaluate the job interview.
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
+* Integration with other system components was verified by:
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+- Ensuring that the EvaluateInterviewController correctly interacts with the EvaluateInterviewService.
+- Validating that the EvaluateInterviewService correctly persists rankings using the JobInterviewRepository.
+- Testing the complete workflow from the UI to the service and persistence layers.
+- To demonstrate this functionality:
+
+
+1) Run the application.
+2) Navigate to the Evaluate InterviewUI UI.
+3) Select a job interview.
+4) View and evaluate a job opening.
+5) Verify that grade is saved.
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
 
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
+* During development, the following considerations were made:
 
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+- UI/UX: The UI was designed to be intuitive, allowing the Customer Manager to easily evaluate.
+- Performance: The Plugin was optimized to ensure quick response times, even with a large number of interviews.
+- Extensibility: The current implementation is modular, allowing for future enhancements.
+
+
