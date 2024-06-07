@@ -75,8 +75,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
 
         JobOpening jo5 = registerJobOpening("Construtor de casas", "Rua do Ouro", Mode.ONSITE, ContractType.FULL_TIME, "Construtor", 15, 1);
-        JobOpeningProcess jobOpeningProcess5 = new JobOpeningProcess(jo5, PhaseType.RESULT);
-        registerJobOpeningProcess(jobOpeningProcess5);
         JobOpeningApplication application9 = registerApplication(jo5, candida);
         JobOpeningApplication application10 = registerApplication(jo5, candida2);
         JobOpeningApplication application11 = registerApplication(jo5, candida3);
@@ -86,20 +84,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         interview5.gradeInterview(12);
         interview6.gradeInterview(15);
         interview7.gradeInterview(16);
-
-
-
-        JobOpeningProcess jobOpeningProcess = new JobOpeningProcess(jo, PhaseType.RESULT);
-        JobOpeningProcess jobOpeningProcess1 = new JobOpeningProcess(jo, PhaseType.ANALYSIS);
-        JobOpeningProcess jobOpeningProcess2 = new JobOpeningProcess(jo2, PhaseType.ANALYSIS);
-        JobOpeningProcess jobOpeningProcess3 = new JobOpeningProcess(jo3, PhaseType.ANALYSIS);
-        JobOpeningProcess jobOpeningProcess4 = new JobOpeningProcess(jo4, PhaseType.ANALYSIS);
-
-        registerJobOpeningProcess(jobOpeningProcess);
-        registerJobOpeningProcess(jobOpeningProcess1);
-        registerJobOpeningProcess(jobOpeningProcess2);
-        registerJobOpeningProcess(jobOpeningProcess3);
-        registerJobOpeningProcess(jobOpeningProcess4);
 
         JobOpeningApplication application = registerApplication(jo, candida);
         JobOpeningApplication application2 = registerApplication(jo, candida2);
