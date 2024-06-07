@@ -1,17 +1,14 @@
 package eapli.base.domain.jobOpening;
 
-import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
 import eapli.base.domain.company.Company;
-import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.repositories.JobOpeningProcessRepository;
+
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Optional;
+
 
 @Table(name = "JOB_OPENING")
 @Entity
