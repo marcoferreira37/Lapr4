@@ -9,6 +9,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
 
+import java.util.Objects;
+
 @Entity
 @Table  (name = "CANDIDATE")
 public class Candidate implements AggregateRoot<EmailAddress> {
@@ -69,4 +71,10 @@ public class Candidate implements AggregateRoot<EmailAddress> {
                 ", telephoneNumber=" + telephoneNumber +
                 ", curriculum= " + curriculum;
     }
+
+    public EmailAddress getEmail() {
+        return emailAddress;
+    }
+
+
 }
