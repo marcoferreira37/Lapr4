@@ -12,5 +12,5 @@ public interface CandidateRepository extends DomainRepository <EmailAddress, Can
     Iterable<Candidate> findAllCandidates();
 
     Iterable<Candidate> getCandidate(JobOpeningApplication jobOpeningApplication);
-        
+
 }

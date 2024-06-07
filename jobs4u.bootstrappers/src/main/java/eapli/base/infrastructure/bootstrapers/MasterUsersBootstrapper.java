@@ -66,6 +66,13 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         Candidate candida3 = registerCandidate("maria", TestDataConstants.PASSWORD1, "Maria", "Pereira", EmailAddress.valueOf("vozinha@gmail.com"));
         Candidate candida4 = registerCandidate("fisco", TestDataConstants.PASSWORD1, "Fisco", "Fiasco", EmailAddress.valueOf("fiascos@somosnos.com"));
         Candidate candida5 = registerCandidateWithCurriculum("fisco2", TestDataConstants.PASSWORD1, "Fisco", "Fiasco", EmailAddress.valueOf("fiascos2@somosnos.com"), "Curriculum com jopedrito a fumar ganza no parque ya");
+        Candidate candida6 = registerCandidate("Francisco", TestDataConstants.PASSWORD1, "Francisco", "Silveira", EmailAddress.valueOf("1220813@isep.ipp.pt"));
+        Candidate candida7 = registerCandidate("Rodrigo", TestDataConstants.PASSWORD1, "Rodrigo", "Brito", EmailAddress.valueOf("1220842@isep.ipp.pt"));
+        Candidate candida8 = registerCandidate("Marco", TestDataConstants.PASSWORD1, "Marco", "Ferreira", EmailAddress.valueOf("1220913@isep.ipp.pt"));
+        Candidate candida9 = registerCandidate("Gonçalo", TestDataConstants.PASSWORD1, "Gonçalo", "Sousa", EmailAddress.valueOf("1221331@isep.ipp.pt"));
+        Candidate candida10 = registerCandidate("Miguel", TestDataConstants.PASSWORD1, "Miguel", "Monteiro", EmailAddress.valueOf("1221330@isep.ipp.pt"));
+
+
 
         JobOpening jo = registerJobOpening("bailarino", "casa do ah", Mode.ONSITE, ContractType.FULL_TIME, "baila baila", 1, 1);
         JobOpening jo2 = registerJobOpening("monstro", "o grande lago de penafiel", Mode.ONSITE, ContractType.FULL_TIME, "ARRRGHHHHHH", 1, 1);
@@ -127,8 +134,12 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         System.out.println(candida2);
         System.out.println(candida3);
         System.out.println(candida4);
-        System.out.println();
         System.out.print(candida5);
+        System.out.print(candida6);
+        System.out.print(candida7);
+        System.out.print(candida8);
+        System.out.print(candida9);
+        System.out.println(candida10);
 
         System.out.println(jo);
         System.out.println(jo2);
