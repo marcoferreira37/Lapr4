@@ -8,7 +8,7 @@ participant ":JobOpeningApplicationRepository" as jobRepo <<Persistence>>
 'participant ":ApplicationService" as appServ <<Service>>
 participant ":InterviewRepository" as intRepo <<Persistence>>
 'participant "app:JobOpeningApplication" as app <<Domain>>
-participant "interview:Interview" as interview <<Domain>>
+participant ":JobInterview" as interview <<Domain>>
 
 
 autonumber
@@ -59,29 +59,35 @@ activate ctrl
 ctrl -> jobApServ: recordInterview(jobOpeningApplication, interviewTime, interviewDate)
 
 activate jobApServ
+jobApServ -> interview** : «creates»
+activate interview
 
-jobApServ -> intRepo: recordInterview(jobOpeningApplication, interviewTime, interviewDate)
+interview --> jobApServ: jobInterview
+
+deactivate interview
+
+jobApServ -> intRepo: save(jobInterview)
 
 activate intRepo
 
-intRepo -> jobApServ: Save interview
+intRepo --> jobApServ: Saved Jobinterview
 deactivate intRepo
 
 
-jobApServ -> interview** : «creates»
+
 
 
 deactivate intRepo
 
 
-jobApServ --> ctrl: Interview
+jobApServ --> ctrl: Saved JobInterview
 deactivate jobApServ
 
 
-ctrl --> ui: Interview
+ctrl --> ui: Saved JobInterview
 deactivate ctrl
 
-ui --> Agent: Interview
+ui --> Agent: Saved JobInterview
 
 deactivate ui
 
