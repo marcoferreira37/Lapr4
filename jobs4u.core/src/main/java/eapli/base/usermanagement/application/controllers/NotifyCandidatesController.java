@@ -13,7 +13,7 @@ public class NotifyCandidatesController {
         service.sendEmail(destination, subject, message);
     }
 
-    public Iterable<Candidate> findCandidates() {
-        return service.findCandidates();
-    }
+//    public Iterable<Candidate> findCandidates() {
+//        return service.findCandidates();
+//    }
 }
