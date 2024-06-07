@@ -13,19 +13,9 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class InterviewModel {
-
-    private final int QUESTION1 = 5;
-    private final int QUESTION2 = 10;
-    private final int QUESTION3 = 5;
-    private final int QUESTION4 = 5;
-    private final int QUESTION5 = 5;
-    private final int QUESTION6 = 5;
-    private final int QUESTION7 = 5;
-    private final int QUESTION8 = 5;
-
     private int score = 0;
 
-    public int enterStart(String template) throws IOException {
+    public int evaluateInterview(String template) throws IOException {
 
 
         Path file = Paths.get(template);
