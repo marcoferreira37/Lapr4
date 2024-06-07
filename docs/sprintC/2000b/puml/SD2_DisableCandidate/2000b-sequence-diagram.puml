@@ -6,63 +6,67 @@ autonumber
 actor Operator as ADM
 participant "DisableCandidateUI" as UI <<ui>>
 participant ":DisableCandidateController" as CTRL <<application>>
-participant ":ListCandidatesUI" as LUI <<ui>>
-participant ":ListCandidatesController" as LCTRL <<application>>
-participant ":UserService" as AS <<Service>>
-participant "Candidate" as User <<domain>>
-participant "SystemUser" as SYS <<domain>>
+participant ":CandidateManagementService" as CMS <<Service>>
+participant "AuthorizationService" as AS <<Service>>
 participant "CandidateRepository" as REPO <<repository>>
-
+participant "Candidate" as EU <<domain>>
+participant "SystemUser" as SYS <<domain>>
 
 activate ADM
-ADM-> UI : Request to disable a candidate
+ADM-> UI : Request to enable a candidate
 activate UI
 UI -> CTRL** : create
-UI -> LUI: listEnabledCandidates()
-deactivate CTRL
-activate LUI
-LUI->LCTRL:enabledCandidates()
-activate LCTRL
-LCTRL-->LCTRL: allCandidates()
-LCTRL-> User: .user()
-activate User
-User-> SYS : .isActive()
-deactivate User
-activate SYS
-SYS-->LCTRL:enabledCandidates
-deactivate SYS
-LCTRL-->LUI:enabledCandidates
-deactivate LCTRL
-LUI-->LUI:printCandidates(candidates)
-LUI-->CTRL: list
-deactivate LUI
+UI --> UI: listEnabledCandidates()
+UI-> CTRL :enabledCandidates()
 activate CTRL
-CTRL-->UI:list
+CTRL-->CMS: allCandidate()
+activate CMS
+CMS->AS: ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.OPERATOR, BaseRoles.CUSTOMER_MANAGER)
+activate AS
+AS-->CMS: ensures the user has the required role
+deactivate AS
+CMS->REPO: findAllCandidates()
+activate REPO
+REPO-->CMS: all candidates
+deactivate REPO
+CMS-->CTRL: all candidates
+deactivate CMS
+CTRL-->UI: all candidates
 deactivate CTRL
-UI --> ADM : displays the \nlist of candidates
-deactivate LUI
-ADM -> UI : selects a candidate
+UI-->UI: printCandidates(candidates)
+UI-->ADM: returns a list of the enabled candidates
+deactivate UI
+ADM -> UI : selects an enabled candidate
+activate UI
 UI -> CTRL : disableCandidate(email)
 activate CTRL
-CTRL-> AS:ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN)
+CTRL->CMS: disableCandidate(email)
+activate CMS
+CMS->AS:ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN)
 activate AS
-AS--> CTRL: ensures the user has operator role
+AS--> CMS: ensures the user has operator role
 deactivate AS
-CTRL->User :.user()
-activate User
-User->SYS: .deactivate(deactivatedOn)
-activate SYS
-deactivate User
-SYS--> CTRL: candidate deactivated
-deactivate SYS
-CTRL->REPO : save(candidate)
+CMS->REPO: findAll()
 activate REPO
-REPO--> CTRL: candidate
+REPO-->CMS: finds all candidates
 deactivate REPO
-CTRL --> UI : returns the disabled candidate
+CMS->EU:.user()
+activate EU
+EU->SYS:.deactivate(Calendar.getInstance())
+activate SYS
+SYS-->EU: candidate deactivated
+deactivate SYS
+EU-->CMS: candidate deactivated
+deactivate EU
+CMS->REPO:.save(candidate)
+activate REPO
+REPO-->CMS: candidate disabled
+deactivate REPO
+CMS-->CTRL: candidate disabled
+deactivate CMS
+CTRL-->UI: candidate disabled
 deactivate CTRL
-UI --> ADM : displays success
-deactivate UI
+UI-->ADM: candidate disabled and success message
 
 
 @enduml
