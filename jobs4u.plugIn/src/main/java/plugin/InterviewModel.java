@@ -1,7 +1,7 @@
 package plugin;
 
-import plugin.interviewModel.InterviewModelGrammarLexer;
-import plugin.interviewModel.InterviewModelGrammarParser;
+import plugin.antlr4.autogen.interview.InterviewModelGrammarLexer;
+import plugin.antlr4.autogen.interview.InterviewModelGrammarParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;

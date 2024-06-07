@@ -61,6 +61,8 @@ public class ListAllApplicationsForJobOpeningUI extends AbstractUI {
                 System.out.println("Candidate: " + application.candidate().identity());
                 System.out.println("Job Opening Reference: " + application.jobOpening().identity().fullReference());
                 System.out.println("Rank: " + application.showRanking());
+                System.out.println("Status: " + application.status());
+                System.out.println("Interviews: " + application.getInterviews());
                 System.out.println("/////////////////////////////////");
             } else {
                 System.out.println("Invalid application number.");

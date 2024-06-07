@@ -50,6 +50,10 @@ public class UpdateInterviewAnswerUI extends AbstractUI {
             String file = Console.readLine("Please insert the path to the desired file: ");
 
             Path source = Paths.get(file);
+            if (!Files.exists(source)) {
+                System.out.println("The file path you entered does not exist. Please try again.");
+                return false;
+            }
             Path dest = Paths.get("jobs4u.core/src/main/resources/PlugIns/interviewModel/UploadedFiles");
             String applicationId = String.valueOf(app.identity());
             Path destPath = dest.resolve("answers" + applicationId + ".txt");
