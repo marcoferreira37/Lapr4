@@ -1,5 +1,6 @@
 package eapli.base.usermanagement.application.controllers;
 
+import eapli.base.candidate.CandidateManagementService;
 import eapli.base.domain.Jobs4UUser;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.domain.candidate.Candidate;
@@ -11,7 +12,9 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class DisableCandidateController {
@@ -19,6 +22,8 @@ public class DisableCandidateController {
     private final CandidateRepository candidateRepository;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
+
+    private final CandidateManagementService candidateSvc = new CandidateManagementService();
 
     /**
      * Instantiates a controller for disabling a user.
@@ -41,13 +46,15 @@ public class DisableCandidateController {
      */
     @Transactional
     public Candidate disableCandidate(String email) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN);
-        for (Candidate user : candidateRepository.findAll()){
-            if (user.emailAddress().toString().equals(email)) {
-                user.user().deactivate(Calendar.getInstance());
-                return candidateRepository.save(user);
+        return candidateSvc.disableCandidate(email);
+    }
+    public Iterable<Candidate> enabledCandidates() {
+        List<Candidate> enabledCandidates = new ArrayList<>();
+        for (Candidate user : candidateSvc.allCandidate()) {
+            if (user.user().isActive()) {
+                enabledCandidates.add(user);
             }
         }
-        return null;
+        return enabledCandidates;
     }
 }

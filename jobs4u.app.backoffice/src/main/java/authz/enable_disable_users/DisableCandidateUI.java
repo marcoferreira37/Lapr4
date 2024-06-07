@@ -4,8 +4,11 @@ import authz.ui.ListCandidatesUI;
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.Console;
 import eapli.base.app.common.console.ui.components.Sleeper;
+import eapli.base.domain.candidate.Candidate;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.application.controllers.DisableCandidateController;
+
+import java.util.List;
 
 public class DisableCandidateUI extends AbstractUI {
 
@@ -13,8 +16,7 @@ public class DisableCandidateUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        var ui = new ListCandidatesUI();
-        var wereUsersPrinted = ui.listEnabledCandidates();
+        var wereUsersPrinted = listEnabledCandidates();
         if (!wereUsersPrinted) {
             return false;
         }
@@ -35,4 +37,24 @@ public class DisableCandidateUI extends AbstractUI {
     @Override
     public String headline() {
         return "Disable Candidate";    }
+
+    public boolean listEnabledCandidates() {
+        List<Candidate> candidates = (List<Candidate>) controller.enabledCandidates();
+        if (candidates.isEmpty()) {
+            System.out.println("There are no enabled users in the system.");
+            Sleeper.sleep(1000);
+            return false;
+        }
+        printCandidates(candidates);
+        return true;
+    }
+
+    private void printCandidates(List<Candidate> candidate) {
+        int index = 1;
+        for (Candidate c : candidate){
+            System.out.println(index + " - " + c.emailAddress());
+            index++;
+        }
+    }
+
 }
