@@ -1,9 +1,12 @@
 package eapli.base.protocol;
 
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
+
+import java.util.Objects;
 
 
 @Entity
@@ -18,30 +21,60 @@ public class Notifications implements AggregateRoot<Long> {
     @Column(name = "CONTENT")
     String content;
 
+    @Column(name = "ISSEND")
+    boolean isSend;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "INTERVIEWID")
-    private long id;
+    @Column(name = "NOTIFICATIONID")
+    private long idNotification;
+
+    @JoinColumns({
+            @JoinColumn(name = "JOBREFERENCE_COMPANYINDEX", referencedColumnName = "companyIndex"),
+            @JoinColumn(name = "JOBREFERENCE_ID", referencedColumnName = "iD"),
+            @JoinColumn(name = "JOBREFERENCE_FULLREFERENCE", referencedColumnName = "fullReference"),
+    })
+    @ManyToOne
+    private JobOpening jobOpening;
+
+    @JoinColumn(name = "JOBAPPLICATIONID")
+    @ManyToOne
+    private JobOpeningApplication jobOpeningApplication;
 
     public Notifications(String userName, String content) {
         this.userName = userName;
         this.content = content;
+        this.jobOpeningApplication = null;
+        this.jobOpening = null;
+        this.isSend = false;
     }
 
+    protected Notifications() {
+        // for ORM only
+    }
 
-    public Notifications() {
+    public void notificationFromJobOpening(JobOpening jobOpening) {
+        this.jobOpening = jobOpening;
+    }
 
-
+    public void notificationFromJobOpeningApplication(JobOpeningApplication jobOpeningApplication) {
+        this.jobOpeningApplication = jobOpeningApplication;
     }
 
     @Override
     public boolean sameAs(Object other) {
-        return other instanceof JobOpening && ((JobOpening) other).identity().equals(identity());
-
+        if (this == other) return true;
+        if (!(other instanceof Notifications)) return false;
+        Notifications that = (Notifications) other;
+        return Objects.equals(idNotification, that.idNotification);
     }
 
     @Override
     public Long identity() {
-        return id;
+        return idNotification;
+    }
+
+    public void sendNotification() {
+        this.isSend = true;
     }
 }
