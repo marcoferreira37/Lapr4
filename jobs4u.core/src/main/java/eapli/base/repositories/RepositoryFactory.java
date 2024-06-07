@@ -63,6 +63,8 @@ public interface RepositoryFactory {
      */
     ClientUserRepository clientUsers();
 
+    NotificationsRepository notifications();
+
     /**
      * @param autoTx the transactional context to enroll
      * @return
@@ -123,4 +125,9 @@ public interface RepositoryFactory {
     JobOpeningProcessRepository jobProcess(TransactionalContext autoTx);
 
     JobOpeningProcessRepository jobProcess();
+
+    NotificationsRepository notificationsRepository(TransactionalContext autoTx);
+
+    NotificationsRepository notificationsRepository();
+
 }

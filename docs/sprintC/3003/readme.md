@@ -9,7 +9,14 @@ This task is being assigned for development in this sprint.
 
 ## Client Specifications
 
->*NO SPECIFICATIONS PROVIDED YET*
+>* **Question:** Q240 Rodrigo Castro – US3003 - No âmbito da visualização de notificações 
+> * na app de cliente deseja que a listagem tenha algo em específico por 
+> * exemplo, apenas as não lidas (consequentement terá de haver uma opção 
+> * marcar como lida).
+> * **Answer:** A240. Sim, para mim faz sentido que o conceito de notificação tenha uma opção de 
+> * marcar como lida a notificação. Deve ser possível ver as notificações “já lidas” (algo como 
+> * ver “todas” ou ver “todas a partir de uma data”).
+
 
 ## 2. Requirements
 
