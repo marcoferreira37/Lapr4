@@ -25,6 +25,8 @@ This task involves enabling the Operator to enable/disable a candidate in the sy
 - 
 - ...
 
+![Use-Case Diagram](docs/sprintC/2000b/svg/2000b-UCD.svg)
+
 ### Client Clarifications
 
 -Q30 Alejandro – US2000b, o que é o enable/disable do candidato?
