@@ -19,8 +19,9 @@ public class InterviewService {
 
     @Transactional
     public JobInterview recordInterview(Calendar interviewDate, String interviewTime, JobOpeningApplication jobOpeningApplication) {
+        JobInterview jobInterview = new JobInterview(interviewTime, interviewDate, jobOpeningApplication);
         try {
-            return repository.save(new JobInterview(interviewTime, interviewDate, jobOpeningApplication));
+            return repository.save(jobInterview);
         } catch (IllegalArgumentException e) {
             System.out.println("Error recording the interview: " + e.getMessage());
             // Lógica adicional para lidar com o erro, como solicitar novos valores
