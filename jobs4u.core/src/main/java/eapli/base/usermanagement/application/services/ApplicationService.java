@@ -69,9 +69,9 @@ public class ApplicationService {
     public List <JobOpeningApplication> verifyRequirements(JobOpening job) {
         List<JobOpeningApplication> applications = getApplicationsByJobOpening(job);
         List <JobOpeningApplication> result = new ArrayList<>();
+        String jobRequirements = job.getRequirements();
         for (JobOpeningApplication application : applications) {
               String candidateRequirements = application.candidateRequirements();
-              String jobRequirements = job.getRequirements();
             RequirementsValidator validator = new RequirementsValidator();
             if (validator.verifyRequirements(candidateRequirements, jobRequirements)) {
                 application.updateStatus(Status.ACCEPTED);
