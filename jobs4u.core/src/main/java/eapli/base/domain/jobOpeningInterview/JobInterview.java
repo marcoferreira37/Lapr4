@@ -6,14 +6,21 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Calendar;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
 @Table(name = "JobInterview")
 @Transactional
+@Builder
 public class JobInterview implements AggregateRoot<Long> {
 
     @Id
@@ -33,6 +40,7 @@ public class JobInterview implements AggregateRoot<Long> {
     @JoinColumn(name = "JOBOPENINGAPPLICATIONID")
     private JobOpeningApplication jobOpeningApplication;
 
+    @Getter
     @Column(name = "JOBINTERVIEWGRADE")
     private int grade;
 
