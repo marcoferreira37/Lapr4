@@ -43,8 +43,7 @@ public class UpdateInterviewAnswerController {
 
     public void uploadFiles(JobOpeningApplication app, String fileName, String path) {
         if (passGrammar(path)) {
-            Optional<JobInterview> interviewOptional = interviewRepo.findByJobApp(app);
-            JobInterview interview = interviewOptional.get();
+            JobInterview interview = interviewRepo.findByJobApp(app);
             interview.setInterviewAnswers(fileName);
             interviewRepo.save(interview);
         }else {
