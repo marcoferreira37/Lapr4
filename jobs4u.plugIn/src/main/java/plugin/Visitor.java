@@ -1,7 +1,7 @@
 package plugin;
 
-import plugin.interviewModel.InterviewModelGrammarBaseVisitor;
-import plugin.interviewModel.InterviewModelGrammarParser;
+import plugin.antlr4.autogen.interview.InterviewModelGrammarBaseVisitor;
+import plugin.antlr4.autogen.interview.InterviewModelGrammarParser;
 
 import java.util.*;
 import java.util.regex.Matcher;
