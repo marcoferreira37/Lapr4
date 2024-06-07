@@ -1,5 +1,6 @@
 package eapli.base.usermanagement.application.controllers;
 
+import eapli.base.candidate.CandidateManagementService;
 import eapli.base.domain.Jobs4UUser;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.domain.candidate.Candidate;
@@ -12,11 +13,15 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EnableCandidateController {
 
     private final CandidateRepository candidateRepository;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    private final CandidateManagementService candidateSvc = new CandidateManagementService();
 
     /**
      * Instantiates a controller for enabling a user.
@@ -40,14 +45,16 @@ public class EnableCandidateController {
 
 
     public void enableCandidate(String email) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN);
-        for (Candidate candidate : candidateRepository.findAll()){
-            if (candidate.emailAddress().toString().equals(email)) {
-                candidate.user().activate(); 
-                candidateRepository.save(candidate);
-                return;
-           }
-        }
-        throw new IllegalArgumentException("Candidate not found.");
+       candidateSvc.enableCandidate(email);
    }
+
+    public Iterable<Candidate> disabledCandidates() {
+        List<Candidate> disabledCandidates = new ArrayList<>();
+        for (Candidate user : candidateSvc.allCandidate()) {
+            if (!user.user().isActive()) {
+                disabledCandidates.add(user);
+            }
+        }
+        return disabledCandidates;
+    }
 }

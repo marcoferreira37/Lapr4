@@ -23,7 +23,6 @@ package eapli.base.persistence.impl.inmemory;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
-import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.repositories.*;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -64,6 +63,12 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     @Override
     public ClientUserRepository clientUsers() {
         return clientUsers(null);
+    }
+
+    @Override
+    public NotificationsRepository notifications() {
+        return notificationsRepository(null);
+
     }
 
     @Override
@@ -191,6 +196,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     @Override
     public JobOpeningProcessRepository jobProcess() {
         return jobProcess(null);
+    }
+
+    @Override
+    public NotificationsRepository notificationsRepository(TransactionalContext autoTx) {
+        return new InMemoryNotificationsRepository();
+    }
+
+    @Override
+    public NotificationsRepository notificationsRepository() {
+        return notificationsRepository(null);
     }
 
 
