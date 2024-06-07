@@ -5,6 +5,7 @@ participant ":RequirementsVerificationProcessController" as controller <<Applica
 participant ":RequirementsVerificationProcessService" as service <<Service>>
 participant ":JobApplicationRepository" as repository <<Repository>>
 participant ":JobOpeningApplication" as application <<Entity>>
+participant ":RequirementsValidator" as validator <<Application>>
 
 activate u
 u -> ui: Requests to execute the process of verification of requirements of applications
@@ -21,6 +22,11 @@ service -> service: filterApplications(applications)
 loop applications
 activate service
     service -> service: verifyRequirements(application)
+service -> validator: validate(candidateRequirements,jobRequirements)
+activate validator
+validator --> service: boolean
+deactivate validator
+
     service -> application: updateStatus()
     activate application
     application --> service: JobOpeningApplication
