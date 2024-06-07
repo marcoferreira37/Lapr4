@@ -1,144 +1,100 @@
 @startuml
 
 actor "Customer Manager" as Agent
-participant ":RecordInterviewUI" as ui <<UI>>
-participant ":RecordInterviewController" as ctrl <<Application>>
-participant ":JobOpeningApplicationService" as jobApServ <<Service>>
-database ":JobOpeningApplicationRepository" as jobRepo <<Persistence>>
-'participant ":ApplicationService" as appServ <<Service>>
-database ":InterviewRepository" as intRepo <<Persistence>>
-participant "app:JobOpeningApplication" as app <<Domain>>
-participant "interview:Interview" as interview <<Domain>>
-
+participant ":NotifyCandidatesUI" as ui <<UI>>
+participant ":NotifyCandidatesController" as ctrl <<Application>>
+participant ":NotifyCandidatesService" as appServ <<Service>>
+participant ":JobOpeningProcessRepository" as jobRepo <<Persistence>>
+participant ":ApplicationRepository" as appRepo <<Persistence>>
+participant ":JobOpeningApplication" as app <<Domain>>
 
 autonumber
 
 activate Agent
 
-Agent -> ui: Record the time and date for an interview with a candidate
+Agent -> ui: notify candidates by email
 activate ui
 
-ui -> ctrl: getJobOpeningApplication()
-
-deactivate ui
-
-
+ui --> Agent : S
+ui -> ctrl: findAllJobOpeningInAnalysis()
 activate ctrl
-
-ctrl -> jobApServ: getJobOpeningApplication()
-deactivate ctrl
-
-activate jobApServ
-
-jobApServ -> jobRepo: getJobOpeningApplication()
-deactivate jobApServ
+ctrl -> appServ: findAllJobOpeningInAnalysis()
+activate appServ
+appServ -> jobRepo: findAllInAnalysis()
 activate jobRepo
+jobRepo --> appServ: openings
+deactivate
+appServ --> ctrl: openings
+deactivate
+ctrl --> ui: openings
+deactivate
+ui --> Agent: Show list of applicable job openings
+deactivate
+Agent -> ui : Select a job opening
+activate ui
 
-jobRepo --> jobApServ: JobOpeningApplications
 
-deactivate jobRepo
 
-activate jobApServ
-
-jobApServ --> ctrl: JobOpeningApplications
-deactivate jobApServ
+ui -> ctrl: allApplicationsForJobOpening(opening)
 
 activate ctrl
 
-ctrl --> ui: JobOpeningApplications
-deactivate ctrl
+ctrl -> appServ: findAllJobOpeningApplicationsInAnalysis(opening)
 
-activate ui
 
-ui --> Agent: JobOpeningApplications
-deactivate ui
 
-Agent -> ui: Select the job opening application for which the interview is to be scheduled
-activate ui
 
-ui -> ctrl: getCandidate(jobOpeningApplication)
-deactivate ui
+activate appServ
+appServ -> appRepo: findAllByJobOpening(opening)
+activate appRepo
+appRepo --> appServ: applications
+deactivate
+
+appServ --> ctrl: applications
+deactivate
+
+ctrl --> ui: applications
+deactivate
+
+ui --> Agent : Show list of applications for the selected job opening
+alt User wants to re-rank an application
+loop while ranking all applications
+
+ui --> Agent : Requests new ranking
+
+Agent -> ui : Provides new ranking
+ui -> ctrl : rankApplication(app, ranking)
 
 activate ctrl
+ctrl -> appServ : rankApplication(app, ranking)
 
-ctrl -> jobApServ: getCandidate(jobOpeningApplication)
-deactivate ctrl
+activate appServ
 
-activate jobApServ
+appServ -> app : rankApplication(rank)
 
-jobApServ -> app: getCandidate(jobOpeningApplication)
-deactivate jobApServ
 
 activate app
 
-app --> jobApServ: Candidate
+app --> appServ : void
+
 deactivate app
 
-activate jobApServ
-
-jobApServ --> ctrl: Candidate
-deactivate jobApServ
-
-activate ctrl
-
-ctrl --> ui: Candidate
-deactivate ctrl
-
-activate ui
-
-ui --> Agent: Candidate
-deactivate ui
-
-Agent -> ui: Record the time and date for an interview with the candidate
-activate ui
-
-ui -> ctrl: recordInterview(jobOpeningApplication, candidate, time, date)
-deactivate ui
-
-activate ctrl
-
-ctrl -> jobApServ: recordInterview(jobOpeningApplication, candidate, time, date)
-deactivate ctrl
-
-activate jobApServ
-
-jobApServ -> intRepo: recordInterview(jobOpeningApplication, candidate, time, date)
-deactivate jobApServ
-
-activate intRepo
-
-intRepo -> jobApServ: Save interview
-deactivate intRepo
-
-activate jobApServ
-
-jobApServ -> interview** : «creates»
-
-jobApServ -> intRepo: getInterview(jobOpeningApplication, candidate, time, date)
-deactivate jobApServ
-
-activate intRepo
-
-intRepo --> jobApServ: Interview
-deactivate intRepo
-
-activate jobApServ
-
-jobApServ --> ctrl: Interview
-deactivate jobApServ
-
-activate ctrl
-
-ctrl --> ui: Interview
-deactivate ctrl
-
-activate ui
-
-ui --> Agent: Interview
 
 
+appServ -> appRepo : save(app)
+activate appRepo
+appRepo --> appServ : app
+deactivate
+appServ --> ctrl : app
+deactivate
+ctrl --> ui : app
+deactivate
+ui --> Agent  : Confirms new ranking
 
 
+end loop
+
+deactivate Agent
 
 
 
