@@ -8,6 +8,7 @@ import eapli.base.repositories.JobInterviewRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
 import java.util.HashMap;
@@ -56,9 +57,17 @@ public class JpaJobInterviewRepository extends JpaAutoTxRepository<JobInterview,
 
     @Override
     public Optional<JobInterview> findByJobApplication(JobOpeningApplication app) {
-        final Map<String, Object> params = new HashMap<>();
-        params.put("app", app);
-        return matchOne("e.jobOpeningApplication = :app", params);
+        try {
+            EntityManager em = entityManager();
+            TypedQuery<JobInterview> query = em.createQuery(
+                    "SELECT a FROM JobInterview a WHERE a.jobOpeningApplication = :jobOpeningApplication",
+                    JobInterview.class
+            );
+            query.setParameter("jobOpeningApplication", app);
+            return Optional.ofNullable(query.getSingleResult());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
 

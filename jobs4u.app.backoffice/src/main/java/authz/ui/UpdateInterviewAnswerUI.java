@@ -37,7 +37,7 @@ public class UpdateInterviewAnswerUI extends AbstractUI {
         printCandidateNumeratedList("Candidate List:", candidates);
         int option = Console.readInteger("Select a candidate: ");
 
-        List<JobOpeningApplication> applications = (List<JobOpeningApplication>) listController.allApplicationsById(candidates.get(option - 1));
+        List<JobOpeningApplication> applications =  listController.allApplicationsByIdWithInterview(candidates.get(option - 1));
         if (applications.isEmpty()) {
             System.out.println("There are no applications for this candidate.");
             return false;

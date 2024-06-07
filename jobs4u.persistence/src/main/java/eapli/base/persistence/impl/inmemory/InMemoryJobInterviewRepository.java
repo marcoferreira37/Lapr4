@@ -32,7 +32,13 @@ public class InMemoryJobInterviewRepository extends InMemoryDomainRepository<Job
 
     @Override
     public Optional<JobInterview> findByJobApplication(JobOpeningApplication app) {
-        return matchOne(e -> e.jobInterview().jobOpeningApplication().equals(app));
+        // Convert Iterable to Stream
+        Stream<JobInterview> applicationStream = StreamSupport.stream(findAll().spliterator(), false);
+
+        // Filter and collect results
+        return applicationStream
+                .filter(application -> application.jobOpeningApplication().equals(app))
+                .findFirst();
     }
 
 
