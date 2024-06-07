@@ -24,8 +24,10 @@ import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
 import eapli.base.domain.jobOpeningProcess.PhaseType;
 import eapli.base.domain.jobOpeningProcess.Status;
+import eapli.base.protocol.Notifications;
 import eapli.base.repositories.JobInterviewRepository;
 import eapli.base.repositories.JobOpeningProcessRepository;
+import eapli.base.repositories.NotificationsRepository;
 import eapli.base.usermanagement.application.controllers.AddJobOpeningController;
 import eapli.base.usermanagement.application.controllers.AddJobApplicationController;
 import eapli.base.domain.candidate.Candidate;
@@ -53,7 +55,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     public boolean execute() {
         registerAdmin("admin", TestDataConstants.PASSWORD1, "Jane", "Doe Admin",
                 "jane.doe@email.local");
-        registerAdmin("barbatosRex",TestDataConstants.PASSWORD1, "Zico", "Xico","ziquinho@proton.org");
+        registerAdmin("barbatosRex", TestDataConstants.PASSWORD1, "Zico", "Xico", "ziquinho@proton.org");
 
         registerOperator("operator", TestDataConstants.PASSWORD1, "Francisco", "Monteiro", "franciscomonteiro@gmail.com");
 
@@ -89,6 +91,14 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpeningApplication application2 = registerApplication(jo, candida2);
         JobOpeningApplication application3 = registerApplication(jo, candida3);
         JobOpeningApplication application4 = registerApplication(jo, candida4);
+
+        NotificationsRepository notificationsRepository = PersistenceContext.repositories().notificationsRepository();
+        Notifications notifications = new Notifications("admin", "You have a new notification");
+        notifications.notificationFromJobOpening(jo);
+        Notifications notifications2 = new Notifications("admin", "You have a new notification");
+        notifications2.notificationFromJobOpening(jo2);
+        notificationsRepository.save(notifications);
+        notificationsRepository.save(notifications2);
 
 
         JobOpeningApplication application5 = registerApplication(jo2, candida);
