@@ -16,9 +16,8 @@ This task is not related to fixing a bug but rather adding a new feature to the 
 - G1014.1. The system should allow the manager to record the time and date for an interview with a candidate.
 - G1014.2. The system should persist the time and date for the interview.
 - G1014.3. The system should allow the manager to change the time and date for the interview.
+- G1014.4. The application should be in the phase Interview.
 
-[//]: # (- G1014.4. The application should be in the phase Interview. )
-- G1014.5.
 
 **Dependencies/References:**
 
@@ -89,46 +88,50 @@ This includes actions like viewing a list of job opening applications, the candi
 
 ### 4.2. Class Diagram
 
-![a class diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintC\1014\svg\1014-class-diagram.svg)
+![a class diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1014\svg\1014-class-diagram.svg)
 
-### 4.3. Applied Patterns
+## 4.3 Sequence Diagram
 
-> N/A
+![Sequence Diagram - Full](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1014\svg\1014-sequence-diagram.svg)
 
-### 4.4. Tests
-
-[//]: # (TODO Make this)
-
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
-
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
-
-
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
+The sequence diagram shows the interactions between the Customer Manager and the system to  record the time and date for an interview with a candidate.
+This includes actions like viewing a list of job opening application, record the time and date , saving the time and the date, and modifying it later.
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
+- The implementation of record the time and date for an interview with a candidate involves several key components: the UI layer,
+  the business logic layer, and the persistence layer.
+  The primary goal is to allow the Customer Manager to record the time and date for an interview with a candidate, saving the time and the date, and modifying it later
+  them as necessary. 
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+* Controller (RecordInterviewController): Manages the interaction with the JobOpeningApplicationService to record the date and te time.
+
+* Repository (ApplicationRepository): Handles the persistence of application data, including the rankings assigned by the Customer Manager.
+
+* Service (JobOpeningApplicationService): Handles the business logic for record the time and te date and persists the changes using the repository.
+
+* UI (RecordInterviewUI): Provides a user interface for the Customer Manager to select job opening applications, view applications, and record the time and the date.
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
+* Integration with other system components was verified by:
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+- Ensuring that the RecordInterviewController correctly interacts with the JobOpeningApplicationService.
+- Validating that the JobOpeningApplicationService correctly persists the time and te date using the JobOpeningApplicationRepository.
+- Testing the complete workflow from the UI to the service and persistence layers.
+- To demonstrate this functionality:
+
+1) Run the application.
+2) Navigate to the Record Interview UI.
+3) Select a job opening application.
+4) View and record the time and te date.
+5) Verify that the time and te date are saved and can be modified.
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
+* During development, the following considerations were made:
 
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+- UI/UX: The UI was designed to be intuitive, allowing the Customer Manager to easily navigate and record te time and the date.
+- Performance: The record operation was optimized to ensure quick response times, even with a large number of applications.
+- Extensibility: The current implementation is modular.
+future work to keep the initial implementation simple and focused on manual ranking by the Customer Manager.
