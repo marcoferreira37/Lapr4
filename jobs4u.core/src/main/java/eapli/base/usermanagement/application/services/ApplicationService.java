@@ -1,6 +1,8 @@
 package eapli.base.usermanagement.application.services;
 
+import eapli.base.domain.PlugIn.JobRequirements.RequirementsValidator;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
+import eapli.base.domain.jobApplication.Status;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -63,5 +65,24 @@ public class ApplicationService {
     public List<JobOpeningApplication> findAllJobOpeningApplicationsInAnalysis(JobOpening jobOpening) {
         return (List<JobOpeningApplication>) PersistenceContext.repositories().jobApplications().findAllApplicationsForJobOpening(jobOpening);
     }
+
+    public List <JobOpeningApplication> verifyRequirements(JobOpening job) {
+        List<JobOpeningApplication> applications = getApplicationsByJobOpening(job);
+        List <JobOpeningApplication> result = new ArrayList<>();
+        for (JobOpeningApplication application : applications) {
+              String candidateRequirements = application.candidateRequirements();
+              String jobRequirements = job.getRequirements();
+            RequirementsValidator validator = new RequirementsValidator();
+            if (validator.verifyRequirements(candidateRequirements, jobRequirements)) {
+                application.updateStatus(Status.ACCEPTED);
+            } else {
+                application.updateStatus(Status.REJECTED);
+            }
+            jobOpeningApplicationRepository.save(application);
+            result.add(application);
+        }
+        return result;
+    }
+
 }
 

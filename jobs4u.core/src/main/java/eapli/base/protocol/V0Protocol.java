@@ -61,6 +61,7 @@ public class V0Protocol {
      * @throws ClassNotFoundException ClassNotFoundException
      */
     public <T> T receive(byte expectedCode) throws IOException, ClassNotFoundException {
+
         Packet packet = (Packet) input.readObject();
 
         if (expectedCode != packet.getCode()) {

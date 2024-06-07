@@ -39,6 +39,7 @@ public class RecordInterviewUI extends AbstractUI {
 
         while (!validInput) {
             try {
+                System.out.println("Não é páscoa mas isto é um easter egg");
                 Calendar interviewDate = Console.readCalendar("Interview Date (dd-MM-yyyy): ");
                 interviewDate.add(Calendar.DAY_OF_MONTH, 1); // Definindo a data para amanhã
 

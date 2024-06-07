@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class FollowupServer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FollowupServer.class);
-    private static final int PORT = 10792;
+    private static final int PORT = 21782;
 
     /**
      * Main method
@@ -29,7 +29,7 @@ public class FollowupServer {
             Server server = new Server(PORT);
             System.out.println("If you want to stop the server, press ENTER! Thank you!");
             init();
-            Thread.sleep(5 * 1000); //Sleep for 5 seconds
+            Thread.sleep(4 * 1000);
             Thread thread = new Thread(server);
             thread.setDaemon(true);
             thread.start();

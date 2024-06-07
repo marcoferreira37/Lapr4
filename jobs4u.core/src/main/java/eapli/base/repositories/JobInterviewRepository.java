@@ -17,8 +17,11 @@ public interface JobInterviewRepository extends DomainRepository<Long, JobInterv
 
     Iterable<JobInterview> allJobInterviewsById(JobOpeningApplication jobOpeningApplication);
 
-    default Optional<JobInterview> findByJobApp(JobOpeningApplication app){
-        return findByJobApplication(app);
+    default JobInterview findByJobApp(JobOpeningApplication app){
+        if (findByJobApplication(app).isEmpty()){
+            return null;
+        }
+        return findByJobApplication(app).get();
     }
 
     Optional<JobInterview> findByJobApplication(JobOpeningApplication app);

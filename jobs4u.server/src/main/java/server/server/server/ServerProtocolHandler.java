@@ -22,9 +22,9 @@ import java.util.Optional;
 
 public class ServerProtocolHandler extends Handler {
 
-    private final ListJobOpeningController controller = new ListJobOpeningController();
-    private final AuthenticationService auth = AuthzRegistry.authenticationService();
-    private final AuthorizationService autz = AuthzRegistry.authorizationService();
+    private final ListJobOpeningController jobOpeningController = new ListJobOpeningController();
+    private final AuthenticationService authenticationService = AuthzRegistry.authenticationService();
+    private final AuthorizationService authorizationService = AuthzRegistry.authorizationService();
 
     public ServerProtocolHandler(Socket socket) throws IOException {
         super(socket);
@@ -33,67 +33,87 @@ public class ServerProtocolHandler extends Handler {
     @Override
     public void handle() {
         try {
-            LoginDTO credentials = this.protocol.receive(ComCodes.AUTH.getValue());
-            Optional<UserSession> session = auth.authenticate(credentials.username, credentials.password, credentials.roles);
-            if (session.isEmpty()) {
-                //If login is invalid disconnect uwu
-                this.protocol.send(ComCodes.DISCON.getValue(), "");
+            if (!authenticate()) {
+                disconnect();
                 return;
             }
-            this.protocol.send(ComCodes.ACK.getValue(), "Hello from the other side, server!");
+
+            protocol.send(ComCodes.ACK.getValue(), "Welcome to the server!");
             boolean communicating = true;
+
             while (communicating) {
-                Packet p = this.protocol.receive();
-                switch (p.getCode()) {
-                    case 0:
-                        //COMTEST
-                        protocol.send(ComCodes.COMMTEST.getValue(), "Hello from the dark side!");
-                        break;
-                    case 1:
-                        //DISCON
-                        communicating = false;
-                        protocol.exit();
-                        break;
-                    case 2:
-                        //ACK
-                        System.out.println("Random Ack recieved");
-                        break;
-                    case 3:
-                        //ERR
-                        Exception e = p.obtainObject();
-                        System.out.println("Error recieved: " + e.getMessage());
-                        e.printStackTrace();
-                        break;
-                    case 4:
-                        //AUTH
-                        System.out.println("Another auth attempt... Disconnecting...");
-                        protocol.send(ComCodes.DISCON.getValue(), "");
-                        communicating = false;
-                        protocol.exit();
-                        break;
-                    case 5:
-                        //List Job Openings
-                        List<JobOpening> jobsOpenings = controller.showJobOpenings(autz.session().get().authenticatedUser());
-                        List<JobOpeningDTO> dtos = new ArrayList<>(jobsOpenings.size());
-                        JobOpeningMapper mapper = new JobOpeningMapper();
-                        jobsOpenings.forEach(job -> {
-                            // Fetch Job Opening Process
-                            JobOpeningProcessRepository jobsOpeningProcess = PersistenceContext.repositories().jobProcessRepository();
-                            dtos.add(JobOpeningMapper.toDTO(job, jobsOpeningProcess.findJobProcessByJobOpening(job)));
-                            }
-                        );
-                        protocol.send(ComCodes.LSTOPNS.getValue(), dtos);
-                        break;
-
-                    default:
-                        System.out.println("Received a packet with code " + p.getCode());
-                }
+                Packet packet = protocol.receive();
+                communicating = processPacket(packet);
             }
-
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    private boolean authenticate() throws IOException, ClassNotFoundException {
+        LoginDTO credentials = this.protocol.receive(ComCodes.AUTH.getValue());
+        Optional<UserSession> session = authenticationService.authenticate(credentials.username, credentials.password, credentials.roles);
+
+        return session.isPresent();
+    }
+
+    private void disconnect() throws IOException, ClassNotFoundException {
+        this.protocol.send(ComCodes.DISCON.getValue(), "");
+    }
+
+    private boolean processPacket(Packet packet) throws IOException, ClassNotFoundException {
+        return switch (packet.getCode()) {
+            case 0 -> {
+                protocol.send(ComCodes.COMMTEST.getValue(), "Hello!");
+                yield true;
+            }
+            case 1 -> {
+                protocol.exit();
+                yield false;
+            }
+            case 2 -> {
+                System.out.println("Random Ack received");
+                yield true;
+            }
+            case 3 -> {
+                handleError(packet);
+                yield true;
+            }
+            case 4 -> {
+                handleAuthRetry();
+                yield false;
+            }
+            case 5 -> {
+                listJobOpenings();
+                yield true;
+            }
+            default -> {
+                System.out.println("Received a packet with code " + packet.getCode());
+                yield true;
+            }
+        };
+    }
+
+    private void handleError(Packet packet) throws IOException, ClassNotFoundException {
+        Exception e = packet.obtainObject();
+        System.out.println("Error received: " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    private void handleAuthRetry() throws IOException, ClassNotFoundException {
+        System.out.println("Another auth attempt... Disconnecting...");
+        protocol.send(ComCodes.DISCON.getValue(), "");
+        protocol.exit();
+    }
+
+    private void listJobOpenings() throws IOException, ClassNotFoundException {
+        List<JobOpening> jobOpenings = jobOpeningController.showJobOpenings(authorizationService.session().get().authenticatedUser());
+        List<JobOpeningDTO> dtos = new ArrayList<>(jobOpenings.size());
+        JobOpeningProcessRepository jobProcessRepository = PersistenceContext.repositories().jobProcessRepository();
+
+        jobOpenings.forEach(job -> dtos.add(JobOpeningMapper.toDTO(job, jobProcessRepository.findJobProcessByJobOpening(job))));
+        protocol.send(ComCodes.LSTOPNS.getValue(), dtos);
     }
 }

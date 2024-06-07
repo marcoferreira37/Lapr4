@@ -1,25 +1,29 @@
 package eapli.base.protocol.dto;
 
 import eapli.base.domain.jobOpening.*;
+import eapli.base.domain.jobOpeningProcess.Status;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class JobOpeningDTO implements Serializable {
 
-    private String jobReference;
-    private String description;
-    private String address;
-    private String mode;
-    private String contractType;
-    private String titleOrFunction;
-    private int vacanciesNumber;
-    private String companyName;
+    private final String jobReference;
+    private final String description;
+    private final String address;
+    private final String mode;
+    private final String contractType;
+    private final String titleOrFunction;
+    private final int vacanciesNumber;
+    private final String companyName;
     private LocalDateTime creationDate;
     private String interviewModel;
     private String requirements;
 
-    public JobOpeningDTO(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, String company , Calendar creationDate, String interviewModel, String requirements) {
+    private final Status status;
+
+    public JobOpeningDTO(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, String company, Calendar creationDate, String interviewModel, String requirements, Status status) {
         this.jobReference = jobReference.toString();
         this.description = description.toString();
         this.address = address.toString();
@@ -34,50 +38,19 @@ public class JobOpeningDTO implements Serializable {
         this.creationDate = LocalDateTime.ofInstant(creationDate.toInstant(), creationDate.getTimeZone().toZoneId());
         this.interviewModel = interviewModel;
         this.requirements = requirements;
+        this.status = status;
     }
 
-    public String getJobReference() {
+    public String findJobReference() {
         return jobReference;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getMode() {
-        return mode;
-    }
-
-    public String getContractType() {
-        return contractType;
-    }
-
-    public String getTitleOrFunction() {
-        return titleOrFunction;
-    }
-
-    public int getVacanciesNumber() {
-        return vacanciesNumber;
-    }
-
-    public String getCompanyName() {
+    public String findCompanyName() {
         return companyName;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public String getInterviewModel() {
-        return interviewModel;
-    }
-
-    public String getRequirements() {
-        return requirements;
+    public Status findStatus() {
+        return status;
     }
 }
 

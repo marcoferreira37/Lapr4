@@ -2,6 +2,7 @@ package eapli.base.usermanagement.application.services;
 
 
 import eapli.base.customer.Criteria;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
 import eapli.base.domain.jobOpeningProcess.Phase;
 import eapli.base.domain.jobOpeningProcess.PhaseType;
@@ -187,4 +188,5 @@ public class JobOpeningService {
         }
         return true;
     }
+
 }
