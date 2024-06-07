@@ -14,10 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JobInterviewTest {
 
-    private JobInterview interview ;
+    private JobInterview interview;
     private JobInterview interview2;
     private JobInterview interview3;
-
 
     @BeforeEach
     void setUp() {
@@ -25,17 +24,22 @@ class JobInterviewTest {
         interviewDate.set(2024, Calendar.JUNE, 1);
 
         JobOpeningApplication jobApp = new JobOpeningApplication();
-        JobInterview interview = new JobInterview("1", interviewDate, jobApp, 10);
-        JobInterview interview2 = new JobInterview("1", interviewDate, jobApp, 10);
-        JobInterview interview3 = new JobInterview();
+
         interview = JobInterview.builder()
                 .interviewTime("1")
                 .interviewDate(interviewDate)
                 .jobOpeningApplication(jobApp)
                 .grade(10)
                 .build();
-        interview2= JobInterview.builder()
+        interview2 = JobInterview.builder()
                 .interviewTime("1")
+                .interviewDate(interviewDate)
+                .jobOpeningApplication(jobApp)
+                .grade(10)
+                .build();
+
+        interview3 = JobInterview.builder()
+                .interviewTime("2")
                 .interviewDate(interviewDate)
                 .jobOpeningApplication(jobApp)
                 .grade(10)
@@ -190,7 +194,7 @@ class JobInterviewTest {
 
     @Test
     void testSameAsWithDifferentInterviewTime() {
-        assertFalse(interview.sameAs(interview2));
+        assertFalse(interview.sameAs(interview3));
     }
 
     @Test

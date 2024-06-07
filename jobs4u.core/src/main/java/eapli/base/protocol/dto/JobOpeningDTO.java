@@ -23,7 +23,7 @@ public class JobOpeningDTO implements Serializable {
 
     private final Status status;
 
-    public JobOpeningDTO(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, String company , Calendar creationDate, String interviewModel, String requirements, Status status) {
+    public JobOpeningDTO(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, String company, Calendar creationDate, String interviewModel, String requirements, Status status) {
         this.jobReference = jobReference.toString();
         this.description = description.toString();
         this.address = address.toString();
@@ -45,44 +45,8 @@ public class JobOpeningDTO implements Serializable {
         return jobReference;
     }
 
-    public String findDescription() {
-        return description;
-    }
-
-    public String findAddress() {
-        return address;
-    }
-
-    public String findMode() {
-        return mode;
-    }
-
-    public String findContractType() {
-        return contractType;
-    }
-
-    public String findTitleOrFunction() {
-        return titleOrFunction;
-    }
-
-    public int findVacanciesNumber() {
-        return vacanciesNumber;
-    }
-
     public String findCompanyName() {
         return companyName;
-    }
-
-    public LocalDateTime findCreationDate() {
-        return creationDate;
-    }
-
-    public String findInterviewModel() {
-        return interviewModel;
-    }
-
-    public String findRequirements() {
-        return requirements;
     }
 
     public Status findStatus() {
