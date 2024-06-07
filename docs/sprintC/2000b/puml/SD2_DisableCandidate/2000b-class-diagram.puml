@@ -5,11 +5,8 @@
 
  package ui {
          class DisableCandidateUI {
-         }
-
-         class ListCandidatesUI{
-             +listEnabledCandidates()
-             +printCandidates(candidates)
+            +listEnabledCandidates()
+            +printCandidates()
          }
      }
 
@@ -18,26 +15,22 @@
 
      package application {
          class DisableCandidateController {
-             +disableCandidate(email)
-         }
-
-         class ListCandidatesController{
+             +disableCandidate()
              +enabledCandidates()
-             +allCandidates()
          }
      }
 
      package repository {
 
          interface CandidateRepository{
-             +.save(candidate)
+             +.save()
          }
      }
 
      package domain {
          class SystemUser{
              +.isActive()
-             +.activate()
+             +.deactivate()
          }
          class AuthorizationService {
                 +authorizationService() : AuthorizationService
@@ -47,18 +40,21 @@
          class Candidate {
              +.user()
          }
+
+         class CandidateManagementService{
+             +allCandidate()
+             +disableCandidate()
+         }
      }
 
 
 
  DisableCandidateUI --> DisableCandidateController
- DisableCandidateUI --> ListCandidatesUI
- ListCandidatesUI --> ListCandidatesController
- ListCandidatesController --> Candidate
  Candidate --> SystemUser
  DisableCandidateController --> Candidate
  DisableCandidateController --> CandidateRepository
  CandidateRepository -> Candidate
  DisableCandidateController --> AuthorizationService
-
+DisableCandidateController --> CandidateManagementService
+CandidateManagementService -> CandidateRepository
  @enduml
