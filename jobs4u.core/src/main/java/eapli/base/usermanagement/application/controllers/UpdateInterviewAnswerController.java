@@ -30,6 +30,10 @@ public class UpdateInterviewAnswerController {
             InterviewModelGrammarLexer lexer = new InterviewModelGrammarLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             InterviewModelGrammarParser parser = new InterviewModelGrammarParser(tokens);
+            ParseTree tree = parser.start();
+            new JobInterviewValidatorVisitor().visit(tree);
+
+            /*
             try{
                 new JobInterviewValidatorVisitor().visit(parser.interview());
                 System.out.println("File passed grammar verification");
@@ -37,6 +41,8 @@ public class UpdateInterviewAnswerController {
             }catch(RuntimeException e ){
                 return false;
             }
+
+             */
 
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
