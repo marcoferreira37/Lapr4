@@ -1,7 +1,6 @@
 package eapli.base.domain.jobOpeningInterview;
 
 import eapli.base.domain.jobApplication.JobOpeningApplication;
-import eapli.base.utils.Validations;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
@@ -13,6 +12,8 @@ import lombok.Setter;
 
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 @Getter
@@ -33,7 +34,7 @@ public class JobInterview implements AggregateRoot<Long> {
     private String interviewTime;
 
     @Column(name = "INTERVIEWDATE")
-    private final Calendar interviewDate;
+    private Calendar interviewDate;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     // OneToOne porque um JobInterview só pode ter uma JobOpeningApplication
@@ -48,13 +49,14 @@ public class JobInterview implements AggregateRoot<Long> {
     private String interviewAnswers;
 
     public JobInterview(String interviewTime, Calendar interviewDate, JobOpeningApplication jobOpeningApplication) {
-
         validateInterviewTime(interviewTime);
         validateInterviewTimeNotNull(interviewTime);
-
         validateInterviewDate(interviewDate);
-
         validateJobOpeningApplication(jobOpeningApplication);
+        InvalidateImpossibleGrade(grade);
+        validatePossibleGrade(grade);
+        validateInterviewTimeInput(interviewTime);
+
 
         this.interviewTime = interviewTime;
         this.interviewDate = interviewDate;
@@ -63,6 +65,22 @@ public class JobInterview implements AggregateRoot<Long> {
         this.interviewAnswers = null;
 
     }
+
+
+
+    void InvalidateImpossibleGrade(int grade) {
+        if (grade < -1 || grade > 100) {
+            throw new IllegalArgumentException("Grade must be between -1 and 100");
+        }
+    }
+
+    void validatePossibleGrade(int grade) {
+        if (grade < 0 || grade > 100) {
+            throw new IllegalArgumentException("Grade must be between 0 and 100");
+        }
+
+    }
+
 
     public void validateJobOpeningApplication(JobOpeningApplication jobOpeningApplication) {
         if (jobOpeningApplication == null) {
@@ -91,10 +109,26 @@ public class JobInterview implements AggregateRoot<Long> {
 
 
     public JobInterview(String interviewTime, Calendar interviewDate, JobOpeningApplication jobOpeningApplication, int grade) {
+        validateInterviewTime(interviewTime);
+        validateInterviewTimeNotNull(interviewTime);
+        validateInterviewDate(interviewDate);
+        validateJobOpeningApplication(jobOpeningApplication);
+        InvalidateImpossibleGrade(grade);
+        validatePossibleGrade(grade);
+        validateInterviewTimeInput(interviewTime);
+
         this.interviewTime = interviewTime;
         this.interviewDate = interviewDate;
         this.jobOpeningApplication = jobOpeningApplication;
         this.grade = grade;
+    }
+
+    void validateInterviewTimeInput(String interviewTime) {
+        Pattern TIME_PATTERN = Pattern.compile("^([01]?[0-9]|2[0-3]):[0-5][0-9]$");
+        Matcher matcher = TIME_PATTERN.matcher(interviewTime);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException("Invalid time format. Please use HH:mm");
+        }
     }
 
     // Construtor sem argumentos exigido pelo JPA
@@ -180,4 +214,8 @@ public class JobInterview implements AggregateRoot<Long> {
         return interviewAnswers != null && !interviewAnswers.isEmpty();
     }
 
+    public void setInterviewDate(Calendar interviewDate) {
+        this.interviewDate = interviewDate;
+
+    }
 }
