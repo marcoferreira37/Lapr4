@@ -1,5 +1,6 @@
 package eapli.base.usermanagement.application.controllers;
 
+import eapli.base.domain.EmailService.NotifyCandidatesService;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;
@@ -7,6 +8,7 @@ import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.base.repositories.JobOpeningRepository;
 import eapli.base.usermanagement.application.controllers.AddCandidateController;
+import eapli.base.usermanagement.application.services.NotificationAppService;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
 import java.io.BufferedReader;
@@ -19,6 +21,8 @@ public class AddJobApplicationController {
     private final JobOpeningApplicationRepository repo = PersistenceContext.repositories().jobApplications();
     private final JobOpeningRepository repositoryJobOpening = PersistenceContext.repositories().jobOpeningRepository();
     private final UserRepository usersRepo = PersistenceContext.repositories().users();
+
+    private final NotificationAppService notificationAppService = new NotificationAppService();
 
     /**
      * Add a new job application
@@ -73,11 +77,15 @@ public class AddJobApplicationController {
 
             JobOpeningApplication application = new JobOpeningApplication(jobOpening, candidate);
 
+            addNotification(candidate.user().username().toString(), "Application for the job opening:"+ application.jobOpening().getJobReference().fullReference() + "+ was submitted.");
             return repo.save(application);
 
         } catch (IOException e) {
             System.err.println("Erro ao ler o ficheiro: " + e.getMessage());
             return null;
         }
+    }
+    public void addNotification(String username, String content){
+        notificationAppService.notify(username, content);
     }
 }

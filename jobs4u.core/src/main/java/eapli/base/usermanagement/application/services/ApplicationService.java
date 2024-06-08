@@ -21,6 +21,8 @@ public class ApplicationService {
 
     private final JobOpeningProcessRepository jobOpeningProcesses = PersistenceContext.repositories().jobProcess();
 
+    private final NotificationAppService  notificationAppService = new NotificationAppService();
+
     public void rankApplication(JobOpeningApplication application, int rank) {
         application.rankApplication(rank);
         jobOpeningApplicationRepository.save(application);
@@ -76,8 +78,10 @@ public class ApplicationService {
               String candidateRequirements = application.candidateRequirements();
             RequirementsValidator validator = new RequirementsValidator();
             if (validator.verifyRequirements(candidateRequirements, jobRequirements)) {
+                notificationAppService.notify(application.candidate().user().username().toString(), "Your application for the job opening: " + job.getJobReference().fullReference() + " was accepted.");
                 application.updateStatus(Status.ACCEPTED);
             } else {
+                notificationAppService.notify(application.candidate().user().username().toString(), "Your application for the job opening: " + job.getJobReference().fullReference() + " was rejected.");
                 application.updateStatus(Status.REJECTED);
             }
             jobOpeningApplicationRepository.save(application);
