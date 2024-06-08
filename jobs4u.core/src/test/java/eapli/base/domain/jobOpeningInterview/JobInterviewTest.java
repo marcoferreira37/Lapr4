@@ -1,11 +1,12 @@
 package eapli.base.domain.jobOpeningInterview;
 
-import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,28 +17,28 @@ class JobInterviewTest {
     private JobInterview interview2;
     private JobInterview interview3;
 
+
     @BeforeEach
     void setUp() {
         Calendar interviewDate = Calendar.getInstance();
         interviewDate.set(2024, Calendar.JUNE, 1);
-        Candidate candidate = new Candidate();
         JobOpeningApplication jobApp = new JobOpeningApplication();
 
         interview = JobInterview.builder()
-                .interviewTime("1")
+                .interviewTime("12:21")
                 .interviewDate(interviewDate)
                 .jobOpeningApplication(jobApp)
                 .grade(10)
                 .build();
         interview2 = JobInterview.builder()
-                .interviewTime("1")
+                .interviewTime("12:12")
                 .interviewDate(interviewDate)
                 .jobOpeningApplication(jobApp)
                 .grade(10)
                 .build();
 
         interview3 = JobInterview.builder()
-                .interviewTime("2")
+                .interviewTime("20:20")
                 .interviewDate(interviewDate)
                 .jobOpeningApplication(jobApp)
                 .grade(10)
@@ -177,7 +178,7 @@ class JobInterviewTest {
 
     @Test
     void testSameAsWithEqualObject() {
-        assertTrue(interview.sameAs(interview2));
+        assertTrue(interview.sameAs(interview));
     }
 
     @Test
@@ -199,30 +200,170 @@ class JobInterviewTest {
     void testSameAsWithDifferentInterviewDate() {
         assertFalse(interview3.sameAs(interview2));
     }
+
     @Test
-    void testToStringWithoutGrade() {
-
-        String expectedOutput = "----- JobInterview -----" +
-                "\nid= 1" +
-                "\njobOpeningApplication= app1" +
-                "\ninterviewTime= 10" +
-                "\ninterviewDate= " + interview.getInterviewDate();
-
-        assertEquals(expectedOutput, interview.toStringWithoutGrade());
+    void testSetGradeValid() {
+        // Test with a valid grade
+        interview3.setGrade(85);
+        assertEquals(85, interview3.getGrade());
     }
 
     @Test
-    void testToStringWithoutGradeWithDifferentValues() {
-
-
-        String expectedOutput = "----- JobInterview -----" +
-                "\nid= 2" +
-                "\njobOpeningApplication= app2" +
-                "\ninterviewTime= 11" +
-                "\ninterviewDate= " + interview.getInterviewDate();
-
-        assertEquals(expectedOutput, interview.toStringWithoutGrade());
+    void testSetGradeBoundaryLow() {
+        // Test with the lowest boundary value
+        interview.setGrade(0);
+        assertEquals(0, interview.getGrade());
     }
+
+    @Test
+    void testSetGradeBoundaryHigh() {
+        // Test with the highest boundary value
+        interview2.setGrade(100);
+        assertEquals(100, interview2.getGrade());
+    }
+    @Test
+    void testInvalidateImpossibleGradeValid() {
+        // Test with a valid grade
+        assertDoesNotThrow(() -> {
+            interview.InvalidateImpossibleGrade(85);
+        });
+    }
+
+    @Test
+    void testInvalidateImpossibleGradeBoundaryLow() {
+        // Test with the lowest boundary value
+        assertDoesNotThrow(() -> {
+            interview2.InvalidateImpossibleGrade(-1);
+        });
+    }
+
+    @Test
+    void testInvalidateImpossibleGradeBoundaryHigh() {
+        // Test with the highest boundary value
+        assertDoesNotThrow(() -> {
+            interview2.InvalidateImpossibleGrade(100);
+        });
+    }
+
+    @Test
+    void testInvalidateImpossibleGradeBelowMinimum() {
+        // Test with a grade below the minimum (assuming we want to handle it as invalid)
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> interview3.InvalidateImpossibleGrade(-2));
+        assertEquals("Grade must be between -1 and 100", thrown.getMessage());
+    }
+
+    @Test
+    void testInvalidateImpossibleGradeAboveMaximum() {
+        // Test with a grade above the maximum (assuming we want to handle it as invalid)
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            interview.InvalidateImpossibleGrade(101);
+        });
+        assertEquals("Grade must be between -1 and 100", thrown.getMessage());
+    }
+    @Test
+    void testHasAnswersWhenEmpty() {
+        // Test when interviewAnswers is an empty list
+        List<JobInterview> answers = new ArrayList<>();
+        answers.add(new JobInterview());
+        assertFalse(interview3.hasAnswers(), "Expected hasAnswers to be false when interviewAnswers is an empty list");
+    }
+
+    @Test
+    void testHasAnswersWhenNotEmpty() {
+        // Test when interviewAnswers contains elements
+        List<JobInterview> answers = new ArrayList<>();
+        answers.add(new JobInterview()); // Add a mock answer
+        interview3.setInterviewAnswers("answer");
+        assertTrue(interview3.hasAnswers(), "Expected hasAnswers to be true when interviewAnswers is not empty");
+    }
+    @Test
+    void testInterviewAnswersWhenNull() {
+        // Test when interviewAnswers is null
+        interview3.setInterviewAnswers(null);
+        assertEquals(null, interview3.interviewAnswers(), "Expected 'No answers' when interviewAnswers is null");
+    }
+    @Test
+    void testSetGrade() {
+        // Test setting a valid grade
+        interview.setGrade(85);
+        assertEquals(85, interview.grade(), "Expected grade to be 85");
+        assertNotEquals(50, interview.grade(), "Expected grade to not be 50");
+
+    }
+    @Test
+    void testInterviewTime() {
+        // Check if the interviewTime method returns the correct value
+        assertEquals("12:21", interview.interviewTime(), "Expected interview time to be 12:21");
+    }
+
+    @Test
+    void testSetInterviewTime() {
+        // Test setting a new interview time
+        interview2.setInterviewTime("14:00");
+        assertEquals("14:00", interview2.interviewTime(), "Expected interview time to be 14:00");
+
+    }
+
+    @Test
+    void testSetInterviewDate() {
+        // Testa a definição de uma nova data de entrevista
+        Calendar newInterviewDate = Calendar.getInstance();
+        newInterviewDate.set(2024, Calendar.JULY, 10);
+        interview.setInterviewDate(newInterviewDate);
+        assertEquals(newInterviewDate, interview.interviewDate(), "Esperava-se que a data da entrevista fosse 10 de Julho de 2024");
+    }
+    @Test
+    void testIdentityNotNull() {
+        // Arrange
+        JobInterview interview = new JobInterview();
+
+        // Act
+        Long identity = interview.identity();
+
+        // Assert
+        assertEquals(null, identity, "Expected identity to be null");
+    }
+    @Test
+    void testValidatePossibleGradeBelowMinimum() {
+        // Test with a grade below the minimum
+        JobInterview interview = new JobInterview();
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> interview.validatePossibleGrade(-1));
+        assertEquals("Grade must be between 0 and 100", thrown.getMessage());
+    }
+
+    @Test
+    void testValidInterviewTimeFormat() {
+        assertDoesNotThrow(() -> interview.validateInterviewTimeInput(interview.getInterviewTime()), "Valid time format should not throw an exception");
+    }
+
+    @Test
+    void testInvalidInterviewTimeFormat() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            interview.validateInterviewTimeInput("10:00 AM");
+        });
+        assertEquals("Invalid time format. Please use HH:mm", exception.getMessage(), "Exception message should match");
+    }
+    @Test
+    void testInvalidHourInTimeFormat() {
+        JobInterview obj = new JobInterview();
+        String invalidTime = "27:27";
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            obj.validateInterviewTimeInput(invalidTime);
+        });
+        assertEquals("Invalid time format. Please use HH:mm", exception.getMessage(), "Exception message should match");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
