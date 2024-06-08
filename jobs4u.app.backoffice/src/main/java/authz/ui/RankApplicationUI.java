@@ -82,6 +82,7 @@ public class RankApplicationUI extends AbstractUI {
 
         // Update the rank in the database with the new rank
         theController.rankApplication(application, newRank);
+        theController.addNotification(application.candidate().user().username().toString(), "Your application for the job opening: " + application.jobOpening().identity().fullReference() + " was ranked with " + newRank + ".");
     }
 
     /**
