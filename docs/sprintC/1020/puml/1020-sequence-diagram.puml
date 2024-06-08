@@ -1,145 +1,106 @@
 @startuml
-
-actor "Customer Manager" as Agent
-participant ":RecordInterviewUI" as ui <<UI>>
-participant ":RecordInterviewController" as ctrl <<Application>>
-participant ":JobOpeningApplicationService" as jobApServ <<Service>>
-database ":JobOpeningApplicationRepository" as jobRepo <<Persistence>>
-'participant ":ApplicationService" as appServ <<Service>>
-database ":InterviewRepository" as intRepo <<Persistence>>
-participant "app:JobOpeningApplication" as app <<Domain>>
-participant "interview:Interview" as interview <<Domain>>
-
-
+actor "User" as User
+participant ":PublishResultsUI" as UI <<UI>>
+participant ":PublishResultsController" as Controller <<Application>>
+participant "JobOpeningService" as JobOpeningService <<Application>>
+participant "JobOpeningRepository" as JobOpeningRepo <<Persistence>>
+participant "JobProcessService" as JobProcessService <<Application>>
+participant "JobProcessRepository" as JobProcessRepo <<Persistence>>
+participant "ApplicationService" as ApplicationService <<Application>>
+participant "ApplicationRepository" as ApplicationRepo <<Persistence>>
+participant "ClientUserService" as ClientUserService <<Application>>
+participant "ClientUserRepository" as ClientUserRepo <<Persistence>>
 autonumber
 
-activate Agent
 
-Agent -> ui: Record the time and date for an interview with a candidate
-activate ui
+activate User
 
-ui -> ctrl: getJobOpeningApplication()
+User -> UI : Asks to publish job opening results
+activate UI
 
-deactivate ui
+UI -> Controller : getJobOpenings()
+activate Controller
 
+Controller -> JobOpeningService : finishedJobProcesses()
+activate JobOpeningService
 
-activate ctrl
+JobOpeningService -> JobProcessRepo : findAll()
+activate JobProcessRepo
+JobProcessRepo --> JobOpeningService : jobProcesses
+deactivate JobProcessRepo
+JobOpeningService --> Controller : finishedJobProcesses
+deactivate JobOpeningService
+loop for each finished job process
+Controller -> JobOpeningService : findByReference(jobReference)
 
-ctrl -> jobApServ: getJobOpeningApplication()
-deactivate ctrl
+activate JobOpeningService
 
-activate jobApServ
+JobOpeningService -> JobOpeningRepo : ofIdentity(jobReference)
+activate JobOpeningRepo
+JobOpeningRepo --> JobOpeningService : jobOpening
+deactivate JobOpeningRepo
 
-jobApServ -> jobRepo: getJobOpeningApplication()
-deactivate jobApServ
-activate jobRepo
+end
 
-jobRepo --> jobApServ: JobOpeningApplications
+JobOpeningService --> Controller :jobOpenings
+deactivate JobOpeningService
 
-deactivate jobRepo
+Controller --> UI: jobOpenings
+deactivate Controller
+UI-->User: Asks to select a job opening
+deactivate UI
+User -> UI : Selects a job opening
+activate UI
+UI -> Controller : getLoggedInUser()
+activate Controller
+Controller --> UI :cManager
+deactivate Controller
 
-activate jobApServ
+UI -> Controller : getRankedApplications(jobOpening)
+activate Controller
 
-jobApServ --> ctrl: JobOpeningApplications
-deactivate jobApServ
+Controller -> ApplicationService : findByJobReference(jobReference)
+activate ApplicationService
 
-activate ctrl
+ApplicationService -> ApplicationRepo : findAll()
 
-ctrl --> ui: JobOpeningApplications
-deactivate ctrl
+ApplicationService --> Controller : applications
+deactivate ApplicationService
 
-activate ui
+Controller -> ApplicationService : sortApplicationsByInterviewPoints(applications)
+activate ApplicationService
+ApplicationService --> Controller :sortedApplications
+deactivate ApplicationService
+loop for each vacancy
+Controller -> ClientUserService : findClientUserByPhoneNumber(candidateId)
+activate ClientUserService
 
-ui --> Agent: JobOpeningApplications
-deactivate ui
+ClientUserService -> ClientUserRepo : ofIdentity(candidateId)
+end
 
-Agent -> ui: Select the job opening application for which the interview is to be scheduled
-activate ui
+ClientUserService --> Controller : selectedCandidates
+deactivate ClientUserService
 
-ui -> ctrl: getCandidate(jobOpeningApplication)
-deactivate ui
+Controller --> UI : selectedCandidates
+deactivate Controller
 
-activate ctrl
-
-ctrl -> jobApServ: getCandidate(jobOpeningApplication)
-deactivate ctrl
-
-activate jobApServ
-
-jobApServ -> app: getCandidate(jobOpeningApplication)
-deactivate jobApServ
-
-activate app
-
-app --> jobApServ: Candidate
-deactivate app
-
-activate jobApServ
-
-jobApServ --> ctrl: Candidate
-deactivate jobApServ
-
-activate ctrl
-
-ctrl --> ui: Candidate
-deactivate ctrl
-
-activate ui
-
-ui --> Agent: Candidate
-deactivate ui
-
-Agent -> ui: Record the time and date for an interview with the candidate
-activate ui
-
-ui -> ctrl: recordInterview(jobOpeningApplication, candidate, time, date)
-deactivate ui
-
-activate ctrl
-
-ctrl -> jobApServ: recordInterview(jobOpeningApplication, candidate, time, date)
-deactivate ctrl
-
-activate jobApServ
-
-jobApServ -> intRepo: recordInterview(jobOpeningApplication, candidate, time, date)
-deactivate jobApServ
-
-activate intRepo
-
-intRepo -> jobApServ: Save interview
-deactivate intRepo
-
-activate jobApServ
-
-jobApServ -> interview** : «creates»
-
-jobApServ -> intRepo: getInterview(jobOpeningApplication, candidate, time, date)
-deactivate jobApServ
-
-activate intRepo
-
-intRepo --> jobApServ: Interview
-deactivate intRepo
-
-activate jobApServ
-
-jobApServ --> ctrl: Interview
-deactivate jobApServ
-
-activate ctrl
-
-ctrl --> ui: Interview
-deactivate ctrl
-
-activate ui
-
-ui --> Agent: Interview
+UI -> Controller : publishResults(fromUser, candidates, selectedJobOpening)
+activate Controller
+loop for each candidate
+    Controller -> Controller : sendEmailToCandidate(cManager, candidate, selectedJobOpening)
+    end
+Controller -> Controller : sendEmailToCandidate(cManager, candidate, jobOpening)
 
 
+Controller -> Controller : getClientByJobOpening(jobOpening)
 
 
+Controller -> Controller : sendEmailToClient(cManager, customer, candidates, jobOpening)
 
 
+deactivate Controller
+
+ System --> User : Publishes results and displays operation success
+deactivate UI
 
 @enduml
