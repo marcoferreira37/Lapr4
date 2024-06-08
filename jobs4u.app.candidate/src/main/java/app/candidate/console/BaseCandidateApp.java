@@ -33,6 +33,7 @@ import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 
 import java.io.IOException;
 import java.net.Socket;

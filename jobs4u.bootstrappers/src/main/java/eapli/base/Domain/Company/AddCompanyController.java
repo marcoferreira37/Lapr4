@@ -9,8 +9,7 @@ import eapli.base.repositories.CompanyRepository;
 public class AddCompanyController {
     private CompanyRepository repository = PersistenceContext.repositories().companyRepository();
 
-
-    public Company addCompany(String comapnyName){
+    public Company addCompany(String comapnyName) {
         CompanyBuilder builder = new CompanyBuilder();
         builder.withCompanyName(new CompanyName(comapnyName));
         Company c = builder.build();

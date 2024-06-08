@@ -24,6 +24,7 @@ import eapli.base.Application;
 import eapli.base.clientusermanagement.repositories.Ijobs4UUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
+import eapli.base.persistence.impl.inmemory.InMemoryJobApplicationRepository;
 import eapli.base.persistence.impl.inmemory.InMemoryJobOpeningProcessRepository;
 import eapli.base.repositories.*;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -32,7 +33,6 @@ import eapli.framework.infrastructure.authz.repositories.impl.jpa.JpaAutoTxUserR
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 /**
- *
  * Created by nuno on 21/03/16.
  */
 public class JpaRepositoryFactory implements RepositoryFactory {
@@ -107,6 +107,7 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public CompanyRepository companyRepository(final TransactionalContext autoTx) {
         return new JpaCompanyRepository(autoTx);
     }
+
     @Override
     public CompanyRepository companyRepository() {
         return new JpaCompanyRepository(Application.settings().getPersistenceUnitName());
@@ -149,7 +150,7 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JobOpeningApplicationRepository jobApplicationsRepository() {
-        return null;
+        return new InMemoryJobApplicationRepository();
     }
 
     @Override
@@ -194,7 +195,7 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public JobOpeningProcessRepository jobProcess(){
+    public JobOpeningProcessRepository jobProcess() {
         return new JpaJobProcessRepository(Application.settings().getPersistenceUnitName());
     }
 
