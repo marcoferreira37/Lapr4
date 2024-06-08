@@ -6,6 +6,7 @@ import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
 
@@ -13,6 +14,8 @@ import java.util.Objects;
 
 @Entity
 @Table  (name = "CANDIDATE")
+@Builder
+@Getter
 public class Candidate implements AggregateRoot<EmailAddress> {
     @OneToOne
     @JoinColumn(name = "USERNAME")
