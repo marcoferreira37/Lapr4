@@ -20,14 +20,15 @@
  */
 package eapli.base.infrastructure.bootstrapers;
 
+import eapli.base.customer.Customer;
+import eapli.base.domain.company.Company;
+import eapli.base.domain.company.CompanyName;
 import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
 import eapli.base.domain.jobOpeningProcess.PhaseType;
 import eapli.base.domain.jobOpeningProcess.Status;
 import eapli.base.protocol.Notifications;
-import eapli.base.repositories.JobInterviewRepository;
-import eapli.base.repositories.JobOpeningProcessRepository;
-import eapli.base.repositories.NotificationsRepository;
+import eapli.base.repositories.*;
 import eapli.base.usermanagement.application.controllers.AddJobOpeningController;
 import eapli.base.usermanagement.application.controllers.AddJobApplicationController;
 import eapli.base.domain.candidate.Candidate;
@@ -37,7 +38,6 @@ import eapli.base.domain.jobOpening.ContractType;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpening.Mode;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.repositories.CandidateRepository;
 import eapli.base.usermanagement.application.controllers.RecordInterviewController;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
@@ -60,7 +60,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerOperator("operator", TestDataConstants.PASSWORD1, "Francisco", "Monteiro", "franciscomonteiro@gmail.com");
 
         registerCustomerManager("customerManager", TestDataConstants.PASSWORD1, "Francisco", "Silveira", "franciscosilveira@gmail.com");
-        registerCustomerManager("c",TestDataConstants.PASSWORD1,"Gaijo","Bonito","1220913@isep.ipp.pt");
+        registerCustomerManager("c", TestDataConstants.PASSWORD1, "Gaijo", "Bonito", "1220913@isep.ipp.pt");
 
         Candidate candida = registerCandidate("candida", TestDataConstants.PASSWORD1, "Candida", "Candidata", EmailAddress.valueOf("1221331@isep.ipp.pt"));
         Candidate candida2 = registerCandidate("fatima", TestDataConstants.PASSWORD1, "Fatima", "Couves", EmailAddress.valueOf("fatimaBadGirl@hotmail.com"));
@@ -73,14 +73,20 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         Candidate candida9 = registerCandidate("Gonçalo", TestDataConstants.PASSWORD1, "Gonçalo", "Sousa", EmailAddress.valueOf("1221331@isep.ipp.pt"));
         Candidate candida10 = registerCandidate("Miguel", TestDataConstants.PASSWORD1, "Miguel", "Monteiro", EmailAddress.valueOf("1221330@isep.ipp.pt"));
 
+        Customer customer = registerCustomer("Cruch", "Password1", "Marco", "Santos", EmailAddress.valueOf("marcomaria@this.app"));
+
+        CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
+        Iterable<Company> comps = companyRepository.findAll();
+            Company c = comps.iterator().next();
+            c.modCustomer(customer);
+            companyRepository.save(c);
+
 
 
         JobOpening jo = registerJobOpening("bailarino", "casa do ah", Mode.ONSITE, ContractType.FULL_TIME, "baila baila", 1, 1);
         JobOpening jo2 = registerJobOpening("monstro", "o grande lago de penafiel", Mode.ONSITE, ContractType.FULL_TIME, "ARRRGHHHHHH", 1, 1);
         JobOpening jo3 = registerJobOpening("Programador com capacidades de completar o projeto de lapr4", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Programador", 1, 1);
-        JobOpening jo4 = registerJobOpening("Alguem para acordar o saco", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Despertador", 1, 1);
-
-
+        JobOpening jo4 = registerJobOpening("Alguem para acordar o saco", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Despertador", 1, 1 );
         Calendar date2 = new Calendar.Builder().setDate(2026, 5, 15).build();
 
 
@@ -160,6 +166,29 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         System.out.println(interview6);
 
         return true;
+    }
+
+    private Company registerCompany(String name, Customer customer) {
+        CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
+        CompanyName companyName = new CompanyName(name);
+        Company company = new Company(companyName, customer);
+        companyRepository.save(company);
+        return company;
+    }
+
+    private Customer registerCustomer(final String username, final String password, final String firstName,
+                                      final String lastName, final EmailAddress email) {
+
+        final Set<Role> roles = new HashSet<>();
+        roles.add(BaseRoles.CUSTOMER);
+
+        SystemUser u = registerUser(username, password, firstName, lastName, String.valueOf(email), roles);
+//        Candidate c = new Candidate(u, email, new TelephoneNumber(910920930), "curriculum");
+        Customer c = new Customer(u, email);
+        CustomerRepository customerRepository = PersistenceContext.repositories().customer();
+        customerRepository.save(c);
+        return c;
+
     }
 
     private static void registerJobOpeningProcess(JobOpeningProcess jobOpeningProcess) {

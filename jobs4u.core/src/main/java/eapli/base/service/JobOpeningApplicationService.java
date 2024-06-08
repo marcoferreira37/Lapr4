@@ -24,14 +24,16 @@ import java.util.List;
 @Component
 public class JobOpeningApplicationService {
 
-    private final JobOpeningApplicationRepository repository;
+    private final JobOpeningApplicationRepository repository = PersistenceContext.repositories().jobApplicationsRepository();
 
-    public JobOpeningApplicationService(JobOpeningApplicationRepository repository) {
-        this.repository = repository;
+    public JobOpeningApplicationService() {
+
     }
+
     public Iterable<JobOpeningApplication> findJobOpeningApplication() {
         return repository.findAll();
     }
+
     public List<JobOpeningApplication> getApplicationsByCandidate(Candidate c) {
         List<JobOpeningApplication> jobOpeningApplicationList = new ArrayList<>();
         Iterable<JobOpeningApplication> jobOpeningApplications = repository.allApplicationsByCandidate(c);
