@@ -82,7 +82,7 @@ public class Notifications implements AggregateRoot<Long> {
         return isSend;
     }
 
-    public void setSend(boolean send) {
+    public void settingSend(boolean send) {
         isSend = send;
     }
 

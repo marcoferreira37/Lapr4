@@ -6,8 +6,6 @@ import eapli.base.protocol.Notifications;
 import eapli.base.repositories.NotificationsRepository;
 import jakarta.transaction.Transactional;
 
-import java.util.Set;
-
 public class NotificationAppService {
     private final NotificationsRepository notificationsRepository = PersistenceContext.repositories().notificationsRepository();
 
@@ -26,7 +24,7 @@ public class NotificationAppService {
     }
 
     public void setSendTrue(Notifications notification) {
-        notification.setSend(true);
+        notification.settingSend(true);
         notificationsRepository.save(notification);
     }
 }
