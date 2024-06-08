@@ -30,10 +30,13 @@ This task is being assigned for development in this sprint.
 
 - 3003.3. Customers should have the option to customize notification preferences for different types of state changes.
 
+
+
 **Dependencies/References:**
 
 *This requirement relates to NFR10(RCOMP) and NFR11(RCOMP).*
-
+*Depends of the US1007*
+L
 ## 3. Analysis
 
 *In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
@@ -42,38 +45,53 @@ During the analysis phase, we conducted a study to understand the requirements f
 about changes in the state of their job openings. We considered factors such as the frequency of notifications,
 the types of state changes to be notified, and the customization options for notification preferences.
 
+
+
+### 3.1. Domain Model
+
+The domain model is composed of the following entities:
+
+- **JobOpening**: Represents a job opening in the company.
+- **Candidate**: Represents a candidate that has applied for a job opening.
+- **Application**: Represents the application of a candidate for a job opening.
+- **Phase**: Represents the phase of the application process.
+
+![Domain Model](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-domain-model.svg)
+
+
+## 3.2 System Sequence Diagram
+
+![System Sequence Diagram - Full](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-system-sequence-diagram-System_Sequence_Diagram__SSD____Rank_Candidates_for_a_Job_Opening.png)
+
+The Customer Manager requested a feature to rank the candidates for a job opening.
+This feature will allow the manager to rank the candidates, persist the rankings, change the rankings, and view the rankings.
+The system should have validations to ensure that the data is valid.
+
+
 ## 4. Design
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
+*In this sections, the team should present the solution design that was adopted to solve the requirement. 
+This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram),
+the identification and rational behind the applied design patterns and the specification of the main tests used to validade
+the functionality.*
 
 ### 4.1. Realization
 
-### 4.2. Class Diagram
-
-![a class diagram](class-diagram-01.svg "A Class Diagram")
-
-### 4.3. Applied Patterns
-
-### 4.4. Tests
-
-Include here the main tests used to validate the functionality. Focus on how they relate to the acceptance criteria.
-
-**Test 1:** *Verifies that it is not possible to ...*
-
-**Refers to Acceptance Criteria:** G002.1
+The realization of the functionality involves defining how the Customer Manager can rank candidates
+and how these rankings are stored and modified in the system.
+This requires interactions between various system components including the UI, business logic,
+and data persistence layers.
 
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureXxxxYyyy() {
-	...
-}
-````
+## 4.2 Sequence Diagram
+
+![Sequence Diagram - Full](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-sequence-diagram.png)
+
+The sequence diagram shows the interactions between the Customer Manager and the system to rank candidates.
+This includes actions like viewing a list of candidates, assigning a rank, saving the rank, and modifying it later.
+
 
 ## 5. Implementation
-
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
 
 * The implementation ensures that customers receive timely notifications
 in their application when the state of their job openings changes.
@@ -102,4 +120,6 @@ via their application interface.
 
 ## 7. Observations
 
-This section should be used to include any additional comments or observations regarding the implementation of this functionality. It is important to ensure that the notification system is robust and reliable, providing customers with timely updates on their job openings. Feedback from customers should be considered to refine and improve the notification mechanism.
+This section should be used to include any additional comments or observations regarding the implementation of this functionality. 
+It is important to ensure that the notification system is robust and reliable, providing customers with timely updates on their job openings. 
+Feedback from customers should be considered to refine and improve the notification mechanism.

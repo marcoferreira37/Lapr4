@@ -6,23 +6,16 @@ participant ":System" as System
 
 activate Customer
 
-Customer -> System : Check job opening state
+Customer -> System : request to see the notifications
+
 activate System
 
-System --> Customer: Show list of job openings with their current state
-deactivate
+System --> Customer: displays the notification options (seen, unseen, all)
 
-Customer -> System : Select a job opening
-activate System
+Customer -> System: selects one
 
-System --> Customer : Show the selected job opening with its current state
-deactivate
+System --> Customer: displays the notifications by the selected option
 
-Customer -> System : Request notification for state change
-activate System
-
-System --> Customer : Confirm notification setup
-
-deactivate Customer
+System --> Customer: displays operation sucess
 
 @enduml
