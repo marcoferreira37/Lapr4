@@ -8,4 +8,10 @@ public interface NotificationsRepository extends DomainRepository<Long, Notifica
 
     Iterable<Notifications> findByActive(boolean active);
 
+    default long nextNotificationID() {
+        long id = count() + 1;
+        return id;
+    }
+
+    Iterable<Notifications> findBySend(boolean b);
 }

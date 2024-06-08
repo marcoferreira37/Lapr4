@@ -8,6 +8,9 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jakarta.persistence.TypedQuery;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class JpaNotificationsRepository extends JpaAutoTxRepository<Notifications, Long, Long> implements NotificationsRepository {
 
 
@@ -29,5 +32,12 @@ public class JpaNotificationsRepository extends JpaAutoTxRepository<Notification
 
         return match("e.active = :active", "active", active);
 
+    }
+
+    @Override
+    public Iterable<Notifications> findBySend(boolean b) {
+        final Map<String, Object> map = new HashMap<>();
+        map.put("b", b);
+        return match("e.isSend = :b", map);
     }
 }

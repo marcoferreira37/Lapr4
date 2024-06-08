@@ -52,4 +52,8 @@ public class InMemoryNotificationsRepository extends InMemoryDomainRepository<No
         return 0;
     }
 
+    @Override
+    public Iterable<Notifications> findBySend(boolean b) {
+        return match(e->e.isSend()== b);
+    }
 }
