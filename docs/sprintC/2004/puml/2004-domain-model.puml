@@ -1,0 +1,29 @@
+@startuml
+
+title "Domain Model - US 2004"
+
+rectangle candidate #aabbcc{
+    class Candidate<<Aggregate Root>><<Entity>>{}
+    class CurriculumVitae<<Value Object>>{}
+    class PhoneNumber <<Value Object>>
+
+
+}
+
+rectangle "User" #ccbbcc {
+    class SystemUser <<Aggregate Root>><<Entity>>{}
+    class Password<<Value Object>>{}
+    class BaseRole<<Value Object>>{}
+
+    SystemUser "1" --> "1" Email: has
+    SystemUser "1" --> "1" Username: has
+    SystemUser "1" -up> "1" Password
+    SystemUser "1" --> "1" Name
+    SystemUser "1" -> "1" BaseRole
+
+}
+Candidate -right-> "1" CurriculumVitae
+Candidate "1" --> "1" PhoneNumber
+Candidate "1" --> "1" User
+
+@enduml
