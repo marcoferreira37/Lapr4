@@ -5,6 +5,7 @@ import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarLexer;
 import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarParser;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import org.antlr.v4.runtime.CharStream;

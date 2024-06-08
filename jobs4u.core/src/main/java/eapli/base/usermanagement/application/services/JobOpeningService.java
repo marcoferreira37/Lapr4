@@ -55,11 +55,10 @@ public class JobOpeningService {
                 .mode(mode)
                 .address(new Address(address))
                 .vacanciesNumber(new VacanciesNumber(vacanciesNumber))
-                .company(company.get())
+                .company(c)
                 .build();
 
-
-        JobOpeningProcess jobProcess = new JobOpeningProcess(jo, new Phase(new Date(), new Date(), new Date(), new Date(), new Date()));
+        JobOpeningProcess jobProcess = new JobOpeningProcess(jo, new Phase(new Date(), new Date() , new Date(), new Date(), new Date()));
         processRepository.save(jobProcess);
         jo = repository.save(jo);
         return jo;

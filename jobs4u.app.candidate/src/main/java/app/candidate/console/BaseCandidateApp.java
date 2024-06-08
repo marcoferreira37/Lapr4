@@ -22,6 +22,7 @@ package app.candidate.console;
 
 import app.candidate.console.presentation.FrontMenu;
 
+import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.protocol.ComCodes;
 import eapli.base.protocol.Notifications;
