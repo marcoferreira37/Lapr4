@@ -6,7 +6,11 @@ public enum ComCodes {
     ACK((byte)2),
     ERR((byte)3),
     AUTH((byte)4),
-    LSTOPNS((byte)5) //List Job Openings
+    LSTOPNS((byte)5),//List Job Openings
+
+    LSTAPPS((byte)6), //List Applications
+
+    NOTIF((byte)7), //Notification
     ;
 
     private byte value;
