@@ -180,7 +180,7 @@ public class UpdateJobOpeningController {
             index++;
         }
         int companyIndex = Console.readInteger("Choose a company: ");
-        jobOpening.setCompany(companies.get(companyIndex-1));
+        jobOpening.modCompany(companies.get(companyIndex - 1));
         return jobOpening;
     }
 
