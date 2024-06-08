@@ -4,7 +4,15 @@
 hide methods
 
 
-
+rectangle "Job Opening Application" #aaccbb {
+    class Application<<Aggregate Root>><<Entity>>{}
+    class ApplicationId<<Identity>><<Value Object>>{}
+    class AttachedEmail<<Value Object>>{}
+    class AttachedFile<<Value Object>>{}
+    class ApplicatorData<<Value Object>>{}
+    class ApplicationStatus<<Value Object>>{}
+    class ApplicationGrade<<Value Object>>{}
+}
 
 
 rectangle candidate #aabbcc{
@@ -16,22 +24,15 @@ rectangle candidate #aabbcc{
 
 
 
-rectangle "PlugIn" #bababa {
-    class Plugin <<Aggregate Root>><<Entity>>{}
-    class PluginType<<Value Object>>{}
-    class PluginId<<Identity>><<Value Object>>{}
-    class PluginDescription<<Value Object>>{}
-    class JarFile<<Value Object>>{}
-    class Requirement<<Resource>>{}
-    class InterviewModel<<Resource>>{}
-}
 
-Plugin "1" --> "1" PluginType
-Plugin "1" -right-> "1" PluginId
-Plugin "1" --> "1" PluginDescription
-Plugin "1" --> "1" JarFile
-
-
+  rectangle "Job Opening Interview" #ccbbaa {
+      class JobInterview <<Aggregate Root>><<Entity>>{}
+      class JobInterviewId<<Identity>><<Value Object>>{}
+      class InterviewDate<<Value Object>>{}
+      class InterviewTime<<Value Object>>{}
+      class Score<<Value Object>>{}
+      class InterviewResult<<Value Object>>{}
+  }
 
 
 
@@ -41,8 +42,21 @@ Candidate "1"--> "1" CandidateId
 Candidate "1"--> "1" CurriculumVitae
 
 
+Application "1" --> "1" ApplicationId
+Application "1" --> "1" AttachedEmail
+Application "1" --> "1" AttachedFile
+Application "1" --> "1" ApplicatorData
+Application "1" -> "1" Candidate : submitted by
+Application "1" --> "1" ApplicationStatus
+Application "1" --> "1" ApplicationGrade
 
+JobInterview "1" -up-> "1" JobInterviewId
+JobInterview "1" -up-> "1" InterviewDate
+JobInterview "1" --> "1" InterviewTime
+JobInterview "1" -> "1" Score
+JobInterview "1" --> "1" InterviewResult
 
+JobInterview "1" -> "1" Candidate : with
 
 
 @enduml

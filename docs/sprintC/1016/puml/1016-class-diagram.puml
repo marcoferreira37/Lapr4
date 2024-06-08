@@ -9,14 +9,18 @@ rectangle interview{
 
 }
 
-
-rectangle candidate{
     class Candidate<<Aggregate Root>><<Entity>>{}
 
 }
-JobOpeningApplication"1" o--> "1"Candidate
 
-Candidate"1" o--> "1"Interview
+rectangle Server{
+    class Server<<Aggregate Root>><<Entity>>{}
+
+}
+
+Candidate "1" <-- "1.."Server
+JobOpeningApplication"1" o--> "1"Interview
+
 
 
 
