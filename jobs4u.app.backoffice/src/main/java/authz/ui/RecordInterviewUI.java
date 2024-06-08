@@ -20,7 +20,7 @@ public class RecordInterviewUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
-        Iterable<JobOpeningApplication> jobOpeningApplicationsIterable = recordController.getJobOpeningApplication();
+        Iterable<JobOpeningApplication> jobOpeningApplicationsIterable = recordController.findJobOpeningApplication();
         List<JobOpeningApplication> jobOpeningApplicationsList = new ArrayList<>();
         for (JobOpeningApplication application : jobOpeningApplicationsIterable) {
             jobOpeningApplicationsList.add(application);

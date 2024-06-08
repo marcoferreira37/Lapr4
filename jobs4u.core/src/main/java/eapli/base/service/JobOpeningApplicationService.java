@@ -29,7 +29,7 @@ public class JobOpeningApplicationService {
     public JobOpeningApplicationService(JobOpeningApplicationRepository repository) {
         this.repository = repository;
     }
-    public Iterable<JobOpeningApplication> getJobOpeningApplication() {
+    public Iterable<JobOpeningApplication> findJobOpeningApplication() {
         return repository.findAll();
     }
     public List<JobOpeningApplication> getApplicationsByCandidate(Candidate c) {

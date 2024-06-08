@@ -30,8 +30,8 @@ public class RecordInterviewController  {
 
 
 
-    public Iterable<JobOpeningApplication> getJobOpeningApplication(){
-    return service.getJobOpeningApplication();
+    public Iterable<JobOpeningApplication> findJobOpeningApplication(){
+    return service.findJobOpeningApplication();
     }
 
 

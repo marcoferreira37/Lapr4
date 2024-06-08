@@ -18,13 +18,13 @@ activate Agent
 Agent -> ui: Record the time and date for an interview with a candidate
 activate ui
 
-ui -> ctrl: getJobOpeningApplication()
+ui -> ctrl: findJobOpeningApplication()
 
 
 
 activate ctrl
 
-ctrl -> jobApServ: getJobOpeningApplication()
+ctrl -> jobApServ: findJobOpeningApplication()
 
 activate jobApServ
 
