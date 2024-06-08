@@ -103,12 +103,12 @@ The domain model is composed of the following entities:
 - **Candidate**: Represents a candidate that will be disabled or enabled.
 - **SystemUser**: Represents a system user, that in this case will be a candidate.
 
-![Domain Model](docs/sprintC/2000b/puml/2000b-domain-model.puml)
+![Domain Model](svg/2004-domain-model.svg)
 
 
 ### 3.2. System Sequence Diagram
 
-![System Sequence Diagram](docs/sprintC/2004/puml/2004-system-sequence-diagram.puml)
+![System Sequence Diagram](svg/2004-system-sequence-diagram.svg)
 
 The Operator requested a feature to upload a text file for the requirements of a candidate.
 This feature will allow the operator to upload the file with the curriculum, and validate his requirements.
@@ -122,13 +122,13 @@ A functionality is implemented within the system to allow Operators to upload a 
 
 ## 4.2 Class Diagram
 
-![Class Diagram](docs/sprintC/2004/puml/2004-class-diagram.puml)
+![Class Diagram](svg/2004-class-diagram.svg)
 
 The class diagram shows the key classes involved in the uploading of a file.
 
 ## 4.3 Sequence Diagram
 
-![Sequence Diagram ](docs/sprintC/2004/puml/2004-sequence-diagram.puml)
+![Sequence Diagram ](svg/2004-sequence-diagram.svg)
 
 The sequence diagram shows the interactions between the Operator and the system to upload the text file with the data fields of a candidate.
 
