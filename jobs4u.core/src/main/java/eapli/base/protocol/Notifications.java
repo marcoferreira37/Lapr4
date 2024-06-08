@@ -74,7 +74,19 @@ public class Notifications implements AggregateRoot<Long> {
         return idNotification;
     }
 
+    public boolean isSend() {
+        return isSend;
+    }
+
+    public void setSend(boolean send) {
+        isSend = send;
+    }
+
     public void sendNotification() {
         this.isSend = true;
+    }
+
+    public String username(){
+        return userName;
     }
 }
