@@ -3,6 +3,8 @@ package eapli.base.usermanagement.application.controllers;
 import eapli.base.domain.EmailService.NotifyCandidatesService;
 import eapli.base.domain.candidate.Candidate;
 
+import java.util.List;
+
 public class NotifyCandidatesController {
 
     NotifyCandidatesService service = new NotifyCandidatesService();
@@ -13,7 +15,7 @@ public class NotifyCandidatesController {
         service.sendEmail(destination, subject, message);
     }
 
-//    public Iterable<Candidate> findCandidates() {
-//        return service.findCandidates();
-//    }
+    public List<Candidate> findCandidates() {
+        return service.findCandidates();
+    }
 }

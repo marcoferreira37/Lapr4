@@ -5,12 +5,10 @@
 
 package ui {
         class EnableCandidateUI {
+            +listDisabledCandidates()
+            +printCandidates()
         }
 
-        class ListCandidatesUI{
-            +listDisabledCandidates()
-            +printCandidates(candidates)
-        }
     }
 
 
@@ -18,19 +16,15 @@ package ui {
 
     package application {
         class EnableCandidateController {
-            +enableCandidate(email)
-        }
-
-        class ListCandidatesController{
+            +enableCandidate()
             +disabledCandidates()
-            +allCandidates()
         }
     }
 
     package repository {
 
         interface CandidateRepository{
-            +.save(candidate)
+            +.save()
         }
     }
 
@@ -48,18 +42,21 @@ package ui {
         class Candidate {
             +.user()
         }
+        class CandidateManagementService{
+           +allCandidate()
+           +enableCandidate()
+        }
     }
 
 
 
+
+CandidateManagementService -> CandidateRepository
 EnableCandidateUI --> EnableCandidateController
-EnableCandidateUI --> ListCandidatesUI
-ListCandidatesUI --> ListCandidatesController
-ListCandidatesController --> Candidate
+CandidateRepository -> Candidate
 Candidate --> SystemUser
 EnableCandidateController --> Candidate
 EnableCandidateController --> CandidateRepository
-CandidateRepository -> Candidate
 EnableCandidateController --> AuthorizationService
-
+EnableCandidateController --> CandidateManagementService
 @enduml

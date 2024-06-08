@@ -6,64 +6,67 @@ autonumber
 actor Operator as ADM
 participant "EnableCandidateUI" as UI <<ui>>
 participant ":EnableCandidateController" as CTRL <<application>>
-participant "ListCandidatesUI" as LUI <<ui>>
-participant "ListCandidatesController" as LCTRL <<application>>
+participant ":CandidateManagementService" as CMS <<Service>>
 participant "AuthorizationService" as AS <<Service>>
+participant "CandidateRepository" as REPO <<repository>>
 participant "Candidate" as EU <<domain>>
 participant "SystemUser" as SYS <<domain>>
-participant "CandidateRepository" as REPO <<repository>>
-
 
 activate ADM
 ADM-> UI : Request to enable a candidate
 activate UI
 UI -> CTRL** : create
-UI -> LUI: listDisabledCandidates()
-activate LUI
-LUI-> LCTRL :disabledCandidates()
-activate LCTRL
-LCTRL-->LCTRL: allCandidates()
-LCTRL-> EU: .user()
-activate EU
-EU-> SYS : .isActive()
-note right
-    !
-end note
-deactivate EU
-activate SYS
-SYS-->LCTRL:disabledCandidates
-deactivate SYS
-LCTRL-->LUI:disabledCandidates
-deactivate LCTRL
-LUI-->LUI:printCandidates(candidates)
-LUI --> UI : list
-deactivate LUI
+UI --> UI: listDisabledCandidates()
+UI-> CTRL :disabledCandidates()
+activate CTRL
+CTRL-->CMS: allCandidate()
+activate CMS
+CMS->AS: ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.OPERATOR, BaseRoles.CUSTOMER_MANAGER)
+activate AS
+AS-->CMS: ensures the user has the required role
+deactivate AS
+CMS->REPO: findAllCandidates()
+activate REPO
+REPO-->CMS: all candidates
+deactivate REPO
+CMS-->CTRL: all candidates
+deactivate CMS
+CTRL-->UI: all candidates
+deactivate CTRL
+UI-->UI: printCandidates(candidates)
 UI-->ADM: returns a list of the disabled candidates
 deactivate UI
 ADM -> UI : selects a disabled candidate
 activate UI
 UI -> CTRL : enableCandidate(email)
 activate CTRL
-CTRL-> AS:ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN)
+CTRL->CMS:enableCandidate(email)
+activate CMS
+CMS->AS:ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN)
 activate AS
-AS--> CTRL: ensures the user has operator role
+AS--> CMS: ensures the user has operator role
 deactivate AS
-CTRL-> EU: .user()
-activate EU
-EU -> SYS : .activate()
-deactivate EU
-activate SYS
-SYS--> CTRL :candidate activated
-deactivate SYS
-CTRL -> REPO : save(candidate)
+CMS->REPO: findAll()
 activate REPO
-REPO--> CTRL: the enabled candidate
+REPO-->CMS: finds all candidates
 deactivate REPO
+CMS->EU:.user()
+activate EU
+EU->SYS:.activate()
+activate SYS
+SYS-->EU: candidate activated
 deactivate SYS
-CTRL --> UI : returns success or failure
+EU-->CMS: candidate activated
+deactivate EU
+CMS->REPO:.save(candidate)
+activate REPO
+REPO-->CMS: candidate enabled
+deactivate REPO
+CMS-->CTRL: candidate enabled
+deactivate CMS
+CTRL-->UI: candidate enabled
 deactivate CTRL
-UI --> ADM : displays success or failure
-deactivate UI
+UI-->ADM: candidate enabled and success message
 
 
 @enduml

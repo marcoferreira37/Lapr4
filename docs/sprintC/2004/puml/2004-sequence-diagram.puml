@@ -9,6 +9,7 @@ participant "Candidate" as C <<Domain>>
 participant "AuthorizationService" as AS <<Service>>
 participant "CandidateManagementService" as CMS <<Service>>
 participant "CandidateRepository" as CREPO <<Repository>>
+participant "JobOpeningApplicationService" as JOAS <<Service>>
 participant "JobOpeningApplication" as JOA <<Domain>>
 participant "JobOpeningApplicationRepository" as JOREPO <<Repository>>
 activate Operator
@@ -40,12 +41,16 @@ UI->C: get(option-1)
 activate C
 C--> UI: gets the chosen candidate (c)
 deactivate C
-UI->CTRL:getApplicationsByCandidate(c)
+UI->CTRL:getAppByCandidate(c)
 activate CTRL
-CTRL-> JOREPO: allApplicationsByCandidate(c)
+CTRL->JOAS :getApplicationsByCandidate(c)
+activate JOAS
+JOAS->JOREPO:allApplicationsByCandidate(c)
 activate JOREPO
-JOREPO-->CTRL: list of applications
+JOREPO-->JOAS: list of applications
 deactivate JOREPO
+JOAS-->CTRL: list of applications
+deactivate JOAS
 CTRL--> UI: list of applications
 deactivate CTRL
 UI-->UI:printNumeratedListApp(message, collection)
@@ -63,7 +68,10 @@ CTRL->AS : ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR, BaseRoles.ADMIN, 
 activate AS
 AS-->CTRL: ensures the user has operator role
 deactivate AS
-CTRL-->CTRL:passGrammar(path)
+CTRL-->JOAS:passGrammar(path)
+activate JOAS
+JOAS-->CTRL: checks the grammar of the file
+deactivate JOAS
 CTRL-> JOA:setCandidateRequirements(fileName)
 activate JOA
 JOA-->CTRL: sets the candidate requirements
@@ -73,6 +81,7 @@ activate JOREPO
 JOREPO-->CTRL: saves the application file in the database
 deactivate JOREPO
 CTRL-->UI : Confirms the file upload
+deactivate CTRL
 UI --> Operator: Confirms the file upload
 deactivate UI
 

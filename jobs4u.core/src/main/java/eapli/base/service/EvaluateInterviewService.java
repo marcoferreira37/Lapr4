@@ -23,7 +23,7 @@ public class EvaluateInterviewService {
 
         InterviewModel interviewModel = new InterviewModel();
 
-       int score = interviewModel.enterStart(file);
+       int score = interviewModel.evaluateInterview(file);
 
         return score;
     }

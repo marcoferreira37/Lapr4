@@ -27,7 +27,7 @@ public class UploadTextFileUI extends AbstractUI {
 
         Candidate c = candidates.get(option - 1);
 
-        List<JobOpeningApplication> applications = theController.getApplicationsByCandidate(c);
+        List<JobOpeningApplication> applications = theController.getAppByCandidate(c);
 
         if (applications.isEmpty()) {
             System.out.println("This candidate has no applications.");

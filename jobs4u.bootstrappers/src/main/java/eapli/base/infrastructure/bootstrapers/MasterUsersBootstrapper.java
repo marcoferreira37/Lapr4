@@ -61,7 +61,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerCustomerManager("customerManager", TestDataConstants.PASSWORD1, "Francisco", "Silveira", "franciscosilveira@gmail.com");
 
-        Candidate candida = registerCandidate("candida", TestDataConstants.PASSWORD1, "Candida", "Candidata", EmailAddress.valueOf("candida@primaDaCunhada.pt"));
+        Candidate candida = registerCandidate("candida", TestDataConstants.PASSWORD1, "Candida", "Candidata", EmailAddress.valueOf("1221331@isep.ipp.pt"));
         Candidate candida2 = registerCandidate("fatima", TestDataConstants.PASSWORD1, "Fatima", "Couves", EmailAddress.valueOf("fatimaBadGirl@hotmail.com"));
         Candidate candida3 = registerCandidate("maria", TestDataConstants.PASSWORD1, "Maria", "Pereira", EmailAddress.valueOf("vozinha@gmail.com"));
         Candidate candida4 = registerCandidate("fisco", TestDataConstants.PASSWORD1, "Fisco", "Fiasco", EmailAddress.valueOf("fiascos@somosnos.com"));
@@ -87,9 +87,11 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpeningApplication application9 = registerApplication(jo5, candida);
         JobOpeningApplication application10 = registerApplication(jo5, candida2);
         JobOpeningApplication application11 = registerApplication(jo5, candida3);
+        JobOpeningApplication application13 = registerApplication(jo, candida);
         JobInterview interview5 = registerInterview(date2, "13:00", application9);
         JobInterview interview6 = registerInterview(date2, "11:00", application10);
         JobInterview interview7 = registerInterview(date2, "12:00", application11);
+        JobInterview interview8 = registerInterview(date2, "16:00", application13);
         interview5.gradeInterview(12);
         interview6.gradeInterview(15);
         interview7.gradeInterview(16);

@@ -4,9 +4,11 @@ actor "Customer Manager" as Agent
 participant ":NotifyCandidatesUI" as ui <<UI>>
 participant ":NotifyCandidatesController" as ctrl <<Application>>
 participant ":NotifyCandidatesService" as appServ <<Service>>
-participant ":JobOpeningProcessRepository" as jobRepo <<Persistence>>
-participant ":ApplicationRepository" as appRepo <<Persistence>>
-participant ":JobOpeningApplication" as app <<Domain>>
+
+participant ":CandidateRepository" as candRepo <<Persistence>>
+'participant ":ApplicationRepository" as appRepo <<Persistence>>
+'participant ":JobOpeningApplication" as app <<Domain>>
+participant "EmailServer" as server <<Server>>
 
 autonumber
 
@@ -15,84 +17,84 @@ activate Agent
 Agent -> ui: notify candidates by email
 activate ui
 
-ui --> Agent : S
-ui -> ctrl: findAllJobOpeningInAnalysis()
+ui -> ctrl: findCandidates()
+deactivate ui
 activate ctrl
-ctrl -> appServ: findAllJobOpeningInAnalysis()
+
+ctrl -> appServ: findCandidates()
+
+deactivate ctrl
+
 activate appServ
-appServ -> jobRepo: findAllInAnalysis()
-activate jobRepo
-jobRepo --> appServ: openings
-deactivate
-appServ --> ctrl: openings
-deactivate
-ctrl --> ui: openings
-deactivate
-ui --> Agent: Show list of applicable job openings
-deactivate
-Agent -> ui : Select a job opening
+
+appServ -> candRepo: findAllCandidates()
+deactivate appServ
+
+activate candRepo
+
+candRepo --> appServ: candidates
+deactivate candRepo
+activate appServ
+deactivate candRepo
+
+
+appServ --> ctrl: candidates
+deactivate appServ
+activate ctrl
+
+deactivate appServ
+ctrl --> ui: candidates
+deactivate ctrl
 activate ui
 
+deactivate ctrl
 
 
-ui -> ctrl: allApplicationsForJobOpening(opening)
+
+
+ui --> Agent : Show list of candidates to be notified
+deactivate ui
+Agent -> ui: Select a candidate
+activate ui
+
+ui -> ctrl: sendEmail(destination, subject, message)
+deactivate ui
 
 activate ctrl
 
-ctrl -> appServ: findAllJobOpeningApplicationsInAnalysis(opening)
-
-
-
-
+ctrl -> appServ: sendEmail(destination, subject, message)
+deactivate ctrl
 activate appServ
-appServ -> appRepo: findAllByJobOpening(opening)
-activate appRepo
-appRepo --> appServ: applications
-deactivate
 
-appServ --> ctrl: applications
-deactivate
+appServ -> server: sendEmail(destination, subject, message)
+deactivate appServ
 
-ctrl --> ui: applications
-deactivate
+activate server
 
-ui --> Agent : Show list of applications for the selected job opening
-alt User wants to re-rank an application
-loop while ranking all applications
-
-ui --> Agent : Requests new ranking
-
-Agent -> ui : Provides new ranking
-ui -> ctrl : rankApplication(app, ranking)
-
-activate ctrl
-ctrl -> appServ : rankApplication(app, ranking)
+server --> appServ: email
+deactivate server
 
 activate appServ
 
-appServ -> app : rankApplication(rank)
+appServ --> ctrl: email
+deactivate appServ
+
+activate ctrl
+
+ctrl --> ui: email
+deactivate ctrl
 
 
-activate app
+activate ui
 
-app --> appServ : void
+ui --> Agent : Email sent
 
-deactivate app
-
-
-
-appServ -> appRepo : save(app)
-activate appRepo
-appRepo --> appServ : app
-deactivate
-appServ --> ctrl : app
-deactivate
-ctrl --> ui : app
-deactivate
-ui --> Agent  : Confirms new ranking
+deactivate ui
 
 
-end loop
+
+
+
 
 deactivate Agent
 

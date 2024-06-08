@@ -182,4 +182,8 @@ public class JobOpeningProcess implements AggregateRoot<Long> {
     public boolean isInResult() {
         return currentPhase == PhaseType.RESULT;
     }
+
+    public JobOpening obtainAssociatedJobOpening(){
+        return jobOpening;
+    }
 }

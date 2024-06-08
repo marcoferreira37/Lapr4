@@ -2,6 +2,8 @@ package eapli.base.usermanagement.application.services;
 
 
 import eapli.base.customer.Criteria;
+import eapli.base.domain.EmailService.EmailService;
+import eapli.base.domain.EmailService.NotifyCandidatesService;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
 import eapli.base.domain.jobOpeningProcess.Phase;
@@ -10,6 +12,7 @@ import eapli.base.filter.jobOpening.JobOpeningFilteringStrategy;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.jobOpening.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.base.repositories.JobOpeningProcessRepository;
 import eapli.base.repositories.JobOpeningRepository;
 import eapli.base.repositories.CompanyRepository;
@@ -23,6 +26,8 @@ public class JobOpeningService {
     private final JobOpeningRepository repository = PersistenceContext.repositories().jobOpeningRepository();
     private final JobOpeningProcessRepository processRepository = PersistenceContext.repositories().jobProcess();
     private final CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
+
+    private final JobOpeningApplicationRepository jobOpeningApplicationRepository = PersistenceContext.repositories().jobApplications();
 
     public JobOpening create(String description, String address, Mode mode, ContractType contractType,
                              String titleOrFunction, int vacanciesNumber, long companyId) {
@@ -82,17 +87,40 @@ public class JobOpeningService {
     public JobOpeningProcess advanceToNextPhase(JobOpeningProcess jobOpening, boolean interviewPhase) {
         jobOpening.advanceToNextPhase(interviewPhase);
         jobOpening = processRepository.save(jobOpening);
+        if (jobOpening != null) {
+            JobOpening jo = jobOpening.obtainAssociatedJobOpening();
+            for (JobOpeningApplication application : this.jobOpeningApplicationRepository.findAllApplicationsForJobOpening(jo)) {
+                EmailService.sendEmail(application.candidate().emailAddress().toString(),
+                        "Job Opening Status Update",
+                        "The job opening " + jo.getJobReference().toString() + " - "
+                        + jo.getTitleOrFunction() + " has advanced to the next phase.\n\n" +
+                        "Now, the job opening in question is on " + jobOpening.currentPhase().name() +
+                        " phase.\n\nBest Regards;\nJobs4u inc.\n\nPlease do not reply to this email.");
+            }
+        }
         return jobOpening;
     }
 
     public JobOpeningProcess goBackToPreviousPhase(JobOpeningProcess jobOpening, boolean interviewPhase) {
         try {
             jobOpening.goBackToPreviousPhase(interviewPhase);
-        }catch (Exception e ){
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
         jobOpening = processRepository.save(jobOpening);
+        if (jobOpening != null) {
+            JobOpening jo = jobOpening.obtainAssociatedJobOpening();
+            for (JobOpeningApplication application : this.jobOpeningApplicationRepository.findAllApplicationsForJobOpening(jo)) {
+                EmailService.sendEmail(application.candidate().emailAddress().toString(),
+                        "Job Opening Status Update",
+                        "The job opening " + jo.getJobReference().toString() + " - "
+                        + jo.getTitleOrFunction() + " has retracted to the previous phase.\n\n" +
+                        "Now, the job opening in question is on " + jobOpening.currentPhase().name() +
+                        " phase.\n\nBest Regards;\nJobs4u inc.\n\nPlease do not reply to this email.");
+            }
+        }
         return jobOpening;
     }
 
@@ -107,7 +135,7 @@ public class JobOpeningService {
         if (job == null) {
             System.out.println("Invalid Job Reference!");
             return false;
-        }else {
+        } else {
             if (jobProcess.currentPhase() != PhaseType.DRAFT) {
                 System.out.println("Job Opening is not in Draft Phase!");
                 return false;
@@ -116,13 +144,14 @@ public class JobOpeningService {
             return true;
         }
     }
+
     public JobOpening jobReferenceToJobOpening(String inputJobReference) {
         return repository.findJobOpeningByFullReference(inputJobReference);
     }
 
     public JobOpening editDescription(JobOpening jobOpening, String newDescription) {
         jobOpening.setDescription(new Description(newDescription));
-         return repository.save(jobOpening);
+        return repository.save(jobOpening);
     }
 
     public JobOpening editAddress(JobOpening jobOpening, String s) {
@@ -130,11 +159,12 @@ public class JobOpeningService {
         return repository.save(jobOpening);
     }
 
-    public JobOpening editMode(JobOpening j, Mode m){
+    public JobOpening editMode(JobOpening j, Mode m) {
         j.setMode(m);
         return repository.save(j);
     }
-    public JobOpening editContractType(JobOpening j, ContractType c){
+
+    public JobOpening editContractType(JobOpening j, ContractType c) {
         j.setContractType(c);
         return repository.save(j);
     }

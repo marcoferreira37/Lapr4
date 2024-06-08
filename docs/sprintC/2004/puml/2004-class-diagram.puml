@@ -17,8 +17,7 @@ package ui {
         class UploadTextFileController {
             +allCandidates()
             +uploadFile()
-            +getApplicationsByCandidate()
-            +passGrammar()
+            +getAppByCandidate()
         }
     }
 
@@ -50,16 +49,23 @@ package ui {
 
         class Candidate {
         }
+
+        class JobOpeningApplicationService {
+            +passGrammar()
+            +getApplicationsByCandidate()
+        }
     }
 
 UploadTextFileUI--> UploadTextFileController
 UploadTextFileUI --> Candidate
 UploadTextFileController --> AuthorizationService
 UploadTextFileController --> CandidateManagementService
+UploadTextFileController --> JobOpeningApplicationService
 UploadTextFileController --> JobOpeningApplicationRepository
 UploadTextFileController --> JobOpeningApplication
 CandidateManagementService --> CandidateRepository
 CandidateRepository --> Candidate
 JobOpeningApplicationRepository --> JobOpeningApplication
+JobOpeningApplicationService--> JobOpeningApplicationRepository
 
 @enduml

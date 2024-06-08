@@ -1,12 +1,10 @@
 package eapli.base.domain.jobOpeningInterview;
 
+import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
-import eapli.framework.validations.Preconditions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +20,7 @@ class JobInterviewTest {
     void setUp() {
         Calendar interviewDate = Calendar.getInstance();
         interviewDate.set(2024, Calendar.JUNE, 1);
-
+        Candidate candidate = new Candidate();
         JobOpeningApplication jobApp = new JobOpeningApplication();
 
         interview = JobInterview.builder()
@@ -201,6 +199,31 @@ class JobInterviewTest {
     void testSameAsWithDifferentInterviewDate() {
         assertFalse(interview3.sameAs(interview2));
     }
+    @Test
+    void testToStringWithoutGrade() {
+
+        String expectedOutput = "----- JobInterview -----" +
+                "\nid= 1" +
+                "\njobOpeningApplication= app1" +
+                "\ninterviewTime= 10" +
+                "\ninterviewDate= " + interview.getInterviewDate();
+
+        assertEquals(expectedOutput, interview.toStringWithoutGrade());
+    }
+
+    @Test
+    void testToStringWithoutGradeWithDifferentValues() {
+
+
+        String expectedOutput = "----- JobInterview -----" +
+                "\nid= 2" +
+                "\njobOpeningApplication= app2" +
+                "\ninterviewTime= 11" +
+                "\ninterviewDate= " + interview.getInterviewDate();
+
+        assertEquals(expectedOutput, interview.toStringWithoutGrade());
+    }
 }
+
 
 
