@@ -1,0 +1,174 @@
+@startuml
+
+autonumber
+title Sequence Diagram (3001 - As Candidate, I want to be notified in my application when the state of one of my applications changes.)
+
+actor Candidate as Candidate
+participant BaseCandidateApp as ":BaseCandidateApp"
+participant V0Protocol as ":V0Protocol"
+participant Socket as ":Socket"
+participant ClientThread as ":ClientThread"
+participant AuthenticationService as ":AuthenticationService"
+participant NotificationAppService as ":NotificationAppService"
+participant ObjectOutputStream as ":ObjectOutputStream"
+participant ObjectInputStream as ":ObjectInputStream"
+participant NotificationsRepository as ":NotificationsRepository"
+participant Notifications as ":Notifications"
+participant UserSession as ":UserSession"
+
+activate Candidate
+Candidate -> BaseCandidateApp: Enters the candidate app
+activate BaseCandidateApp
+BaseCandidateApp-> Socket: Socket("127.0.0.1", 21782)
+activate Socket
+Socket --> BaseCandidateApp: socket
+deactivate Socket
+BaseCandidateApp->V0Protocol: V0Protocol(socket)
+activate V0Protocol
+V0Protocol->ObjectOutputStream: ObjectOutputStream(theSocket.getOutputStream())
+activate ObjectOutputStream
+ObjectOutputStream-->V0Protocol:output
+deactivate ObjectOutputStream
+V0Protocol->ObjectInputStream: ObjectInputStream(theSocket.getInputStream())
+activate ObjectInputStream
+ObjectInputStream-->V0Protocol:input
+deactivate ObjectInputStream
+V0Protocol--> BaseCandidateApp :protocol
+deactivate V0Protocol
+BaseCandidateApp-->Candidate: Request username
+deactivate BaseCandidateApp
+Candidate -> BaseCandidateApp: Enters the username
+activate BaseCandidateApp
+BaseCandidateApp--> Candidate: Requests password
+deactivate BaseCandidateApp
+Candidate->BaseCandidateApp: Enters the password
+activate BaseCandidateApp
+BaseCandidateApp->V0Protocol:send(ComCodes.AUTH.getValue(), new LoginDTO(userName, password, BaseRoles.CANDIDATE))
+activate V0Protocol
+V0Protocol->ObjectOutputStream:writeObject(new Packet(VERSION, code, object))
+activate ObjectOutputStream
+deactivate ObjectOutputStream
+V0Protocol->Packet: input.readObject()
+activate Packet
+Packet-->V0Protocol: ack
+deactivate Packet
+V0Protocol->Socket: ack
+deactivate V0Protocol
+activate Socket
+Socket->ClientThread: ack
+activate ClientThread
+ClientThread->AuthenticationService:authenticationService()
+activate AuthenticationService
+AuthenticationService-->ClientThread:authorizationService
+deactivate AuthenticationService
+ClientThread->NotificationAppService: NotificationAppService()
+activate NotificationAppService
+NotificationAppService-->ClientThread: notificationAppService
+deactivate NotificationAppService
+ClientThread->ObjectOutputStream: ObjectOutputStream(socket.getOutputStream())
+activate ObjectOutputStream
+ObjectOutputStream-->ClientThread: out
+deactivate ObjectOutputStream
+ClientThread->ObjectInputStream: ObjectInputStream(socket.getInputStream())
+activate ObjectInputStream
+ObjectInputStream-->ClientThread: in
+deactivate ObjectInputStream
+ClientThread->Packet: in.readObject()
+activate Packet
+Packet-->ClientThread: packet
+deactivate Packet
+ClientThread->Packet: obtainObject()
+activate Packet
+Packet-->ClientThread: loginDTO
+deactivate Packet
+ClientThread->AuthenticationService: authenticate(loginDTO.username, loginDTO.password, loginDTO.roles)
+activate AuthenticationService
+AuthenticationService-->ClientThread: session
+deactivate AuthenticationService
+ClientThread->ObjectOutputStream: new Packet(VERSION, ComCodes.ACK.getValue(),"Connecting...")
+activate ObjectOutputStream
+deactivate ObjectOutputStream
+ClientThread-->Socket: Packet
+deactivate ClientThread
+deactivate Socket
+BaseCandidateApp->V0Protocol:receive(ComCodes.ACK.getValue())
+activate V0Protocol
+V0Protocol->Packet: input.readObject()
+activate Packet
+Packet-->V0Protocol: packet
+deactivate Packet
+V0Protocol->ObjectOutputStream: writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), ""))
+activate ObjectOutputStream
+ObjectOutputStream-->V0Protocol: Packet
+deactivate ObjectOutputStream
+V0Protocol-->BaseCandidateApp: Packet
+deactivate V0Protocol
+BaseCandidateApp-->V0Protocol:send(ComCodes.NOTIF.getValue(), "")
+activate V0Protocol
+V0Protocol->ObjectOutputStream: writeObject(new Packet(VERSION, code, object))
+activate ObjectOutputStream
+deactivate ObjectOutputStream
+V0Protocol->Packet: input.readObject()
+activate Packet
+Packet-->V0Protocol:Packet ((ack))
+deactivate Packet
+V0Protocol->Socket: Packet ((ack))
+deactivate V0Protocol
+activate Socket
+Socket->ClientThread: Packet ((ack))
+activate ClientThread
+ClientThread->ObjectOutputStream: writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), "Connecting to server"))
+activate ObjectOutputStream
+deactivate ObjectOutputStream
+ClientThread-->Socket: Packet
+ClientThread->NotificationAppService: findBySend(false)
+activate NotificationAppService
+NotificationAppService-->NotificationsRepository:findBySend(b)
+activate NotificationsRepository
+NotificationsRepository-->NotificationAppService: notification
+deactivate NotificationsRepository
+NotificationAppService-->ClientThread: notification
+deactivate NotificationAppService
+loop for each notification
+ClientThread->Notifications:username()
+activate Notifications
+Notifications->UserSession: equals(session.get().authenticatedUser().username().toString()))
+activate UserSession
+UserSession-->Notifications: checks if the username is the same (candidate/customer)
+deactivate UserSession
+Notifications-->ClientThread: candidate
+deactivate Notifications
+ClientThread->NotificationAppService: setSendTrue(notification)
+activate NotificationAppService
+NotificationAppService-->Notifications:settingSend(true)
+activate Notifications
+Notifications-->NotificationAppService:send
+deactivate Notifications
+NotificationAppService->NotificationsRepository:save(notification)
+activate NotificationsRepository
+NotificationsRepository-->NotificationAppService: notification saved
+deactivate NotificationsRepository
+deactivate NotificationAppService
+ClientThread ->ObjectOutputStream: writeObject(new Packet(VERSION, ComCodes.NOTIF.getValue(), notf))
+activate ObjectOutputStream
+deactivate ObjectOutputStream
+end loop
+ClientThread-->Socket: Packet
+deactivate ClientThread
+Socket-->V0Protocol: Packet
+deactivate Socket
+BaseCandidateApp -> V0Protocol: receive(ComCodes.NOTIF.getValue())
+activate V0Protocol
+V0Protocol->Packet: input.readObject()
+activate Packet
+Packet --> V0Protocol: packet
+deactivate Packet
+V0Protocol-> ObjectOutputStream: writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), ""))
+activate ObjectOutputStream
+deactivate ObjectOutputStream
+V0Protocol-->BaseCandidateApp: Packet
+deactivate V0Protocol
+BaseCandidateApp --> Candidate: Retrieves the candidate's notification
+deactivate BaseCandidateApp
+
+@enduml
