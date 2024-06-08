@@ -60,6 +60,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerOperator("operator", TestDataConstants.PASSWORD1, "Francisco", "Monteiro", "franciscomonteiro@gmail.com");
 
         registerCustomerManager("customerManager", TestDataConstants.PASSWORD1, "Francisco", "Silveira", "franciscosilveira@gmail.com");
+        registerCustomerManager("c",TestDataConstants.PASSWORD1,"Gaijo","Bonito","1220913@isep.ipp.pt");
 
         Candidate candida = registerCandidate("candida", TestDataConstants.PASSWORD1, "Candida", "Candidata", EmailAddress.valueOf("1221331@isep.ipp.pt"));
         Candidate candida2 = registerCandidate("fatima", TestDataConstants.PASSWORD1, "Fatima", "Couves", EmailAddress.valueOf("fatimaBadGirl@hotmail.com"));
