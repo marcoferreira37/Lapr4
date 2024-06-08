@@ -29,7 +29,6 @@ public class FollowupServer {
             Server server = new Server(PORT);
             System.out.println("If you want to stop the server, press ENTER! Thank you!");
             init();
-            Thread.sleep(4 * 1000);
             Thread thread = new Thread(server);
             thread.setDaemon(true);
             thread.start();
