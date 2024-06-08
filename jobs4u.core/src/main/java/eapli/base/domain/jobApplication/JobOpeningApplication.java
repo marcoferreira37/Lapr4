@@ -6,6 +6,9 @@ import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 
 import java.util.Calendar;
@@ -14,6 +17,8 @@ import java.util.List;
 @Entity
 @Table(name = "JobOpeningApplication")
 @Transactional
+@Getter
+@Setter
 public class JobOpeningApplication implements AggregateRoot<Long> {
 
     @Id
@@ -57,6 +62,7 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
     public JobOpeningApplication() {
         // Construtor vazio necessário para JPA
     }
+
 
     public JobOpeningApplication(JobOpening j, Candidate c) {
         this.jobOpening = j;
