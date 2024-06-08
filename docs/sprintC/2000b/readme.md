@@ -25,7 +25,7 @@ This task involves enabling the Operator to enable/disable a candidate in the sy
 - 
 - ...
 
-![Use-Case Diagram](docs/sprintC/2000b/svg/2000b-UCD.svg)
+![Use-Case Diagram](svg/2000b-UCD.svg)
 
 ### Client Clarifications
 
@@ -109,7 +109,7 @@ The domain model is composed of the following entities:
 - **Candidate**: Represents a candidate that will be disabled or enabled.
 - **SystemUser**: Represents a system user, that in this case will be a candidate.
 
-![Domain Model](docs/sprintC/2000b/puml/2000b-domain-model.puml)
+![Domain Model](svg/2000b-domain-model.svg)
 
 
 ## 4. Design
@@ -120,15 +120,15 @@ A functionality is implemented within the system to allow Operators to enable/di
 
 ## 4.2 Class Diagram
 
-![Class Diagram - Enable](docs/sprintC/2000b/puml/SD1_EnableCandidate/2000b-class-diagram.puml)
-![Class Diagram - Disable](docs/sprintC/2000b/puml/SD2_DisableCandidate/2000b-class-diagram.puml)
+![Class Diagram - Enable](svg/2000b-EnableCandidate-class-diagram.svg)
+![Class Diagram - Disable](svg/2000b-DisableCandidate-class-diagram.svg)
 The class diagram shows the key classes involved in the enabling or disabling a candidate.
 This includes the Candidate and the SystemUser.
 
 ## 4.3 Sequence Diagram
 
-![Sequence Diagram - Enable](docs/sprintC/2000b/puml/SD2_DisableCandidate/2000b-class-diagram.puml)
-![Sequence Diagram - Disable](docs/sprintC/2000b/puml/SD2_DisableCandidate/2000b-sequence-diagram.puml)
+![Sequence Diagram - Enable](svg/2000b-EnableCandidate-sequence-diagram.svg)
+![Sequence Diagram - Disable](svg/2000b-DisableCandidate-sequence-diagram.svg)
 
 The sequence diagram shows the interactions between the Operator and the system to disable/enable a candidate.
 This includes actions like viewing the list of candidates enabled/disabled, choose one of them, and enable/disable him.
