@@ -7,6 +7,8 @@ import eapli.base.protocol.ComCodes;
 import eapli.base.protocol.Notifications;
 import eapli.base.protocol.Packet;
 import eapli.base.protocol.dto.LoginDTO;
+import eapli.base.repositories.ListApplicationsController;
+import eapli.base.usermanagement.application.controllers.ListAllApplicationsForJobOpeningController;
 import eapli.base.usermanagement.application.services.NotificationAppService;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -31,6 +33,7 @@ public class ClientThread extends Thread {
     private final NotificationAppService notificationAppService = new NotificationAppService();
     private final AuthenticationService authorizationService = AuthzRegistry.authenticationService();
 
+    private final ListApplicationsController applicationsController = new ListApplicationsController();
 
     public ClientThread(Socket socket) throws IOException {
         this.socket = socket;
@@ -45,7 +48,6 @@ public class ClientThread extends Thread {
     @Override
     public void run() {
         Iterable<Notifications> notifications;
-        Candidate candidate;
         Optional<UserSession> session;
         boolean comms;
         try {
@@ -91,8 +93,8 @@ public class ClientThread extends Thread {
                         }
                         break;
                     case 2:
-                        //COMMUNICATION TEST
-                        System.out.println("Random code received");
+                        //ACK
+                        System.out.println("Random ACK received");
                         break;
                     case 3:
                         //ERROR
@@ -106,7 +108,7 @@ public class ClientThread extends Thread {
                         e.printStackTrace();
                         break;
                     case 4:
-                        //AUTHENTICATION
+                        //AUTH
                         System.out.println("Another auth attempt detected. Disconnecting...");
                         try {
                             out.writeObject(new Packet(VERSION, ComCodes.DISCON.getValue(), ""));

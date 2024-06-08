@@ -25,8 +25,6 @@ import eapli.base.domain.company.Company;
 import eapli.base.domain.company.CompanyName;
 import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
-import eapli.base.domain.jobOpeningProcess.PhaseType;
-import eapli.base.domain.jobOpeningProcess.Status;
 import eapli.base.protocol.Notifications;
 import eapli.base.repositories.*;
 import eapli.base.usermanagement.application.controllers.AddJobOpeningController;
@@ -47,6 +45,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Action {
