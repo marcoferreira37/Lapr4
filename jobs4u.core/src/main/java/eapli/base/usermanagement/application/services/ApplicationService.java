@@ -1,6 +1,7 @@
 package eapli.base.usermanagement.application.services;
 
 import eapli.base.domain.PlugIn.JobRequirements.RequirementsValidator;
+import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobApplication.Status;
 import eapli.base.domain.jobOpening.JobOpening;
@@ -9,6 +10,7 @@ import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobInterviewRepository;
 import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.base.repositories.JobOpeningProcessRepository;
+import eapli.base.usermanagement.domain.BaseRoles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,5 +86,33 @@ public class ApplicationService {
         return result;
     }
 
+    public List<JobOpeningApplication> sortApplicationsByInterviewPoints(List<JobOpeningApplication> applications) {
+
+        applications.sort((a1, a2) -> {
+            if (a1.showRanking() < a2.showRanking()) {
+                return 1;
+            } else if (a1.showRanking() > a2.showRanking()) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+        return applications;
+    }
+
+    public List<Candidate> getRankedApplications(JobOpening selectedJobOpening) {
+        List<JobOpeningApplication> applications = getApplicationsByJobOpening(selectedJobOpening);
+        List<JobOpeningApplication> sortedApplications = sortApplicationsByInterviewPoints(applications);
+        List<Candidate> candidates = new ArrayList<>();
+        for (int i = 0; i < selectedJobOpening.getVacanciesNumber().getNumber() && i<sortedApplications.size(); i++) {
+            candidates.add(sortedApplications.get(i).candidate());
+        }
+        return candidates;
+    }
+
+    public Candidate getCandidateOfJobOpening(JobOpening jobOpening) {
+        List<JobOpeningApplication> applications = getApplicationsByJobOpening(jobOpening);
+        return applications.get(0).candidate();
+    }
 }
 
