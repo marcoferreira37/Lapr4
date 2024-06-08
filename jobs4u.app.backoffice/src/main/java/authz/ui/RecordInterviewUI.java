@@ -8,6 +8,8 @@ import eapli.framework.io.util.Console;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RecordInterviewUI extends AbstractUI {
 
@@ -39,16 +41,19 @@ public class RecordInterviewUI extends AbstractUI {
 
         while (!validInput) {
             try {
-                System.out.println("Não é páscoa mas isto é um easter egg");
                 Calendar interviewDate = Console.readCalendar("Interview Date (dd-MM-yyyy): ");
                 interviewDate.add(Calendar.DAY_OF_MONTH, 1); // Definindo a data para amanhã
 
-                String interviewTime = Console.readLine("Interview Time (HH:mm): ");
+                String time = Console.readLine("Interview Time (HH:mm): ");
+                String[] parts = time.split(":");
+                String hours = parts[0];
+                String minutes = parts[1];
+                String interviewTime = String.format("%02d:%02d", Integer.parseInt(hours), Integer.parseInt(minutes));
 
 
                 System.out.println(recordController.recordInterview(interviewDate, interviewTime, selectedApplication).toStringWithoutGrade());
                 validInput = true;
-            }catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println("Invalid input. Please try again.");
             }
         }
