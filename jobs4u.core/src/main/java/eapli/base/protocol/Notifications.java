@@ -69,6 +69,10 @@ public class Notifications implements AggregateRoot<Long> {
         return Objects.equals(idNotification, that.idNotification);
     }
 
+    public String content() {
+        return content;
+    }
+
     @Override
     public Long identity() {
         return idNotification;

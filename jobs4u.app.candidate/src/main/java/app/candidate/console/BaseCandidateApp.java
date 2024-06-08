@@ -88,7 +88,7 @@ static V0Protocol protocol;
                 notificationsList = protocol.receive(ComCodes.NOTIF.getValue());
                 if(!notificationsList.isEmpty()){
                     for(Notifications notification: notificationsList){
-                        System.out.println(notification.toString());
+                        System.out.println(notification.content());
                     }
                 }
                 do{
