@@ -2,6 +2,7 @@ package eapli.base.usermanagement.application.services;
 
 
 import eapli.base.customer.Criteria;
+import eapli.base.customer.Customer;
 import eapli.base.domain.EmailService.EmailService;
 import eapli.base.domain.EmailService.NotifyCandidatesService;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
@@ -12,10 +13,8 @@ import eapli.base.filter.jobOpening.JobOpeningFilteringStrategy;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.jobOpening.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.repositories.JobOpeningApplicationRepository;
-import eapli.base.repositories.JobOpeningProcessRepository;
-import eapli.base.repositories.JobOpeningRepository;
-import eapli.base.repositories.CompanyRepository;
+import eapli.base.repositories.*;
+import eapli.framework.infrastructure.pubsub.impl.simplepersistent.repositories.jpa.JpaAutoTxEventRecordRepository;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -26,6 +25,8 @@ public class JobOpeningService {
     private final JobOpeningRepository repository = PersistenceContext.repositories().jobOpeningRepository();
     private final JobOpeningProcessRepository processRepository = PersistenceContext.repositories().jobProcess();
     private final CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
+
+    private final CustomerRepository customerRepository = PersistenceContext.repositories().customer();
 
     private final JobOpeningApplicationRepository jobOpeningApplicationRepository = PersistenceContext.repositories().jobApplications();
 
@@ -41,6 +42,9 @@ public class JobOpeningService {
 
         Long lastJR = repository.getLastIdFromCompany(companyId);
         Company c = company.get();
+        Iterable<Customer> cuss = customerRepository.findAll();
+        Iterator<Customer> cusstom = cuss.iterator();
+        c.modCustomer(cusstom.next());
         String cIndex = c.getCompanyName().companyName().substring(0, 3).toUpperCase();
 
         JobOpening jo = builder
@@ -51,11 +55,10 @@ public class JobOpeningService {
                 .mode(mode)
                 .address(new Address(address))
                 .vacanciesNumber(new VacanciesNumber(vacanciesNumber))
-                .company(company.get())
+                .company(c)
                 .build();
 
-
-        JobOpeningProcess jobProcess = new JobOpeningProcess(jo, new Phase(new Date(), new Date(), new Date(), new Date(), new Date()));
+        JobOpeningProcess jobProcess = new JobOpeningProcess(jo, new Phase(new Date(), new Date() , new Date(), new Date(), new Date()));
         processRepository.save(jobProcess);
         jo = repository.save(jo);
         return jo;

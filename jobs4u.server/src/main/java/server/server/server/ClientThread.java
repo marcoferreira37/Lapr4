@@ -7,6 +7,8 @@ import eapli.base.protocol.ComCodes;
 import eapli.base.protocol.Notifications;
 import eapli.base.protocol.Packet;
 import eapli.base.protocol.dto.LoginDTO;
+import eapli.base.repositories.ListApplicationsController;
+import eapli.base.usermanagement.application.controllers.ListAllApplicationsForJobOpeningController;
 import eapli.base.usermanagement.application.services.NotificationAppService;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -22,22 +24,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ClientThread extends Thread{
-    private static final Byte VERSION =0;
+public class ClientThread extends Thread {
+    private static final Byte VERSION = 0;
 
-    private Socket socket ;
+    private Socket socket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    private NotificationAppService notificationAppService = new NotificationAppService();
-    private AuthenticationService authorizationService= AuthzRegistry.authenticationService();
+    private final NotificationAppService notificationAppService = new NotificationAppService();
+    private final AuthenticationService authorizationService = AuthzRegistry.authenticationService();
 
+    private final ListApplicationsController applicationsController = new ListApplicationsController();
 
-    public ClientThread(Socket socket) throws IOException{
+    public ClientThread(Socket socket) throws IOException {
         this.socket = socket;
-        try{
+        try {
             this.in = new ObjectInputStream(socket.getInputStream());
-            this.out= new ObjectOutputStream(socket.getOutputStream());
-        }catch(IOException e){
+            this.out = new ObjectOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
             throw new RuntimeException();
         }
     }
@@ -45,19 +48,18 @@ public class ClientThread extends Thread{
     @Override
     public void run() {
         Iterable<Notifications> notifications;
-        Candidate candidate;
         Optional<UserSession> session;
         boolean comms;
         try {
             Packet packet = (Packet) in.readObject();
             LoginDTO loginDTO = packet.obtainObject();
             session = authorizationService.authenticate(loginDTO.username, loginDTO.password, loginDTO.roles);
-            out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(),"" ));
-            if (session.isEmpty()){
-                out.writeObject(new Packet(VERSION, ComCodes.DISCON.getValue(),"" ));
+            out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), ""));
+            if (session.isEmpty()) {
+                out.writeObject(new Packet(VERSION, ComCodes.DISCON.getValue(), ""));
                 return;
             }
-            out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(),"" ));
+            out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), ""));
             comms = true;
 
         } catch (IOException e) {
@@ -65,7 +67,7 @@ public class ClientThread extends Thread{
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        while(comms){
+        while (comms) {
             Packet p = null;
             try {
                 p = (Packet) in.readObject();
@@ -82,7 +84,7 @@ public class ClientThread extends Thread{
                         break;
                     case 1:
                         //DISCONNECTION
-                        comms= false;
+                        comms = false;
                         out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), "Connecting to server"));
                         try {
                             socket.close();
@@ -91,8 +93,8 @@ public class ClientThread extends Thread{
                         }
                         break;
                     case 2:
-                        //COMMUNICATION TEST
-                        System.out.println("Random code received");
+                        //ACK
+                        System.out.println("Random ACK received");
                         break;
                     case 3:
                         //ERROR
@@ -106,11 +108,11 @@ public class ClientThread extends Thread{
                         e.printStackTrace();
                         break;
                     case 4:
-                        //AUTHENTICATION
+                        //AUTH
                         System.out.println("Another auth attempt detected. Disconnecting...");
                         try {
                             out.writeObject(new Packet(VERSION, ComCodes.DISCON.getValue(), ""));
-                             comms = false;
+                            comms = false;
                             socket.close();
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
@@ -122,17 +124,23 @@ public class ClientThread extends Thread{
                         //out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), "Connecting to server"));
                         //out.writeObject(new Packet(VERSION, ComCodes.LSTOPNS.getValue(), openings));
 
+
                         break;
                     case 6:
                         //List Applications
-                       // out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), "Connecting to server"));
-                       // try {
-                            //Map<JobOpeningApplication, Integer> map = applicationsController.returnMap(apps);
-                         //   out.writeObject(new Packet(VERSION, ComCodes.LSTAPPS.getValue(), map));
-                       // } catch (IOException ex) {
-                       //     throw new RuntimeException(ex);
-                      //  }
-                       break;
+                        out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), "Connecting to server"));
+
+                        try {
+                            Candidate c = applicationsController.getCandidateBySession(session.get().authenticatedUser());
+                            List<JobOpeningApplication> listApps = applicationsController.allApplicationBySystemUser(c);
+                            Map<JobOpeningApplication, Integer> map = applicationsController.returnMap(listApps);
+                            out.writeObject(new Packet(VERSION, ComCodes.LSTAPPS.getValue(), map));
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+
+
+                        break;
                     case 7:
                         //Notifications
                         out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), "Connecting to server"));

@@ -149,7 +149,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JobOpeningApplicationRepository jobApplicationsRepository() {
-        return null;
+        return new InMemoryJobApplicationRepository();
     }
 
     @Override

@@ -64,6 +64,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     String requirements;
 
 
+
     public JobOpening() {
 
     }
@@ -75,6 +76,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Override
     public boolean sameAs(Object other) {
         return other instanceof JobOpening && ((JobOpening) other).identity().equals(identity());
+    }
+
+    public void modCompany(Company company) {
+        this.company = company;
     }
 
     @Override
@@ -134,5 +139,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
         return result;
     }
+
+
 }
 

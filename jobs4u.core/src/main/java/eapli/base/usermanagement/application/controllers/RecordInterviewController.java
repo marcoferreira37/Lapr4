@@ -19,7 +19,7 @@ public class RecordInterviewController  {
     private final JobOpeningApplicationRepository repo = PersistenceContext.repositories().jobApplications();
     private final JobInterviewRepository jobInterviewRepository = PersistenceContext.repositories().jobInterviews();
 
-    private final JobOpeningApplicationService service = new JobOpeningApplicationService(repo);
+    private final JobOpeningApplicationService service = new JobOpeningApplicationService();
 
     private final CandidateManagementService candidateManagementService = new CandidateManagementService();
 

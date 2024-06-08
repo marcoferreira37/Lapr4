@@ -27,9 +27,9 @@ public class UploadTextFileController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final CandidateManagementService candidateSvc = new CandidateManagementService();
 
-    private final JobOpeningApplicationService jobOpeningApplicationService = new JobOpeningApplicationService(PersistenceContext.repositories().jobApplications());
+    private final JobOpeningApplicationService jobOpeningApplicationService = new JobOpeningApplicationService();
 
-    private final JobOpeningApplicationRepository applicationRepo = PersistenceContext.repositories().jobApplications();
+    private final JobOpeningApplicationRepository applicationRepo = PersistenceContext.repositories().jobApplicationsRepository();
 
 
     public Iterable<Candidate> allCandidates() {
@@ -38,7 +38,7 @@ public class UploadTextFileController {
         return candidateSvc.allCandidate();
     }
 
-    public List<JobOpeningApplication> getAppByCandidate(Candidate c){
+    public List<JobOpeningApplication> getAppByCandidate(Candidate c) {
         return jobOpeningApplicationService.getApplicationsByCandidate(c);
     }
 

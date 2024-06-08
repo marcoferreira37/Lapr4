@@ -21,71 +21,6 @@ rectangle "PlugIn" #bababa {
     class Requirement<<Resource>>{}
     class InterviewModel<<Resource>>{}
 }
-rectangle "Job Opening" #bbccaa {
-
-    class JobOpening<<Aggregate Root>><<Entity>>{}
-
-    class JobReference<<Identity>><<Value Object>>{}
-
-    class TitleOrFunction<<Value Object>>{}
-
-    enum ContractType<<Enumerated>><<Value Object>>{
-        FULL_TIME
-        PART_TIME
-    }
-
-    enum Mode<<Enumerated>><<Value Object>>{
-        REMOTE
-        ON-SITE
-        HYBRID
-        }
-
-
-    class VacanciesNumber<<Value Object>>{}
-
-    class Description<<Value Object>>{}
-}
-
- rectangle "Job Opening Application" #aaccbb {
-
-    class Application<<Aggregate Root>><<Entity>>{}
-
-    class ApplicationId<<Identity>><<Value Object>>{}
-
-    class AttachedEmail<<Value Object>>{}
-
-    class AttachedFile<<Value Object>>{}
-
-    class ApplicatorData<<Value Object>>{}
-
-    class ApplicationStatus<<Value Object>>{}
-
-    class ApplicationRank<<Value Object>>{}
-
-'    Deviamos retirar o rank deste agregrado
-
-}
-
-
-JobReference "1" <-up- "1" JobOpening
-TitleOrFunction "1" <-up- "1" JobOpening
-ContractType "1" <-- "1" JobOpening
-Mode "1" <-- "1" JobOpening
-Description "1" <-up- "1" JobOpening
-VacanciesNumber "1" <-up- "1" JobOpening
-
-
-Application "1" --> "1" ApplicationId
-Application "1" --> "1" AttachedEmail
-Application "1" --> "1" AttachedFile
-Application "1" --> "1" ApplicatorData
-Application "*" ---> "1" JobOpening : submitted for
-Application "1" --> "1" ApplicationStatus
-
-Application "1" -up-> "1" JobInterview
-Application "1" -up-> "0..1" ApplicationRank
-
-
 
 JobInterview "1" -up-> "1" JobInterviewId
 JobInterview "1" -up-> "1" InterviewDate
@@ -93,7 +28,7 @@ JobInterview "1" --> "1" InterviewTime
 JobInterview "1" --> "0..1" Score
 JobInterview "1" --> "1" InterviewResult
 
-JobOpening "1" --> "1..*" "Plugin"
+JobInterview "1" --> "1..*" "Plugin"
 
 Plugin "1" --> "1" PluginType
 Plugin "1" -right-> "1" PluginId

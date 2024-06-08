@@ -1,5 +1,6 @@
 package eapli.base.domain.company;
 
+import eapli.base.customer.Customer;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,15 +14,30 @@ public class Company implements AggregateRoot<Long> {
     @Column
     private CompanyName companyName;
 
-    public Company(CompanyName companyName) {
+    @JoinColumn
+    @OneToOne
+    private Customer customer;
+
+    public Company(CompanyName companyName, Customer customer) {
         this.companyName = companyName;
+        this.customer = customer;
+    }
+
+    public Company(Customer costumer) {
+        this.customer = costumer;
     }
 
     public Company() {
+
     }
 
-    public String companyIndex(){
-        return companyName.companyName().substring(0,3).toUpperCase();
+    public Customer findCustomer() {
+        return customer;
+
+    }
+
+    public String companyIndex() {
+        return companyName.companyName().substring(0, 3).toUpperCase();
     }
 
     @Override
@@ -35,10 +51,14 @@ public class Company implements AggregateRoot<Long> {
     }
 
     public String toString() {
-        return    "================= Company =================" +
-                "\nCompany Id: " + id +
-                "\nCompany Name:" + companyName.companyName() +
-                "\n============================================";
+        return "================= Company =================" +
+               "\nCompany Id: " + id +
+               "\nCompany Name:" + companyName.companyName() +
+               "\n============================================";
     }
 
+    public void modCustomer(Customer customer) {
+        this.customer = customer;
+
+    }
 }
