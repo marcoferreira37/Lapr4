@@ -125,7 +125,7 @@ Notification "1" --> "1" userName
 Notification "1" --> "1" content
 Notification "1" --> "1" isSend
 
-JobOpening "1" -----> "*" Notification : has
+JobOpening "1" -----> "0..*" Notification : has
 
 
 @enduml
