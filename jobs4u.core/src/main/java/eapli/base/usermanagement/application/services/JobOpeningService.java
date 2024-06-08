@@ -87,17 +87,17 @@ public class JobOpeningService {
     public JobOpeningProcess advanceToNextPhase(JobOpeningProcess jobOpening, boolean interviewPhase) {
         jobOpening.advanceToNextPhase(interviewPhase);
         jobOpening = processRepository.save(jobOpening);
-        if (jobOpening != null) {
-            JobOpening jo = jobOpening.obtainAssociatedJobOpening();
-            for (JobOpeningApplication application : this.jobOpeningApplicationRepository.findAllApplicationsForJobOpening(jo)) {
-                EmailService.sendEmail(application.candidate().emailAddress().toString(),
-                        "Job Opening Status Update",
-                        "The job opening " + jo.getJobReference().toString() + " - "
-                        + jo.getTitleOrFunction() + " has advanced to the next phase.\n\n" +
-                        "Now, the job opening in question is on " + jobOpening.currentPhase().name() +
-                        " phase.\n\nBest Regards;\nJobs4u inc.\n\nPlease do not reply to this email.");
-            }
-        }
+//        if (jobOpening != null) {
+//            JobOpening jo = jobOpening.obtainAssociatedJobOpening();
+//            for (JobOpeningApplication application : this.jobOpeningApplicationRepository.findAllApplicationsForJobOpening(jo)) {
+//                EmailService.sendEmail(application.candidate().emailAddress().toString(),
+//                        "Job Opening Status Update",
+//                        "The job opening " + jo.getJobReference().toString() + " - "
+//                        + jo.getTitleOrFunction() + " has advanced to the next phase.\n\n" +
+//                        "Now, the job opening in question is on " + jobOpening.currentPhase().name() +
+//                        " phase.\n\nBest Regards;\nJobs4u inc.\n\nPlease do not reply to this email.");
+//            }
+//        }
         return jobOpening;
     }
 
@@ -110,17 +110,17 @@ public class JobOpeningService {
             return null;
         }
         jobOpening = processRepository.save(jobOpening);
-        if (jobOpening != null) {
-            JobOpening jo = jobOpening.obtainAssociatedJobOpening();
-            for (JobOpeningApplication application : this.jobOpeningApplicationRepository.findAllApplicationsForJobOpening(jo)) {
-                EmailService.sendEmail(application.candidate().emailAddress().toString(),
-                        "Job Opening Status Update",
-                        "The job opening " + jo.getJobReference().toString() + " - "
-                        + jo.getTitleOrFunction() + " has retracted to the previous phase.\n\n" +
-                        "Now, the job opening in question is on " + jobOpening.currentPhase().name() +
-                        " phase.\n\nBest Regards;\nJobs4u inc.\n\nPlease do not reply to this email.");
-            }
-        }
+//        if (jobOpening != null) {
+//            JobOpening jo = jobOpening.obtainAssociatedJobOpening();
+//            for (JobOpeningApplication application : this.jobOpeningApplicationRepository.findAllApplicationsForJobOpening(jo)) {
+//                EmailService.sendEmail(application.candidate().emailAddress().toString(),
+//                        "Job Opening Status Update",
+//                        "The job opening " + jo.getJobReference().toString() + " - "
+//                        + jo.getTitleOrFunction() + " has retracted to the previous phase.\n\n" +
+//                        "Now, the job opening in question is on " + jobOpening.currentPhase().name() +
+//                        " phase.\n\nBest Regards;\nJobs4u inc.\n\nPlease do not reply to this email.");
+//            }
+//        }
         return jobOpening;
     }
 
@@ -129,6 +129,12 @@ public class JobOpeningService {
         return (List<Company>) companyRepository.findAll();
     }
 
+    /**
+     * Checks if the Jor Reference exists
+     *
+     * @param jr String
+     * @return boolean
+     */
     public boolean existsJobReference(String jr) {
         JobOpening job = repository.findJobOpeningByFullReference(jr);
         JobOpeningProcess jobProcess = processRepository.findJobProcessByJobOpening(job);
@@ -145,6 +151,7 @@ public class JobOpeningService {
         }
     }
 
+
     public JobOpening jobReferenceToJobOpening(String inputJobReference) {
         return repository.findJobOpeningByFullReference(inputJobReference);
     }
@@ -159,10 +166,12 @@ public class JobOpeningService {
         return repository.save(jobOpening);
     }
 
+
     public JobOpening editMode(JobOpening j, Mode m) {
         j.setMode(m);
         return repository.save(j);
     }
+
 
     public JobOpening editContractType(JobOpening j, ContractType c) {
         j.setContractType(c);
