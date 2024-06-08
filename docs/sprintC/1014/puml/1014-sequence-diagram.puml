@@ -49,7 +49,7 @@ deactivate ui
 
 
 
-Agent -> ui: Record the time and date for an interview with the candidate
+Agent -> ui: Select the Job opening Application and record the time and date for an interview
 activate ui
 
 ui -> ctrl: recordInterview(jobOpeningApplication, interviewTime, interviewDate)

@@ -46,7 +46,7 @@ Application "1" --> "1" ApplicationGrade
 JobInterview "1" -up-> "1" JobInterviewId
 JobInterview "1" -up-> "1" InterviewDate
 JobInterview "1" --> "1" InterviewTime
-JobInterview "1" -> "1" Score
+JobInterview "1" --> "0..1" Score
 JobInterview "1" --> "1" InterviewResult
 
 Application "1" --> "1" JobInterview
