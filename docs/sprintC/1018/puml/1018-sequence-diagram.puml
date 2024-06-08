@@ -1,7 +1,7 @@
 @startuml
 
 actor "Customer Manager" as Agent
-participant "EvaluateInterviewUI" as ui <<UI>>
+participant ":EvaluateInterviewUI" as ui <<UI>>
 participant ":EvaluateInterviewController" as ctrl <<Application>>
 participant ":EvaluateInterviewService" as jobServ <<Service>>
 participant ":JobInterviewRepository" as jobInterRepo <<Persistence>>
@@ -99,7 +99,7 @@ deactivate ctrl
 activate jobServ
 
 
-jobServ -> interview: enterStart()
+jobServ -> interview: evaluateInterview()
 deactivate jobServ
 
 activate interview
