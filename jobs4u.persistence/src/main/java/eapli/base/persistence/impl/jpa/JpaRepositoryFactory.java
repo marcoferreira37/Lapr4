@@ -135,12 +135,12 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JobInterviewRepository jobInterviewRepository(TransactionalContext autoTx) {
-        return null;
+        return new JpaJobInterviewRepository(autoTx);
     }
 
     @Override
     public JobInterviewRepository jobInterviewRepository() {
-        return null;
+        return new JpaJobInterviewRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override
