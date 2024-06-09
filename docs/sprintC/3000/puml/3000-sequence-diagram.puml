@@ -1,0 +1,182 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+autonumber
+
+actor "Candidate" as Can
+participant ":CandidateApp" as CA
+participant ":Protocol" as Pro
+participant ":ClientThread" as CT
+participant ":Packet" as Pkt
+participant ":ObjectInputStream" as OIS
+participant ":ObjectOutputStream" as OOS
+participant ":NotificationService" as nSvc <<Service>>
+participant ":AuthorizationService" as Auth <<Service>>
+participant ":LoginDTO" as LDTO
+participant ":ListApplicationsController" as LAC <<Application>>
+participant ":Socket" as Sock
+
+activate Can
+Can -> CA: opens the Candidate App
+activate CA
+CA -> Sock: Socket("127.0.0.1", 21782)
+activate Sock
+Sock --> CA: Sock
+deactivate Sock
+CA -> Pro: Protocol(Socket)
+activate Pro
+Pro -> OOS: ObjectOutputStream(socket.getOutputStream())
+activate OOS
+OOS --> Pro: ObjectOutputStream
+deactivate OOS
+Pro -> OIS: ObjectInputStream(socket.getInputStream())
+activate OIS
+OIS --> Pro: ObjectInputStream
+deactivate OIS
+Pro --> CA: Protocol
+deactivate Pro
+CA --> Can: requests username
+deactivate CA
+Can -> CA: types username
+activate CA
+CA --> Can: requests password
+deactivate CA
+Can -> CA: types password
+
+activate CA
+
+
+CA --> Can: displays option to view the listed applications
+
+Can -> CA: selects the option to view the listed applications
+
+
+
+CA -> Pro:send(ComCodes.AUTH.getValue(), new LoginDTO(username, password, Roles.CANDIDATE))
+activate Pro
+Pro -> OOS: writeObject(new Packet(VERSION, code, object))
+activate OOS
+deactivate OOS
+Pro -> Pkt: in.readObject()
+activate Pkt
+Pkt --> Pro: Packet
+deactivate Pkt
+Pro -> Sock: Packet
+deactivate Pro
+activate Sock
+Sock --> CT: Packet
+activate CT
+CT -> Auth: AuthorizationService()
+activate Auth
+Auth --> CT: AuthorizationService
+deactivate Auth
+CT -> nSvc: NotificationService()
+activate nSvc
+nSvc --> CT: NotificationService
+deactivate nSvc
+CT -> OOS: ObjectOutputStream(socket.getOutputStream())
+activate OOS
+OOS --> CT: ObjectOutputStream
+deactivate OOS
+CT -> OIS: ObjectInputStream(socket.getInputStream())
+activate OIS
+OIS --> CT: ObjectInputStream
+deactivate OIS
+CT -> OIS: in.readObject()
+activate OIS
+OIS --> CT: Object
+deactivate OIS
+CT -> Pkt: obtainObject()
+activate Pkt
+Pkt --> CT: Object
+deactivate Pkt
+CT -> Auth: authenticate(credentials.username, credentials.password, credentials.roles)
+activate Auth
+Auth --> CT: session
+deactivate Auth
+CT -> OOS: writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), "Connecting to server"))
+activate OOS
+deactivate OOS
+CT -> Sock: Packet
+deactivate CT
+deactivate Sock
+CA -> Pro: receive(ComCodes.ACK.getValue())
+activate Pro
+Pro -> OOS: writeObject(new Packet(VERSION, code, object))
+activate OOS
+deactivate OOS
+Pro -> Pkt: in.readObject()
+activate Pkt
+Pkt --> Pro: Packet
+deactivate Pkt
+Pro -> CA: Packet
+deactivate Pro
+CA -> Pro: send(ComCodes.LSTAPPOPNS.getValue(), "")
+activate Pro
+Pro -> OOS: writeObject(new Packet(VERSION, code, object))
+activate OOS
+deactivate OOS
+Pro -> Pkt: in.readObject()
+activate Pkt
+Pkt --> Pro: Packet
+deactivate Pkt
+
+Pro -> Sock: Packet
+deactivate Pro
+
+activate Sock
+deactivate Pro
+Sock --> CT: Packet
+activate CT
+
+CT -> OOS: writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), "Connecting to server"))
+activate OOS
+deactivate OOS
+CT -> Sock: Packet
+CT -> nSvc: getCandidateBySession(session.get().authenticatedUser().username())
+activate nSvc
+nSvc --> CT: candidate
+deactivate nSvc
+CT -> LAC: allApplicationBySystemUser(candidate)
+activate LAC
+LAC --> CT: List<JobOpeningApplication>
+deactivate LAC
+CT -> LAC: returnMap(apps)
+activate LAC
+LAC --> CT: Map<JobOpeningApplication, Integer>
+deactivate LAC
+CT -> OOS: writeObject(new Packet(VERSION, ComCodes.LSTAPPOPNS.getValue(), map))
+activate OOS
+deactivate OOS
+CT -> Sock: Packet
+deactivate CT
+Sock --> Pro: Packet
+deactivate Sock
+activate Pro
+
+CA -> Pro: receive(ComCodes.LSTAPPOPNS.getValue())
+Pro -> OOS: writeObject(new Packet(VERSION, code, object))
+activate OOS
+deactivate OOS
+Pro -> Pkt: in.readObject()
+activate Pkt
+Pkt --> Pro: Packet
+deactivate Pkt
+Pro -> CA: Packet
+deactivate Pro
+loop for each application
+CA --> Can: Application
+end
+deactivate CA
+deactivate Sock
+deactivate Can
+
+note right of Can
+disconnection commands occult to simplify the diagram
+the base to execute them is the same as seen with the other commands
+end note
+
+
+@enduml

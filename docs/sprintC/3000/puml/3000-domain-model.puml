@@ -83,6 +83,34 @@ rectangle "Job Opening Interview" #ccbbaa {
 }
 
 
+
+rectangle "Shared Objects" {
+
+    class Email <<Value Object>>
+    class Username <<Value Object>>
+    class Address <<Value Object>>
+    class Name<<Value Object>>{}
+
+}
+
+
+
+rectangle "User" #ccbbcc {
+    class SystemUser <<Aggregate Root>><<Entity>>{}
+    class Password<<Value Object>>{}
+    class BaseRole<<Value Object>>{}
+
+    SystemUser "1" --> "1" Email: has
+    SystemUser "1" --> "1" Username: has
+    SystemUser "1" -up> "1" Password
+    SystemUser "1" --> "1" Name
+    SystemUser "1" -> "1" BaseRole
+    Candidate "1" --|> "1" SystemUser
+    JobOpening "1" --> "1" Address
+
+}
+
+
 JobInterview "1" -up-> "1" JobInterviewId
 JobInterview "1" -up-> "1" InterviewDate
 JobInterview "1" --> "1" InterviewTime
