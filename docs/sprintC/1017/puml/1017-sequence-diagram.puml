@@ -2,8 +2,8 @@
 
 actor CustomerManager as CM
 participant CandidateManagementService as UI <<UI>>
-participant ListAllDataOfCandidateController as S <<Service>>
-participant UpdateInterviewAnswerController as CTRL <<Controller>>
+participant UpdateInterviewAnswerController as CTRL <<Application>>
+participant CandidateManagementService as S <<Service>>
 participant "PersistenceContext" as P <<Service>>
 
 participant "RepositoryFactory" as RF <<Persistence>>
@@ -19,7 +19,9 @@ participant Applications as Aps <<Domain>>
 activate CM
 CM -> UI: Requests to Upload Interview Answers File
 activate UI
-UI -> S : allCandidates()
+UI->CTRL:allCandidate
+activate CTRL
+CTRL -> S : allCandidate()
 activate S
 S -> P: repositories()
 activate P
@@ -32,28 +34,29 @@ deactivate RF
 S -> CR: findAllCandidates()
 activate CR
 CR --> S: Candidates
+
 deactivate CR
-S --> UI: Candidates
+S --> CTRL: Candidates
 deactivate S
+CTRL --> UI: Candidates
+deactivate CTRL
 UI --> CM: Display Candidates list and asks to choose one
-deactivate UI
 CM->UI: Inputs index of candidate
-activate UI
 UI -> CTRL: allApplicationsById (candidates.get ( index ) )
 activate CTRL
 CTRL -> P: repositories()
 activate P
-P --> CTRL: return repositories
+P --> CTRL: repositories
 deactivate P
 CTRL -> RF: jobOpeningApplicationRepository()
 activate RF
-RF --> CTRL: return jobOpeningApplicationRepository
+RF --> CTRL: jobOpeningApplicationRepository
 deactivate RF
-CTRL -> JAR: findAllApplicationsByCandidateId(candidates.get ( index ).getId())
+CTRL -> JAR: allApplicationsByIdWithInterview(candidates.get ( index ))
 activate JAR
-JAR --> CTRL: return Iterable<JobOpeningApplication>
+JAR --> CTRL: JobOpeningApplications
 deactivate JAR
-CTRL --> UI: return Iterable<JobOpeningApplication>
+CTRL --> UI: JobOpeningApplications
 deactivate CTRL
 
 
