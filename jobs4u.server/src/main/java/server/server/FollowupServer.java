@@ -27,18 +27,21 @@ public class FollowupServer {
         try {
             System.out.println("Good Morning :) ");
             Server server = new Server(PORT);
-            System.out.println("If you want to stop the server, press ENTER! Thank you!");
+
+            System.out.println("If you want to stop the server, press ENTERThank you!! ");
             init();
             Thread thread = new Thread(server);
             thread.setDaemon(true);
             thread.start();
             Scanner sc = new Scanner(System.in);
+
             System.out.println("If you want to stop the server, press ENTER! Thank you!");
             sc.nextLine();
             server.stop();
             stop(thread);
         } catch (IOException e) {
             System.out.println("Could not bind to port " + PORT);
+
             System.out.println("Goodbye! Thanks for using our application!!");
         }
     }

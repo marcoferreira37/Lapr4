@@ -9,9 +9,16 @@ import java.net.Socket;
 
 public abstract class Handler implements Runnable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Handler.class);
+    /**
+     * Logger
+     */
+    private static final Logger LOGG = LoggerFactory.getLogger(Handler.class);
 
-    protected V0Protocol protocol;
+    protected V0Protocol protocolV0;
+    /**
+     *
+     * A socket is one endpoint of a two-way communication link between two programs running on the network.
+     */
     private final Socket socket;
 
     /**
@@ -22,7 +29,7 @@ public abstract class Handler implements Runnable {
      */
     public Handler(Socket socket) throws IOException {
         this.socket = socket;
-        protocol = new V0Protocol(socket);
+        protocolV0 = new V0Protocol(socket);
     }
 
     /**
@@ -39,14 +46,17 @@ public abstract class Handler implements Runnable {
             handle();
             ServerSemaphore.getInstance().exitCriticalSection();
         } catch (Exception e) {
-            LOGGER.error("There was an error during handler. Closing connection...");
+
+            LOGG.error("There was an error during handler! Closing connection...");
             try {
                 socket.close();
+
             } catch (IOException ex) {
-                LOGGER.error("There was an error closing socket. Ignoring closing...");
+
+                LOGG.error("There was an error closing socket! Ignoring closing...");
                 return;
             }
-            LOGGER.info("Socket closed successfully!");
+            LOGG.info("Socket closed successfully!!");
         }
     }
 }

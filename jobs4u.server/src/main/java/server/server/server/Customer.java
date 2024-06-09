@@ -1,6 +1,5 @@
 package server.server.server;
 
-import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.protocol.Packet;
 import eapli.base.protocol.dto.JobOpeningDTO;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -11,7 +10,6 @@ import eapli.base.protocol.dto.LoginDTO;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -45,7 +43,7 @@ public class Customer {
             for(Map.Entry<JobOpeningDTO,Integer> job : jobs.entrySet()){
                 System.out.println("Reference: " + job.getKey().jobReference + " | Title: " + job.getKey().titleOrFunction + " | Creation date: " + job.getKey().creationDate + " | Number of Applications: " + job.getValue());
             }
-            if (p.getCode() == ComCodes.DISCON.getValue()) {
+            if (p.getCode() == ComCodes.DISCONNECT.getValue()) {
                 System.out.println("Invalid credentials. Try again!");
                 protocol.exit();
                 continue;

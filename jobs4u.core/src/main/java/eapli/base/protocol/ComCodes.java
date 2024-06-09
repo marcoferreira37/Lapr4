@@ -1,11 +1,11 @@
 package eapli.base.protocol;
 
 public enum ComCodes {
-    COMMTEST((byte) 0),
-    DISCON((byte)1),
-    ACK((byte)2),
-    ERR((byte)3),
-    AUTH((byte)4),
+    COMMUNICATIONTEST((byte) 0), //Communication Test
+    DISCONNECT((byte)1), //Disconnect
+    ACK((byte)2), //Acknowledge
+    ERROR((byte)3), //Error
+    AUTH((byte)4), //Authentication
     LSTOPNS((byte)5),//List Job Openings
 
     LSTAPPS((byte)6), //List Applications
@@ -13,8 +13,12 @@ public enum ComCodes {
     NOTIF((byte)7), //Notification
     ;
 
-    private byte value;
+    private final byte value;
 
+    /**
+     * Contructor
+     * @param value value
+     */
     ComCodes(byte value) {
         this.value = value;
     }
