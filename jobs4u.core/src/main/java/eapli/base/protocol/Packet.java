@@ -15,9 +15,12 @@ public class Packet implements Serializable {
 
     private final List<Chunk> chunks;
 
-    private final static int LEN_L_MAX = 255;
+    /**
+     * Maximum length of a chunk
+     */
+    private final static int LEN_L_MAX2 = 255;
     private final static int LEN_M_MAX = 255;
-    private final static int LEN_MAX = LEN_L_MAX + 256 * LEN_M_MAX;
+    private final static int LEN_MAX = LEN_L_MAX2 + 256 * LEN_M_MAX;
 
 
     public Packet(byte version, byte code, List<Chunk> chunks) {
@@ -32,7 +35,12 @@ public class Packet implements Serializable {
         this.chunks = chunkerize(obj);
     }
 
-
+    /**
+     * Chunkerize an object
+     * @param obj object
+     * @return list of chunks
+     * @throws IOException exception
+     */
     public List<Chunk> chunkerize(Object obj) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(bos);

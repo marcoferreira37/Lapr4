@@ -66,7 +66,7 @@ public class V0Protocol {
 
         if (expectedCode != packet.getCode()) {
 
-            output.writeObject(new Packet(VERSION, ComCodes.ERR.getValue(), ""));
+            output.writeObject(new Packet(VERSION, ComCodes.ERROR.getValue(), ""));
 
             theSocket.close();
 

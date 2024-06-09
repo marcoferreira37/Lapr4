@@ -38,11 +38,11 @@ public class ServerProtocolHandler extends Handler {
                 return;
             }
 
-            protocol.send(ComCodes.ACK.getValue(), "Welcome to the server!");
+            protocolV0.send(ComCodes.ACK.getValue(), "Welcome to the server!");
             boolean communicating = true;
 
             while (communicating) {
-                Packet packet = protocol.receive();
+                Packet packet = protocolV0.receive();
                 communicating = processPacket(packet);
             }
 
@@ -53,24 +53,24 @@ public class ServerProtocolHandler extends Handler {
     }
 
     private boolean authenticate() throws IOException, ClassNotFoundException {
-        LoginDTO credentials = this.protocol.receive(ComCodes.AUTH.getValue());
+        LoginDTO credentials = this.protocolV0.receive(ComCodes.AUTH.getValue());
         Optional<UserSession> session = authenticationService.authenticate(credentials.username, credentials.password, credentials.roles);
 
         return session.isPresent();
     }
 
     private void disconnect() throws IOException, ClassNotFoundException {
-        this.protocol.send(ComCodes.DISCON.getValue(), "");
+        this.protocolV0.send(ComCodes.DISCONNECT.getValue(), "");
     }
 
     private boolean processPacket(Packet packet) throws IOException, ClassNotFoundException {
         return switch (packet.getCode()) {
             case 0 -> {
-                protocol.send(ComCodes.COMMTEST.getValue(), "Hello!");
+                protocolV0.send(ComCodes.COMMUNICATIONTEST.getValue(), "Hello!");
                 yield true;
             }
             case 1 -> {
-                protocol.exit();
+                protocolV0.exit();
                 yield false;
             }
             case 2 -> {
@@ -104,8 +104,8 @@ public class ServerProtocolHandler extends Handler {
 
     private void handleAuthRetry() throws IOException, ClassNotFoundException {
         System.out.println("Another auth attempt... Disconnecting...");
-        protocol.send(ComCodes.DISCON.getValue(), "");
-        protocol.exit();
+        protocolV0.send(ComCodes.DISCONNECT.getValue(), "");
+        protocolV0.exit();
     }
 
     private void listJobOpenings() throws IOException, ClassNotFoundException {
@@ -119,6 +119,6 @@ public class ServerProtocolHandler extends Handler {
             JobOpeningDTO jobDto = JobOpeningMapper.toDTO(job,process);
             jobs.put(jobDto,applications);
         }
-        protocol.send(ComCodes.LSTOPNS.getValue(), jobs);
+        protocolV0.send(ComCodes.LSTOPNS.getValue(), jobs);
     }
 }

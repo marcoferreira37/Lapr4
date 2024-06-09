@@ -5,6 +5,11 @@ import java.net.Socket;
 
 public class Server implements Runnable {
     private final static ThreadGroup serverThreadGroup = new ThreadGroup("server-thread-group");
+
+    /**
+     * Server socket
+     * A server socket is a way to create a server that listens for incoming connections.
+     */
     private final ServerSocket socket;
     private boolean running;
 
@@ -33,9 +38,10 @@ public class Server implements Runnable {
                 Thread thread = new Thread(serverThreadGroup, new ServerProtocolHandler(connection));
                 thread.start();
             } catch (IOException e) {
-                System.out.println("Could not accept new connection!");
+                System.out.println("Could not accept new connection! Sorry! Try again later!");
             } catch (InterruptedException e) {
-                System.out.println("Could not wait for connection. Listening to new ones...");
+                System.out.println("Could not wait for connection");
+                System.out.println("Listening to new ones...");
             }
         }
     }

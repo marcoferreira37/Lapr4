@@ -22,7 +22,7 @@ public class SimpleHandler extends Handler {
     public void handle() {
         System.out.println("Hello World! I am Alive!");
         try {
-            String str = this.protocol.receive(ComCodes.COMMTEST.getValue());
+            String str = this.protocolV0.receive(ComCodes.COMMUNICATIONTEST.getValue());
             System.out.println(str);
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);

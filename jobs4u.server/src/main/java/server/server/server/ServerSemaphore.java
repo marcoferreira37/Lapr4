@@ -6,7 +6,7 @@ import java.util.concurrent.Semaphore;
 
 public class ServerSemaphore {
 
-    private static ServerSemaphore instance;
+    private static ServerSemaphore instanceOfServerSemaphore;
     private final Semaphore semaphore;
 
     /**
@@ -22,17 +22,17 @@ public class ServerSemaphore {
      * @return the instance
      */
     public static ServerSemaphore getInstance() {
-        if (instance == null) {
+        if (instanceOfServerSemaphore == null) {
             synchronized (ServerSemaphore.class) {
-                if (instance != null) return instance;
+                if (instanceOfServerSemaphore != null) return instanceOfServerSemaphore;
                 Properties props = System.getProperties();
                 return new ServerSemaphore(new Semaphore( Integer.parseInt(props.getOrDefault("server.connections.max", 10).toString())));
             }
         }
-        return instance;
+        return instanceOfServerSemaphore;
     }
 
-    /**
+    /**l
      * Enter the critical section
      * @throws InterruptedException InterruptedException
      */

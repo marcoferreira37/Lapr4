@@ -10,7 +10,7 @@ import java.util.Properties;
 public class PropertiesLoader {
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesLoader.class);
+    private static final Logger LOGG = LoggerFactory.getLogger(PropertiesLoader.class);
 
     /**
      * Private constructor to hide the implicit public one
@@ -25,9 +25,11 @@ public class PropertiesLoader {
     public static void load() {
         Properties sysProps = System.getProperties();
         try {
+
             sysProps.load(PropertiesLoader.class.getClassLoader().getResourceAsStream("application.properties"));
         } catch (IOException e) {
-            LOGGER.warn("Could not load application.properties file. Using system properties.");
+
+            LOGG.warn("Sorry! Could not load application.properties file! Using default properties.");
         }
         System.setProperties(sysProps);
 }
