@@ -54,7 +54,7 @@ and the use of a client-server architecture for communication.
 
 ### 3.1. Domain Model
 
-![Domain Model](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-domain-model.svg)
+![Domain Model](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\3003\svg\3003-domain-model.svg)
 
 ## 3.2 System Sequence Diagram
 
@@ -62,7 +62,7 @@ The system sequence diagram details the interactions needed for a customer to vi
 The customer application sends a request to the server application to retrieve the notifications.
 The server application retrieves the notifications from the database and sends them back to the customer application.
 
-![System Sequence Diagram - Full](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-system-sequence-diagram-System_Sequence_Diagram__SSD____Rank_Candidates_for_a_Job_Opening.png)
+![System Sequence Diagram](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\3003\svg\3003-system-sequence-diagram-System_Sequence_Diagram___Being_notified_in_my_application_when_the_state__phase__of_job_openings_changes.svg)
 
 ## 4. Design
 
@@ -80,13 +80,13 @@ The server application retrieves the notifications from the database and sends t
   notification generation and retrieval based on job opening phase changes.
   The sequence diagram illustrates the interactions between the customer application, server application, and database.
 
-![Sequence Diagram - Full](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-sequence-diagram.png)
+![Sequence Diagram](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\3003\svg\3003-sequence-diagram-Sequence_Diagram__3001___As_Customer__I_want_to_be_notified_in_my_application_when_the_state_of_one_of_my_applications_changes__.svg)
 
 ### 4.3. Use Case Diagram
 
 - The use case diagram illustrates the interactions between the customer and the notification system.
 
-![Use Case Diagram](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-sequence-diagram.png)
+![Use Case Diagram](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\3003\svg\3003-UCD-US3003__Use_Cases.svg)
 
 ## 5. Implementation
 

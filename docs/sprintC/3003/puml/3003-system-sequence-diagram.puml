@@ -9,13 +9,13 @@ activate Customer
 Customer -> System: opens the Customer app
 activate System
 
-System --> Customer: types username
+System --> Customer: request username
 deactivate System
 
 Customer -> System: types the username
 activate System
 
-System --> Customer: Requests password
+System --> Customer: requests password
 deactivate System
 Customer->System: types the password
 activate System
