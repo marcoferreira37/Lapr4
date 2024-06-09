@@ -54,14 +54,6 @@ and the use of a client-server architecture for communication.
 
 ### 3.1. Domain Model
 
-The domain model is composed of the following entities:
-
-- **JobOpening**: Represents a job opening in the company.
-- **Application**: Represents the application of a candidate for a job opening.
-- **Phase**: Represents the phase of the application process.
-- **Notification**: Represents a notification sent to a customer regarding a job opening.
-- **Customer**: Represents a customer who creates job openings and receives notifications.
-
 ![Domain Model](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-domain-model.svg)
 
 ## 3.2 System Sequence Diagram
