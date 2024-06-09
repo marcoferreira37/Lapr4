@@ -84,7 +84,7 @@ The domain model is composed of the following entities:
 
 ## 3.2 System Sequence Diagram
 
-![System Sequence Diagram - Full](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-system-sequence-diagram-System_Sequence_Diagram__SSD____Rank_Candidates_for_a_Job_Opening.png)
+![System Sequence Diagram - Full](svg/1013-system-sequence-diagram-System_Sequence_Diagram__SSD____Rank_Candidates_for_a_Job_Opening.png)
 
 The Customer Manager requested a feature to list candidates based on their interview points.
 The system sequence diagram shows the interactions between the Customer Manager and the system to achieve this.

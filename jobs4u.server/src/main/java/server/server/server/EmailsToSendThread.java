@@ -23,7 +23,7 @@ public class EmailsToSendThread extends Thread {
                 sendEmails.sendEmail(email.email(),email.content());
                 emailService.setEmailAsSent(email);
                 flage=true;
-                sleep(2000);
+                sleep(5000);
             }catch (Exception e){
                 flage=false;
             }

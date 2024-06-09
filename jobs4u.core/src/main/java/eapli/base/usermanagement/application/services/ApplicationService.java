@@ -103,11 +103,11 @@ public class ApplicationService {
     public List <JobOpeningApplication> verifyRequirements(JobOpening job) {
         List<JobOpeningApplication> applications = getApplicationsByJobOpening(job);
         List <JobOpeningApplication> result = new ArrayList<>();
-        String jobRequirements = job.getRequirements();
+        String jobRequirementsPath = job.getRequirements();
         for (JobOpeningApplication application : applications) {
-              String candidateRequirements = application.candidateRequirements();
+              String candidateRequirementsPath = application.candidateRequirements();
             RequirementsValidator validator = new RequirementsValidator();
-            if (validator.verifyRequirements(candidateRequirements, jobRequirements)) {
+            if (validator.verifyRequirements(candidateRequirementsPath, jobRequirementsPath)) {
                 notificationAppService.notify(application.candidate().user().username().toString(), "Your application for the job opening: " + job.getJobReference().fullReference() + " was accepted.");
                 application.updateStatus(Status.ACCEPTED);
                 emailService.addToEmailsToSend(application.candidate().user().email(),  "Your application for the job opening: " + job.getJobReference().fullReference() + " was accepted.");

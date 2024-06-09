@@ -2,14 +2,15 @@ package eapli.base.domain.PlugIn.JobRequirements;
 
 
 
-import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarBaseVisitor;
-import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarLexer;
-import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarParser;
+import  plugin.antlr4.autogen.requirements.JobRequirementsGrammarBaseVisitor;
+import plugin.antlr4.autogen.requirements.JobRequirementsGrammarLexer;
+import plugin.antlr4.autogen.requirements.JobRequirementsGrammarParser;
 import lombok.Getter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import plugin.structure.RequirementsValidatorVisitor;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.Map;
 public class RequirementsValidator extends JobRequirementsGrammarBaseVisitor<Map<String, String>> {
 
     private String validation = "Success";
+
 
 
     @Override
@@ -36,14 +38,21 @@ public class RequirementsValidator extends JobRequirementsGrammarBaseVisitor<Map
     }
     public boolean verifyRequirements(String  candidateRequirementsFilePath, String jobRequirementsFilePath) {
         try {
-            CharStream input = CharStreams.fromFileName(candidateRequirementsFilePath);
-            CharStream input2 = CharStreams.fromFileName(jobRequirementsFilePath);
+
+            CharStream input = CharStreams.fromFileName("jobs4u.plugIn/src/main/resources/PlugIns/RequirementsSpecifications/backEndDeveloperRequirements/" + candidateRequirementsFilePath);
+            CharStream input2 = CharStreams.fromFileName("jobs4u.plugIn/src/main/resources/PlugIns/RequirementsSpecifications/backEndDeveloperRequirements/" + jobRequirementsFilePath);
 
 
             JobRequirementsGrammarLexer requirementsGrammarLexer = new JobRequirementsGrammarLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(requirementsGrammarLexer);
             JobRequirementsGrammarParser parser = new JobRequirementsGrammarParser(tokens);
             ParseTree tree = parser.start();
+            RequirementsValidatorVisitor visitor = new RequirementsValidatorVisitor();
+            visitor.visit(tree);
+
+
+
+
             Map<String, String> candidateRequirementsMap = parseWithVisitor(tree);
 
 

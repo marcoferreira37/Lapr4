@@ -73,7 +73,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         Candidate candida9 = registerCandidate("Gonçalo", TestDataConstants.PASSWORD1, "Gonçalo", "Sousa", EmailAddress.valueOf("1221331@isep.ipp.pt"));
         Candidate candida10 = registerCandidate("Miguel", TestDataConstants.PASSWORD1, "Miguel", "Monteiro", EmailAddress.valueOf("1221330@isep.ipp.pt"));
 
-        Customer customer = registerCustomer("Cruch", "Password1", "Marco", "Santos", EmailAddress.valueOf("1220913@this.app"));
+        Customer customer = registerCustomer("Cruch", "Password1", "Marco", "Santos", EmailAddress.valueOf("1220913@isep.ipp.pt"));
 
         CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
         Iterable<Company> comps = companyRepository.findAll();
@@ -91,8 +91,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         JobOpening jo5 = registerJobOpening("Construtor de casas", "Rua do Ouro", Mode.ONSITE, ContractType.FULL_TIME, "Construtor", 15, 1);
         JobOpeningApplication application9 = registerApplication(jo5, candida);
-        JobOpeningApplication application10 = registerApplication(jo5, candida2);
-        JobOpeningApplication application11 = registerApplication(jo5, candida3);
+        JobOpeningApplication application10 = registerApplication(jo5, candida6);
+        JobOpeningApplication application11 = registerApplication(jo5, candida7);
         JobOpeningApplication application13 = registerApplication(jo, candida);
         JobInterview interview5 = registerInterview(date2, "13:00", application9);
         JobInterview interview6 = registerInterview(date2, "11:00", application10);
@@ -103,9 +103,12 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         interview7.gradeInterview(16);
 
         JobOpeningApplication application = registerApplication(jo, candida);
-        JobOpeningApplication application2 = registerApplication(jo, candida2);
-        JobOpeningApplication application3 = registerApplication(jo, candida3);
-        JobOpeningApplication application4 = registerApplication(jo, candida4);
+        JobOpeningApplication application2 = registerApplication(jo, candida6);
+        JobOpeningApplication application3 = registerApplication(jo, candida7);
+        JobOpeningApplication application4 = registerApplication(jo, candida8);
+        JobOpeningApplication application14 = registerApplication(jo, candida9);
+        JobOpeningApplication application15 = registerApplication(jo, candida10);
+
 
         NotificationsRepository notificationsRepository = PersistenceContext.repositories().notificationsRepository();
         Notifications notifications = new Notifications("admin", "You have a new notification");
@@ -121,8 +124,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpeningApplication application7 = registerApplication(jo3, candida2);
         JobOpeningApplication application8 = registerApplication(jo3, candida3);
         JobOpeningApplication application12 = registerApplication(jo4, candida);
-        JobOpeningApplication application14 = registerApplication(jo4, candida2);
-        JobOpeningApplication application15 = registerApplication(jo4, candida3);
+        JobOpeningApplication application137 = registerApplication(jo4, candida2);
+        JobOpeningApplication application155 = registerApplication(jo4, candida3);
 
         JobInterviewRepository jobRep = PersistenceContext.repositories().jobInterviews();
 

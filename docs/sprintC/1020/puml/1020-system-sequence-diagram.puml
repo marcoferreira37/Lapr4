@@ -13,7 +13,7 @@ participant ":System" as System
 
 activate User
 
-    User -> System : Asks to publish job opening results
+    User -> System : Asks to rank candidates for a job opening
     activate System
 
     System --> User : Asks to select a job opening
