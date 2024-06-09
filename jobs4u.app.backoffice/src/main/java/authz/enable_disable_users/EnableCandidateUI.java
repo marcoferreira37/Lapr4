@@ -10,6 +10,8 @@ import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.application.controllers.EnableCandidateController;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EnableCandidateUI extends AbstractUI {
 
@@ -21,7 +23,16 @@ public class EnableCandidateUI extends AbstractUI {
         if (!wereUsersPrinted) {
             return false;
         }
-        var email = Console.readNonEmptyLine("Provide the email of the candidate to enable: ", "Email cannot be empty.");
+        String email;
+        boolean validEmail;
+        do {
+            email = Console.readNonEmptyLine("Provide the email of the candidate to disable: ", "Email cannot be empty.");
+            validEmail = isValidEmail(email);
+            if (!validEmail) {
+                errorMessage("Invalid email format.");
+                Sleeper.sleep(1000);
+            }
+        } while (!validEmail);
 
         try {
             controller.enableCandidate(email);
@@ -58,5 +69,13 @@ public class EnableCandidateUI extends AbstractUI {
             index++;
         }
     }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
 
 }
