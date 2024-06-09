@@ -28,7 +28,7 @@ Has dependency in the user stories:
 - 1002 -> As Customer Manager, I want to register a job opening.
 - 2002 -> As Operator, I want to register an application of a candidate for a job opening and
   import all files received.
-- 
+
 ## 2.1 Product Owner Specifications
 
 > **Question**: Uma entrevista pode ter apenas uma questão? US1014, time and date, quer dizer data de inicio e não data final? Podem haver entrevistas em paralelo?
@@ -57,7 +57,6 @@ Explain the domain model and its entities.
 
 The domain model is composed of the following entities:
 
-- **Candidate**: Represents a candidate that has applied for a job opening.
 - **Application**: Represents the application of a candidate for a job opening.
 - **Interview**: Represents an interview with a candidate for a job opening.
 
@@ -86,16 +85,9 @@ including the UI, business logic, and data persistence layers.
 A sequence diagram shows the interactions between the Customer Manager and the system to record an interview with an candidates.
 This includes actions like viewing a list of job opening applications, the candidate associated, saving the interview, and modifying it later.
 
-### 4.2. Class Diagram
+### 4.3. Class Diagram
 
 ![a class diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1014\svg\1014-class-diagram.svg)
-
-## 4.3 Sequence Diagram
-
-![Sequence Diagram - Full](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1014\svg\1014-sequence-diagram.svg)
-
-The sequence diagram shows the interactions between the Customer Manager and the system to  record the time and date for an interview with a candidate.
-This includes actions like viewing a list of job opening application, record the time and date , saving the time and the date, and modifying it later.
 
 ## 5. Implementation
 

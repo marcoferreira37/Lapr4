@@ -166,7 +166,6 @@ public class MainMenu extends AbstractUI {
         menu.addItem(15, "Execute the process that evaluates (grades) the interviews for a job opening", new EvaluateInterviewUI()::show);
         menu.addItem(16, "Execute the process of verifying the requirements of a job opening", new VerifyRequirementsUI()::show);
         menu.addItem(17, "Notify candidates by email", new NotifyCandidatesUI()::show);
-        menu.addItem(18, "Publish Job Opening Results", new PublishResultsUI()::show);
         menu.addItem(19, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }

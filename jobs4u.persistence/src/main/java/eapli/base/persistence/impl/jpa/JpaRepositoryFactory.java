@@ -214,4 +214,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaJobProcessRepository(autoTx);
     }
 
+    @Override
+    public EmailToSendRepository emailToSendRepository(TransactionalContext autoTx) {
+        return new JpaEmailToSendRepository(autoTx);
+    }
+
+    @Override
+    public EmailToSendRepository emailToSendRepository() {
+        return new JpaEmailToSendRepository(Application.settings().getPersistenceUnitName());
+    }
 }

@@ -69,10 +69,10 @@ public class Candidate implements AggregateRoot<EmailAddress> {
 
     @Override
     public String toString() {
-        return "Candidate{" +
-                ", emailAddress=" + emailAddress +
-                ", telephoneNumber=" + telephoneNumber +
-                ", curriculum= " + curriculum;
+        return "Candidate" +
+                "\n Name: " + systemUser.name() +
+                "\n Email Address: " + emailAddress +
+                "\n Telephone Number: " + telephoneNumber.getTelephoneNumber();
     }
 
     public EmailAddress getEmail() {

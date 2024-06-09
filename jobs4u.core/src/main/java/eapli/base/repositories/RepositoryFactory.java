@@ -129,5 +129,7 @@ public interface RepositoryFactory {
     NotificationsRepository notificationsRepository(TransactionalContext autoTx);
 
     NotificationsRepository notificationsRepository();
+  EmailToSendRepository emailToSendRepository(TransactionalContext autoTx);
 
+    EmailToSendRepository emailToSendRepository();
 }

@@ -1,5 +1,7 @@
 package eapli.base.usermanagement.application.services;
 
+import eapli.base.domain.EmailNotification.EmailToSend;
+import eapli.base.domain.EmailService.EmailService;
 import eapli.base.domain.PlugIn.JobRequirements.RequirementsValidator;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
@@ -7,9 +9,11 @@ import eapli.base.domain.jobApplication.Status;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.repositories.EmailToSendRepository;
 import eapli.base.repositories.JobInterviewRepository;
 import eapli.base.repositories.JobOpeningApplicationRepository;
 import eapli.base.repositories.JobOpeningProcessRepository;
+import eapli.base.usermanagement.application.EmailManagement.EmailMessageGenerator;
 import eapli.base.usermanagement.domain.BaseRoles;
 
 import java.util.ArrayList;
@@ -22,11 +26,31 @@ public class ApplicationService {
     private final JobOpeningProcessRepository jobOpeningProcesses = PersistenceContext.repositories().jobProcess();
 
     private final NotificationAppService  notificationAppService = new NotificationAppService();
+    private final EmailToSendRepository emailRepository = PersistenceContext.repositories().emailToSendRepository();
 
     public void rankApplication(JobOpeningApplication application, int rank) {
         application.rankApplication(rank);
+        EmailMessageGenerator emailMessageGenerator = new EmailMessageGenerator();
+        String content = emailMessageGenerator.generateEmailMessage(application.candidate().user().name().toString(), application.jobOpening().getCompany().findCustomer().user().name().toString(), application.jobOpening().getCompany().getCompanyName().toString() , application.status());
+        EmailToSend email = new EmailToSend(application.candidate().user().email(), content);
+        emailRepository.save(email);
+        generateEmailForCustomer(application);
         jobOpeningApplicationRepository.save(application);
     }
+
+    private void generateEmailForCustomer(JobOpeningApplication application) {
+        List<Candidate> candidates = allCandidatesForApplicationByRankOrder(application);
+        EmailMessageGenerator emailMessageGenerator = new EmailMessageGenerator();
+        String content = emailMessageGenerator.generateCandidatesListMessage(application.jobOpening().getJobReference().fullReference(), application.jobOpening().getCompany().findCustomer().user().name().toString(), candidates);
+        emailRepository.save( new EmailToSend(application.jobOpening().getCompany().findCustomer().user().email(),content ));
+    }
+
+
+
+    private List<Candidate> allCandidatesForApplicationByRankOrder(JobOpeningApplication application) {
+        return getRankedApplications(application.jobOpening());
+    }
+
 
     public JobInterview getJobInterview(JobOpeningApplication jobOpeningApplication) {
         return jobOpeningApplication.getInterviews().get(0);
@@ -90,7 +114,7 @@ public class ApplicationService {
         return result;
     }
 
-    public List<JobOpeningApplication> sortApplicationsByInterviewPoints(List<JobOpeningApplication> applications) {
+    public List<JobOpeningApplication> sortApplicationsByRank(List<JobOpeningApplication> applications) {
 
         applications.sort((a1, a2) -> {
             if (a1.showRanking() < a2.showRanking()) {
@@ -106,7 +130,7 @@ public class ApplicationService {
 
     public List<Candidate> getRankedApplications(JobOpening selectedJobOpening) {
         List<JobOpeningApplication> applications = getApplicationsByJobOpening(selectedJobOpening);
-        List<JobOpeningApplication> sortedApplications = sortApplicationsByInterviewPoints(applications);
+        List<JobOpeningApplication> sortedApplications = sortApplicationsByRank(applications);
         List<Candidate> candidates = new ArrayList<>();
         for (int i = 0; i < selectedJobOpening.getVacanciesNumber().getNumber() && i<sortedApplications.size(); i++) {
             candidates.add(sortedApplications.get(i).candidate());

@@ -6,6 +6,7 @@ import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarBaseVi
 import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarLexer;
 import eapli.base.domain.PlugIn.JobRequirements.gen.JobRequirementsGrammarParser;
 import lombok.Getter;
+import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -33,16 +34,20 @@ public class RequirementsValidator extends JobRequirementsGrammarBaseVisitor<Map
         }
         return result;
     }
-    public boolean verifyRequirements(String  candidateRequirements, String jobRequirements) {
+    public boolean verifyRequirements(String  candidateRequirementsFilePath, String jobRequirementsFilePath) {
         try {
-            JobRequirementsGrammarLexer requirementsGrammarLexer = new JobRequirementsGrammarLexer(CharStreams.fromString(candidateRequirements));
+            CharStream input = CharStreams.fromFileName(candidateRequirementsFilePath);
+            CharStream input2 = CharStreams.fromFileName(jobRequirementsFilePath);
+
+
+            JobRequirementsGrammarLexer requirementsGrammarLexer = new JobRequirementsGrammarLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(requirementsGrammarLexer);
             JobRequirementsGrammarParser parser = new JobRequirementsGrammarParser(tokens);
             ParseTree tree = parser.start();
             Map<String, String> candidateRequirementsMap = parseWithVisitor(tree);
 
 
-            JobRequirementsGrammarLexer jobRequirementsGrammarLexer = new JobRequirementsGrammarLexer(CharStreams.fromString(jobRequirements));
+            JobRequirementsGrammarLexer jobRequirementsGrammarLexer = new JobRequirementsGrammarLexer(input2);
             CommonTokenStream tokens2 = new CommonTokenStream(jobRequirementsGrammarLexer);
             JobRequirementsGrammarParser parser2 = new JobRequirementsGrammarParser(tokens2);
             ParseTree tree2 = parser2.start();

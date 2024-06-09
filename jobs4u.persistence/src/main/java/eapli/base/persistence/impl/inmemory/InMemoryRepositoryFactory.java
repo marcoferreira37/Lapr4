@@ -208,6 +208,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
         return notificationsRepository(null);
     }
 
+    @Override
+    public EmailToSendRepository emailToSendRepository(TransactionalContext autoTx) {
+        return new InMemoryEmailToSendRespository();
+    }
+
+    @Override
+    public EmailToSendRepository emailToSendRepository() {
+        return emailToSendRepository(null);
+    }
+
 
     @Override
     public SignupRequestRepository signupRequests(final TransactionalContext tx) {

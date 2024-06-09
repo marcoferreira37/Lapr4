@@ -21,6 +21,7 @@
     <class>eapli.base.domain.jobOpeningInterview.JobInterview</class>
     <class>eapli.base.domain.jobOpeningProcess.JobOpeningProcess</class>
     <class>eapli.base.protocol.Notifications</class>
+    <class>eapli.base.domain.EmailNotification.EmailToSend</class>
 
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>

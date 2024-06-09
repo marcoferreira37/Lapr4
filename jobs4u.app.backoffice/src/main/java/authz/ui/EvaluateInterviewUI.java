@@ -37,7 +37,6 @@ public class EvaluateInterviewUI extends AbstractUI {
         Path filePath = controller.findPath(chosenInterview);
         // Get the chosen interview
 
-//        JobInterview chosenInterview = interviews.get(index);
 
 
 
