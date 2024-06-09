@@ -26,7 +26,7 @@ public class Customer  implements AggregateRoot<EmailAddress> {
         this.emailAddress = emailAddress;
     }
 
-    protected Customer() {
+    public Customer() {
         // for ORM
     }
 
