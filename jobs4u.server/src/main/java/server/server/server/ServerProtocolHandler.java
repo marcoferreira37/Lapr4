@@ -42,7 +42,7 @@ public class ServerProtocolHandler extends Handler {
             boolean communicating = true;
 
             while (communicating) {
-                Packet packet = protocolV0.receive();
+                Packet packet = this.protocolV0.receive();
                 communicating = processPacket(packet);
             }
 
@@ -109,16 +109,7 @@ public class ServerProtocolHandler extends Handler {
     }
 
     private void listJobOpenings() throws IOException, ClassNotFoundException {
-        ApplicationService applicationService = new ApplicationService();
-        List<JobOpening> jobOpenings = jobOpeningController.showJobOpenings(authorizationService.session().get().authenticatedUser());
-        Map<JobOpeningDTO,Integer> jobs = new HashMap<>();
-        JobOpeningProcessRepository jobProcessRepository = PersistenceContext.repositories().jobProcessRepository();
-        for(JobOpening job: jobOpenings){
-            JobOpeningProcess process = jobProcessRepository.findJobProcessByJobOpening(job);
-            int applications = applicationService.getApplicationsByJobOpening(job).size();
-            JobOpeningDTO jobDto = JobOpeningMapper.toDTO(job,process);
-            jobs.put(jobDto,applications);
-        }
+        Map<JobOpening,Integer> jobs = jobOpeningController.showJobOpenings(authorizationService.session().get().authenticatedUser());
         protocolV0.send(ComCodes.LSTOPNS.getValue(), jobs);
     }
 }

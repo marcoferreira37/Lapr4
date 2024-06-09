@@ -2,17 +2,17 @@ package eapli.base.usermanagement.application.controllers;
 
 import eapli.base.customer.Criteria;
 import eapli.base.domain.ClientUser;
+import eapli.base.domain.DTO.JobOpeningDTO;
 import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.filter.jobOpening.*;
+import eapli.base.usermanagement.application.services.ApplicationService;
 import eapli.base.usermanagement.application.services.JobOpeningService;
+import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ListJobOpeningController {
 
@@ -24,6 +24,9 @@ public class ListJobOpeningController {
     }};
 
     private final JobOpeningService service = new JobOpeningService();
+    private final ApplicationService applicationService = new ApplicationService();
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+
 
     public List<JobOpeningFilteringStrategy> filteringStrategies() {
         return FILTERING_STRATEGIES;
@@ -94,21 +97,24 @@ public class ListJobOpeningController {
 
     }
 
-    public List<JobOpening> showJobOpenings(SystemUser systemUser) {
-
-//        ClientUser client = getClientBySystemUser(user);
-        List<JobOpening> jobOpenings = new LinkedList<>();
+    public Map<JobOpening,Integer> showJobOpenings(SystemUser user) {
+        Map<JobOpening,Integer> jobOpenings = new HashMap<>();
         for (JobOpening jobOpening : service.allJobs()) {
-            String code = jobOpening.getJobReference().fullReference().substring(0, jobOpening.getJobReference().fullReference().indexOf("-"));
-//            if (code.equals(client.identity().toString())) // isto está mal
-                jobOpenings.add(jobOpening);
+                int applications = applicationService.getApplicationsByJobOpening(jobOpening).size();
+                jobOpenings.put(jobOpening,applications);
+
         }
         int index = 1;
-        for (JobOpening jobOpening : jobOpenings) {
-            System.out.println(index + ". " + jobOpening.toString());
+        for (Map.Entry<JobOpening,Integer> jobOpening : jobOpenings.entrySet()) {
+            System.out.println(index + ". " + jobOpening.getKey().getJobReference() + " | " + jobOpening.getKey().getTitleOrFunction() + " | "+ jobOpening.getKey().getCreationDate() + " | " + jobOpening.getValue() + " applications");
             index++;
         }
         return jobOpenings;
     }
+
+
+
+
+
 }
 

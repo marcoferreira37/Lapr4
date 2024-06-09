@@ -1,4 +1,4 @@
-# 1221330 - Francisco Miguel Tavares Monteiro - Sprint C - Self Assessment
+# 1221331 - Gonçalo Lages de Sousa - Sprint C - Self Assessment
 
 **This section is mandatory for students of LAPR4**
 

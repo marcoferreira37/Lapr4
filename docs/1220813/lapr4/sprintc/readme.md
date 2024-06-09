@@ -1,4 +1,4 @@
-# 1221330 - Francisco Miguel Tavares Monteiro - Sprint C - Self Assessment
+# 1220813 - Francisco António Monteiro da Silveira - Sprint C - Self Assessment
 
 **This section is mandatory for students of LAPR4**
 
@@ -29,7 +29,7 @@
 | 4 – Correct	        | Frequent use of the repository: messages that are mostly significant but sometimes fail to connect to issues/tasks. Use task/issue management boards correctly.                    |
 | 5 - Exceptional     | 	Frequent use of the repository: mostly significant messages and (virtually) no failures in connection to issues/tasks. They use task/issue management boards in an exemplary way. |
 
-**Selected Level:** 5
+**Selected Level:** 4
 
 **Justification and Evidences:**
 https://github.com/Departamento-de-Engenharia-Informatica/sem4pi-23-24-2dh3/

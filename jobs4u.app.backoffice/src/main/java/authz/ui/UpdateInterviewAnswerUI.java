@@ -3,6 +3,7 @@ package authz.ui;
 import eapli.base.app.common.console.ui.components.AbstractUI;
 import eapli.base.app.common.console.ui.components.ColorCode;
 import eapli.base.app.common.console.ui.components.Console;
+import eapli.base.candidate.CandidateManagementService;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.usermanagement.application.controllers.EditJobOpeningController;
@@ -22,13 +23,11 @@ public class UpdateInterviewAnswerUI extends AbstractUI {
 
     private final UpdateInterviewAnswerController controller = new UpdateInterviewAnswerController();
 
-    private final ListAllDataOfCandidateController listController = new ListAllDataOfCandidateController();
-
 
     @Override
     protected boolean doShow() {
 
-        List<Candidate> candidates = (List<Candidate>) listController.allCandidates();
+        List<Candidate> candidates = (List<Candidate>) controller.allCandidate();
 
         if (candidates.isEmpty()) {
             System.out.println("There are no candidates in the system.");
@@ -37,7 +36,7 @@ public class UpdateInterviewAnswerUI extends AbstractUI {
         printCandidateNumeratedList("Candidate List:", candidates);
         int option = Console.readInteger("Select a candidate: ");
 
-        List<JobOpeningApplication> applications =  listController.allApplicationsByIdWithInterview(candidates.get(option - 1));
+        List<JobOpeningApplication> applications =  controller.allApplicationsByIdWithInterview(candidates.get(option - 1));
         if (applications.isEmpty()) {
             System.out.println("There are no applications for this candidate.");
             return false;

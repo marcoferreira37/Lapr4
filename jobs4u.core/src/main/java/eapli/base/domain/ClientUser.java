@@ -31,6 +31,7 @@ import jakarta.persistence.Version;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import lombok.Getter;
 
 /**
  * A Client User.

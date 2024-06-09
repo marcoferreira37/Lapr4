@@ -1,14 +1,15 @@
 @startuml
 
 actor CustomerManager as CM
-participant UploadInterviewAnswersFileUI as UI <<UI>>
-participant ListAllDataOfCandidateController as C <<Application>>
+participant CandidateManagementService as UI <<UI>>
+participant UpdateInterviewAnswerController as CTRL <<Application>>
+participant CandidateManagementService as S <<Service>>
 participant "PersistenceContext" as P <<Service>>
+
 participant "RepositoryFactory" as RF <<Persistence>>
 participant "CandidateRepository" as CR <<Persistence>>
 participant "JobOpeningApplicationRepository" as JAR <<Persistence>>
 
-participant UpdateInterviewAnswerController as CTRL <<Application>>
 participant ApplicationService as APPS <<Service>>
 participant Applications as Aps <<Domain>>
 
@@ -18,54 +19,53 @@ participant Applications as Aps <<Domain>>
 activate CM
 CM -> UI: Requests to Upload Interview Answers File
 activate UI
-UI -> C : allCandidates()
-activate C
-C -> P: repositories()
+UI->CTRL:allCandidate
+activate CTRL
+CTRL -> S : allCandidate()
+activate S
+S -> P: repositories()
 activate P
-P --> C: return repositories
+P --> S: repositories
 deactivate P
-C -> RF: candidateRepository()
+S -> RF: candidateRepository()
 activate RF
-RF --> C: return candidateRepository
+RF --> S: candidateRepository
 deactivate RF
-C -> CR: findAllCandidates()
+S -> CR: findAllCandidates()
 activate CR
-CR --> C: return Iterable<Candidate>
+CR --> S: Candidates
+
 deactivate CR
-C --> UI: return Iterable<Candidate>
-deactivate C
-UI --> CM: Display Candidates Id's (emails) list and asks to choose one
-deactivate UI
+S --> CTRL: Candidates
+deactivate S
+CTRL --> UI: Candidates
+deactivate CTRL
+UI --> CM: Display Candidates list and asks to choose one
 CM->UI: Inputs index of candidate
-activate UI
-UI -> C: allApplicationsById (candidates.get ( index ) )
-activate C
-C -> P: repositories()
+UI -> CTRL: allApplicationsById (candidates.get ( index ) )
+activate CTRL
+CTRL -> P: repositories()
 activate P
-P --> C: return repositories
+P --> CTRL: repositories
 deactivate P
-C -> RF: jobOpeningApplicationRepository()
+CTRL -> RF: jobOpeningApplicationRepository()
 activate RF
-RF --> C: return jobOpeningApplicationRepository
+RF --> CTRL: jobOpeningApplicationRepository
 deactivate RF
-C -> JAR: findAllApplicationsByCandidateId(candidates.get ( index ).getId())
+CTRL -> JAR: allApplicationsByIdWithInterview(candidates.get ( index ))
 activate JAR
-JAR --> C: return Iterable<JobOpeningApplication>
+JAR --> CTRL: JobOpeningApplications
 deactivate JAR
-C --> UI: return Iterable<JobOpeningApplication>
-deactivate C
+CTRL --> UI: JobOpeningApplications
+deactivate CTRL
 
 
 
 
 UI--> CM : Show all job applications of the selected candidate
-deactivate UI
 CM->UI : Selects a application
-activate UI
 UI-->CM: Requests the path of the file that's being uploaded
-deactivate UI
 CM->UI: Provides the path of the file
-activate UI
 UI->CTRL : uploadInterviewAnswersFile (application, filePath)
 activate CTRL
 CTRL->APPS: uploadInterviewAnswersFile (application, filePath)

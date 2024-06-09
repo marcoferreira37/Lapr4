@@ -6,10 +6,10 @@ skinparam shadowing false
 autonumber
 
 actor "Customer Manager" as CM
-participant ":ExportTemplateInterviewUI" as UI6 <<UI>>
-participant ":GenerateAndExportTemplateFileController" as Controller6 <<Application>>
+participant ":GenerateTemplateInterviewUI" as UI6 <<UI>>
+participant ":GenerateTemplateController" as Controller6 <<Application>>
 participant ":SystemJobOpeningsPrinter" as printer <<Domain>>
-participant ":JobOpeningService" as jobSvc <<Service>>
+participant ":InterviewService" as jobSvc <<Service>>
 
 activate CM
 
@@ -19,20 +19,20 @@ activate UI6
 UI6 -> Controller6**: create
 activate Controller6
 
-Controller6 -> jobSvc: JobOpeningService
+Controller6 -> jobSvc: InterviewService
 activate jobSvc
 
-jobSvc --> Controller6: JobOpeningService
+jobSvc --> Controller6: InterviewService
 deactivate jobSvc
 
-UI6 -> Controller6:getJobOpenings()
-Controller6 -> jobSvc: getAllJobOpenings()
+UI6 -> Controller6:findJobInterviews()
+Controller6 -> jobSvc: findAllInterviews()
 activate jobSvc
 
-jobSvc --> Controller6: jobOpenings
+jobSvc --> Controller6: interviews
 
 deactivate jobSvc
-Controller6 --> UI6: jobOpenings
+Controller6 --> UI6: interviews
 deactivate Controller6
 UI6 -> printer: SystemJobOpeningsPrinter
 activate printer
