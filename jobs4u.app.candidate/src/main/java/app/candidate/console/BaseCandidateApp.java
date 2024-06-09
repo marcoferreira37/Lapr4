@@ -100,6 +100,7 @@ public final class BaseCandidateApp {
 
                                 System.out.println("Reference: " + app.jobOpening.getJobReference().fullReference() + " | State: " + app.status().name() + " | Number of applicants: " + apps.get(app));
                             }
+                            break;
                         case 2:
                             protocol.send(ComCodes.DISCONNECT.getValue(), null);
                             break;

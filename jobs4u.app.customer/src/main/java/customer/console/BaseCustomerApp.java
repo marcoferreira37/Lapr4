@@ -1,15 +1,18 @@
 
 package customer.console;
 
+import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.protocol.ComCodes;
 import eapli.base.protocol.Notifications;
 import eapli.base.protocol.V0Protocol;
+import eapli.base.protocol.dto.JobOpeningDTO;
 import eapli.base.protocol.dto.LoginDTO;
 import eapli.base.usermanagement.domain.BaseRoles;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -69,6 +72,11 @@ public final class BaseCustomerApp {
                     option = scanner.nextInt();
                     switch (option) {
                         case 1:
+                            protocol.send(ComCodes.LSTOPNS.getValue(),"");
+                            Map<JobOpening,Integer> jobs = protocol.receive(ComCodes.LSTOPNS.getValue());
+                            for(Map.Entry<JobOpening,Integer> job : jobs.entrySet()){
+                                System.out.println("Reference: " + job.getKey().getJobReference() + " | Title: " + job.getKey().getTitleOrFunction().getTitleOrFunction() + " | Creation date: " + job.getKey().getCreationDate() + " | Number of Applications: " + job.getValue());
+                            }
                             break;
                         case 2:
                             protocol.send(ComCodes.DISCONNECT.getValue(), null);

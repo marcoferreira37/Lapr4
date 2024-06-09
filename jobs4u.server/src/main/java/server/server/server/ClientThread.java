@@ -2,11 +2,13 @@ package server.server.server;
 
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
+import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.protocol.ComCodes;
 import eapli.base.protocol.Notifications;
 import eapli.base.protocol.Packet;
 import eapli.base.protocol.dto.LoginDTO;
 import eapli.base.repositories.ListApplicationsController;
+import eapli.base.usermanagement.application.controllers.ListJobOpeningController;
 import eapli.base.usermanagement.application.services.NotificationAppService;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -33,6 +35,7 @@ public class ClientThread extends Thread {
     private final AuthenticationService authorizationService = AuthzRegistry.authenticationService();
 
     private final ListApplicationsController applicationsController = new ListApplicationsController();
+    private final ListJobOpeningController jobOpeningController = new ListJobOpeningController();
 
     /**
      * Constructor
@@ -125,10 +128,9 @@ public class ClientThread extends Thread {
                         break;
                     case 5:
                         //List Job Openings
-                        //Map<JobOpening, Integer> openings = jobopController.listJobOpenings(session.get().authenticatedUser());
-                        //out.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), "Connecting to server"));
-                        //out.writeObject(new Packet(VERSION, ComCodes.LSTOPNS.getValue(), openings));
-
+                        output.writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), "Connecting to server"));
+                        Map<JobOpening,Integer> jobs = jobOpeningController.showJobOpenings(session.get().authenticatedUser());
+                        output.writeObject(new Packet(VERSION, ComCodes.LSTOPNS.getValue(), jobs));
 
                         break;
                     case 6:
