@@ -7,9 +7,11 @@ autonumber
 
 participant "FollowupServer" as FS
 participant "Server" as S
-participant "EmailThread" as ET
-participant "EmailSender" as ES
+participant "EmailToSendThread" as ET
+participant "SendsEmail" as ES
 participant "EmailService" as ESvc
+participant ":emailToSendRepository" as Repo <<Persistence>>
+
 
 
 activate FS
@@ -20,29 +22,44 @@ deactivate S
 FS -> ET: EmailThread()
 activate ET
 ET --> FS: EmailThread
-ET -> ESvc: EmailService()
+ET -> ESvc: findToSends()
 activate ESvc
-ESvc --> ET: EmailService
+
+ESvc -> Repo: findToSends()
+activate Repo
+Repo --> ESvc: list
+deactivate Repo
+ESvc --> ET: list
 deactivate ESvc
-ET -> ES: EmailSender()
+ET --> ET : iterator(email)
+
+ET -> ES: sendEmail(email, content)
 activate ES
+
 ES --> ET: EmailSender
 deactivate ES
 FS -> ET: start()
-ET -> ESvc: findBySend(false)
-activate ESvc
-ESvc --> ET: listOfEmails
+
 deactivate ESvc
-ET -> ESvc: setSendTrue(email)
-activate ESvc
+
 deactivate ESvc
 ET -> ES: sendEmail(email.email(), email.text())
 activate ES
 loop for each email to be sent in the listOfEmails
 ES --> ET: success message
-end
 deactivate ES
+end
+
+ET -> ESvc: setEmailAsSent(email)
+activate ESvc
+
+ESvc -> Repo: save(email)
+deactivate ESvc
+
+activate Repo
 ET --> FS: success message
+deactivate Repo
+
 deactivate ET
 deactivate FS
 
