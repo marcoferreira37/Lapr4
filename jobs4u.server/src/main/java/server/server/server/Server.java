@@ -32,10 +32,7 @@ public class Server implements Runnable {
         EmailsToSendThread emaisToSendThread ;
         while (running) {
             emaisToSendThread = new EmailsToSendThread();
-            emaisToSendThread.start(); // agora é pra mandar mail quando? quando da rank? //ele ativa esta funcionalidade acho eu sozinho , mas é para avisar quando sairam os resultados // ent vamos a us de dar rank criar na tabela emailstosend falta issow
-            // ru vou so alterar na base de dados os ranks das job openings e isto cria os emails e guarda na base de dados ? certo ? logo vai criar a tabela ao criar a entidade
-            // calma falta por no persistence a tabela tens razão mas meteste no codigo do rank a criar emails na tabela? nop , é suposto ? sim é quando rodas a us de rank q mandas email então tenho que chamar os metodos do email service certo? sim e registe email meter na base de dados
-            //
+            emaisToSendThread.start(); //aqui ele inicia o thread dos emails
             try {
                 Socket connection = socket.accept(); //aqui ele recebe um connection ne
                 ClientThread clientThread = new ClientThread(connection); // dps entra aqui a us do ahh e do tua lipa tao aqui

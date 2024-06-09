@@ -1,6 +1,5 @@
 package eapli.base.usermanagement.application.controllers;
 
-import eapli.base.domain.EmailService.NotifyCandidatesService;
 import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpening.JobOpening;

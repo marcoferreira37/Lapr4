@@ -42,6 +42,7 @@ public class RankApplicationUI extends AbstractUI {
         for (JobOpeningApplication application : applications) {
             rankApplication(application, applications.size(), usedRanks);
         }
+        theController.notifyCostumer(jobOpening);
         printApplications(applications);
 
         return false;

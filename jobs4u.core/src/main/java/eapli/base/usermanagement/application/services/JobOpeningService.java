@@ -4,7 +4,6 @@ package eapli.base.usermanagement.application.services;
 import eapli.base.customer.Criteria;
 import eapli.base.customer.Customer;
 import eapli.base.domain.EmailService.EmailService;
-import eapli.base.domain.EmailService.NotifyCandidatesService;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
 import eapli.base.domain.jobOpeningProcess.Phase;

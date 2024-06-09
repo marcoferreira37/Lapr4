@@ -23,6 +23,7 @@ public class RankApplicationController {
         applicationService.rankApplication(application, rank);
     }
 
+
     public void addNotification(String username, String content){
         notificationAppService.notify(username, content);
     }
@@ -38,4 +39,7 @@ public class RankApplicationController {
 
     }
 
+    public void notifyCostumer(JobOpening jobOpening) {
+        applicationService.notifyCostumer(jobOpening);
+    }
 }

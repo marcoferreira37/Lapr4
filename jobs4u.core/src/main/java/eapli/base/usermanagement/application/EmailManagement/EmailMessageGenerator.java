@@ -30,7 +30,6 @@ public class EmailMessageGenerator {
         } else if (applicationStatus == Status.REJECTED) {
             message = generateRejectedMessage(candidateName, managerName, companyName);
         }
-        // Você pode adicionar mais condições aqui para outros status de aplicação
         return message;
     }
 
@@ -59,14 +58,15 @@ public class EmailMessageGenerator {
                 companyName;
     }
 
-    public String generateFinalResultMessage(String candidateName, String managerName, String companyName) {
+    public String generateFinalResultMessage(String candidateName, String managerName, String companyName, int rank) {
         return "Subject: Application result\n\n" +
                 "Dear " + candidateName + ",\n\n" +
                 "I hope this email finds you well. As the Customer Manager, I wanted to inform you about the final outcome of the selection process for the position you applied for.\n\n" +
                 "After careful consideration of your application, qualifications, and performance in the selection process, I'm pleased to inform you that you have been selected for the position. Congratulations!\n\n" +
                 "We were impressed with your skills, experience, and performance throughout the selection process. We believe that you are a great fit for the position and that you will make a valuable contribution to our team.\n\n" +
                 "We will be reaching out to you soon with further details regarding the job offer, including the terms of employment, start date, and other relevant information. If you have any questions or need further clarification, please don't hesitate to contact us.\n\n" +
-                "Thank you for your interest in our company and for our commitment to the selection process. We look forward to welcoming you to our team and working together to achieve our goals.\n\n" +
+                "Thank you for your interest in our company and for our commitment to the selection process. We look forward to welcoming you to our team and working together to achieve our goals.\n" +
+                "Your current rank: " + rank + "\n\n" +
                 "Best regards,\n" +
                 managerName + "\n" +
                 companyName;

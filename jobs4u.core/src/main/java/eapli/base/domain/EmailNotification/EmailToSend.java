@@ -28,8 +28,8 @@ public class EmailToSend implements AggregateRoot<Long> {
     public EmailAddress email() {
         return this.email;
     }
-    public String content() {
-        return Arrays.toString(this.content);
+    public char[] content() {
+        return this.content;
     }
     public boolean sent() {
         return this.sent;

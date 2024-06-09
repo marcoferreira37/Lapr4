@@ -22,7 +22,6 @@ public class SendEmails {
     private final EmailService emailService = new EmailService();
 
 
-
     public void sendEmail() {
 
 
@@ -46,18 +45,15 @@ public class SendEmails {
         Iterable<EmailToSend> emailToSends = emailService.findToSends();
         List<JobOpening> jobOpenings = getJobOpenings();
         JobOpening selectedJobOpening;
-        for(JobOpening job : jobOpenings){
-            for (EmailToSend emails : emailToSends){
-                if(emails.email().equals(job.getCompany().getCustomer().user().email())){
+        for (JobOpening job : jobOpenings) {
+            for (EmailToSend emails : emailToSends) {
+                if (emails.email().equals(job.getCompany().getCustomer().user().email())) {
                     selectedJobOpening = job;
                     List<Candidate> candidates = getRankedApplications(selectedJobOpening);
                     publishResults(candidates, selectedJobOpening, emailToSends);
                 }
 
             }
-            //n pode mas ja sei
-            // n é so meteres o codigo dentro do if e tirares o break? pois
-            // lesgo dupla de marcos que maquinas
         }
     }
 
@@ -65,6 +61,7 @@ public class SendEmails {
     public List<Candidate> getRankedApplications(JobOpening selectedJobOpening) {
         return applicationService.getRankedApplications(selectedJobOpening);
     }
+
     public List<JobOpening> getJobOpenings() {
         return jobOpeningService.allJobs();
     }
@@ -88,11 +85,10 @@ public class SendEmails {
                 message.setText(content);
 
                 Transport.send(message);
-                System.out.println("Email Sent to Candidate: " + toUser.getEmail().toString());
 
             } catch (MessagingException e) {
                 System.err.println("Failed to send email: " + e.getMessage());
-            }finally {
+            } finally {
                 System.out.println("Email thread finished");
             }
         });
@@ -129,26 +125,33 @@ public class SendEmails {
 
     public void publishResults(List<Candidate> candidates, JobOpening jobOpening, Iterable<EmailToSend> emails) {
         try {
-            for(EmailToSend email : emails){
-            for (Candidate candidate : candidates) {
-                if(email.email().equals(candidate.getEmail())){
-                    String content = email.content().replace("[", "").replace("]","").replace(",","");
-                    System.out.println(content);
-                    sendEmailToCandidate(candidate,content);
+            for (EmailToSend email : emails) {
+                for (Candidate candidate : candidates) {
+                    if (email.email().equals(candidate.getEmail())) {
+                        String content = clean( email.content() );
+                        sendEmailToCandidate(candidate, content);
+                        emailService.setEmailAsSent(email);
+                    }
+                }
+                SystemUser systemUser = jobOpening.getCompany().findCustomer().user();
+                if (email.email().equals(systemUser.email())) {
+                    String content =  clean( email.content() );
+                    sendEmailToClient(systemUser, content);
                     emailService.setEmailAsSent(email);
                 }
-            }
-            SystemUser systemUser = jobOpening.getCompany().findCustomer().user();
-            if(email.email().equals(systemUser.email())) {
-                String content = email.content().replace("[", "").replace("]","").replace(",","");
-                sendEmailToClient(systemUser,content);
-                emailService.setEmailAsSent(email);
-            }
             }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private String clean(char[] content) {
+        StringBuilder result = new StringBuilder();
+        for (char c : content) {
+            result.append(c);
+        }
+        return result.toString();
     }
 }

@@ -31,20 +31,24 @@ public class ApplicationService {
     private final EmailService emailService = new EmailService();
 
     public void rankApplication(JobOpeningApplication application, int rank) {
-        application.rankApplication(rank);
-        EmailMessageGenerator emailMessageGenerator = new EmailMessageGenerator();
-        String content = emailMessageGenerator.generateEmailMessage(application.candidate().user().name().toString(), application.jobOpening().getCompany().findCustomer().user().name().toString(), application.jobOpening().getCompany().getCompanyName().toString() , application.status());
-        EmailToSend email = new EmailToSend(application.candidate().user().email(), content);
-        emailRepository.save(email);
-        generateEmailForCustomer(application);
-        jobOpeningApplicationRepository.save(application);
+        try {
+            if (application.status() == Status.UNREVIEWED || application.status() == Status.REJECTED) {
+                throw new IllegalStateException("Application didn't pass requirements verification");
+            }
+            application.rankApplication(rank);
+            jobOpeningApplicationRepository.save(application);
+            notifyByEmail(application);
+        }catch (Exception e){
+            System.err.println("Error ranking application: " + e.getMessage());
+        }
     }
 
     private void generateEmailForCustomer(JobOpeningApplication application) {
         List<Candidate> candidates = allCandidatesForApplicationByRankOrder(application);
         EmailMessageGenerator emailMessageGenerator = new EmailMessageGenerator();
         String content = emailMessageGenerator.generateCandidatesListMessage(application.jobOpening().getJobReference().fullReference(), application.jobOpening().getCompany().findCustomer().user().name().toString(), candidates);
-        emailRepository.save( new EmailToSend(application.jobOpening().getCompany().findCustomer().user().email(),content ));
+        EmailToSend email =  new EmailToSend(application.jobOpening().getCompany().findCustomer().user().email(),content );
+        emailRepository.save( email);
     }
 
 
@@ -137,7 +141,7 @@ public class ApplicationService {
         List<JobOpeningApplication> applications = getApplicationsByJobOpening(selectedJobOpening);
         List<JobOpeningApplication> sortedApplications = sortApplicationsByRank(applications);
         List<Candidate> candidates = new ArrayList<>();
-        for (int i = 0; i < selectedJobOpening.getVacanciesNumber().getNumber() && i<sortedApplications.size(); i++) {
+        for (int i = 0;  i<sortedApplications.size(); i++) {
             candidates.add(sortedApplications.get(i).candidate());
         }
         return candidates;
@@ -146,6 +150,19 @@ public class ApplicationService {
     public Candidate getCandidateOfJobOpening(JobOpening jobOpening) {
         List<JobOpeningApplication> applications = getApplicationsByJobOpening(jobOpening);
         return applications.get(0).candidate();
+    }
+
+    public void notifyByEmail(JobOpeningApplication application) {
+        EmailMessageGenerator emailMessageGenerator = new EmailMessageGenerator();
+        String content = emailMessageGenerator.generateFinalResultMessage(application.candidate().user().name().toString(), application.jobOpening().getCompany().findCustomer().user().name().toString(), application.jobOpening().getCompany().getCompanyName().toString(),application.showRanking());
+        EmailToSend email = new EmailToSend(application.candidate().user().email(), content);
+        emailRepository.save(email);
+    }
+
+    public void notifyCostumer(JobOpening jobOpening) {
+        List<JobOpeningApplication> applications = getApplicationsByJobOpening(jobOpening);
+
+        generateEmailForCustomer(applications.get(0));
     }
 }
 
