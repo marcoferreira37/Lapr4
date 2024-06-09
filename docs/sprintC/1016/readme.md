@@ -90,13 +90,13 @@ including the UI, business logic, and data persistence layers.
 
 ## 4.2 Sequence Diagram
 
-![Sequence Diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1016\svg\1016-sequence-diagram.svg)
+[Sequence Diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1016\svg\1016-sequence-diagram.svg)
 
 A sequence diagram shows the interactions between the Customer Manager and the system to notify a candidates.
 
 ### 4.3. Class Diagram
 
-![a class diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1016\svg\1016-class-diagram.svg)
+[a class diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_novo\docs\sprintC\1016\svg\1016-class-diagram.svg)
 
 ## 5. Implementation
 
