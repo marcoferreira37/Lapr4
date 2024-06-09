@@ -108,9 +108,7 @@ public final class BaseCandidateApp {
                             for (JobOpeningApplication app : apps.keySet()) {
 
                                 System.out.println("Reference: " + app.jobOpening.getJobReference().fullReference() + " | State: " + app.status().name() + " | Number of applicants: " + apps.get(app));
-
                             }
-
                         case 2:
                             protocol.send(ComCodes.DISCON.getValue(), null);
                             break;

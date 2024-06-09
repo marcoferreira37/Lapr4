@@ -3,8 +3,6 @@
 
 hide methods
 
-
-
 rectangle candidate #aabbcc{
     class Candidate<<Aggregate Root>><<Entity>>{}
     class CurriculumVitae<<Value Object>>{}
@@ -13,7 +11,6 @@ rectangle candidate #aabbcc{
 
 }
 
-Candidate "1" --> "1" User
 
 rectangle customer #bbaacc{
     class Customer <<Aggregate Root>><<Entity>>{}
@@ -113,6 +110,19 @@ rectangle "User" #ccbbcc {
     SystemUser "1" -up> "1" Password
     SystemUser "1" --> "1" Name
     SystemUser "1" -> "1" BaseRole
+    Candidate "1" --|> "1" SystemUser
+    Customer "1" --|> "1" SystemUser
+
+}
+
+
+rectangle " Notification " #ccbbcc {
+
+    class Notification<<Aggregate Root>><<Entity>>{}
+    class idNotification<<Identity>><<Value Object>>{}
+    class userName<<Value Object>>{}
+    class content<<Value Object>>{}
+    class isSend<<Value Object>>{}
 
 }
 
@@ -193,11 +203,7 @@ Customer "1" --> "1" CustomerId
 ''Question <|-- InterviewModel : belongs to
 
 
-Candidate "1" --> "1" PhoneNumber
-
-Address "1" <-- "1" JobOpening
-Address "1" <---- "1" Customer
-Name "1" <-- "1" Customer
+PhoneNumber "1" <-- "1" Candidate
 
 
 JobInterview "1" -up-> "1" JobInterviewId
@@ -224,8 +230,21 @@ JarFile "1" +..> "*" Requirement : requirements
 
 JobOpeningProcess "1" -left-> "1" JobOpeningProcessId
 JobOpening "1" -----> "*" JobOpeningProcess : has
+JobOpening "1" --> "1" Address
+
 JobOpeningProcess "1" --> "1" Phase
+
 Phase "1" --> "1" PhaseType
+
+Application "1" --> "*" Notification : has
+
+Notification "1" --> "1" idNotification
+Notification "1" --> "1" userName
+Notification "1" --> "1" content
+Notification "1" --> "1" isSend
+
+JobOpening "1" -----> "*" Notification : has
+
 
 
 @enduml

@@ -25,26 +25,22 @@ This task is being assigned for development in this sprint.
 **Acceptance Criteria:**
 
 - 3003.1. The system should allow customers to receive notifications in their application when the state of their job openings changes.
-
 - 3003.2. Notifications should be timely and accurately reflect the current state of the job openings.
-
-- 3003.3. Customers should have the option to customize notification preferences for different types of state changes.
-
-
+- 3003.3. The solution follows a client-server architecture, where the Customer application accesses the server application.
+- 3003.4. Customers should have the option to customize notification preferences for different types of state changes.
+- 3003.5. The solution is deployed across several network nodes, with the relational database server and the Follow Up Server deployed on different nodes.
 
 **Dependencies/References:**
-
 *This requirement relates to NFR10(RCOMP) and NFR11(RCOMP).*
-*Depends of the US1007*
-L
-## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+*Depends on the US1007*
+
+## 3. Analysis
 
 During the analysis phase, we conducted a study to understand the requirements for notifying customers 
 about changes in the state of their job openings. We considered factors such as the frequency of notifications,
 the types of state changes to be notified, and the customization options for notification preferences.
-
+Additionally, considerations are made regarding the technical requirements specified in NFR10(RCOMP) and NFR11(RCOMP) and the use of a client-server architecture for communication.
 
 
 ### 3.1. Domain Model
@@ -52,9 +48,10 @@ the types of state changes to be notified, and the customization options for not
 The domain model is composed of the following entities:
 
 - **JobOpening**: Represents a job opening in the company.
-- **Candidate**: Represents a candidate that has applied for a job opening.
 - **Application**: Represents the application of a candidate for a job opening.
 - **Phase**: Represents the phase of the application process.
+- **Notification**: Represents a notification sent to a customer regarding a job opening.
+- **Customer**: Represents a customer who creates job openings and receives notifications.
 
 ![Domain Model](C:\Users\gonca\IdeaProjects\sem4pi-23-24-2dh3\docs\sprintC\1013\svg\1013-domain-model.svg)
 
