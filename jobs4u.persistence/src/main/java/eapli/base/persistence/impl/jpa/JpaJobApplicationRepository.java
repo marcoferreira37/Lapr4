@@ -16,8 +16,9 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobOpeningA
     }
 
     public JpaJobApplicationRepository(TransactionalContext autoTx) {
-        super(autoTx,"APPLICATIONID");
+        super(autoTx, "APPLICATIONID");
     }
+
     public JpaJobApplicationRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(), "APPLICATIONID");
     }
