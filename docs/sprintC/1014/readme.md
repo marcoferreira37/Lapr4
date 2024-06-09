@@ -60,11 +60,11 @@ The domain model is composed of the following entities:
 - **Application**: Represents the application of a candidate for a job opening.
 - **Interview**: Represents an interview with a candidate for a job opening.
 
-[Domain Model](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintC\1014\svg\1014-domain-model.svg)
+![Domain Model](svg\1014-domain-model.svg)
 
 ## 3.2 System Sequence Diagram
 
-[System Sequence Diagram - Full](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintC\1014\svg\1014-system-sequence-diagram-System_Sequence_Diagram__SSD.svg)
+![System Sequence Diagram - Full](\svg\1014-system-sequence-diagram-System_Sequence_Diagram__SSD.svg)
 
 
 The Customer Manager requested a feature to record the time and date for an interview with a candidate.
@@ -80,14 +80,14 @@ a candidate and how this information is stored and modified in the system. This 
 including the UI, business logic, and data persistence layers.
 ## 4.2 Sequence Diagram
 
-![Sequence Diagram - Full](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintC\1014\svg\1014-sequence-diagram.svg)
+![Sequence Diagram - Full](svg/1014-sequence-diagram.svg)
 
 A sequence diagram shows the interactions between the Customer Manager and the system to record an interview with an candidates.
 This includes actions like viewing a list of job opening applications, the candidate associated, saving the interview, and modifying it later.
 
 ### 4.3. Class Diagram
 
-![a class diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1014\svg\1014-class-diagram.svg)
+![a class diagram](svg/1014-class-diagram.svg)
 
 ## 5. Implementation
 

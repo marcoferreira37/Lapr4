@@ -70,12 +70,12 @@ The domain model is composed of the following entities:
 - **Plugin**: Represents a plugin that is used to evaluate the interviews for a job opening.
 - **Interview**: Represents an interview with a candidate for a job opening application.
 
-[Domain Model](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1018\svg\1018-domain-model.svg)
+![Domain Model](svg\1018-domain-model.svg)
 
 
 ## 3.2 System Sequence Diagram
 
-[System Sequence Diagram - Full](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1018\svg\1018-system-sequence-diagram-System_Sequence_Diagram__SSD____Grade_Interviews_for_a_Job_Opening.svg)
+![System Sequence Diagram - Full](svg\1018-system-sequence-diagram-System_Sequence_Diagram__SSD____Grade_Interviews_for_a_Job_Opening.svg)
 
 The Customer Manager requested a feature to evaluate the interview of candidates for a job opening.
 This feature will allow the manager to evaluate , persist the grade.
@@ -93,14 +93,14 @@ and data persistence layers.
 
 ## 4.2 Class Diagram
 
-[Class Diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1018\svg\1018-class-diagram.svg)
+![Class Diagram](svg\1018-class-diagram.svg)
 
 The class diagram shows the key classes involved.
 This includes the Application, Plugin, Interview and Job Opening.
 
 ## 4.3 Sequence Diagram
 
-[Sequence Diagram - Full](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1018\svg\1018-sequence-diagram.svg)
+![Sequence Diagram - Full](svg\1018-sequence-diagram.svg)
 
 The sequence diagram shows the interactions between the Customer Manager and the system to evaluate the interview.
 This includes actions like viewing a list of interviews, evaluate a grade, saving the grade.

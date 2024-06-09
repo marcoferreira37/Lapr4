@@ -70,11 +70,11 @@ The domain model is composed of the following entities:
 - **JobOpening**: Represents the job opening for which candidates are applying.
 - **JobOpeningProcess**: Represents the process of verifying the requirements of the job opening.
 
-[Domain Model](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintC\1014\svg\1014-domain-model.svg)
+![Domain Model](svg\1016-domain-model.svg)
 
 ## 3.2 System Sequence Diagram
 
-[System Sequence Diagram ](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1016\svg\1016-system-sequence-diagram-System_Sequence_Diagram__SSD_____Notify_candidates_by_email.svg)
+![System Sequence Diagram ](svg\1016-system-sequence-diagram-System_Sequence_Diagram__SSD_____Notify_candidates_by_email.svg)
 
 
 The Customer Manager request the system to notify candidates, by email, of the result of the verication process
@@ -90,13 +90,13 @@ including the UI, business logic, and data persistence layers.
 
 ## 4.2 Sequence Diagram
 
-[Sequence Diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1016\svg\1016-sequence-diagram.svg)
+![Sequence Diagram](svg\1016-sequence-diagram.svg)
 
 A sequence diagram shows the interactions between the Customer Manager and the system to notify a candidates.
 
 ### 4.3. Class Diagram
 
-[a class diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_novo\docs\sprintC\1016\svg\1016-class-diagram.svg)
+![a class diagram](svg\1016-class-diagram.svg)
 
 ## 5. Implementation
 
