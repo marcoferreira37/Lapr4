@@ -2,6 +2,7 @@ package server.server.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 public class Server implements Runnable {
     private final static ThreadGroup serverThreadGroup = new ThreadGroup("server-thread-group");
@@ -41,6 +42,8 @@ public class Server implements Runnable {
                 ServerSemaphore.getInstance().enterCriticalSection();
                 Thread thread = new Thread(serverThreadGroup, new ServerProtocolHandler(connection)); // e so dps aqui mas as do bento acho q tao aqui
                 thread.start();
+            }catch (SocketTimeoutException e){
+
             } catch (IOException e) {
                 System.out.println("Could not accept new connection! Sorry! Try again later!");
             } catch (InterruptedException e) {

@@ -14,11 +14,21 @@ public class EmailsToSendThread extends Thread {
 
     @Override
     public  void run(){
-        try {
-            sendEmails.sendEmail();
-        }catch (Exception e){
-            System.err.println("Error sending email" + e.getMessage());
+        Iterable<EmailToSend>  list;
+        boolean flage = true;
+        while (flage){
+            try {
+                list = emailService.findToSends();
+                EmailToSend email = list.iterator().next();
+                sendEmails.sendEmail(email.email(),email.content());
+                emailService.setEmailAsSent(email);
+                flage=true;
+                sleep(2000);
+            }catch (Exception e){
+                flage=false;
+            }
         }
+
     }
 
 
