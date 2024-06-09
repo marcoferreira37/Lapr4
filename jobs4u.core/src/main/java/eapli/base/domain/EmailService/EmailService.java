@@ -42,11 +42,7 @@ public class EmailService {
         return emailToSendRepository.findToSends(false);
     }
 
-    public void sendEmails(EmailAddress email, String content) {
 
-
-        
-    }
 
     public void setEmailAsSent(EmailToSend email) {
         email.markAsSent();
