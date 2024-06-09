@@ -9,19 +9,19 @@ import java.util.Calendar;
 
 public class JobOpeningDTO implements Serializable {
 
-    private final String jobReference;
-    private final String description;
-    private final String address;
-    private final String mode;
-    private final String contractType;
-    private final String titleOrFunction;
-    private final int vacanciesNumber;
-    private final String companyName;
-    private LocalDateTime creationDate;
-    private String interviewModel;
-    private String requirements;
+    public  String jobReference;
+    public  String description;
+    public  String address;
+    public  String mode;
+    public  String contractType;
+    public  String titleOrFunction;
+    public  int vacanciesNumber;
+    public  String companyName;
+    public LocalDateTime creationDate;
+    public String interviewModel;
+    public String requirements;
 
-    private final Status status;
+    public  Status status;
 
     public JobOpeningDTO(JobReference jobReference, Description description, Address address, Mode mode, ContractType contractType, TitleOrFunction titleOrFunction, VacanciesNumber vacanciesNumber, String company, Calendar creationDate, String interviewModel, String requirements, Status status) {
         this.jobReference = jobReference.toString();
@@ -41,17 +41,7 @@ public class JobOpeningDTO implements Serializable {
         this.status = status;
     }
 
-    public String findJobReference() {
-        return jobReference;
-    }
 
-    public String findCompanyName() {
-        return companyName;
-    }
-
-    public Status findStatus() {
-        return status;
-    }
 }
 
 

@@ -1,12 +1,14 @@
 package server.server.server;
 
 import eapli.base.domain.jobOpening.JobOpening;
+import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.protocol.Packet;
 import eapli.base.protocol.dto.JobOpeningDTO;
 import eapli.base.protocol.dto.JobOpeningMapper;
 import eapli.base.repositories.JobOpeningProcessRepository;
 import eapli.base.usermanagement.application.controllers.ListJobOpeningController;
+import eapli.base.usermanagement.application.services.ApplicationService;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -16,9 +18,7 @@ import eapli.base.protocol.dto.LoginDTO;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ServerProtocolHandler extends Handler {
 
@@ -109,11 +109,16 @@ public class ServerProtocolHandler extends Handler {
     }
 
     private void listJobOpenings() throws IOException, ClassNotFoundException {
+        ApplicationService applicationService = new ApplicationService();
         List<JobOpening> jobOpenings = jobOpeningController.showJobOpenings(authorizationService.session().get().authenticatedUser());
-        List<JobOpeningDTO> dtos = new ArrayList<>(jobOpenings.size());
+        Map<JobOpeningDTO,Integer> jobs = new HashMap<>();
         JobOpeningProcessRepository jobProcessRepository = PersistenceContext.repositories().jobProcessRepository();
-
-        jobOpenings.forEach(job -> dtos.add(JobOpeningMapper.toDTO(job, jobProcessRepository.findJobProcessByJobOpening(job))));
-        protocol.send(ComCodes.LSTOPNS.getValue(), dtos);
+        for(JobOpening job: jobOpenings){
+            JobOpeningProcess process = jobProcessRepository.findJobProcessByJobOpening(job);
+            int applications = applicationService.getApplicationsByJobOpening(job).size();
+            JobOpeningDTO jobDto = JobOpeningMapper.toDTO(job,process);
+            jobs.put(jobDto,applications);
+        }
+        protocol.send(ComCodes.LSTOPNS.getValue(), jobs);
     }
 }
