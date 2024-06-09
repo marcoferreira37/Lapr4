@@ -1,5 +1,6 @@
 package server.server.server;
 
+import eapli.base.domain.jobOpening.JobOpening;
 import eapli.base.protocol.Packet;
 import eapli.base.protocol.dto.JobOpeningDTO;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -11,6 +12,7 @@ import eapli.base.protocol.dto.LoginDTO;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Customer {
@@ -53,18 +55,8 @@ public class Customer {
 
         } while (true);
 
-        System.out.println("Login Successful!");
         System.out.println();
 
-
-        protocol.send(ComCodes.LSTOPNS.getValue(), "");
-        List<JobOpeningDTO> jobsOp = protocol.receive(ComCodes.LSTOPNS.getValue());
-
-
-        jobsOp.forEach(d ->
-                System.out.println("Reference: "
-                                   + d.findJobReference() + " | Name: " + d.findCompanyName() + " | Status: " + d.findStatus()));
-        protocol.send(ComCodes.DISCON.getValue(), "");
 
         protocol.exit();
 
