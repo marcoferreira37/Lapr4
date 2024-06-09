@@ -1,0 +1,21 @@
+@startuml
+
+left to right direction
+title US3003  Use Cases
+skinparam titleBorderRoundCorner 20
+skinparam titleBorderThickness 2
+skinparam arrowThickness 3
+
+'**********Manager Use cases*************
+:Candidate: as ADM
+
+
+Usecase MU02 as "Be notified when the state of their job openings changes"
+
+
+
+
+ADM -d- MU02
+
+
+@enduml

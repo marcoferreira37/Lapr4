@@ -1,21 +1,26 @@
 @startuml
-title System Sequence Diagram (SSD) - Notification of Job Opening State Change
+title System Sequence Diagram (3001 - As Customer, I want to be notified in my application when the state (phase) of my job openings changes.)
 
-actor "Customer" as Customer
-participant ":System" as System
+actor Customer as Customer
+participant System as "System"
 
 activate Customer
 
-Customer -> System : request to see the notifications
-
+Customer -> System: Enters the Customer app
 activate System
 
-System --> Customer: displays the notification options (seen, unseen, all)
+System --> Customer: Requests username
+deactivate System
 
-Customer -> System: selects one
+Customer -> System: Enters the username
+activate System
 
-System --> Customer: displays the notifications by the selected option
+System --> Customer: Requests password
+deactivate System
+Customer->System: Enters the password
+activate System
 
-System --> Customer: displays operation sucess
+System --> Customer: Retrieves the Customer's notification
+deactivate System
 
 @enduml

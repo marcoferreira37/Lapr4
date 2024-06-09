@@ -1,10 +1,10 @@
 @startuml
 
 autonumber
-title Sequence Diagram (3001 - As Candidate, I want to be notified in my application when the state of one of my applications changes.)
+title Sequence Diagram (3001 - As Customer, I want to be notified in my application when the state of one of my applications changes.)
 
-actor Candidate as Candidate
-participant BaseCandidateApp as ":BaseCandidateApp" <<UI>>
+actor Customer as Customer
+participant BaseCustomerApp as ":BaseCustomerApp" <<UI>>
 participant V0Protocol as ":V0Protocol"
 participant Socket as ":Socket"
 participant ClientThread as ":ClientThread"
@@ -16,14 +16,14 @@ participant NotificationsRepository as ":NotificationsRepository" <<Persistence>
 participant Notifications as ":Notifications" <<Domain>>
 participant UserSession as ":UserSession"
 
-activate Candidate
-Candidate -> BaseCandidateApp: Enters the candidate app
-activate BaseCandidateApp
-BaseCandidateApp-> Socket: Socket("127.0.0.1", 21782)
+activate Customer
+Customer -> BaseCustomerApp: Enters the Customer app
+activate BaseCustomerApp
+BaseCustomerApp-> Socket: Socket("127.0.0.1", 21782)
 activate Socket
-Socket --> BaseCandidateApp: socket
+Socket --> BaseCustomerApp: socket
 deactivate Socket
-BaseCandidateApp->V0Protocol: V0Protocol(socket)
+BaseCustomerApp->V0Protocol: V0Protocol(socket)
 activate V0Protocol
 V0Protocol->ObjectOutputStream: ObjectOutputStream(theSocket.getOutputStream())
 activate ObjectOutputStream
@@ -33,17 +33,17 @@ V0Protocol->ObjectInputStream: ObjectInputStream(theSocket.getInputStream())
 activate ObjectInputStream
 ObjectInputStream-->V0Protocol:input
 deactivate ObjectInputStream
-V0Protocol--> BaseCandidateApp :protocol
+V0Protocol--> BaseCustomerApp :protocol
 deactivate V0Protocol
-BaseCandidateApp-->Candidate: Request username
-deactivate BaseCandidateApp
-Candidate -> BaseCandidateApp: Enters the username
-activate BaseCandidateApp
-BaseCandidateApp--> Candidate: Requests password
-deactivate BaseCandidateApp
-Candidate->BaseCandidateApp: Enters the password
-activate BaseCandidateApp
-BaseCandidateApp->V0Protocol:send(ComCodes.AUTH.getValue(), new LoginDTO(userName, password, BaseRoles.CANDIDATE))
+BaseCustomerApp-->Customer: Request username
+deactivate BaseCustomerApp
+Customer -> BaseCustomerApp: Enters the username
+activate BaseCustomerApp
+BaseCustomerApp--> Customer: Requests password
+deactivate BaseCustomerApp
+Customer->BaseCustomerApp: Enters the password
+activate BaseCustomerApp
+BaseCustomerApp->V0Protocol:send(ComCodes.AUTH.getValue(), new LoginDTO(userName, password, BaseRoles.Customer))
 activate V0Protocol
 V0Protocol->ObjectOutputStream:writeObject(new Packet(VERSION, code, object))
 activate ObjectOutputStream
@@ -91,7 +91,7 @@ deactivate ObjectOutputStream
 ClientThread-->Socket: Packet
 deactivate ClientThread
 deactivate Socket
-BaseCandidateApp->V0Protocol:receive(ComCodes.ACK.getValue())
+BaseCustomerApp->V0Protocol:receive(ComCodes.ACK.getValue())
 activate V0Protocol
 V0Protocol->Packet: input.readObject()
 activate Packet
@@ -101,9 +101,9 @@ V0Protocol->ObjectOutputStream: writeObject(new Packet(VERSION, ComCodes.ACK.get
 activate ObjectOutputStream
 ObjectOutputStream-->V0Protocol: Packet
 deactivate ObjectOutputStream
-V0Protocol-->BaseCandidateApp: Packet
+V0Protocol-->BaseCustomerApp: Packet
 deactivate V0Protocol
-BaseCandidateApp->V0Protocol:send(ComCodes.NOTIF.getValue(), "")
+BaseCustomerApp->V0Protocol:send(ComCodes.NOTIF.getValue(), "")
 activate V0Protocol
 V0Protocol->ObjectOutputStream: writeObject(new Packet(VERSION, code, object))
 activate ObjectOutputStream
@@ -134,13 +134,13 @@ ClientThread->Notifications:username()
 activate Notifications
 Notifications->UserSession: equals(session.get().authenticatedUser().username().toString()))
 activate UserSession
-UserSession-->Notifications: checks if the username is the same (candidate/customer)
+UserSession-->Notifications: checks if the username is the same (Customer/customer)
 deactivate UserSession
-Notifications-->ClientThread: candidate
+Notifications-->ClientThread: Customer
 deactivate Notifications
 ClientThread->NotificationAppService: setSendTrue(notification)
 activate NotificationAppService
-NotificationAppService-->Notifications:settingSend(true)
+NotificationAppService->Notifications:settingSend(true)
 activate Notifications
 Notifications-->NotificationAppService:send
 deactivate Notifications
@@ -156,22 +156,20 @@ end loop
 ClientThread-->Socket: Packet
 deactivate ClientThread
 Socket-->V0Protocol: Packet
-
 deactivate Socket
 activate V0Protocol
 
-BaseCandidateApp -> V0Protocol: receive(ComCodes.NOTIF.getValue())
+BaseCustomerApp -> V0Protocol: receive(ComCodes.NOTIF.getValue())
 V0Protocol->Packet: input.readObject()
-
 activate Packet
 Packet --> V0Protocol: packet
 deactivate Packet
 V0Protocol-> ObjectOutputStream: writeObject(new Packet(VERSION, ComCodes.ACK.getValue(), ""))
 activate ObjectOutputStream
 deactivate ObjectOutputStream
-V0Protocol-->BaseCandidateApp: Packet
+V0Protocol-->BaseCustomerApp: Packet
 deactivate V0Protocol
-BaseCandidateApp --> Candidate: Retrieves the candidate's notification
-deactivate BaseCandidateApp
+BaseCustomerApp --> Customer: Retrieves the Customer's notification
+deactivate BaseCustomerApp
 
 @enduml

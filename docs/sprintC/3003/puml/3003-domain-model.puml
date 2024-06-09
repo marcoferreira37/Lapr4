@@ -75,6 +75,40 @@ rectangle "Job Opening Process" #ccbbcc{
         RESULT
     }
 }
+
+
+
+rectangle customer #bbaacc{
+    class Customer <<Aggregate Root>><<Entity>>{}
+    class CustomerId<<Identity>><<Value Object>>{}
+}
+
+
+rectangle "Shared Objects" {
+
+    class Email <<Value Object>>
+    class Username <<Value Object>>
+    class Address <<Value Object>>
+    class Name<<Value Object>>{}
+
+}
+
+
+
+rectangle "User" #ccbbcc {
+    class SystemUser <<Aggregate Root>><<Entity>>{}
+    class Password<<Value Object>>{}
+    class BaseRole<<Value Object>>{}
+
+    SystemUser "1" --> "1" Email: has
+    SystemUser "1" --> "1" Username: has
+    SystemUser "1" -up> "1" Password
+    SystemUser "1" --> "1" Name
+    SystemUser "1" -> "1" BaseRole
+    Customer "1" --|> "1" SystemUser
+
+}
+
 '
 'rectangle "Job Opening Interview" #ccbbaa {
 '    class JobInterview <<Aggregate Root>><<Entity>>{}
@@ -113,7 +147,7 @@ Application "1" --> "1" ApplicatorData
 Application "*" -----> "1" JobOpening : submitted for
 Application "1" --> "1" ApplicationStatus
 Application "1" --> "0..1" ApplicationRank
-
+Application "1" --> "*" Notification : has
 
 JobOpeningProcess "1" -left-> "1" JobOpeningProcessId
 JobOpening "1" -----> "*" JobOpeningProcess : has
@@ -126,6 +160,12 @@ Notification "1" --> "1" content
 Notification "1" --> "1" isSend
 
 JobOpening "1" -----> "0..*" Notification : has
+
+Customer "1" --> "1" CustomerId
+
+JobOpening "*" -> "1" Customer : set by
+JobOpening "1" --> Address
+
 
 
 @enduml
