@@ -14,9 +14,7 @@ public class EmailService {
 
 
     public static void sendEmail(String destination, String subject, String message){
-        //destination = 1220813@isep.ipp.pt
-        // subject = verification
-        // message = "A tua aplicacion está correta"
+
 
         try {
             Email email = new SimpleEmail();
@@ -34,17 +32,18 @@ public class EmailService {
 
     }
 
+    public EmailToSend addToEmailsToSend(EmailAddress email, String content){
+        EmailToSend emailToSend = new EmailToSend(email, content);
+        emailToSendRepository.save(emailToSend);
+        return emailToSend;
+    }
+
     public Iterable<EmailToSend> findToSends() {
         return emailToSendRepository.findToSends(false);
     }
 
     public void sendEmails(EmailAddress email, String content) {
 
-
-
-//todo cruch salva-me + o ahhhhh quer saber se as alterações no servidor foderam-lhe a us? supostamente nao
-        // TODO o tualipa tbm quer saber ainda n dei commit de nada tho
-//todo to teu methodo q manda emails
 
         
     }

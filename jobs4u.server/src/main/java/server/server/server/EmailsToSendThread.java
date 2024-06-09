@@ -1,11 +1,15 @@
 package server.server.server;
 
+import eapli.base.domain.EmailNotification.EmailToSend;
+import eapli.base.domain.EmailService.EmailService;
 import eapli.base.domain.EmailService.SendEmails;
 
 public class EmailsToSendThread extends Thread {
 
 
     SendEmails sendEmails = new SendEmails();
+
+    EmailService emailService = new EmailService();
 
 
     @Override
