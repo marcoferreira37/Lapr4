@@ -67,9 +67,8 @@ Explain the domain model and its entities.
 
 The domain model is composed of the following entities:
 
-- **Application**: Represents the application of a candidate for a job opening.
-- **Interview**: Represents an interview with a candidate for a job opening.
-- **Candidate**: Represents a candidate that applies for a job opening.
+- **JobOpening**: Represents the job opening for which candidates are applying.
+- **JobOpeningProcess**: Represents the process of verifying the requirements of the job opening.
 
 [Domain Model](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\final\docs\sprintC\1014\svg\1014-domain-model.svg)
 
