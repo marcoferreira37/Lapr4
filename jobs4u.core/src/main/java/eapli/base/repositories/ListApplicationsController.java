@@ -25,7 +25,7 @@ public class ListApplicationsController {
         Iterable<Candidate> candidates = candidateRepository.findAll();
         Candidate can = new Candidate();
         for (Candidate candidate: candidates){
-            if(candidate.getSystemUser().equals(systemUser)){
+            if(candidate.getSystemUser().email().equals(systemUser.email())){
                 can = candidate;
                 break;
             }

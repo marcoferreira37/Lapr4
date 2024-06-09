@@ -38,4 +38,12 @@ public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<J
                 .filter(application -> application.candidate().equals(candidate))
                 .collect(Collectors.toList());
     }
+
+
+    @Override
+    public Iterable<JobOpeningApplication> findAll(){
+        return match(e -> e.jobOpening() != null);
+    }
+
+
 }

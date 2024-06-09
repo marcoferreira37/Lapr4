@@ -53,7 +53,11 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobOpeningA
                 "SELECT a FROM JobOpeningApplication a WHERE a.candidate = :candidate",
                 JobOpeningApplication.class
         );
-        query.setParameter("candidate", candidate);
+        query.setParameter("candidate", candidate.emailAddress());
         return query.getResultList();
     }
+
+//    @Override
+//    public Iterable<JobOpeningApplication> findAll(){return repo.findAll();}
+
 }
