@@ -28,6 +28,8 @@ public class ApplicationService {
     private final NotificationAppService  notificationAppService = new NotificationAppService();
     private final EmailToSendRepository emailRepository = PersistenceContext.repositories().emailToSendRepository();
 
+    private final EmailService emailService = new EmailService();
+
     public void rankApplication(JobOpeningApplication application, int rank) {
         application.rankApplication(rank);
         EmailMessageGenerator emailMessageGenerator = new EmailMessageGenerator();
@@ -104,9 +106,12 @@ public class ApplicationService {
             if (validator.verifyRequirements(candidateRequirements, jobRequirements)) {
                 notificationAppService.notify(application.candidate().user().username().toString(), "Your application for the job opening: " + job.getJobReference().fullReference() + " was accepted.");
                 application.updateStatus(Status.ACCEPTED);
+                emailService.addToEmailsToSend(application.candidate().user().email(),  "Your application for the job opening: " + job.getJobReference().fullReference() + " was accepted.");
+
             } else {
                 notificationAppService.notify(application.candidate().user().username().toString(), "Your application for the job opening: " + job.getJobReference().fullReference() + " was rejected.");
                 application.updateStatus(Status.REJECTED);
+                emailService.addToEmailsToSend(application.candidate().user().email(),  "Your application for the job opening: " + job.getJobReference().fullReference() + " was rejected.");
             }
             jobOpeningApplicationRepository.save(application);
             result.add(application);
