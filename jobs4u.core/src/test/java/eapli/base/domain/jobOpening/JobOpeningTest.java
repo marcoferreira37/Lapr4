@@ -1,7 +1,10 @@
 package eapli.base.domain.jobOpening;
 
+import eapli.base.customer.Customer;
 import eapli.base.domain.company.Company;
 import eapli.base.domain.company.CompanyName;
+import eapli.framework.general.domain.model.EmailAddress;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,8 +36,7 @@ class JobOpeningTest {
         TitleOrFunction titleOrFunction2 = new TitleOrFunction("Project Manager");
         VacanciesNumber vacanciesNumber1 = new VacanciesNumber(3);
         VacanciesNumber vacanciesNumber2 = new VacanciesNumber(5);
-        Company company1 = new Company(companyName1);
-        Company company2 = new Company(companyName2);
+           Company company1 = new Company(companyName1, new Customer());
         Calendar creationDate1 = new GregorianCalendar(2022, Calendar.JANUARY, 1);
         Calendar creationDate2 = new GregorianCalendar(2023, Calendar.FEBRUARY, 1);
 
@@ -74,7 +76,7 @@ class JobOpeningTest {
                 .contractType(ContractType.PART_TIME)
                 .titleOrFunction(titleOrFunction2)
                 .vacanciesNumber(vacanciesNumber2)
-                .company(company2)
+                .company(company1)
                 .creationDate(creationDate2)
                 .interviewModel("Model2")
                 .requirements("Requirements2")
