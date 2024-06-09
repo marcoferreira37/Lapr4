@@ -1,5 +1,6 @@
 package eapli.base.usermanagement.application.controllers;
 
+import eapli.base.candidate.CandidateManagementService;
 import eapli.base.domain.PlugIn.InterviewModel.genClasses.InterviewModelGrammarLexer;
 import eapli.base.domain.PlugIn.InterviewModel.genClasses.InterviewModelGrammarParser;
 import eapli.base.domain.candidate.Candidate;
@@ -21,6 +22,12 @@ import java.util.Optional;
 public class UpdateInterviewAnswerController {
 
     JobInterviewRepository interviewRepo = PersistenceContext.repositories().jobInterviews();
+
+    private final CandidateManagementService service = new CandidateManagementService();
+
+    public Object allCandidate() {
+        return service.allCandidate();
+    }
 
 
     public Iterable<JobOpeningApplication> allApplicationsById(Candidate candidate) {
@@ -80,4 +87,5 @@ public class UpdateInterviewAnswerController {
         }
 
     }
+
 }

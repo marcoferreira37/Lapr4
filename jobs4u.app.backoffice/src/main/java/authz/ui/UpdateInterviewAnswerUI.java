@@ -23,12 +23,11 @@ public class UpdateInterviewAnswerUI extends AbstractUI {
 
     private final UpdateInterviewAnswerController controller = new UpdateInterviewAnswerController();
 
-    private final CandidateManagementService service = new CandidateManagementService();
 
     @Override
     protected boolean doShow() {
 
-        List<Candidate> candidates = (List<Candidate>) service.allCandidate();
+        List<Candidate> candidates = (List<Candidate>) controller.allCandidate();
 
         if (candidates.isEmpty()) {
             System.out.println("There are no candidates in the system.");
