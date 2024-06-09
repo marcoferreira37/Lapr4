@@ -1,25 +1,23 @@
 @startuml
 
 rectangle application{
-    class JobOpeningApplication<<Aggregate Root>><<Entity>>{}
+    class JobOpening<<Aggregate Root>><<Entity>>{}
 
+class JobOpeningProcess<<Aggregate Root>><<Entity>>{}
 
-rectangle interview{
-    class Interview<<Aggregate Root>><<Entity>>{}
-
-}
 
     class Candidate<<Aggregate Root>><<Entity>>{}
 
 }
 
-rectangle Server{
+rectangle server{
     class Server<<Aggregate Root>><<Entity>>{}
 
 }
 
-Candidate "1" <-- "1.."Server
-JobOpeningApplication"1" o--> "1"Interview
+Candidate "1" <-- "1"Server
+JobOpeningProcess "1" --> "1"Server
+JobOpening "1" --> "1"JobOpeningProcess
 
 
 

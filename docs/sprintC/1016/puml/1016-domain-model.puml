@@ -3,60 +3,71 @@
 
 hide methods
 
+rectangle "Job Opening" #bbccaa {
 
-rectangle "Job Opening Application" #aaccbb {
-    class Application<<Aggregate Root>><<Entity>>{}
-    class ApplicationId<<Identity>><<Value Object>>{}
-    class AttachedEmail<<Value Object>>{}
-    class AttachedFile<<Value Object>>{}
-    class ApplicatorData<<Value Object>>{}
-    class ApplicationStatus<<Value Object>>{}
-    class ApplicationGrade<<Value Object>>{}
+    class JobOpening<<Aggregate Root>><<Entity>>{}
+
+    class JobReference<<Identity>><<Value Object>>{}
+
+    class TitleOrFunction<<Value Object>>{}
+
+    enum ContractType<<Enumerated>><<Value Object>>{
+        FULL_TIME
+        PART_TIME
+    }
+
+    enum Mode<<Enumerated>><<Value Object>>{
+        REMOTE
+        ON-SITE
+        HYBRID
+        }
+
+
+    class VacanciesNumber<<Value Object>>{}
+
+    class Description<<Value Object>>{}
+'
+'    class PhaseDates<<Entity>>{}
+'    enum PhaseType<<Enumerated>><<Value Object>>{
+'                APPLICATION
+'                SCREENING
+'                INTERVIEWS
+'                ANALYSIS
+'                RESULT
+'            }
+'     JobOpening "1" --> "0..1" PhaseDates
+'     PhaseDates "1" --> "1" PhaseType
 }
 
 
-rectangle candidate #aabbcc{
-    class Candidate<<Aggregate Root>><<Entity>>{}
-    class CandidateId<<Identity>><<Value Object>>{}
-    class CurriculumVitae<<Value Object>>{}
+
+rectangle "Job Opening Process" #ccbbcc{
+    class JobOpeningProcess<<Aggregate Root>><<Entity>>{}
+    class JobOpeningProcessId<<Identity>><<Value Object>>{}
+    class Phase<<Entity>>{
+        }
+    enum PhaseType<<Enumerated>><<Value Object>>{
+        APPLICATION
+        SCREENING
+        INTERVIEWS
+        ANALYSIS
+        RESULT
+    }
 }
 
 
+JobOpeningProcess "1" --> "1" Phase
+
+JobReference "1" <-up- "1" JobOpening
+TitleOrFunction "1" <-up- "1" JobOpening
+ContractType "1" <-- "1" JobOpening
+Mode "1" <-- "1" JobOpening
+Description "1" <-up- "1" JobOpening
+VacanciesNumber "1" <-up- "1" JobOpening
 
 
 
-  rectangle "Job Opening Interview" #ccbbaa {
-      class JobInterview <<Aggregate Root>><<Entity>>{}
-      class JobInterviewId<<Identity>><<Value Object>>{}
-      class InterviewDate<<Value Object>>{}
-      class InterviewTime<<Value Object>>{}
-      class Score<<Value Object>>{}
-      class InterviewResult<<Value Object>>{}
-  }
-
-
-
-
-
-Candidate "1"--> "1" CandidateId
-Candidate "1"--> "1" CurriculumVitae
-
-
-Application "1" --> "1" ApplicationId
-Application "1" --> "1" AttachedEmail
-Application "1" --> "1" AttachedFile
-Application "1" --> "1" ApplicatorData
-Application "1" -> "1" Candidate : submitted by
-Application "1" --> "1" ApplicationStatus
-Application "1" --> "1" ApplicationGrade
-
-JobInterview "1" -up-> "1" JobInterviewId
-JobInterview "1" -up-> "1" InterviewDate
-JobInterview "1" --> "1" InterviewTime
-JobInterview "1" --> "0..1" Score
-JobInterview "1" --> "1" InterviewResult
-
-JobInterview "1" -> "1" Candidate : with
-
+JobOpeningProcess "1" -left-> "1" JobOpeningProcessId
+JobOpening "1" -----> "*" JobOpeningProcess : has
 
 @enduml

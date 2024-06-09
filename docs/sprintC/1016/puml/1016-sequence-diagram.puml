@@ -1,103 +1,56 @@
 @startuml
-
-actor "Customer Manager" as Agent
-participant ":NotifyCandidatesUI" as ui <<UI>>
-participant ":NotifyCandidatesController" as ctrl <<Application>>
-participant ":NotifyCandidatesService" as appServ <<Service>>
-
-participant ":CandidateRepository" as candRepo <<Persistence>>
-'participant ":ApplicationRepository" as appRepo <<Persistence>>
-'participant ":JobOpeningApplication" as app <<Domain>>
-participant "EmailServer" as server <<Server>>
-
+'https://plantuml.com/use-case-diagram
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
 autonumber
 
-activate Agent
-
-Agent -> ui: notify candidates by email
-activate ui
-
-ui -> ctrl: findCandidates()
-deactivate ui
-activate ctrl
-
-ctrl -> appServ: findCandidates()
-
-deactivate ctrl
-
-activate appServ
-
-appServ -> candRepo: findAllCandidates()
-deactivate appServ
-
-activate candRepo
-
-candRepo --> appServ: candidates
-deactivate candRepo
-activate appServ
-deactivate candRepo
+participant "FollowupServer" as FS
+participant "Server" as S
+participant "EmailThread" as ET
+participant "EmailSender" as ES
+participant "EmailService" as ESvc
 
 
-appServ --> ctrl: candidates
-deactivate appServ
-activate ctrl
+activate FS
+FS -> S: Server(portNumber)
+activate S
+S --> FS: Server
+deactivate S
+FS -> ET: EmailThread()
+activate ET
+ET --> FS: EmailThread
+ET -> ESvc: EmailService()
+activate ESvc
+ESvc --> ET: EmailService
+deactivate ESvc
+ET -> ES: EmailSender()
+activate ES
+ES --> ET: EmailSender
+deactivate ES
+FS -> ET: start()
+ET -> ESvc: findBySend(false)
+activate ESvc
+ESvc --> ET: listOfEmails
+deactivate ESvc
+ET -> ESvc: setSendTrue(email)
+activate ESvc
+deactivate ESvc
+ET -> ES: sendEmail(email.email(), email.text())
+activate ES
+loop for each email to be sent in the listOfEmails
+ES --> ET: success message
+end
+deactivate ES
+ET --> FS: success message
+deactivate ET
+deactivate FS
 
-deactivate appServ
-ctrl --> ui: candidates
-deactivate ctrl
-activate ui
-
-deactivate ctrl
-
-
-
-
-ui --> Agent : Show list of candidates to be notified
-deactivate ui
-Agent -> ui: Select a candidate
-activate ui
-
-ui -> ctrl: sendEmail(destination, subject, message)
-deactivate ui
-
-activate ctrl
-
-ctrl -> appServ: sendEmail(destination, subject, message)
-deactivate ctrl
-activate appServ
-
-appServ -> server: sendEmail(destination, subject, message)
-deactivate appServ
-
-activate server
-
-server --> appServ: email
-deactivate server
-
-activate appServ
-
-appServ --> ctrl: email
-deactivate appServ
-
-activate ctrl
-
-ctrl --> ui: email
-deactivate ctrl
-
-
-activate ui
-
-ui --> Agent : Email sent
-
-deactivate ui
-
-
-
-
-
-
-deactivate Agent
-
+note right of FS
+  This sequence diagram only represents the system's behavior
+   when the follow-up server is started and the emails are sent,
+    the way of obtaining the data is shown on user story 1015 sequence diagram
+end note
 
 
 @enduml
