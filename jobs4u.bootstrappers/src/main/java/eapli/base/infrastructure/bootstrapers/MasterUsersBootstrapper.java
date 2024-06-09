@@ -25,6 +25,7 @@ import eapli.base.domain.company.Company;
 import eapli.base.domain.company.CompanyName;
 import eapli.base.domain.jobOpeningInterview.JobInterview;
 import eapli.base.domain.jobOpeningProcess.JobOpeningProcess;
+import eapli.base.domain.jobOpeningProcess.PhaseType;
 import eapli.base.protocol.Notifications;
 import eapli.base.repositories.*;
 import eapli.base.usermanagement.application.controllers.AddJobOpeningController;
@@ -76,16 +77,15 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         CompanyRepository companyRepository = PersistenceContext.repositories().companyRepository();
         Iterable<Company> comps = companyRepository.findAll();
-            Company c = comps.iterator().next();
-            c.modCustomer(customer);
-            companyRepository.save(c);
-
+        Company c = comps.iterator().next();
+        c.modCustomer(customer);
+        companyRepository.save(c);
 
 
         JobOpening jo = registerJobOpening("bailarino", "casa do ah", Mode.ONSITE, ContractType.FULL_TIME, "baila baila", 1, 1);
         JobOpening jo2 = registerJobOpening("monstro", "o grande lago de penafiel", Mode.ONSITE, ContractType.FULL_TIME, "ARRRGHHHHHH", 1, 1);
         JobOpening jo3 = registerJobOpening("Programador com capacidades de completar o projeto de lapr4", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Programador", 1, 1);
-        JobOpening jo4 = registerJobOpening("Alguem para acordar o saco", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Despertador", 1, 1 );
+        JobOpening jo4 = registerJobOpening("Alguem para acordar o saco", "ISEP", Mode.ONSITE, ContractType.FULL_TIME, "Despertador", 1, 1);
         Calendar date2 = new Calendar.Builder().setDate(2026, 5, 15).build();
 
 
@@ -120,6 +120,9 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpeningApplication application6 = registerApplication(jo3, candida);
         JobOpeningApplication application7 = registerApplication(jo3, candida2);
         JobOpeningApplication application8 = registerApplication(jo3, candida3);
+        JobOpeningApplication application12 = registerApplication(jo4, candida);
+        JobOpeningApplication application14 = registerApplication(jo4, candida2);
+        JobOpeningApplication application15 = registerApplication(jo4, candida3);
 
         JobInterviewRepository jobRep = PersistenceContext.repositories().jobInterviews();
 
@@ -137,6 +140,31 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         JobInterview interview3 = registerInterview(date, "13:00", application7);
         JobInterview interview4 = registerInterview(date, "14:00", application8);
+        JobInterview interview15 = registerInterview(date2, "13:00", application12);
+        JobInterview interview16 = registerInterview(date2, "14:00", application14);
+        JobInterview interview17 = registerInterview(date2, "15:00", application15);
+
+
+        JobOpeningProcess jobOpeningProcess = new JobOpeningProcess(jo, PhaseType.ANALYSIS);
+        JobOpeningProcess jobOpeningProcess2 = new JobOpeningProcess(jo2, PhaseType.ANALYSIS);
+        JobOpeningProcess jobOpeningProcess3 = new JobOpeningProcess(jo3, PhaseType.ANALYSIS);
+        JobOpeningProcess jobOpeningProcess4 = new JobOpeningProcess(jo4, PhaseType.RESULT);
+        JobOpeningProcess jobOpeningProcess1 = new JobOpeningProcess(jo4, PhaseType.RESULT);
+        JobOpeningProcess jobOpeningProcess5 = new JobOpeningProcess(jo5, PhaseType.RESULT);
+
+
+        interview15.gradeInterview(12);
+        interview16.gradeInterview(2);
+        interview17.gradeInterview(19);
+        interview3.gradeInterview(15);
+
+
+        registerJobOpeningProcess(jobOpeningProcess);
+        registerJobOpeningProcess(jobOpeningProcess2);
+        registerJobOpeningProcess(jobOpeningProcess3);
+        registerJobOpeningProcess(jobOpeningProcess4);
+        registerJobOpeningProcess(jobOpeningProcess1);
+        registerJobOpeningProcess(jobOpeningProcess5);
 
         System.out.println(candida);
         System.out.println(candida2);
