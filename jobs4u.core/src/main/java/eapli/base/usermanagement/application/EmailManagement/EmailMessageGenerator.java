@@ -1,6 +1,7 @@
 package eapli.base.usermanagement.application.EmailManagement;
 
 import eapli.base.domain.candidate.Candidate;
+import eapli.base.domain.jobApplication.Status;
 
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class EmailMessageGenerator {
         return ACCEPTED_APPLICATION_SUBJECT;
     }
 
-    public String generateEmailMessage(String candidateName, String managerName, String companyName, String applicationStatus) {
+    public String generateEmailMessage(String candidateName, String managerName, String companyName, Status applicationStatus) {
         String message = "";
-        if (applicationStatus.equals("ACCEPTED")) {
+        if (applicationStatus == Status.ACCEPTED) {
             message = generateAcceptedMessage(candidateName, managerName, companyName);
-        } else if (applicationStatus.equals("REJECTED")) {
+        } else if (applicationStatus == Status.REJECTED) {
             message = generateRejectedMessage(candidateName, managerName, companyName);
         }
         // Você pode adicionar mais condições aqui para outros status de aplicação

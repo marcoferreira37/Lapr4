@@ -56,6 +56,8 @@ public class JobOpeningApplication implements AggregateRoot<Long> {
 
     @Column(name = "RANK")
     private int rank;
+
+    @Enumerated(EnumType.STRING)
     private Status status;
 
 

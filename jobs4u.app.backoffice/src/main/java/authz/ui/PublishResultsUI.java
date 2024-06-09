@@ -10,6 +10,7 @@ import eapli.framework.presentation.console.SelectWidget;
 import java.util.List;
 
 public class PublishResultsUI extends AbstractUI{
+    //todo esta ui deixa de existir
     private PublishResultsController controller = new PublishResultsController();
     @Override
     protected boolean doShow() {
@@ -25,7 +26,7 @@ public class PublishResultsUI extends AbstractUI{
             // 3. Publish the results
             SystemUser fromUser = controller.getLoggedInUser();
             List<Candidate> candidates = controller.getRankedApplications(selectedJobOpening);
-            controller.publishResults(fromUser, candidates, selectedJobOpening);
+//            controller.publishResults(fromUser, candidates, selectedJobOpening);
 
             // 4. Inform the user about the success of the operation
             System.out.println("Job Opening results published successfully.");
