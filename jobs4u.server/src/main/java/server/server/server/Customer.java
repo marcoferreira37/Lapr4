@@ -33,21 +33,17 @@ public class Customer {
             String username = sc.nextLine();
             System.out.print("Password: ");
             String password = sc.nextLine();
-            protocol.send(ComCodes.AUTH.getValue(), new LoginDTO(username, password, BaseRoles.CUSTOMER_MANAGER));
+            protocol.send(ComCodes.AUTH.getValue(), new LoginDTO(username, password, BaseRoles.CUSTOMER));
             protocol.receive(ComCodes.ACK.getValue());
             protocol.send(ComCodes.LSTOPNS.getValue(), "");
 
             System.out.println("Wait a moment please...");
-            Packet p = protocol.receive();
             Map<JobOpeningDTO,Integer> jobs = protocol.receive(ComCodes.LSTOPNS.getValue());
             for(Map.Entry<JobOpeningDTO,Integer> job : jobs.entrySet()){
                 System.out.println("Reference: " + job.getKey().jobReference + " | Title: " + job.getKey().titleOrFunction + " | Creation date: " + job.getKey().creationDate + " | Number of Applications: " + job.getValue());
             }
-            if (p.getCode() == ComCodes.DISCONNECT.getValue()) {
-                System.out.println("Invalid credentials. Try again!");
-                protocol.exit();
-                continue;
-            }
+            protocol.send(ComCodes.DISCONNECT.getValue(),"");
+            protocol.exit();
 
             break;
 
