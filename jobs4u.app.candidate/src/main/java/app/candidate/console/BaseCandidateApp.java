@@ -123,6 +123,5 @@ public final class BaseCandidateApp {
 
 
         System.exit(0);
-
     }
 }
