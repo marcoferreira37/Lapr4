@@ -10,18 +10,18 @@ participant ":System" as System
 
 activate Agent
 
-Agent -> System : Request to see an ordered list of candidates, using the job interview points (grades)
+Agent -> System : request to see an ordered list of candidates, using the job interview points (grades)
 
 activate System
 
-System --> Agent: Show list of job openings and requests to select one
+System --> Agent: show list of job openings and requests to select one
 deactivate
 
-Agent -> System : Select a job opening
+Agent -> System : select a job opening
 
 activate System
 
-System --> Agent : Show list of candidates related to the selected job opening with their grades
+System --> Agent : show list of candidates related to the selected job opening with their grades
 deactivate
 
 

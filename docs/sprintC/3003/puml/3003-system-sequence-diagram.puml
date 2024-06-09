@@ -1,26 +1,26 @@
 @startuml
-title System Sequence Diagram (3001 - As Customer, I want to be notified in my application when the state (phase) of my job openings changes.)
+title System Sequence Diagram - Being notified in my application when the state (phase) of job openings changes
 
 actor Customer as Customer
 participant System as "System"
 
 activate Customer
 
-Customer -> System: Enters the Customer app
+Customer -> System: opens the Customer app
 activate System
 
-System --> Customer: Requests username
+System --> Customer: types username
 deactivate System
 
-Customer -> System: Enters the username
+Customer -> System: types the username
 activate System
 
 System --> Customer: Requests password
 deactivate System
-Customer->System: Enters the password
+Customer->System: types the password
 activate System
 
-System --> Customer: Retrieves the Customer's notification
+System --> Customer: retrieves notifications
 deactivate System
 
 @enduml
