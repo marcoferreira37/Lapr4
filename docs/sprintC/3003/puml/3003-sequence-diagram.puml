@@ -17,7 +17,7 @@ participant Notifications as ":Notifications" <<Domain>>
 participant UserSession as ":UserSession"
 
 activate Customer
-Customer -> BaseCustomerApp: Enters the Customer app
+Customer -> BaseCustomerApp: opens the Customer app
 activate BaseCustomerApp
 BaseCustomerApp-> Socket: Socket("127.0.0.1", 21782)
 activate Socket
@@ -35,13 +35,13 @@ ObjectInputStream-->V0Protocol:input
 deactivate ObjectInputStream
 V0Protocol--> BaseCustomerApp :protocol
 deactivate V0Protocol
-BaseCustomerApp-->Customer: Request username
+BaseCustomerApp-->Customer: request username
 deactivate BaseCustomerApp
-Customer -> BaseCustomerApp: Enters the username
+Customer -> BaseCustomerApp: types the username
 activate BaseCustomerApp
-BaseCustomerApp--> Customer: Requests password
+BaseCustomerApp--> Customer: requests password
 deactivate BaseCustomerApp
-Customer->BaseCustomerApp: Enters the password
+Customer->BaseCustomerApp: types the password
 activate BaseCustomerApp
 BaseCustomerApp->V0Protocol:send(ComCodes.AUTH.getValue(), new LoginDTO(userName, password, BaseRoles.Customer))
 activate V0Protocol
@@ -169,7 +169,7 @@ activate ObjectOutputStream
 deactivate ObjectOutputStream
 V0Protocol-->BaseCustomerApp: Packet
 deactivate V0Protocol
-BaseCustomerApp --> Customer: Retrieves the Customer's notification
+BaseCustomerApp --> Customer: retrieves notifications
 deactivate BaseCustomerApp
 
 @enduml
