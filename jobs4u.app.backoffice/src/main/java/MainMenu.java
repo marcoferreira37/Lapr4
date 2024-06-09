@@ -142,6 +142,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(5, "Enable a candidate", new EnableCandidateUI()::show);
         menu.addItem(6, "Disable a candidate", new DisableCandidateUI()::show);
         menu.addItem(7, "Update text file", new UploadTextFileUI()::show);
+        menu.addItem(8, "Export template for Interview", new GenerateTemplateInterviewUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
