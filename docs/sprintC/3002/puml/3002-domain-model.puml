@@ -1,6 +1,6 @@
 @startuml
 
-Title  US1021 - Display all the data of an application
+Title  US3002
 
 rectangle "Job Opening" #bbccaa {
 
@@ -23,34 +23,15 @@ rectangle "Job Opening" #bbccaa {
     ''Maybe go to Interview Model
 
 }
-
-
-rectangle "Job Opening Application" #aaccbb {
-
-    class Application<<Aggregate Root>><<Entity>>{}
-
-    class ApplicationId<<Identity>><<Value Object>>{}
-
-    class AttachedEmail<<Value Object>>{}
-
-    class AttachedFile<<Value Object>>{}
-
-    class ApplicatonData<<Value Object>>{}
-
-    class ApplicationStatus<<Value Object>>{}
-
-
-
-
+rectangle customer #bbaacc{
+    class Customer <<Aggregate Root>><<Entity>>{}
+    class CustomerId<<Identity>><<Value Object>>{}
 }
 
-Application "1" --> "1" ApplicationId
-Application "1" --> "1" AttachedEmail
-Application "1" --> "1" AttachedFile
-Application "*" -----> "1" JobOpening : submitted for
-Application "*" -> "1" Candidate : submitted by
-Application "1" --> "1" ApplicationStatus
-Application "1" --> "1" ApplicatonData
+JobOpening "*" -> "1" Customer : set by
+Customer "1" --> "1" CustomerId
+
+
 
 
 JobReference "1" <-up- "1" JobOpening

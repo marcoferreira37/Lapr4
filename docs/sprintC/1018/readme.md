@@ -68,9 +68,7 @@ Has dependency in the user stories:
 The domain model is composed of the following entities:
 
 - **Plugin**: Represents a plugin that is used to evaluate the interviews for a job opening.
-- **Application**: Represents the application of a candidate for a job opening.
 - **Interview**: Represents an interview with a candidate for a job opening application.
-- **Opening**: Represents a job opening.
 
 [Domain Model](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1018\svg\1018-domain-model.svg)
 
@@ -95,6 +93,7 @@ and data persistence layers.
 
 ## 4.2 Class Diagram
 
+[Class Diagram](C:\Users\Utilizador\Desktop\sem4pi-23-24-2dh3\sem4pi-23-24-2dh3_final\docs\sprintC\1018\svg\1018-class-diagram.svg)
 
 The class diagram shows the key classes involved.
 This includes the Application, Plugin, Interview and Job Opening.
