@@ -16,8 +16,9 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobOpeningA
     }
 
     public JpaJobApplicationRepository(TransactionalContext autoTx) {
-        super(autoTx,"APPLICATIONID");
+        super(autoTx, "APPLICATIONID");
     }
+
     public JpaJobApplicationRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(), "APPLICATIONID");
     }
@@ -46,16 +47,18 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobOpeningA
         return query.getResultList();
     }
 
-    @Override
-    public Iterable<JobOpeningApplication> allApplicationsByCandidate(Candidate candidate) {
-        EntityManager em = entityManager();
-        TypedQuery<JobOpeningApplication> query = em.createQuery(
-                "SELECT a FROM JobOpeningApplication a WHERE a.candidate = :candidate",
-                JobOpeningApplication.class
-        );
-        query.setParameter("candidate", candidate.emailAddress());
-        return query.getResultList();
-    }
+
+        @Override
+        public Iterable<JobOpeningApplication> allApplicationsByCandidate(Candidate candidate) {
+            EntityManager em = entityManager();
+            TypedQuery<JobOpeningApplication> query = em.createQuery(
+                    "SELECT a FROM JobOpeningApplication a WHERE a.candidate = :candidate",
+                    JobOpeningApplication.class
+            );
+            query.setParameter("candidate", candidate);
+            return query.getResultList();
+        }
+
 
 //    @Override
 //    public Iterable<JobOpeningApplication> findAll(){return repo.findAll();}
