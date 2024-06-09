@@ -23,17 +23,13 @@ public class OrderedCandidatesController {
 
 
     public OrderedCandidatesController() {
-//        autzService = AuthzRegistry.authorizationService();
-//        service = new JobOpeningService();
-//        candidateSvc = new CandidateManagementService();
+
         applicationService = new ApplicationService();
     }
 
     //For testing purpose
     public OrderedCandidatesController(JobOpeningService service, AuthorizationService autzService, CandidateManagementService candidateSvc, ApplicationService applicationService) {
-//        this.service = service;
-//        this.autzService = autzService;
-//        this.candidateSvc = candidateSvc;
+
         this.applicationService = applicationService;
     }
 

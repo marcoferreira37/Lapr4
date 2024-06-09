@@ -20,4 +20,6 @@ public interface JobOpeningApplicationRepository extends DomainRepository<Long, 
 
     Iterable<JobOpeningApplication> allApplicationsByCandidate(Candidate candidate);
 
+    Iterable<JobOpeningApplication> findAll();
+
 }

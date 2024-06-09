@@ -7,7 +7,6 @@ import eapli.base.domain.candidate.Candidate;
 import eapli.base.domain.jobApplication.JobOpeningApplication;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.repositories.JobOpeningApplicationRepository;
-import eapli.base.usermanagement.domain.BaseRoles;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -15,17 +14,15 @@ import org.springframework.stereotype.Component;
 import plugin.structure.RequirementsValidatorVisitor;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class JobOpeningApplicationService {
 
-    private final JobOpeningApplicationRepository repository = PersistenceContext.repositories().jobApplicationsRepository();
+    private final JobOpeningApplicationRepository repository = PersistenceContext.repositories().jobApplications();
+
 
     public JobOpeningApplicationService() {
 
@@ -37,9 +34,11 @@ public class JobOpeningApplicationService {
 
     public List<JobOpeningApplication> getApplicationsByCandidate(Candidate c) {
         List<JobOpeningApplication> jobOpeningApplicationList = new ArrayList<>();
-        Iterable<JobOpeningApplication> jobOpeningApplications = repository.allApplicationsByCandidate(c);
+        Iterable<JobOpeningApplication> jobOpeningApplications = repository.findAll();
         for (JobOpeningApplication application : jobOpeningApplications) {
-            jobOpeningApplicationList.add(application);
+            if (application.candidate().emailAddress().equals(c.emailAddress())) {
+                jobOpeningApplicationList.add(application);
+            }
         }
         return jobOpeningApplicationList;
     }

@@ -20,21 +20,12 @@
  */
 package app.candidate.console;
 
-import app.candidate.console.presentation.FrontMenu;
-
 import eapli.base.domain.jobApplication.JobOpeningApplication;
-import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.protocol.ComCodes;
 import eapli.base.protocol.Notifications;
 import eapli.base.protocol.V0Protocol;
-import eapli.base.protocol.dto.JobOpeningDTO;
 import eapli.base.protocol.dto.LoginDTO;
-import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
-import eapli.framework.infrastructure.authz.domain.model.Role;
-import eapli.base.domain.jobApplication.JobOpeningApplication;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -110,7 +101,7 @@ public final class BaseCandidateApp {
                                 System.out.println("Reference: " + app.jobOpening.getJobReference().fullReference() + " | State: " + app.status().name() + " | Number of applicants: " + apps.get(app));
                             }
                         case 2:
-                            protocol.send(ComCodes.DISCON.getValue(), null);
+                            protocol.send(ComCodes.DISCONNECT.getValue(), null);
                             break;
                         default:
                             System.out.println("Invalid option. Try again.");
