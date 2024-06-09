@@ -1,0 +1,21 @@
+@startuml
+
+left to right direction
+title US3000  Use Cases
+skinparam titleBorderRoundCorner 20
+skinparam titleBorderThickness 2
+skinparam arrowThickness 3
+
+'**********Manager Use cases*************
+:Candidate: as ADM
+
+
+Usecase MU02 as "List all the applications associated to him and\n the state of each one, including the number of applicants"
+
+
+
+
+ADM -d- MU02
+
+
+@enduml

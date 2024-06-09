@@ -3,20 +3,42 @@
 'skinparam packageStyle rectangle
 'skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Get an ordered list of candidates
+title System Sequence Diagram (SSD) - Get an ordered list applications and their state
 
-actor "Customer Manager" as Agent
+actor "Candidate" as Agent
 participant ":System" as System
 
 activate Agent
 
-Agent -> System : Request to view applications
+Agent -> System : opens the Candidate App
 
 activate System
 
-System --> Agent: Show list of job openings with status and number of applications
-deactivate
+System --> Agent: requests username
 
+deactivate System
 
+Agent -> System : types username
+
+activate System
+
+System --> Agent: requests password
+
+deactivate System
+
+Agent -> System : types password
+
+activate System
+
+System --> Agent : displays option to view the listed applications
+
+Agent -> System : selects the option to view the listed applications
+
+loop for each application
+
+System --> Agent: displays application with their state (including the number of applicants)
+
+end loop
+deactivate System
 
 @enduml
