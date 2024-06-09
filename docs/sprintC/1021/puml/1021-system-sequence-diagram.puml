@@ -13,20 +13,26 @@ activate Agent
 Agent -> System : asks to list job opening applications
 activate System
 
-System --> Agent: lists jobReferences and asks user to choose one
+System --> Agent: show list of job references and asks to select one
 deactivate
 
-Agent -> System : chooses job reference
+Agent -> System : selects job reference
 activate System
 
+System --> Agent : show list of applications
 System --> Agent : asks if the user wants to see all data from one of the applications
 deactivate
 
-alt
-Agent -> System : respond affirmatively
+alt if the user wants to see all data from one of the applications
+
+Agent -> System : selects an application
 activate System
 
 System --> Agent : display Candidate data and returns to Customer Manager Menu
+
+else
+System --> Agent :returns the Customer Manager Menu
+
 end
 
 
